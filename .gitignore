@@ -1,3 +1,6 @@
+pip-selfcheck.json
+TASKS
+.Python
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
@@ -32,4 +35,6 @@ pip-log.txt
 #Mr Developer
 venv
 *.pyc
+include
+lib
 build
