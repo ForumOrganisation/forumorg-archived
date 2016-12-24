@@ -37,7 +37,7 @@ def send_request():
     contact_name = request.args.get('nom_complet', 'pas_de_nom_contact')
     company_name = request.args.get('nom', 'pas_de_nom_entreprise')
     telephone = request.args.get('tel', 'pas_de_telephone')
-    return mailing.send_mail(email, contact_name, company_name, telephone)
+    return send_mail(email, contact_name, company_name, telephone)
 
 # run the app.
 if __name__ == "__main__":
