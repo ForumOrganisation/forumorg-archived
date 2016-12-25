@@ -101,22 +101,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <li class="header">Menu</li>
         <!-- Optionally, you can add icons to the links -->
         <li>
-          <a href="{{ url_for('equipement') }}"><i class="glyphicon glyphicon-object-align-right"></i> <span>Equipement</span></a>
+          <a href="{{ url_for('get_page', name='equipement') }}"><i class="glyphicon glyphicon-object-align-right"></i> <span>Equipement</span></a>
         </li>
         <li>
-          <a href="{{ url_for('restauration') }}"><i class="fa fa-glass"></i> <span>Restauration</span></a>
+          <a href="{{ url_for('get_page', name='restauration') }}"><i class="fa fa-glass"></i> <span>Restauration</span></a>
         </li>
         <li>
-          <a href="{{ url_for('transport') }}"><i class="fa fa-car"></i> <span>Transport</span></a>
+          <a href="{{ url_for('get_page', name='transport') }}"><i class="fa fa-car"></i> <span>Transport</span></a>
         </li>
         <li>
-          <a href="{{ url_for('badges') }}"><i class="fa fa-clone"></i> <span>Badges</span></a>
+          <a href="{{ url_for('get_page', name='badges') }}"><i class="fa fa-clone"></i> <span>Badges</span></a>
         </li>
         <li>
-          <a href="{{ url_for('programme') }}"><i class="fa fa-calendar-plus-o"></i> <span>Programme</span></a>
+          <a href="{{ url_for('get_page', name='programme') }}"><i class="fa fa-calendar-plus-o"></i> <span>Programme</span></a>
         </li>
         <li>
-          <a href="{{ url_for('bon_de_commande') }}"><i class="fa fa-paperclip"></i> <span>Bon de commande</span></a>
+          <a href="{{ url_for('get_page', name='bon_de_commande') }}"><i class="fa fa-paperclip"></i> <span>Bon de commande</span></a>
         </li>
       </ul>
       <!-- /.sidebar-menu -->

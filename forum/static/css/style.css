@@ -3833,7 +3833,7 @@ button:focus {
   padding-bottom: 350px;
 }
 .contact-us-1.image-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(http://nemolandingpage.com/nemo-builder/elements/images/photography-bg-3.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(../images/photography-bg-3.jpg);
   background-size: cover;
   background-position: center top;
 }
