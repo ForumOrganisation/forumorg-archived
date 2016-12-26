@@ -21,6 +21,10 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/skins/skin-blue.min.css') }}">
   <!-- favicon -->
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/select2/select2.min.css') }}">
+  <!-- bootstrap slider -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bootstrap-slider/slider.css') }}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -133,12 +137,25 @@
 <script src="{{ url_for('static', filename='plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ url_for('static', filename='plugins/select2/select2.full.min.js') }}"></script>
+<!-- Slider -->
+<script src="{{ url_for('static', filename='plugins/bootstrap-slider/bootstrap-slider.js') }}"></script>
+<!-- InputMask -->
+<script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+<!-- Page script -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+    $("#datetime").inputmask("datetime", {"placeholder": "jj/mm/aaaa hh:ss"});
+    $("#phone").inputmask("99-99-99-99-99", {"placeholder": "0x-xx-xx-xx-xx"});
+    $("#persons").inputmask("9", {"placeholder": "x"});
+  });
+</script>
 <!-- AdminLTE App -->
 <script src="{{ url_for('static', filename='dist/js/app.js') }}"></script>
-
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. Slimscroll is required when using the
-     fixed layout. -->
 </body>
 </html>
