@@ -263,8 +263,8 @@ th {
 @font-face {
   font-family: 'Glyphicons Halflings';
 
-  src: url('//nemolandingpage.com/nemo-builder/elements/fonts/glyphicons-halflings-regular.eot');
-  src: url('//nemolandingpage.com/nemo-builder/elements/fonts/glyphicons-halflings-regular.eot?') format('embedded-opentype'), url('//nemolandingpage.com/nemo-builder/elements/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('//nemolandingpage.com/nemo-builder/elements/fonts/glyphicons-halflings-regular.woff') format('woff'), url('//nemolandingpage.com/nemo-builder/elements/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('//nemolandingpage.com/nemo-builder/elements/fonts/glyphicons-halflings-regular.svg') format('svg');
+  src: url('https://nemolandingpage.com/nemo-builder/elements/fonts/glyphicons-halflings-regular.eot');
+  src: url('https://nemolandingpage.com/nemo-builder/elements/fonts/glyphicons-halflings-regular.eot?') format('embedded-opentype'), url('https://nemolandingpage.com/nemo-builder/elements/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('https://nemolandingpage.com/nemo-builder/elements/fonts/glyphicons-halflings-regular.woff') format('woff'), url('https://nemolandingpage.com/nemo-builder/elements/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('//nemolandingpage.com/nemo-builder/elements/fonts/glyphicons-halflings-regular.svg') format('svg');
 }
 .glyphicon {
   position: relative;
