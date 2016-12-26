@@ -2,7 +2,7 @@
     <meta charset="utf-8">
 
     <!-- TITLE OF SITE -->
-    <title>Forum Rhône-Alpes</title>
+    <title>Forum Rhône-Alpes | Accueil</title>
 
     <!-- META DATA -->
     <meta name="description" content="Le Forum Rhône-Alpes est le premier salon de recrutement d'élèves ingénieurs de France. La 31ème édition aura lieu les 8 & 9 mars 2017">
@@ -69,7 +69,7 @@
                 <li class=""><a href="#why">Pourquoi participer ?</a></li>
                 <li class=""><a href="#contact">Participer</a></li>
                 <li class=""><a href="#faq">FAQ</a></li>
-                <li class=""><a href="/connexion">Se connecter</a></li>
+                <li class=""><a href="{{ url_for('login') }}" id="login">Connexion</a></li>
             </ul>
         </div>
     </div>
@@ -89,7 +89,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6 mb60">
+            <div class="col-md-7 mb60">
                 
                 <div class="logo-home">
                     <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Forum Rhône-Alpes" style="border-radius: 0px; border-color: rgb(255, 255, 255); border-style: none; border-width: 1px;">
@@ -105,8 +105,6 @@
                         <span>Rendez-vous le 8 et 9 Mars 2017</span>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 mb60">
             </div>
         </div> <!-- /.row -->
     </div>
@@ -325,7 +323,7 @@
      SCRIPTS 
 ============================== -->
 <script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 <script src="{{ url_for('static', filename='js/nivo-lightbox.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/jquery.scrollTo.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/jquery.localScroll.min.js') }}"></script>
@@ -339,3 +337,10 @@
 <script src="{{ url_for('static', filename='js/jquery.datetimepicker.full.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/jquery.countdown.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/application.js') }}"></script>
+<script>
+    /******************** ENABLE LINK FOR NAVBAR LOGIN ********************/
+    $(document).ready(function() {
+        $("#login").off("click");
+        console.log("login off");
+    });
+</script>

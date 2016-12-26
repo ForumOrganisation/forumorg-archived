@@ -1,0 +1,42 @@
+{% extends "admin/base.html" %}
+{% set company = current_user.data %}
+{% macro section_block(name, icon) -%}
+<li {% if request.path == url_for('admin', page=name) %} class="active"{% endif %}>
+  <a href="{{ url_for('admin', page=name) }}"><i class="{{ icon }}"></i> <span>{{ name|capitalize|replace("_", " ") }}</span>
+  {% if company.sections.get(name).completed %}<small class="label pull-right bg-green">complété</small>{% endif %}
+  </a>
+</li>
+{%- endmacro %}
+{% macro header_section(name) -%}
+<div class="box-header with-border">
+  <h3 class="box-title">{{ name|capitalize|replace("_", " ") }}</h3>
+  <div class="box-tools pull-right">
+    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+    </button>
+  </div>
+</div>
+{%- endmacro %}
+<!-- HEADER -->
+{% block header %}
+<h1>
+  Dashboard
+  <small>{{ title }}</small>
+</h1>
+{% endblock header %}
+<!-- SECTIONS -->
+{% block sections %}
+{{ section_block('equipement', 'glyphicon glyphicon-object-align-right')}}
+{{ section_block('restauration', 'fa fa-glass')}}
+{{ section_block('transport', 'fa fa-car')}}
+{{ section_block('badges', 'fa fa-clone')}}
+{{ section_block('programme', 'fa fa-calendar-plus-o')}}
+{{ section_block('bon_de_commande', 'fa fa-paperclip')}}
+{% endblock sections %}
+{% block footer %}
+  <!-- To the right -->
+  <div class="pull-right hidden-xs">
+    Fait avec <span class="fa fa-heart"></span>
+  </div>
+  <!-- Default to the left -->
+  <strong>Copyright &copy; 2016 <a href="#">Forum Organisation</a>.</strong> Tous droits réservés.
+{% endblock footer %}

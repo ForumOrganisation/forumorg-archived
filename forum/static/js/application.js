@@ -106,8 +106,6 @@ if( animationProp.hasClass('appear-onscroll') ) {
    });
 }
 
-
-
 /******************** ONE PAGE NAVIGATION ********************/
 $('.navbar-nav').onePageNav({
    currentClass: 'active',
@@ -115,11 +113,9 @@ $('.navbar-nav').onePageNav({
 });
 
 /******************** NAVBAR COLLAPSE ON CLICK ********************/
-$('.navbar-nav').on('click', 'a', function(event) {
-   /* Act on the event */
-   console.log("lol");
+/*$('.navbar-nav').on('click', 'a', function(event) {
    $('.navbar-collapse').collapse('hide');
-});
+});*/
 
 // Function for email address validation
 function validateEmail(email) {

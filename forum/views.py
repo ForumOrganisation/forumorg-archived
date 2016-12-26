@@ -16,10 +16,10 @@ from company import validate_login
 def admin(page=None):
     # asking for specific page
     if page:
-        return render_template('{}.html'.format(page))
+        return render_template('admin/sections/{}.html'.format(page))
     # default option is main dashboard
     else:
-        return render_template('admin.html')
+        return render_template('admin/admin.html')
 
 @app.route('/connexion', methods=["GET", "POST"])
 def login():
