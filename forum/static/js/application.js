@@ -117,6 +117,7 @@ $('.navbar-nav').onePageNav({
 /******************** NAVBAR COLLAPSE ON CLICK ********************/
 $('.navbar-nav').on('click', 'a', function(event) {
    /* Act on the event */
+   console.log("lol");
    $('.navbar-collapse').collapse('hide');
 });
 

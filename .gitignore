@@ -1,7 +1,8 @@
 # Perso
-/pip-selfcheck.json
+*.json
 /TASKS
 .Python
+!sample.json
 
 *.py[co]
 *.DS_*

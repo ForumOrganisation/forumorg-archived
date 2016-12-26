@@ -65,10 +65,11 @@
 
         <div class="collapse navbar-collapse" id="nemo-navigation">
             <ul class="nav navbar-nav navbar-right">
-                <li class=""><a href="{{ url_for('index') }}">Accueil</a></li>
-                <li class=""><a href="{{ url_for('index') }}">Pourquoi participer ?</a></li>
-                <li class="active"><a href="{{ url_for('index') }}">Participer</a></li>
-                <li><a href="{{ url_for('index') }}">FAQ</a></li>
+                <li class="active"><a href="#home">Accueil</a></li>
+                <li class=""><a href="#why">Pourquoi participer ?</a></li>
+                <li class=""><a href="#contact">Participer</a></li>
+                <li class=""><a href="#faq">FAQ</a></li>
+                <li class=""><a href="/connexion">Se connecter</a></li>
             </ul>
         </div>
     </div>
@@ -79,7 +80,7 @@
 <!-- =========================
      APP HOME 
 ============================== -->
-<section class="home app-home-1 video-bg" id="app-home-1">
+<section class="home app-home-1 video-bg" id="home">
     <div class="section-video">
         <video autoplay="" poster="{{ url_for('static', filename='video/video.jpg') }}" class="bgvid" loop="">
             <source src="{{ url_for('static', filename='video/video.mp4') }}" type="video/mp4; codecs=&quot;avc1.4D401E, mp4a.40.2&quot;">
@@ -99,7 +100,7 @@
 
                 <div class="home-download-btn">
                         
-                    <a href="{{ url_for('index') }}" class="btn btn-white btn-lg">Participer dès maintenant</a>
+                    <a href="#contact" class="btn btn-white btn-lg">Participer dès maintenant</a>
                     <div class="stores-on text-center">
                         <span>Rendez-vous le 8 et 9 Mars 2017</span>
                     </div>
@@ -114,7 +115,7 @@
 <!-- =========================
      APP FEATURES 
 ============================== -->
-<section class="why app-features-5 padding-120-75 white-bg" id="app-features-5-1" style="outline-offset: -3px;">
+<section class="why app-features-5 padding-120-75 white-bg" id="why" style="outline-offset: -3px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
@@ -186,7 +187,7 @@
 <!-- =========================
      CONTACT US  
 ============================== -->
-<div class="contact-us-1 image-bg gradient-overlay editBG" id="contact-us-1">
+<div class="contact-us-1 image-bg gradient-overlay editBG" id="contact">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -271,7 +272,7 @@
 <!-- =========================
      FAQ 
 ============================== -->
-<section class="faq faqs-2 padding-120-60" id="faqs-2">
+<section class="faq faqs-2 padding-120-60" id="faq">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">

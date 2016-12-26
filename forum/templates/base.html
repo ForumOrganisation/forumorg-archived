@@ -57,22 +57,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#">
               <!-- The user image in the navbar-->
               <img src="{{ url_for('static', filename='dist/img/avatar5.png') }}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{company.name}}</span>
             </a>
-            <ul class="dropdown-menu">
-              <!-- The user image in the menu -->
-              <li class="user-header">
-                <img src="{{ url_for('static', filename='dist/img/avatar5.png') }}" class="img-circle" alt="User Image">
-                <p>
-                  {{company.name}}
-                </p>
-              </li>
-            </li>
-            </ul>
+          </li>
+          <!-- Sign Out Menu -->
+          <li class="dropdown messages-menu">
+            <a href="{{url_for('logout')}}">
+              <i class="fa fa-sign-out"></i>
+              <span class="hidden-xs">Se déconnecter</span>
+            </a>
           </li>
         </ul>
       </div>
@@ -99,25 +96,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header">Menu</li>
-        <!-- Optionally, you can add icons to the links -->
-        <li>
-          <a href="{{ url_for('get_page', name='equipement') }}"><i class="glyphicon glyphicon-object-align-right"></i> <span>Equipement</span></a>
-        </li>
-        <li>
-          <a href="{{ url_for('get_page', name='restauration') }}"><i class="fa fa-glass"></i> <span>Restauration</span></a>
-        </li>
-        <li>
-          <a href="{{ url_for('get_page', name='transport') }}"><i class="fa fa-car"></i> <span>Transport</span></a>
-        </li>
-        <li>
-          <a href="{{ url_for('get_page', name='badges') }}"><i class="fa fa-clone"></i> <span>Badges</span></a>
-        </li>
-        <li>
-          <a href="{{ url_for('get_page', name='programme') }}"><i class="fa fa-calendar-plus-o"></i> <span>Programme</span></a>
-        </li>
-        <li>
-          <a href="{{ url_for('get_page', name='bon_de_commande') }}"><i class="fa fa-paperclip"></i> <span>Bon de commande</span></a>
-        </li>
+        {% block sections %}
+        {% endblock sections %} 
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -128,184 +108,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Dashboard
-        <small>{% block title %}Détails de votre présence{% endblock title %}</small>
-      </h1>
+      {% block header %}
+      {% endblock header %}
     </section>
 
     <!-- Main content -->
     <section class="content">
     {% block content %}
-      <!-- Equipement/Restauration -->
-      <div class="row">
-        <div class="col-md-6">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Equipement</h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <p class="text-center">
-                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                  </p>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-            <!-- ./box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <div class="col-md-6">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Restauration</h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <p class="text-center">
-                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                  </p>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-            <!-- ./box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-        <!-- /.col -->
-      </div>
-
-      <!-- Transport/Badges -->
-      <div class="row">
-        <div class="col-md-6">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Transport</h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <p class="text-center">
-                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                  </p>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-            <!-- ./box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <div class="col-md-6">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Badges</h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <p class="text-center">
-                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                  </p>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-            <!-- ./box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-        <!-- /.col -->
-      </div>
-
-      <!-- Programme/Bon de commande -->
-      <div class="row">
-        <div class="col-md-6">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Programme</h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <p class="text-center">
-                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                  </p>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-            <!-- ./box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <div class="col-md-6">
-          <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Bon de commande</h3>
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <p class="text-center">
-                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                  </p>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-            <!-- ./box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-        <!-- /.col -->
-      </div>
-      {% endblock content %}
-
+    {% endblock content %}
     </section>
     <!-- /.content -->
   </div>
@@ -313,12 +123,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <!-- To the right -->
-    <div class="pull-right hidden-xs">
-      Fait avec <span class="fa fa-heart"></span>
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Forum Organisation</a>.</strong> Tous droits réservés.
+    {% block footer %}
+    {% endblock footer %}
   </footer>
 </div>
 <!-- ./wrapper -->

@@ -1,19 +1,16 @@
 from pymongo import MongoClient
 import os
+import json
 
-client = MongoClient(host=os.environ.get('MONGODB_URI'))
-db = client.heroku_lx65hjrq
-# inserting placeholder
-db.companies.delete_many({})
-db.companies.insert_one({"name": "Amazon", "idf": "AMAZON", "password": "amazon"})
-db.companies.insert_one({"name": "SNCF", "idf": "SNCF", "password": "sncf"})
+if os.environ.get('env') == 'dev':
+	def get_company(company_id):
+		fn = os.path.join(os.path.dirname(__file__), '..', 'sample.json')
+		with open(fn) as data_file:
+			data = json.load(data_file)
+			return data
+else:
+	client = MongoClient(host=os.environ.get('MONGODB_URI'))
+	db = client.heroku_lx65hjrq
 
-def check_credentials(idf, password):
-    company = db.companies.find_one({"idf": idf})
-    if company and company["password"] == password:
-    	return True
-    else:
-    	return False
-
-def get_company(idf):
-	return db.companies.find_one({"idf": idf})
+	def get_company(company_id):
+		return db.companies.find_one({"id": company_id})
