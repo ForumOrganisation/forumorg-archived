@@ -1,0 +1,19 @@
+html, body {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  background-color: #F7F8FB;
+  height: 100%;
+  -webkit-font-smoothing: antialiased; }
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+
+body.friendly {
+  background: linear-gradient(135deg, rgba(40, 40, 40, 0.75), rgba(0, 142, 214, 0.75));
+}
