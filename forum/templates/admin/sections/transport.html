@@ -19,42 +19,23 @@
               <th>Commentaire</th>
               <th><i class="fa fa-remove"></i></th>
             </tr>
+            {% for transport in company.sections.transport.transports %}
             <tr>
-              <td>Part-Dieu</td>
-              <td>Double Mixte</td>
-              <td>26-10-2016 à 07h00</td>
-              <td><span class="label label-primary">deux</span></td>
-              <td>06 45 64 87 23</td>
-              <td><span class="text-muted">Pas de commentaire</span></td>
+              <td>{{ transport.departure_place }}</td>
+              <td>{{ transport.arrival_place }}</td>
+              <td>{{ transport.departure_time|format_dt }}</td>
+              <td><span class="label label-primary">{{ transport.nb_persons|to_human }}</span></td>
+              <td>{{ transport.phone }}</td>
+              <td>
+              {% if transport.comment %}
+                {{ transport.comment}}
+              {% else %}
+                <span class="text-muted">Pas de commentaire</span>
+              {% endif %}
+              </td>
               <td><i class="fa fa-remove" style="color:red"></i></td>
             </tr>
-            <tr>
-              <td>Part-Dieu</td>
-              <td>Double Mixte</td>
-              <td>26-10-2016 à 07h00</td>
-              <td><span class="label label-primary">deux</span></td>
-              <td>06 45 64 87 23</td>
-              <td><span class="text-muted">Pas de commentaire</span></td>
-              <td><i class="fa fa-remove" style="color:red"></i></td>
-            </tr>
-            <tr>
-              <td>Part-Dieu</td>
-              <td>Double Mixte</td>
-              <td>26-10-2016 à 07h00</td>
-              <td><span class="label label-primary">deux</span></td>
-              <td>06 45 64 87 23</td>
-              <td><span class="text-muted">Pas de commentaire</span></td>
-              <td><i class="fa fa-remove" style="color:red"></i></td>
-            </tr>
-            <tr>
-              <td>Part-Dieu</td>
-              <td>Double Mixte</td>
-              <td>26-10-2016 à 07h00</td>
-              <td><span class="label label-primary">deux</span></td>
-              <td>06 45 64 87 23</td>
-              <td><span class="text-muted">Pas de commentaire</span></td>
-              <td><i class="fa fa-remove" style="color:red"></i></td>
-            </tr>
+            {% endfor%}
           </tbody></table>
         </div>
         <!-- /.box-body -->
