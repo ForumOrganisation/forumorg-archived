@@ -11,11 +11,9 @@
                     "size": "9"
                 }, 
                 "furniture": {
-                    "coat-hanger": 1, 
-                    "chair": 1, 
-                    "Banque \u00e0 h\u00f4tesse - 89 \u20ac": 1, 
-                    "Ecran LCD 26\" - 67 \u20ac": 1, 
-                    "Mange-debout - 89 \u20ac": 2
+                    "Mange-debout - 89 \u20ac": 1, 
+                    "Ecran LCD 26\" - 67 \u20ac": 2, 
+                    "Banque \u00e0 h\u00f4tesse - 89 \u20ac": 1
                 }
             }, 
             "restauration": {
@@ -41,14 +39,6 @@
             "transport": {
                 "completed": true, 
                 "transports": [
-                    {
-                        "comment": "", 
-                        "arrival_place": "Part-Dieu", 
-                        "departure_place": "Part-Dieu", 
-                        "nb_persons": "1", 
-                        "phone": "22-22-22-31-11", 
-                        "departure_time": "21/03/2033 03:33"
-                    }, 
                     {
                         "comment": "eh", 
                         "arrival_place": "Part-Dieu", 

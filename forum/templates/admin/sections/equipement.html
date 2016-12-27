@@ -62,7 +62,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-tag"></i>
                       </div>
-                      <input type="text" class="form-control" id="banner" placeholder="ANSSI">
+                      <input type="text" class="form-control" id="banner" placeholder="{{ company.sections.equipement.general.banner }}">
                     </div>
                   </div>
                 </div>
@@ -135,7 +135,7 @@
                             <td>{{ k }}</td>
                             <td><span class="badge bg-blue">{{ v }}</span></td>
                             <td><span class="badge bg-blue">30 €</span></td>
-                            <td><i class="fa fa-remove" style="color:red"></i></td>
+                            <td><i onclick="remove_furniture('{{ k }}', '{{ v }}')" class="fa fa-remove" style="color:red"></i></td>
                           </tr>
 
                           {% endfor %}
@@ -283,6 +283,31 @@ $('#confirm_add').on('click', function(e) {
     }
     return false;
 });
+
+function remove_furniture(name, quantity) {
+    console.log(name);
+
+    var r = confirm("Confirmer la suppresion ?");
+    if (r) {
+        var company = {{ company|tojson }};
+        if (quantity > 1){
+          company.sections.equipement.furniture[name] = company.sections.equipement.furniture[name] - 1;
+        } else {
+          delete company.sections.equipement.furniture[name];
+        }
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('update_company') }}",
+            data: {"company": JSON.stringify(company)},
+            success: function() {
+                Notify("Suppression confirmée..");
+                setTimeout(function(){
+                    location.reload();
+                }, 1000); 
+            }
+        });
+    }
+}
 </script>
 {% endblock scripts %}
 
