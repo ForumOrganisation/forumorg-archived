@@ -1,4 +1,6 @@
-{% extends "admin/section.html" %} {% set title = 'Programme' %} {% block main %}
+{% extends "admin/section.html" %} 
+{% set title = 'Programme' %} 
+{% block main %}
   <div class="row">
     <div class="col-xs-12">
       <div class="box">
@@ -15,7 +17,7 @@
                     <div class="product-img"><img alt="Product Image" src="../static/images/conf.png"></div>
                   </div>
                   <div class="col-md-11">
-                    <span class="text-primary"><b>Offre conférence</b></span> <span class="label label-primary">Inscrit</span><br>
+                    <span class="text-primary"><b>Offre conférence</b></span> <div id="inscrit_conference"></div>
                     <span class="text-muted">Une conférence privilège vous permet de bénéficier d'une communication spécifique de la part de Forum Organisation sur les profils que vous souhaitez...</span><br>
                     <br>
                   </div>
@@ -31,7 +33,7 @@
                   <br>
                   <br>
                   <div style="text-align:center;">
-                    <button class="btn btn-block btn-default" type="button">Se désinscrire</button>
+                    <button class="btn btn-block btn-default" type="button" onclick="update_event('conference')"><div id="val_conference"></div></button>
                   </div>
                 </td>
               </tr>
@@ -42,7 +44,7 @@
                     <div class="product-img"><img alt="Product Image" src="../static/images/to.png"></div>
                   </div>
                   <div class="col-md-11">
-                    <span class="text-primary"><b>Soirée networking</b></span> <span class="label label-primary">Inscrit</span><br>
+                    <span class="text-primary"><b>Soirée networking</b></span> <div id="inscrit_networking"></div>
                     <span class="text-muted">La soirée networking aura lieu mercredi soir à partir de 18 h. C'est une occasion unique de participer à une conférence sur le rectrutement innovant...</span><br>
                     <br>
                   </div>
@@ -58,11 +60,11 @@
                   <br>
                   <br>
                   <div style="text-align:center;">
-                    <button class="btn btn-block btn-default" type="button">Se désinscrire</button>
+                    <button class="btn btn-block btn-default" type="button" onclick="update_event('networking')"><div id="val_networking"></div></button>
                   </div>
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td>
                   <br>
                   <div class="col-md-1">
@@ -88,7 +90,7 @@
                     <button class="btn btn-block btn-primary" type="button">S'inscrire</button>
                   </div>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div><!-- /.box-body -->
@@ -99,49 +101,46 @@
 
 {% block scripts %}
 <script type="text/javascript">
-$('#confirm_transport').on('click', function(e) {
-    e.preventDefault();
-    var company = {{ company|tojson }};
-    var transports = company.sections.transport.transports;
-    var transport = {
-       departure_place: $(".from").val(),
-       arrival_place: $(".to").val(),
-       nb_persons: $("#persons").val(),
-       comment: $("#comment").val(),
-       phone: $("#phone").val(),
-       departure_time: $("#datetime").val()
-    };
-    if (transport.phone && transport.nb_persons && transport.departure_time) {
-        company.sections.transport.transports.push(transport);
-        $.ajax({
-            type: "POST",
-            url: "{{ url_for('update_company') }}",
-            data: {"company": JSON.stringify(company)},
-            success: function() {
-                Notify("Changements sauvegardés.");
-                setTimeout(function(){
-                    location.reload();
-                }, 1000); 
-            }
-        });
-    }
-    else {
-        Notify("Veuillez remplir tous les champs.", null, null, "error");
-    }
-    return false;
-});
+var button_conference = "";
+var button_networking = "";
+var company = {{ company|tojson }};
+var value_conference = company.sections.programme.events['conference'];
+var value_networking = company.sections.programme.events['networking'];
 
-function remove_transport(index) {
-    var r = confirm("Confirmer la suppresion ?");
+
+if (value_conference) {
+  var button_conference = "Se désinscrire";
+  var inscrit_conference = "<span class='label label-primary'>Inscrit</span><br>";
+} else {
+  var button_conference = "S'inscrire";
+  var inscrit_conference = "";
+}
+
+if (value_networking) {
+  var button_networking = "Se désinscrire";
+  var inscrit_networking = "<span class='label label-primary'>Inscrit</span><br>";
+} else {
+  var button_networking = "S'inscrire";
+  var inscrit_networking = "";
+}
+
+document.getElementById("val_conference").innerHTML = button_conference.toString();
+document.getElementById("val_networking").innerHTML = button_networking.toString();
+document.getElementById("inscrit_conference").innerHTML = inscrit_conference.toString();
+document.getElementById("inscrit_networking").innerHTML = inscrit_networking.toString();
+
+
+function update_event(event, value) {
+    var r = confirm("Confirmer votre choix ?");
     if (r) {
         var company = {{ company|tojson }};
-        company.sections.transport.transports.splice(index, 1);
+        company.sections.programme.events[event] = !company.sections.programme.events[event];
         $.ajax({
             type: "POST",
             url: "{{ url_for('update_company') }}",
             data: {"company": JSON.stringify(company)},
             success: function() {
-                Notify("Suppression confirmée.");
+                Notify("Programme mis à jour.");
                 setTimeout(function(){
                     location.reload();
                 }, 1000); 
@@ -151,3 +150,4 @@ function remove_transport(index) {
 }
 </script>
 {% endblock scripts %}
+
