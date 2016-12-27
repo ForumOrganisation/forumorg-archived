@@ -33,7 +33,7 @@
                 <span class="text-muted">Pas de commentaire</span>
               {% endif %}
               </td>
-              <td><i class="fa fa-remove" style="color:red"></i></td>
+              <td><i onclick="remove_transport({{loop.index0}})" class="fa fa-remove" style="color:red"></i></td>
             </tr>
             {% endfor%}
           </tbody></table>
@@ -178,5 +178,24 @@ $('#confirm_transport').on('click', function(e) {
     }
     return false;
 });
+
+function remove_transport(index) {
+    var r = confirm("Confirmer la suppresion ?");
+    if (r) {
+        var company = {{ company|tojson }};
+        company.sections.transport.transports.splice(index, 1);
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('update_company') }}",
+            data: {"company": JSON.stringify(company)},
+            success: function() {
+                Notify("Suppression confirmée..");
+                setTimeout(function(){
+                    location.reload();
+                }, 1000); 
+            }
+        });
+    }
+}
 </script>
 {% endblock scripts %}
