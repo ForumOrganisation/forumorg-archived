@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, url_for, redirect
 from forum import login_manager
 from flask_login import login_user, login_required, logout_user
+import json
 
 from forum import app
 from company import Company
-from storage import get_company
+from storage import get_company, set_company
 from mailing import send_mail
 from company import validate_login
 
@@ -50,6 +51,13 @@ def logout():
 def unauthorized_handler():
     return redirect(url_for('login'))
 
+@app.route('/update_company', methods=["POST"])
+def update_company():
+    company = request.form.get('company')
+    company = json.loads(company)
+    set_company(company)
+    return "Succes."
+
 ######### VITRINE ###########
 
 # start of app
@@ -59,8 +67,8 @@ def index():
 
 @app.route('/send_request', methods=["GET"])
 def send_request():
-    email = request.args.get('email', 'pas_de_email')
-    contact_name = request.args.get('nom_complet', 'pas_de_nom_contact')
-    company_name = request.args.get('nom', 'pas_de_nom_entreprise')
-    telephone = request.args.get('tel', 'pas_de_telephone')
+    email = request.args.get('email')
+    contact_name = request.args.get('nom_complet')
+    company_name = request.args.get('nom')
+    telephone = request.args.get('tel')
     return send_mail(email, contact_name, company_name, telephone)
