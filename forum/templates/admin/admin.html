@@ -1,123 +1,297 @@
-{% extends "admin/base_imp.html" %}
-{% set title = 'Vue globale' %}
-{% block content %}
+{% extends "admin/base_imp.html" %} {% set title = 'Vue globale' %} {% block content %} 
 <!-- Equipement/Restauration -->
-<div class="row">
+  <div class="row">
     <div class="col-md-6">
-        <div class="box">
+      <div class="box">
         {{ header_section('equipement') }}
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                    <p class="text-center">
-                        <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                    </p>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="box-footer no-padding">
+                  <ul class="nav nav-stacked">
+                    <li>
+                      <a href="#">Table haute <span class="pull-right">&emsp;&emsp;<i class="fa fa-remove" style="color:red"></i></span> <span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
+                    </li>
+                    <li>
+                      <a href="#">Banque à hôtesse <span class="pull-right">&emsp;&emsp;<i class="fa fa-remove" style="color:red"></i></span> <span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
+                    </li>
+                    <li>
+                      <a href="#">Chaise <span class="pull-right">&emsp;&emsp;<i class="fa fa-remove" style="color:red"></i></span><span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">2</span></a>
+                    </li>
+                    <li>
+                      <a href="#">Portemanteau <span class="pull-right">&emsp;&emsp;<i class="fa fa-remove" style="color:red"></i></span><span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
+                    </li>
+                    <li>
+                      <a href="#">Rail de spots <span class="pull-right">&emsp;&emsp;<i class="fa fa-remove" style="color:red"></i></span><span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
+                    </li>
+                    <li>
+                      <a href="#">Tabouret haut <span class="pull-right">&emsp;&emsp;<i class="fa fa-remove" style="color:red"></i></span><span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
+                    </li>
+                  </ul>
                 </div>
-                <!-- /.col -->
               </div>
-              <!-- /.row -->
             </div>
-    <!-- ./box-body -->
-        </div>
-  <!-- /.box -->
+          </div><strong><span class="pull-right badge bg-grey">Plus d'informations</span></strong>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
     </div>
     <div class="col-md-6">
-        <div class="box">
-        {{ header_section('equipement') }}
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                    <p class="text-center">
-                        <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                    </p>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-    <!-- ./box-body -->
-        </div>
-  <!-- /.box -->
+      <div class="box">
+        {{ header_section('restauration') }}
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-solid">
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tbody>
+                      <tr>
+                        <th>Jour</th>
+                        <th>Nombre de repas</th>
+                        <th>Ajouter</th>
+                        <th><i class="fa fa-remove"></i></th>
+                      </tr>
+                      <tr>
+                        <td>Mercredi</td>
+                        <td><span class="label label-primary">deux</span></td>
+                        <td><span class="text-primary"><i class="fa fa-plus"></i></span></td>
+                        <td><i class="fa fa-remove" style="color:red"></i></td>
+                      </tr>
+                      <tr>
+                        <td>Jeudi</td>
+                        <td><span class="label label-primary">deux</span></td>
+                        <td><span class="text-primary"><i class="fa fa-plus"></i></span></td>
+                        <td><i class="fa fa-remove" style="color:red"></i></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->
+              </div><br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <strong><span class="pull-right badge bg-grey">Plus d'informations</span></strong>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- ./box-body -->
+      </div><!-- /.box -->
     </div>
-</div>
-
-<!-- Transport/Badges -->
-<div class="row">
+  </div>
+  <!-- Transport/Badges -->
+  <div class="row">
     <div class="col-md-6">
-        <div class="box">
+      <div class="box">
         {{ header_section('transport') }}
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                    <p class="text-center">
-                        <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                    </p>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-    <!-- ./box-body -->
-        </div>
-  <!-- /.box -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-solid">
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tbody>
+                      <tr>
+                        <th>Lieu de départ</th>
+                        <th>Lieu d'arrivée</th>
+                        <th>Départ</th>
+                        <th>Personnes</th>
+                        <th><i class="fa fa-remove"></i></th>
+                      </tr>
+                      <tr>
+                        <td>Part-Dieu</td>
+                        <td>Double Mixte</td>
+                        <td>26-10-2016 à 07h00</td>
+                        <td><span class="label label-primary">deux</span></td>
+                        <td><i class="fa fa-remove" style="color:red"></i></td>
+                      </tr>
+                      <tr>
+                        <td>Part-Dieu</td>
+                        <td>Double Mixte</td>
+                        <td>26-10-2016 à 07h00</td>
+                        <td><span class="label label-primary">deux</span></td>
+                        <td><i class="fa fa-remove" style="color:red"></i></td>
+                      </tr>
+                      <tr>
+                        <td>Part-Dieu</td>
+                        <td>Double Mixte</td>
+                        <td>26-10-2016 à 07h00</td>
+                        <td><span class="label label-primary">deux</span></td>
+                        <td><i class="fa fa-remove" style="color:red"></i></td>
+                      </tr>
+                      <tr>
+                        <td>Part-Dieu</td>
+                        <td>Double Mixte</td>
+                        <td>26-10-2016 à 07h00</td>
+                        <td><span class="label label-primary">deux</span></td>
+                        <td><i class="fa fa-remove" style="color:red"></i></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->
+              </div><strong><span class="pull-right badge bg-grey">Plus d'informations</span></strong>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- ./box-body -->
+      </div><!-- /.box -->
     </div>
     <div class="col-md-6">
-        <div class="box">
+      <div class="box">
         {{ header_section('badges') }}
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                    <p class="text-center">
-                        <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                    </p>
-                </div>
-                <!-- /.col -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-solid">
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tbody>
+                      <tr>
+                        <th>Nom complet</th>
+                        <th>Fonction</th>
+                        <th>Jours présents</th>
+                        <th><i class="fa fa-remove"></i></th>
+                      </tr>
+                      <tr>
+                        <td>Olivier Gallimard</td>
+                        <td>Ingénieur</td>
+                        <td><span class="label label-primary">mercredi</span></td>
+                        <td><i class="fa fa-remove" style="color:red"></i></td>
+                      </tr>
+                      <tr>
+                        <td>Olivier Gallimard</td>
+                        <td>Ingénieur</td>
+                        <td><span class="label label-primary">jeudi</span></td>
+                        <td><i class="fa fa-remove" style="color:red"></i></td>
+                      </tr>
+                      <tr>
+                        <td>Olivier Gallimard</td>
+                        <td>Ingénieur</td>
+                        <td><span class="label label-primary">les deux</span></td>
+                        <td><i class="fa fa-remove" style="color:red"></i></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->
               </div>
-              <!-- /.row -->
-            </div>
-    <!-- ./box-body -->
-        </div>
-  <!-- /.box -->
+              <br>
+              <br>
+              <strong><span class="pull-right badge bg-grey">Plus d'informations</span></strong>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- ./box-body -->
+      </div><!-- /.box -->
     </div>
-</div>
-
-<!-- Programme/Bon de commande -->
-<div class="row">
+  </div><!-- Programme/Bon de commande -->
+  <div class="row">
     <div class="col-md-6">
-        <div class="box">
+      <div class="box">
         {{ header_section('programme') }}
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                    <p class="text-center">
-                        <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                    </p>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-    <!-- ./box-body -->
-        </div>
-  <!-- /.box -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-solid">
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table">
+                    <tbody>
+                      <tr bgcolor="#F6FCFD">
+                        <td>
+                          <br>
+                          <div class="col-md-11">
+                            <span class="text-primary"><b>Offre conférence</b></span> <span class="label label-primary">Inscrit</span><br>
+                            <span class="text-muted">Une conférence privilège vous permet de bénéficier d'une communication spécifique de la part de Forum Organisation sur les profils que vous souhaitez...</span><br>
+                            <br>
+                          </div>
+                        </td>
+                        <td>
+                          <br>
+                          <br>
+                          <div style="text-align:center;">
+                            <font size="3">400 €</font>
+                          </div>
+                        </td>
+                        <td>
+                          <br>
+                          <br>
+                          <div style="text-align:center;">
+                            <button class="btn btn-block btn-default" type="button">Se désinscrire</button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr bgcolor="#F6FCFD">
+                        <td>
+                          <br>
+                          <div class="col-md-11">
+                            <span class="text-primary"><b>Soirée networking</b></span> <span class="label label-primary">Inscrit</span><br>
+                            <span class="text-muted">La soirée networking aura lieu mercredi soir à partir de 18 h. C'est une occasion unique de participer à une conférence sur le rectrutement innovant...</span><br>
+                            <br>
+                          </div>
+                        </td>
+                        <td>
+                          <br>
+                          <br>
+                          <div style="text-align:center;">
+                            <font size="3">Gratuit</font>
+                          </div>
+                        </td>
+                        <td>
+                          <br>
+                          <br>
+                          <div style="text-align:center;">
+                            <button class="btn btn-block btn-default" type="button">Se désinscrire</button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <br>
+                          <div class="col-md-11">
+                            <span class="text-primary"><b>Web TV</b></span><br>
+                            <span class="text-muted">L'interview aura lieu pendant le salon et sera diffusée pendant le salon et après le salon sur notre plateforme WebTV Forum Organisation...</span><br>
+                            <br>
+                          </div>
+                        </td>
+                        <td>
+                          <br>
+                          <br>
+                          <div style="text-align:center;">
+                            <font size="3">500 €</font>
+                          </div>
+                        </td>
+                        <td>
+                          <br>
+                          <br>
+                          <div style="text-align:center;">
+                            <button class="btn btn-block btn-primary" type="button">S'inscrire</button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->
+              </div><strong><span class="pull-right badge bg-grey">Plus d'informations</span></strong>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- ./box-body -->
+      </div><!-- /.box -->
     </div>
     <div class="col-md-6">
-        <div class="box">
+      <div class="box">
         {{ header_section('bon_de_commande') }}
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-12">
-                    <p class="text-center">
-                        <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                    </p>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-    <!-- ./box-body -->
-        </div>
-  <!-- /.box -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <strong><span class="pull-right badge bg-grey">Plus d'informations</span></strong>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- ./box-body -->
+      </div><!-- /.box -->
     </div>
-</div>
+  </div>
 {% endblock content %}
