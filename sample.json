@@ -50,14 +50,6 @@
                 "completed": true, 
                 "transports": [
                     {
-                        "comment": "Bisous", 
-                        "arrival_place": "LOOL", 
-                        "departure_place": "LOL", 
-                        "nb_persons": 2, 
-                        "phone": "09398342", 
-                        "departure_time": "Wed. 12h00"
-                    }, 
-                    {
                         "comment": "", 
                         "arrival_place": "Part-Dieu", 
                         "departure_place": "Part-Dieu", 
