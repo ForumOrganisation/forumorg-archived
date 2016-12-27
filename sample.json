@@ -27,18 +27,8 @@
                 "persons": [
                     {
                         "function": "Ing\u00e9nieur", 
-                        "name": "Caillault", 
-                        "firstname": "Olivier"
-                    }, 
-                    {
-                        "function": "Ing\u00e9nieur", 
-                        "name": "Caillault", 
-                        "firstname": "Olivier"
-                    }, 
-                    {
-                        "function": "Ing\u00e9nieur", 
-                        "name": "Caillault", 
-                        "firstname": "Olivier"
+                        "name": "Caillault OLIVIA", 
+                        "days": "mercredi"
                     }
                 ], 
                 "completed": true
