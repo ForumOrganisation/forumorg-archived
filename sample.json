@@ -10,10 +10,10 @@
                 }, 
                 "completed": true, 
                 "general": {
-                    "duration": 2, 
-                    "equiped": true, 
-                    "banner": "AMAZON", 
-                    "size": 12
+                    "duration": "2", 
+                    "equiped": "true", 
+                    "banner": "ff", 
+                    "size": "9"
                 }
             }, 
             "restauration": {
@@ -64,6 +64,14 @@
                         "nb_persons": "2", 
                         "phone": "07-88-88-88-88", 
                         "departure_time": "23/09/1997 09:09"
+                    }, 
+                    {
+                        "comment": "ne", 
+                        "arrival_place": "Part-Dieu", 
+                        "departure_place": "Part-Dieu", 
+                        "nb_persons": "1", 
+                        "phone": "09 99 99 99 99", 
+                        "departure_time": "23/09/2090 09:09"
                     }
                 ]
             }, 
