@@ -5,7 +5,8 @@
             "equipement": {
                 "items": {
                     "coat-hanger": 1, 
-                    "chair": 1
+                    "chair": 1, 
+                    "Ecran LCD 26\" - 67 \u20ac": 1
                 }, 
                 "completed": true, 
                 "general": {
@@ -63,6 +64,14 @@
                         "nb_persons": "1", 
                         "phone": "22-22-22-31-11", 
                         "departure_time": "21/03/2033 03:33"
+                    }, 
+                    {
+                        "comment": "eh", 
+                        "arrival_place": "Part-Dieu", 
+                        "departure_place": "Part-Dieu", 
+                        "nb_persons": "2", 
+                        "phone": "07-88-88-88-88", 
+                        "departure_time": "23/09/1997 09:09"
                     }
                 ]
             }, 
