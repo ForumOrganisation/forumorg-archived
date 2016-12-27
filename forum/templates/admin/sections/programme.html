@@ -96,3 +96,58 @@
     </div>
   </div>
 {% endblock main %}
+
+{% block scripts %}
+<script type="text/javascript">
+$('#confirm_transport').on('click', function(e) {
+    e.preventDefault();
+    var company = {{ company|tojson }};
+    var transports = company.sections.transport.transports;
+    var transport = {
+       departure_place: $(".from").val(),
+       arrival_place: $(".to").val(),
+       nb_persons: $("#persons").val(),
+       comment: $("#comment").val(),
+       phone: $("#phone").val(),
+       departure_time: $("#datetime").val()
+    };
+    if (transport.phone && transport.nb_persons && transport.departure_time) {
+        company.sections.transport.transports.push(transport);
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('update_company') }}",
+            data: {"company": JSON.stringify(company)},
+            success: function() {
+                Notify("Changements sauvegardés.");
+                setTimeout(function(){
+                    location.reload();
+                }, 1000); 
+            }
+        });
+    }
+    else {
+        Notify("Veuillez remplir tous les champs.", null, null, "error");
+    }
+    return false;
+});
+
+function remove_transport(index) {
+    var r = confirm("Confirmer la suppresion ?");
+    if (r) {
+        var company = {{ company|tojson }};
+        company.sections.transport.transports.splice(index, 1);
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('update_company') }}",
+            data: {"company": JSON.stringify(company)},
+            success: function() {
+                Notify("Suppression confirmée.");
+                setTimeout(function(){
+                    location.reload();
+                }, 1000); 
+            }
+        });
+    }
+}
+</script>
+{% endblock scripts %}
