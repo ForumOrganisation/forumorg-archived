@@ -3,17 +3,19 @@
         "password": "pbkdf2:sha1:1000$gwFWGB8D$15b8a015abd7ad5aebcbaa79f9a30889d665c18e", 
         "sections": {
             "equipement": {
-                "items": {
-                    "coat-hanger": 1, 
-                    "chair": 1, 
-                    "Ecran LCD 26\" - 67 \u20ac": 1
-                }, 
                 "completed": true, 
                 "general": {
                     "duration": "2", 
                     "equiped": "true", 
-                    "banner": "ff", 
+                    "banner": "test", 
                     "size": "9"
+                }, 
+                "furniture": {
+                    "coat-hanger": 1, 
+                    "chair": 1, 
+                    "Banque \u00e0 h\u00f4tesse - 89 \u20ac": 1, 
+                    "Ecran LCD 26\" - 67 \u20ac": 1, 
+                    "Mange-debout - 89 \u20ac": 2
                 }
             }, 
             "restauration": {
@@ -27,8 +29,8 @@
                 "persons": [
                     {
                         "function": "Ing\u00e9nieur", 
-                        "name": "Caillault OLIVIA", 
-                        "days": "mercredi"
+                        "days": "mercredi", 
+                        "name": "Caillault OLIVIA"
                     }
                 ], 
                 "completed": true
@@ -62,6 +64,14 @@
                         "nb_persons": "1", 
                         "phone": "09 99 99 99 99", 
                         "departure_time": "23/09/2090 09:09"
+                    }, 
+                    {
+                        "comment": "GG", 
+                        "arrival_place": "Part-Dieu", 
+                        "departure_place": "Part-Dieu", 
+                        "nb_persons": "4", 
+                        "phone": "66 66 66 66 66", 
+                        "departure_time": "31/10/2099 09:55"
                     }
                 ]
             }, 

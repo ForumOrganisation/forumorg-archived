@@ -14,7 +14,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>durée</label>
-                    <select class="form-control select2 duration" style="width: 100%;">
+                    <select class="form-control duration" style="width: 100%;">
                       <option>2</option>
                       <option>1</option>
                     </select>
@@ -24,7 +24,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>taille (m2)</label>
-                    <select class="form-control select2 size" style="width: 100%;">
+                    <select class="form-control size" style="width: 100%;">
                       <option>9</option>
                       <option>12</option>
                       <option>18</option>
@@ -36,9 +36,9 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>stand équipé</label>
-                    <select class="form-control select2 equiped" style="width: 100%;">
-                      <option>true</option>
-                      <option>false</option>
+                    <select class="form-control equiped" style="width: 100%;">
+                      <option>oui</option>
+                      <option>non</option>
                     </select>
                   </div>
                 </div>
@@ -48,7 +48,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>bandeau</label>
-                    <select class="form-control select2" style="width: 100%;">
+                    <select class="form-control" style="width: 100%;">
                       <option>Avec</option>
                       <option>Sans</option>
                     </select>
@@ -83,7 +83,6 @@
         <div class="box-header">
           <h3 class="box-title">Equipement</h3>
         </div>
-
       	<div class="box-body">
       		<div class="row">
       			<div class="col-md-12">
@@ -93,31 +92,63 @@
       						<!-- Widget: user widget style 1 -->
       						<div class="box box-widget widget-user-2">
       							<div class="box-footer no-padding">
-      								<ul class="nav nav-stacked">
-      									<li>
-      										<a href="#">Table haute <span class="pull-right">&emsp;&emsp;<i class="fa fa-remove" style="color:red"></i></span> <span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
-      									</li>
-      									<li>
-      										<a href="#">Banque à hôtesse <span class="pull-right">&emsp;&emsp;<i class="fa fa-remove" style="color:red"></i></span> <span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
-      									</li>
-      									<li>
-      										<a href="#">Chaise <span class="pull-right">&emsp;&emsp;<i class="fa fa-remove" style="color:red"></i></span><span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">2</span></a>
-      									</li>
-      									<li>
-      										<a href="#">Portemanteau <span class="pull-right">&emsp;&emsp;<i class="fa fa-remove" style="color:red"></i></span><span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
-      									</li>
-      									<li>
-      										<a href="#">Rail de spots <span class="pull-right">&emsp;&emsp;<i class="fa fa-remove" style="color:red"></i></span><span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
-      									</li>
-      									<li>
-      										<a href="#">Tabouret haut <span class="pull-right">&emsp;&emsp;<i class="fa fa-remove" style="color:red"></i></span><span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
-      									</li>
-      								</ul>
+                       <table class="table table-responsive">
+                        <tbody>
+                          <tr>
+                            <td><span class="text-muted">Banque à hôtesse </span></td>
+                            <td><span class="badge bg-grey">1</span></td>
+                            <td><span class="badge bg-grey">inclus</span></td>
+                            <td><i class="fa fa-remove" style="color:white"></i></td>
+                          </tr>
+
+                          <tr>
+                            <td><span class="text-muted">Chaise </span></td>
+                            <td><span class="badge bg-grey">1</span></td>
+                            <td><span class="badge bg-grey">inclus</span></td>
+                            <td><i class="fa fa-remove" style="color:white"></i></td>
+                          </tr>
+
+                          <tr>
+                            <td><span class="text-muted">Portemanteau </span></td>
+                            <td><span class="badge bg-grey">1</span></td>
+                            <td><span class="badge bg-grey">inclus</span></td>
+                            <td><i class="fa fa-remove" style="color:white"></i></td>
+                          </tr>
+
+                          <tr>
+                            <td><span class="text-muted">Rail de spots </span></td>
+                            <td><span class="badge bg-grey">1</span></td>
+                            <td><span class="badge bg-grey">inclus</span></td>
+                            <td><i class="fa fa-remove" style="color:white"></i></td>
+                          </tr>
+
+                          <tr>
+                            <td><span class="text-muted">Tabouret haut </span></td>
+                            <td><span class="badge bg-grey">1</span></td>
+                            <td><span class="badge bg-grey">inclus</span></td>
+                            <td><i class="fa fa-remove" style="color:white"></i></td>
+                          </tr>                 
+
+                          {% for k,v in company.sections.equipement.furniture.items() %}
+
+                          <tr>
+                            <td>{{ k }}</td>
+                            <td><span class="badge bg-blue">{{ v }}</span></td>
+                            <td><span class="badge bg-blue">30 €</span></td>
+                            <td><i class="fa fa-remove" style="color:red"></i></td>
+                          </tr>
+
+                          {% endfor %}
+
+                        </tbody>
+                      </table>
       							</div>
       						</div>
       					</div>
       				</div>
       			</div>
+          </div>
+        </div>
       </div>
     </div>
 </div>
@@ -139,7 +170,7 @@
 
                   <div class="form-group">
                     <label>item</label>
-                    <select class="form-control select2 name" style="width: 100%;">
+                    <select class="form-control name" style="width: 100%;">
                       <option>Banque à hôtesse	- 89 €</option>
                       <option>Chaise - 35 €</option>
                       <option>Chauffeuse - 67 €</option>
@@ -156,7 +187,7 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>quantité</label>
-                    <select class="form-control select2 quantity" style="width: 100%;">
+                    <select class="form-control quantity" style="width: 100%;">
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
@@ -224,15 +255,20 @@ $('#confirm_stand').on('click', function(e) {
 $('#confirm_add').on('click', function(e) {
     e.preventDefault();
     var company = {{ company|tojson }};
-    var items = company.sections.equipement.items;
-    var item = {
+    var furnitures = company.sections.equipement.furniture;
+    var furniture = {
        name: $(".name").val(),
        quantity: $(".quantity").val(),
     };
-    console.log(item.name);
-    console.log(item.quantity);
-    if (item.name && item.quantity) {
-        items[item.name] = Number(item.quantity);
+    console.log(furniture.name);
+    console.log(furniture.quantity);
+    if (furniture.name && furniture.quantity) {
+      if (furnitures[furniture.name]){
+        furnitures[furniture.name] = furnitures[furniture.name] + Number(furniture.quantity);
+      } else {
+        furnitures[furniture.name] = Number(furniture.quantity);
+      }
+        
         $.ajax({
             type: "POST",
             url: "{{ url_for('update_company') }}",
@@ -247,7 +283,6 @@ $('#confirm_add').on('click', function(e) {
     }
     return false;
 });
-
 </script>
 {% endblock scripts %}
 
