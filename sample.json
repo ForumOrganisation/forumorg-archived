@@ -1,70 +1,80 @@
 {
-  "id": "AMAZON",
-  "name": "Amazon",
-  "password": "pbkdf2:sha1:1000$gwFWGB8D$15b8a015abd7ad5aebcbaa79f9a30889d665c18e",
-  "sections": {
-    "equipement" : {
-      "completed": true,
-      "general": {
-      "duration": 2,
-      "size": 12,
-      "equiped": true,
-      "banner": "AMAZON"
-      },
-      "items": {
-        "chair": 1,
-        "coat-hanger": 1
-      }
-    },
-    "transport" : {
-      "completed": true,
-      "transports": [
-        {
-        "departure_time": "Wed. 12h00",
-        "arrival_time": "Thu. 12h00",
-        "departure_place": "LOL",
-        "arrival_place": "LOOL",
-        "nb_persons": 2,
-        "comment": "Bisous",
-        "phone": "09398342"
-        }
-        ]
-    },
-    "badges" : {
-      "completed": true,
-      "persons": [
-        {
-          "name": "Caillault",
-          "firstname": "Olivier",
-          "function": "Ingénieur"
-        },
-        {
-          "name": "Caillault",
-          "firstname": "Olivier",
-          "function": "Ingénieur"
-        },
-        {
-          "name": "Caillault",
-          "firstname": "Olivier",
-          "function": "Ingénieur"
-        }]
-    },
-    "programme" : {
-      "completed": true,
-      "events": {
-        "conference": true,
-        "networking": true
-      }
-    },
-    "restauration" : {
-      "completed": true,
-      "dishes": {
-        "wednesday": 2,
-        "thursday": 2
-      }
-    },
-    "bon_de_commande" : {
-      "completed": true
+    "company": {
+        "password": "pbkdf2:sha1:1000$gwFWGB8D$15b8a015abd7ad5aebcbaa79f9a30889d665c18e", 
+        "sections": {
+            "equipement": {
+                "items": {
+                    "coat-hanger": 1, 
+                    "chair": 1
+                }, 
+                "completed": true, 
+                "general": {
+                    "duration": 2, 
+                    "equiped": true, 
+                    "banner": "AMAZON", 
+                    "size": 12
+                }
+            }, 
+            "restauration": {
+                "completed": true, 
+                "dishes": {
+                    "wednesday": 2, 
+                    "thursday": 2
+                }
+            }, 
+            "badges": {
+                "persons": [
+                    {
+                        "function": "Ing\u00e9nieur", 
+                        "name": "Caillault", 
+                        "firstname": "Olivier"
+                    }, 
+                    {
+                        "function": "Ing\u00e9nieur", 
+                        "name": "Caillault", 
+                        "firstname": "Olivier"
+                    }, 
+                    {
+                        "function": "Ing\u00e9nieur", 
+                        "name": "Caillault", 
+                        "firstname": "Olivier"
+                    }
+                ], 
+                "completed": true
+            }, 
+            "bon_de_commande": {
+                "completed": true
+            }, 
+            "transport": {
+                "completed": true, 
+                "transports": [
+                    {
+                        "comment": "Bisous", 
+                        "arrival_place": "LOOL", 
+                        "departure_place": "LOL", 
+                        "nb_persons": 2, 
+                        "phone": "09398342", 
+                        "departure_time": "Wed. 12h00"
+                    }, 
+                    {
+                        "comment": "", 
+                        "arrival_place": "Part-Dieu", 
+                        "departure_place": "Part-Dieu", 
+                        "nb_persons": "1", 
+                        "phone": "22-22-22-31-11", 
+                        "departure_time": "21/03/2033 03:33"
+                    }
+                ]
+            }, 
+            "programme": {
+                "completed": true, 
+                "events": {
+                    "conference": true, 
+                    "networking": true
+                }
+            }
+        }, 
+        "id": "AMAZON", 
+        "name": "Amazon"
     }
-  }
 }

@@ -143,7 +143,7 @@ $('#contact-form').on('submit', function(e) {
     }
     console.log(data);
 
-   if (validateEmail(data.email) && data.nom !== "" && data.tel !== "" && data.nom_complet !== "") {
+   if (validateEmail(data.email) && data.nom && data.tel && data.nom_complet) {
       $.ajax({
            type: "GET",
            url: $(this).attr('action'),

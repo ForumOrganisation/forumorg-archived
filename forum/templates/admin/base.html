@@ -42,9 +42,9 @@
     <!-- Logo -->
     <a href="{{ url_for('admin') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>F</b>O</span>
+      <span class="logo-mini"><b>F</b>R<b>A</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Forum</b>Organisation</span>
+      <span class="logo-lg"><b>Forum</b>Rhône<b>Alpes</b></span>
     </a>
 
     <!-- Header Navbar -->
@@ -129,6 +129,19 @@
     {% endblock footer %}
   </footer>
 </div>
+<div id="notifications"></div>
+<style>
+#notifications {
+    cursor: pointer;
+    position: fixed;
+    right: 0px;
+    z-index: 9999;
+    bottom: 0px;
+    margin-bottom: 22px;
+    margin-right: 15px;
+    max-width: 300px;   
+}
+</style>
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->
@@ -145,6 +158,8 @@
 <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
 <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+<!-- Notify -->
+<script src="{{ url_for('static', filename='js/Notify.js') }}"></script>
 <!-- Page script -->
 <script>
   $(function () {
@@ -155,6 +170,8 @@
     $("#persons").inputmask("9", {"placeholder": "x"});
   });
 </script>
+{% block scripts %}
+{% endblock scripts %}
 <!-- AdminLTE App -->
 <script src="{{ url_for('static', filename='dist/js/app.js') }}"></script>
 </body>
