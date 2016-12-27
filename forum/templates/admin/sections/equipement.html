@@ -285,8 +285,6 @@ $('#confirm_add').on('click', function(e) {
 });
 
 function remove_furniture(name, quantity) {
-    console.log(name);
-
     var r = confirm("Confirmer la suppresion ?");
     if (r) {
         var company = {{ company|tojson }};
