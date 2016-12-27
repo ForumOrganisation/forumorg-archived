@@ -9,6 +9,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive no-padding">
+          {% if company.sections.badges.persons %}
           <table class="table table-hover">
             <tbody><tr>
               <th>Nom complet</th>
@@ -21,9 +22,14 @@
               <td>{{ person.name }}</td>
               <td>{{ person.function }}</td>
               <td><span class="label label-primary">{{ person.days }}</span></td>
-              <td><i class="fa fa-remove" style="color:red"></i></td>
+              <td><i onclick="remove_person({{loop.index0}})" class="fa fa-remove" style="color:red"></i></td>
             </tr>
             {% endfor%}
+          {% else %}
+            <tr>
+              <td colspan="4"><h2 class="lead text-center">Aucune personne trouvée :(</h2></td>
+            </tr>
+          {% endif %}
           </tbody></table>
         </div>
         <!-- /.box-body -->
@@ -121,5 +127,24 @@ $('#confirm_badges').on('click', function(e) {
     }
     return false;
 });
+
+function remove_person(index) {
+    var r = confirm("Confirmer la suppresion ?");
+    if (r) {
+        var company = {{ company|tojson }};
+        company.sections.badges.persons.splice(index, 1);
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('update_company') }}",
+            data: {"company": JSON.stringify(company)},
+            success: function() {
+                Notify("Suppression confirmée.");
+                setTimeout(function(){
+                    location.reload();
+                }, 1000); 
+            }
+        });
+    }
+}
 </script>
 {% endblock scripts %}

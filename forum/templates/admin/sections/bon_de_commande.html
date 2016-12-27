@@ -2,18 +2,252 @@
 {% set title = 'Bon de commande' %}
 {% block main %}
 <div class="row">
-    <div class="col-xs-12">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Résumé général</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <p class="text-center">Non disponible.</p>
-        </div>
-        <!-- /.box-body -->
+    <div class="pad margin no-print">
+      <div class="callout callout-info" style="margin-bottom: 0!important;">
+        <h4><i class="fa fa-info"></i> Note:</h4>
+        Cette page a été optimisée pour l'impression. Cliquez sur le bouton d'impression au bas de la page pour imprimer votre bon de commande.
       </div>
-      <!-- /.box -->
     </div>
+
+    <section class="invoice">
+      <!-- title row -->
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="page-header">
+            <i class="fa fa-globe"></i> Forum Organisation.
+            <small class="pull-right">Date: {% now 'local', '%d/%m/%Y' %}</small>
+          </h2>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- info row -->
+      <div class="row invoice-info">
+        <div class="col-sm-4 invoice-col">
+          De
+          <address>
+            <strong>Forum Organisation.</strong><br>
+            20 Avenue Albert Einstein<br>
+            Villeurbanne, 69100<br>
+            Tel: 04 78 94 29 30<br>
+            Email: contact-fra@forumorg.org
+          </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+          A
+          <address>
+            <strong>{{ company.name }}</strong><br>
+            Adresse<br>
+            Ville, CP<br>
+            Tel: 99 99 99 99 99<br>
+            Email: john.doe@example.com
+          </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+          <b>Bon de commande</b><br>
+          <br>
+          <b>Paiement avant:</b> 2/22/2014<br>
+          <b>Paiement avant:</b> 2/22/2014<br>
+          <b>Paiement avant:</b> 2/22/2014<br>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <div class="box-header">
+        <h3 class="box-title">Liste des équipements</h3>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Qty</th>
+                  <th>Product</th>
+                  <th>Serial #</th>
+                  <th>Description</th>
+                  <th>Subtotal</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Call of Duty</td>
+                  <td>455-981-221</td>
+                  <td>El snort testosterone trophy driving gloves handsome</td>
+                  <td>$64.50</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Need for Speed IV</td>
+                  <td>247-925-726</td>
+                  <td>Wes Anderson umami biodiesel</td>
+                  <td>$50.00</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Monsters DVD</td>
+                  <td>735-845-642</td>
+                  <td>Terry Richardson helvetica tousled street art master</td>
+                  <td>$10.70</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Grown Ups Blue Ray</td>
+                  <td>422-568-642</td>
+                  <td>Tousled lomo letterpress</td>
+                  <td>$25.99</td>
+                </tr>
+                </tbody>
+             </table>
+        </div>
+      </div>
+
+      <div class="box-header">
+        <h3 class="box-title">Liste des repas</h3>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Qty</th>
+                  <th>Product</th>
+                  <th>Serial #</th>
+                  <th>Description</th>
+                  <th>Subtotal</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Call of Duty</td>
+                  <td>455-981-221</td>
+                  <td>El snort testosterone trophy driving gloves handsome</td>
+                  <td>$64.50</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Need for Speed IV</td>
+                  <td>247-925-726</td>
+                  <td>Wes Anderson umami biodiesel</td>
+                  <td>$50.00</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Monsters DVD</td>
+                  <td>735-845-642</td>
+                  <td>Terry Richardson helvetica tousled street art master</td>
+                  <td>$10.70</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Grown Ups Blue Ray</td>
+                  <td>422-568-642</td>
+                  <td>Tousled lomo letterpress</td>
+                  <td>$25.99</td>
+                </tr>
+                </tbody>
+             </table>
+        </div>
+      </div>
+
+      <div class="box-header">
+        <h3 class="box-title">Liste des évènements</h3>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Qty</th>
+                  <th>Product</th>
+                  <th>Serial #</th>
+                  <th>Description</th>
+                  <th>Subtotal</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Call of Duty</td>
+                  <td>455-981-221</td>
+                  <td>El snort testosterone trophy driving gloves handsome</td>
+                  <td>$64.50</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Need for Speed IV</td>
+                  <td>247-925-726</td>
+                  <td>Wes Anderson umami biodiesel</td>
+                  <td>$50.00</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Monsters DVD</td>
+                  <td>735-845-642</td>
+                  <td>Terry Richardson helvetica tousled street art master</td>
+                  <td>$10.70</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Grown Ups Blue Ray</td>
+                  <td>422-568-642</td>
+                  <td>Tousled lomo letterpress</td>
+                  <td>$25.99</td>
+                </tr>
+                </tbody>
+             </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- accepted payments column -->
+        <div class="col-xs-6">
+          <p class="lead">Méthodes de paiement:</p>
+          <img src="{{ url_for('static', filename='images/cheque.png') }}" alt="Chèque">
+
+          <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+            Envoyer un chèque à l'adresse...
+          </p>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-6">
+          <p class="lead">Montant dû {% now 'local', '%d/%m/%Y' %}</p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <tbody><tr>
+                <th style="width:50%">Sous-total (€)</th>
+                <td>250.30</td>
+              </tr>
+              <tr>
+                <th>T.V.A</th>
+                <td><span class="text-muted">L'association n'étant pas assujettie à la TVA, nos prix sont nets de taxes (TTC).</span></td>
+              </tr>
+              <tr>
+                <th>Total (€)</th>
+                <td>265.24</td>
+              </tr>
+            </tbody></table>
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- this row will not appear when printing -->
+      <div class="row no-print">
+        <div class="col-xs-12">
+          <a href="invoice-print.html" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Imprimer Bon de commande</a>
+          <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+            <i class="fa fa-download"></i> Générer PDF
+          </button>
+        </div>
+      </div>
+    </section>
 </div>
 {% endblock main %}
+{% block scripts %}
+{% endblock scripts %}

@@ -4,10 +4,12 @@ from flask import Flask
 from flask_login import LoginManager
 import datetime
 import locale
+from jinja2 import Environment
 
 app = Flask(__name__)
 app.secret_key = 'supa-secret'
-# may have to add secret string!
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.jinja_env.add_extension('jinja2_time.TimeExtension')
 
 login_manager = LoginManager()
 login_manager.init_app(app)

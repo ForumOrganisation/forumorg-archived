@@ -1,9 +1,14 @@
 {% extends "admin/base.html" %}
 {% set company = current_user.data %}
 {% macro section_block(name, icon) -%}
+{% if name == 'accueil' %}
+<li {% if request.path == url_for('admin') %} class="active"{% endif %}>
+<a href="{{ url_for('admin') }}"><i class="{{ icon }}"></i> <span>{{ name|capitalize|replace("_", " ") }}</span>
+{% else %}
 <li {% if request.path == url_for('admin', page=name) %} class="active"{% endif %}>
   <a href="{{ url_for('admin', page=name) }}"><i class="{{ icon }}"></i> <span>{{ name|capitalize|replace("_", " ") }}</span>
   {% if company.sections.get(name).completed %}<small class="label pull-right bg-green">complété</small>{% endif %}
+{% endif %}
   </a>
 </li>
 {%- endmacro %}
@@ -25,6 +30,7 @@
 {% endblock header %}
 <!-- SECTIONS -->
 {% block sections %}
+{{ section_block('accueil', 'fa fa-home')}}
 {{ section_block('equipement', 'glyphicon glyphicon-object-align-right')}}
 {{ section_block('restauration', 'fa fa-glass')}}
 {{ section_block('transport', 'fa fa-car')}}
