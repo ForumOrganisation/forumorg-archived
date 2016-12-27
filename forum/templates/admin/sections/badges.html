@@ -16,24 +16,14 @@
               <th>Jours présents</th>
               <th><i class="fa fa-remove"></i></th>
             </tr>
+            {% for person in company.sections.badges.persons %}
             <tr>
-              <td>Olivier Gallimard</td>
-              <td>Ingénieur</td>
-              <td><span class="label label-primary">mercredi</span></td>
+              <td>{{ person.name }}</td>
+              <td>{{ person.function }}</td>
+              <td><span class="label label-primary">{{ person.days }}</span></td>
               <td><i class="fa fa-remove" style="color:red"></i></td>
             </tr>
-            <tr>
-              <td>Olivier Gallimard</td>
-              <td>Ingénieur</td>
-              <td><span class="label label-primary">jeudi</span></td>
-              <td><i class="fa fa-remove" style="color:red"></i></td>
-            </tr>
-            <tr>
-              <td>Olivier Gallimard</td>
-              <td>Ingénieur</td>
-              <td><span class="label label-primary">les deux</span></td>
-              <td><i class="fa fa-remove" style="color:red"></i></td>
-            </tr>
+            {% endfor%}
           </tbody></table>
         </div>
         <!-- /.box-body -->
@@ -62,7 +52,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-tag"></i>
                       </div>
-                      <input type="text" class="form-control" placeholder="Votre commentaire...">
+                      <input type="text" id="name" class="form-control" placeholder="Ex. Sophie BISENUS">
                     </div>
                   </div>
                 </div>
@@ -74,7 +64,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-tag"></i>
                       </div>
-                      <input type="text" class="form-control" placeholder="Votre commentaire...">
+                      <input type="text" id="function" class="form-control" placeholder="Ex. Chargé des ressources humaines">
                     </div>
                   </div>
                 </div>
@@ -82,7 +72,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                   	<label>sélectionner</label>
-                  	<select class="form-control">
+                  	<select id="days" class="form-control">
 	                    <option>mercredi</option>
 	                    <option>jeudi</option>
 	                    <option>les deux</option>
@@ -93,7 +83,7 @@
             </div>
         </div>
         <div class="box-footer">
-            <button type="submit" class="btn btn-primary">Confirmer</button>
+            <button id="confirm_badges" type="submit" class="btn btn-primary">Confirmer</button>
         </div>
         <!-- /.box-body -->
       </div>
@@ -101,3 +91,35 @@
     </div>
 </div>
 {% endblock main %}
+{% block scripts %}
+<script type="text/javascript">
+$('#confirm_badges').on('click', function(e) {
+    e.preventDefault();
+    var company = {{ company|tojson }};
+    var persons = company.sections.badges.persons;
+    var person = {
+       days: $("#days").val(),
+       name: $("#name").val(),
+       function: $("#function").val()
+    };
+    if (person.days && person.name && person.function) {
+        company.sections.badges.persons.push(person);
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('update_company') }}",
+            data: {"company": JSON.stringify(company)},
+            success: function() {
+                Notify("Changements sauvegardés.");
+                setTimeout(function(){
+                    location.reload();
+                }, 1000); 
+            }
+        });
+    }
+    else {
+        Notify("Veuillez remplir tous les champs.", null, null, "error");
+    }
+    return false;
+});
+</script>
+{% endblock scripts %}

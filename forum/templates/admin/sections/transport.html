@@ -128,7 +128,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-tag"></i>
                       </div>
-                      <input id="comment" type="text" class="form-control" placeholder="Votre commentaire...">
+                      <input id="comment" type="text" class="form-control" placeholder="Ex. Terminal T2">
                     </div>
                   </div>
                 </div>
@@ -167,6 +167,9 @@ $('#confirm_transport').on('click', function(e) {
             data: {"company": JSON.stringify(company)},
             success: function() {
                 Notify("Changements sauvegardés.");
+                setTimeout(function(){
+                    location.reload();
+                }, 1000); 
             }
         });
     }
