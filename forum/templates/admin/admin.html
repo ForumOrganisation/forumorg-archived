@@ -7,27 +7,27 @@
         <div class="box-body">
           <div class="row">
             <div class="col-md-12">
-              <div class="box box-widget widget-user-2">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-
-                  <ul class="nav nav-stacked">
-                    <li>
-                      <a href="#">Table haute <span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
-                    </li>
-                    <li>
-                      <a href="#">Table haute <span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
-                    </li>
-                    <li>
-                      <a href="#">Table haute <span class="pull-right badge bg-blue">0 €</span><span class="pull-right">&emsp;&emsp;</span><span class="pull-right badge bg-blue">1</span></a>
-                    </li>
-                  </ul>
-                
+              <div class="box box-solid">
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                      <tbody>
+                        {% for k,v in company.sections.equipement.furniture.items() %}
+                          <tr>
+                            <td>{{ k }}</td>
+                            <td><span class="badge bg-blue">{{ v }}</span></td>
+                            <td><span class="badge bg-blue">30 €</span></td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-          </div><strong><span class="pull-right badge bg-grey">Plus d'informations</span></strong>
-        </div><!-- /.col -->
-      </div><!-- /.row -->
-    </div>
+          </div><strong><a href="{{ url_for('admin', page='equipement') }}"><span class="pull-right badge bg-grey">Plus d'informations</a></span></strong>
+        </div>
+      </div>
+    </div><!-- /.col -->
     <div class="col-md-6">
       <div class="box">
         {{ header_section('restauration') }}
@@ -45,17 +45,17 @@
                       </tr>
                       <tr>
                         <td>Mercredi</td>
-                        <td><span class="label label-primary">deux</span></td>
+                        <td><span class="label label-primary">{{ company.sections.restauration.dishes.wednesday }} repas</span></td>
                       </tr>
                       <tr>
                         <td>Jeudi</td>
-                        <td><span class="label label-primary">deux</span></td>
+                        <td><span class="label label-primary">{{ company.sections.restauration.dishes.thursday }} repas</span></td>
                       </tr>
                     </tbody>
                   </table>
                 </div><!-- /.box-body -->
               </div>
-              <strong><span class="pull-right badge bg-grey">Plus d'informations</span></strong>
+              <strong><a href="{{ url_for('admin', page='restauration') }}"><span class="pull-right badge bg-grey">Plus d'informations</a></span></strong>
             </div><!-- /.col -->
           </div><!-- /.row -->
         </div><!-- ./box-body -->
@@ -98,7 +98,7 @@
                     </tbody>
                   </table>
                 </div><!-- /.box-body -->
-              </div><strong><span class="pull-right badge bg-grey">Plus d'informations</span></strong>
+              </div><strong><a href="{{ url_for('admin', page='transport') }}"><span class="pull-right badge bg-grey">Plus d'informations</span></a></strong>
             </div><!-- /.col -->
           </div><!-- /.row -->
         </div><!-- ./box-body -->
@@ -155,18 +155,22 @@
                 <div class="box-body table-responsive no-padding">
                   <table class="table">
                     <tbody>
-                      <tr>
-                        <td>
-                            <span class="text-primary"><b>Offre conférence</b></span> <span class="label label-primary">Inscrit</span><br>
-                        </td>
-                        <td>
-                            <span class="h4">400 €</span>
-                        </td>
-                      </tr>
+                      {% for k,v in company.sections.programme.events.items() %}
+                        {% if v %}
+                          <tr>
+                            <td>
+                              <span class="text-primary"><b>{{ k }}</b></span> <span class='label label-primary'>inscrit</span><br>
+                            </td>
+                            <td>
+                              <span class="h4">400 €</span>
+                            </td>
+                          </tr>
+                        {% endif %}
+                      {% endfor %}
                     </tbody>
                   </table>
                 </div><!-- /.box-body -->
-              </div><strong><span class="pull-right badge bg-grey">Plus d'informations</span></strong>
+              </div><strong><a href="{{ url_for('admin', page='programme') }}"><span class="pull-right badge bg-grey">Plus d'informations</a></span></strong>
             </div><!-- /.col -->
           </div><!-- /.row -->
         </div><!-- ./box-body -->
