@@ -159,10 +159,22 @@
                         {% if v %}
                           <tr>
                             <td>
-                              <span class="text-primary"><b>{{ k }}</b></span> <span class='label label-primary'>inscrit</span><br>
+                              <span class="text-primary"><b>
+                                {% if k == "networking" %}
+                                Soirée Networking
+                                {% else %}
+                                Offre Conférence
+                                {% endif %}
+                              </b></span> <span class='label label-primary'>inscrit</span><br>
                             </td>
                             <td>
-                              <span class="h4">400 €</span>
+                              <span class="h4">
+                              {% if k == "networking" %}
+                                Gratuit
+                                {% else %}
+                                400 €
+                              {% endif %}
+                              </span>
                             </td>
                           </tr>
                         {% endif %}
