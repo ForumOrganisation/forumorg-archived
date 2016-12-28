@@ -220,6 +220,10 @@
 
 {% block scripts %}
 <script type="text/javascript">
+$("document").ready(function() {
+  console.log("lol");
+});
+
 $('#confirm_stand').on('click', function(e) {
     e.preventDefault();
     var company = {{ company|tojson }};
