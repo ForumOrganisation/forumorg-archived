@@ -11,17 +11,23 @@
           <table class="table table-hover">
             <tbody><tr>
               <th>Jour</th>
-              <th>Nombre de repas (2 inclus / jour)</th>
+              <th>Nombre de repas (2 inclus/jour)</th>
               <th><i class="fa fa-remove"></i></th>
             </tr>
             <tr>
               <td>Mercredi</td>
-              <td><span class="label label-primary">{{ company.sections.restauration.dishes.mercredi|to_human }}</span></td>
+              <td>
+              <span class="badge bg-grey">deux repas</span>
+              <span class="label bg-primary">{{ company.sections.restauration.dishes.mercredi|to_human }} repas</span>
+              </td>
               <td><i onclick="remove_dish('mercredi')" class="fa fa-remove" style="color:red"></i></td>
             </tr>
             <tr>
               <td>Jeudi</td>
-              <td><span class="label label-primary">{{ company.sections.restauration.dishes.jeudi|to_human }}</span></td>
+              <td>
+              <span class="badge bg-grey">deux repas</span>
+              <span class="label label-primary">{{ company.sections.restauration.dishes.jeudi|to_human }} repas</span>
+              </td>
               <td><i onclick="remove_dish('jeudi')" class="fa fa-remove" style="color:red"></i></td>
             </tr>
           </tbody></table>

@@ -49,11 +49,11 @@
                       </tr>
                       <tr>
                         <td>Mercredi</td>
-                        <td><span class="label label-primary">{{ company.sections.restauration.dishes.wednesday }} repas</span></td>
+                        <td><span class="label label-primary">{{ company.sections.restauration.dishes.mercredi }} repas</span></td>
                       </tr>
                       <tr>
                         <td>Jeudi</td>
-                        <td><span class="label label-primary">{{ company.sections.restauration.dishes.thursday }} repas</span></td>
+                        <td><span class="label label-primary">{{ company.sections.restauration.dishes.jeudi }} repas</span></td>
                       </tr>
                     </tbody>
                   </table>
@@ -160,25 +160,14 @@
                   <table class="table">
                     <tbody>
                       {% for k,v in company.sections.programme.events.items() %}
-                        {% if v %}
+                        {% if v.registered %}
                           <tr>
                             <td>
-                              <span class="text-primary"><b>
-                                {% if k == "networking" %}
-                                Soirée Networking
-                                {% else %}
-                                Offre Conférence
-                                {% endif %}
-                              </b></span> <span class='label label-primary'>inscrit</span><br>
+                              <span class="text-primary"><b>{{ v.name }}</b></span>
+                              <span class='label label-primary'>inscrit</span><br>
                             </td>
                             <td>
-                              <span class="h4">
-                              {% if k == "networking" %}
-                                Gratuit
-                                {% else %}
-                                400 €
-                              {% endif %}
-                              </span>
+                              <span class="h4">{{ v.price }} €</span>
                             </td>
                           </tr>
                         {% endif %}
