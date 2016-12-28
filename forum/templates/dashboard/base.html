@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='plugins/select2/select2.min.css') }}">
   <!-- bootstrap slider -->
   <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bootstrap-slider/slider.css') }}">
+  <!-- bootstrap editable -->
+  <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -168,6 +170,10 @@
 <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
 <!-- Notify -->
 <script src="{{ url_for('static', filename='js/Notify.js') }}"></script>
+<!-- bootstrap editable -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+<script src="{{ url_for('static', filename='js/address.js') }}"></script>
+
 <!-- Page script -->
 <script>
   $(function () {
