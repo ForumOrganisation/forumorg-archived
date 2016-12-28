@@ -68,8 +68,8 @@
             "programme": {
                 "completed": true, 
                 "events": {
-                    "conference": false, 
-                    "networking": false
+                    "conference": true, 
+                    "networking": true
                 }
             }
         }, 
