@@ -1,98 +1,116 @@
-{% extends "dashboard/section.html" %} {% set title = 'Programme' %} {% block main %}
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Liste des évènements</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body table-responsive no-padding">
-          <table class="table">
-            <tbody>
-              <tr bgcolor="#F6FCFD">
-                <td>
+{% extends "dashboard/section.html" %}
+{% set title = 'Programme' %}
+{% block main %}
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">Liste des évènements</h3>
+      </div><!-- /.box-header -->
+      <div class="box-body table-responsive no-padding">
+        <table class="table">
+          <tbody>
+            <tr {% if company.sections.programme.events.conference %}bgcolor="#F6FCFD"{% endif %}>
+              <td>
+                <br>
+                <div class="col-md-1">
+                  <div class="product-img"><img alt="Product Image" src="{{ url_for('static', filename='images/conf.png') }}"></div>
+                </div>
+                <div class="col-md-11">
+                  <span class="text-primary"><b>Offre conférence</b></span>
+                  {% if company.sections.programme.events.conference %}
+                    <span class='label label-primary'>Inscrit</span><br>
+                  {% endif %}
+                  <span class="text-muted">Une conférence privilège vous permet de bénéficier d'une communication spécifique de la part de Forum Organisation sur les profils que vous souhaitez...</span><br>
                   <br>
-                  <div class="col-md-1">
-                    <div class="product-img"><img alt="Product Image" src="../static/images/conf.png"></div>
-                  </div>
-                  <div class="col-md-11">
-                    <span class="text-primary"><b>Offre conférence</b></span> <span class="label label-primary">Inscrit</span><br>
-                    <span class="text-muted">Une conférence privilège vous permet de bénéficier d'une communication spécifique de la part de Forum Organisation sur les profils que vous souhaitez...</span><br>
-                    <br>
-                  </div>
-                </td>
-                <td>
+                </div>
+              </td>
+              <td>
+                <br>
+                <br>
+                <div style="text-align:center;">
+                  <font size="3">400 €</font>
+                </div>
+              </td>
+              <td>
+                <br>
+                <br>
+                <div style="text-align:center;">
+                  <button class="btn btn-block btn-default" type="button" onclick="update_event('conference')">
+                    {% if company.sections.programme.events.conference %}
+                      Se désinsrire
+                    {% else %}
+                      S'inscrire
+                    {% endif %}
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr {% if company.sections.programme.events.networking %}bgcolor="#F6FCFD"{% endif %}>
+              <td>
+                <br>
+                <div class="col-md-1">
+                  <div class="product-img"><img alt="Product Image" src="{{ url_for('static', filename='images/to.png') }}"></div>
+                </div>
+                <div class="col-md-11">
+                  <span class="text-primary"><b>Soirée networking</b></span>
+                  {% if company.sections.programme.events.networking %}
+                    <span class='label label-primary'>Inscrit</span><br>
+                  {% endif %}
+                  <span class="text-muted">La soirée networking aura lieu mercredi soir à partir de 18 h. C'est une occasion unique de participer à une conférence sur le rectrutement innovant...</span><br>
                   <br>
-                  <br>
-                  <div style="text-align:center;">
-                    <font size="3">400 €</font>
-                  </div>
-                </td>
-                <td>
-                  <br>
-                  <br>
-                  <div style="text-align:center;">
-                    <button class="btn btn-block btn-default" type="button">Se désinscrire</button>
-                  </div>
-                </td>
-              </tr>
-              <tr bgcolor="#F6FCFD">
-                <td>
-                  <br>
-                  <div class="col-md-1">
-                    <div class="product-img"><img alt="Product Image" src="../static/images/to.png"></div>
-                  </div>
-                  <div class="col-md-11">
-                    <span class="text-primary"><b>Soirée networking</b></span> <span class="label label-primary">Inscrit</span><br>
-                    <span class="text-muted">La soirée networking aura lieu mercredi soir à partir de 18 h. C'est une occasion unique de participer à une conférence sur le rectrutement innovant...</span><br>
-                    <br>
-                  </div>
-                </td>
-                <td>
-                  <br>
-                  <br>
-                  <div style="text-align:center;">
-                    <font size="3">Gratuit</font>
-                  </div>
-                </td>
-                <td>
-                  <br>
-                  <br>
-                  <div style="text-align:center;">
-                    <button class="btn btn-block btn-default" type="button">Se désinscrire</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <br>
-                  <div class="col-md-1">
-                    <div class="product-img"><img alt="Product Image" src="../static/images/tv4.png"></div>
-                  </div>
-                  <div class="col-md-11">
-                    <span class="text-primary"><b>Web TV</b></span><br>
-                    <span class="text-muted">L'interview aura lieu pendant le salon et sera diffusée pendant le salon et après le salon sur notre plateforme WebTV Forum Organisation...</span><br>
-                    <br>
-                  </div>
-                </td>
-                <td>
-                  <br>
-                  <br>
-                  <div style="text-align:center;">
-                    <font size="3">500 €</font>
-                  </div>
-                </td>
-                <td>
-                  <br>
-                  <br>
-                  <div style="text-align:center;">
-                    <button class="btn btn-block btn-primary" type="button">S'inscrire</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div><!-- /.box-body -->
-      </div><!-- /.box -->
-    </div>
+                </div>
+              </td>
+              <td>
+                <br>
+                <br>
+                <div style="text-align:center;">
+                  <font size="3">Gratuit</font>
+                </div>
+              </td>
+              <td>
+                <br>
+                <br>
+                <div style="text-align:center;">
+                  <button class="btn btn-block btn-default" type="button" onclick="update_event('networking')">
+                  {% if company.sections.programme.events.networking %}
+                    Se désinsrire
+                  {% else %}
+                    S'inscrire
+                  {% endif %}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- /.box-body -->
+    </div><!-- /.box -->
   </div>
+</div>
 {% endblock main %}
+
+{% block scripts %}
+<script type="text/javascript">
+var company = {{ company|tojson }};
+
+function update_event(event, value) {
+    var r = confirm("Confirmer votre choix ?");
+    if (r) {
+        var company = {{ company|tojson }};
+        company.sections.programme.events[event] = !company.sections.programme.events[event];
+        $.ajax({
+            type: "POST",
+            url: "{{ url_for('update_company') }}",
+            data: {"company": JSON.stringify(company)},
+            success: function() {
+                Notify("Programme mis à jour.");
+                setTimeout(function(){
+                    location.reload();
+                }, 1000); 
+            }
+        });
+    }
+}
+</script>
+{% endblock scripts %}
+

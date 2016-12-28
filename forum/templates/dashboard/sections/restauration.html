@@ -16,13 +16,13 @@
             </tr>
             <tr>
               <td>Mercredi</td>
-              <td><span class="label label-primary">{{ company.sections.restauration.dishes.wednesday }}</span></td>
-              <td><i onclick="remove_dish('mercredi', '{{ company.sections.restauration.dishes.wednesday }}')" class="fa fa-remove" style="color:red"></i></td>
+              <td><span class="label label-primary">{{ company.sections.restauration.dishes.mercredi|to_human }}</span></td>
+              <td><i onclick="remove_dish('mercredi')" class="fa fa-remove" style="color:red"></i></td>
             </tr>
             <tr>
               <td>Jeudi</td>
-              <td><span class="label label-primary">{{ company.sections.restauration.dishes.thursday }}</span></td>
-              <td><i onclick="remove_dish('jeudi', '{{ company.sections.restauration.dishes.thursday }}')" class="fa fa-remove" style="color:red"></i></td>
+              <td><span class="label label-primary">{{ company.sections.restauration.dishes.jeudi|to_human }}</span></td>
+              <td><i onclick="remove_dish('jeudi')" class="fa fa-remove" style="color:red"></i></td>
             </tr>
           </tbody></table>
         </div>
@@ -44,12 +44,12 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <div class="row">
+            <div class="row r-center">
                 <div class="col-md-4">
 
                   <div class="form-group">
                     <label>jour</label>
-                    <select class="form-control day" style="width: 100%;">
+                    <select class="form-control select2 day" style="width: 100%;">
                       <option>mercredi</option>
                       <option>jeudi</option>
                     </select>
@@ -59,7 +59,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>combien</label>
-                    <select class="form-control qty" style="width: 100%;">
+                    <select class="form-control select2 qty" style="width: 100%;">
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
@@ -71,7 +71,6 @@
 
 
                 <div class="col-md-4">
-                  <br>
                   <button id="confirm_dish" type="submit" class="btn btn-primary">Confirmer</button>
                 </div>
 
@@ -91,62 +90,41 @@ $('#confirm_dish').on('click', function(e) {
     e.preventDefault();
     var company = {{ company|tojson }};
     var dishes = company.sections.restauration.dishes;
-    var dish = {
-       day: $(".day").val(),
-       qty: $(".qty").val(),
-    };
-    console.log(dish.day);
-    console.log(dish.qty);
-    if (dish.day && dish.qty) {
-      if (dish.day == 'mercredi'){
-        dishes['wednesday'] = Number(dishes['wednesday']) + Number(dish.qty);
-      } else if (dish.day == 'jeudi'){
-        dishes['thursday'] = Number(dishes['thursday']) + Number(dish.qty);
+    var day = $(".day").val();
+    var qty = Number($(".qty").val());
+    dishes[day] += qty;
+
+    $.ajax({
+      type: "POST",
+      url: "{{ url_for('update_company') }}",
+      data: {"company": JSON.stringify(company)},
+      success: function() {
+          Notify("Changements sauvegardés.");
+          setTimeout(function(){
+              location.reload();
+          }, 1000); 
       }
-        $.ajax({
-            type: "POST",
-            url: "{{ url_for('update_company') }}",
-            data: {"company": JSON.stringify(company)},
-            success: function() {
-                Notify("Changements sauvegardés.");
-                setTimeout(function(){
-                    location.reload();
-                }, 1000); 
-            }
-        });
-    }
-    else {
-        Notify("Veuillez remplir tous les champs.", null, null, "error");
-    }
+    });
     return false;
 });
 
-function remove_dish(day, quantity) {
+function remove_dish(day) {
     var r = confirm("Confirmer la suppresion ?");
     if (r) {
         var company = {{ company|tojson }};
-        if (quantity > 0){
-          if (day == 'mercredi'){
-            company.sections.restauration.dishes['wednesday'] = company.sections.restauration.dishes['wednesday'] - 1;
-          } else if (day == 'jeudi'){
-            company.sections.restauration.dishes['thursday'] = company.sections.restauration.dishes['thursday'] - 1;
-          }
-        
+        var dishes = company.sections.restauration.dishes;
+        dishes[day] = 0;
         $.ajax({
             type: "POST",
             url: "{{ url_for('update_company') }}",
             data: {"company": JSON.stringify(company)},
             success: function() {
-                Notify("Suppression confirmée..");
+                Notify("Suppression confirmée.");
                 setTimeout(function(){
                     location.reload();
                 }, 1000); 
             }
         });
-
-        } else {
-          Notify("Le nombre de repas ne peut être négatif.", null, null, "error");
-        }
     }
 }
 </script>

@@ -5,10 +5,10 @@
             "equipement": {
                 "completed": true, 
                 "general": {
-                    "duration": "2", 
+                    "duration": 2, 
                     "equiped": "true", 
-                    "banner": "test", 
-                    "size": "9"
+                    "banner": "AMAZON", 
+                    "size": 9
                 }, 
                 "furniture": {
                     "Mange-debout - 89 \u20ac": 1, 
@@ -19,8 +19,8 @@
             "restauration": {
                 "completed": true, 
                 "dishes": {
-                    "wednesday": 2, 
-                    "thursday": 2
+                    "mercredi": 4,
+                    "jeudi": 5
                 }
             }, 
             "badges": {
@@ -43,7 +43,7 @@
                         "comment": "eh", 
                         "arrival_place": "Part-Dieu", 
                         "departure_place": "Part-Dieu", 
-                        "nb_persons": "2", 
+                        "nb_persons": 2, 
                         "phone": "07-88-88-88-88", 
                         "departure_time": "23/09/1997 09:09"
                     }, 
@@ -51,7 +51,7 @@
                         "comment": "ne", 
                         "arrival_place": "Part-Dieu", 
                         "departure_place": "Part-Dieu", 
-                        "nb_persons": "1", 
+                        "nb_persons": 1, 
                         "phone": "09 99 99 99 99", 
                         "departure_time": "23/09/2090 09:09"
                     }, 
@@ -59,7 +59,7 @@
                         "comment": "GG", 
                         "arrival_place": "Part-Dieu", 
                         "departure_place": "Part-Dieu", 
-                        "nb_persons": "4", 
+                        "nb_persons": 4, 
                         "phone": "66 66 66 66 66", 
                         "departure_time": "31/10/2099 09:55"
                     }
@@ -68,8 +68,8 @@
             "programme": {
                 "completed": true, 
                 "events": {
-                    "conference": true, 
-                    "networking": true
+                    "conference": false, 
+                    "networking": false
                 }
             }
         }, 

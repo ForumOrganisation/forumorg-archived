@@ -160,7 +160,7 @@ $('#confirm_transport').on('click', function(e) {
     var transport = {
        departure_place: $(".from").val(),
        arrival_place: $(".to").val(),
-       nb_persons: $("#persons").val(),
+       nb_persons: Number($("#persons").val()),
        comment: $("#comment").val(),
        phone: $("#phone").val(),
        departure_time: $("#datetime").val()
