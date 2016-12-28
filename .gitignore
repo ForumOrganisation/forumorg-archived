@@ -2,7 +2,8 @@
 *.json
 TODO
 .Python
-!sample.json
+!sections.json
+!companies.json
 
 *.py[co]
 *.DS_*
