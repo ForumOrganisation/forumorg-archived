@@ -131,7 +131,7 @@
                           <tr>
                             <td>{{ k }}</td>
                             <td><span class="badge bg-blue">{{ v }}</span></td>
-                            <td><span class="badge bg-blue">30 €</span></td>
+                            <td><span class="badge bg-blue">{{ make_price(k,v) }} €</span></td>
                             <td><i onclick="remove_furniture('{{ k }}', '{{ v }}')" class="fa fa-remove" style="color:red"></i></td>
                           </tr>
                           {% endfor %}
@@ -166,15 +166,15 @@
                   <div class="form-group">
                     <label>item</label>
                     <select class="form-control select2 name" style="width: 100%;">
-                      <option>Banque à hôtesse	- 89 €</option>
-                      <option>Chaise - 35 €</option>
-                      <option>Chauffeuse - 67 €</option>
-                      <option>Mange-debout	- 89 €</option>
-                      <option>Portemanteau - 35 €</option>
-                      <option>Ecran LCD 26" - 67 €</option>
-                      <option>Ecran LCD 32" - 60 €</option>
-                      <option>Ecran LCD 42" - 29 €</option>
-                      <option>Ecran LCD 52" - 78 €</option>
+                      <option>Banque à hôtesse (89 €)</option>
+                      <option>Chaise (35 €)</option>
+                      <option>Chauffeuse (67 €)</option>
+                      <option>Mange-debout (89 €)</option>
+                      <option>Portemanteau (35 €)</option>
+                      <option>Ecran LCD 26" (67 €)</option>
+                      <option>Ecran LCD 32" (60 €)</option>
+                      <option>Ecran LCD 42" (29 €)</option>
+                      <option>Ecran LCD 52" (78 €)</option>
                     </select>
                   </div>
                 </div>
@@ -197,7 +197,7 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>total</label>
-                    <p>132 €</p>
+                    <p class="price">132 €</p>
                   </div>
                 </div>
 
@@ -213,9 +213,14 @@
   </div>
 </div>
 {% endblock main %}
-
 {% block scripts %}
 <script type="text/javascript">
+function update_price(price) {
+  price = price.split("(")[1].split(" ")[0];
+  price = Number($(".quantity").val()) * Number(price);
+  $(".price").html(price + " €");
+}
+
 $("document").ready(function() {
   {% set general = company.sections.equipement.general %};
 
@@ -223,11 +228,21 @@ $("document").ready(function() {
   var $size = $('.size').select2();
   var $equiped = $('.equiped').select2();
   var $bandeau = $('.bandeau').select2();
+  var $name = $('.name').select2();
+  var $quantity = $('.quantity').select2();
 
   $duration.val("{{ general.duration }}").trigger("change");
   $size.val("{{ general.size }}").trigger("change");
   $equiped.val("{{ general.equiped }}").trigger("change");
   $bandeau.val("{{ general.bandeau }}").trigger("change");
+
+  $name.on("select2:select", function (e) {
+    update_price(e.params.data.text);
+  });
+
+  $quantity.on("select2:select", function (e) {
+    update_price($(".name").val());
+  });
 });
 
 $('#confirm_stand').on('click', function(e) {
@@ -303,4 +318,3 @@ function remove_furniture(name, quantity) {
 }
 </script>
 {% endblock scripts %}
-
