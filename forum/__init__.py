@@ -31,6 +31,7 @@ def make_price():
     def _make_price(item, qty):
         return int(item.split("(")[1].split(" ")[0]) * int(qty)
     return dict(make_price=_make_price)
+
 # Jinja Filters
 @app.template_filter('format_dt')
 def format_dt(dt):
