@@ -12,9 +12,6 @@
                     "bandeau": "avec"
                 }, 
                 "furniture": {
-                    "Mange-debout - 89 \u20ac": 1, 
-                    "Ecran LCD 26\" - 67 \u20ac": 2, 
-                    "Banque \u00e0 h\u00f4tesse - 89 \u20ac": 1
                 }
             }, 
             "restauration": {
@@ -69,8 +66,22 @@
             "programme": {
                 "completed": true, 
                 "events": {
-                    "conference": true, 
-                    "networking": true
+                    "conference": 
+                    {
+                        "name": "Offre Conférence",
+                        "price": 400,
+                        "registered": true,
+                        "image": "images/conf.png",
+                        "description": "Une conférence privilège vous permet de bénéficier d'une communication spécifique de la part de Forum Organisation sur les profils que vous souhaitez..."
+                    },
+                    "networking":
+                    {
+                        "name": "Soirée Networking",
+                        "price": 0,
+                        "registered": true,
+                        "image": "images/to.png",
+                        "description": "La soirée networking aura lieu mercredi soir à partir de 18h."
+                    }
                 }
             }
         }, 

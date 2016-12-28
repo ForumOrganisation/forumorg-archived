@@ -18,6 +18,10 @@
                             <td><span class="badge bg-blue">{{ v }}</span></td>
                             <td><span class="badge bg-blue">30 €</span></td>
                           </tr>
+                        {% else %}
+                          <tr>
+                            <td colspan="4"><h2 class="lead text-center">Aucun mobilier supplémentaire trouvé :(</h2></td>
+                          </tr>
                         {% endfor %}
                       </tbody>
                   </table>

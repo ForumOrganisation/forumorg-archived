@@ -10,34 +10,33 @@
       <div class="box-body table-responsive no-padding">
         <table class="table">
           <tbody>
-            <tr {% if company.sections.programme.events.conference %}bgcolor="#F6FCFD"{% endif %}>
+            {% for k,v in company.sections.programme.events.items() %}
+            <tr {% if v.registered %}bgcolor="#F6FCFD"{% endif %}>
               <td>
                 <br>
                 <div class="col-md-1">
-                  <div class="product-img"><img alt="Product Image" src="{{ url_for('static', filename='images/conf.png') }}"></div>
+                  <div class="product-img"><img alt="Product Image" src="{{ url_for('static', filename=v.image) }}"></div>
                 </div>
                 <div class="col-md-11">
-                  <span class="text-primary"><b>Offre conférence</b></span>
-                  {% if company.sections.programme.events.conference %}
+                  <span class="text-primary"><b>{{ v.name }}</b></span>
+                  {% if v.registered %}
                     <span class='label label-primary'>Inscrit</span><br>
                   {% endif %}
-                  <span class="text-muted">Une conférence privilège vous permet de bénéficier d'une communication spécifique de la part de Forum Organisation sur les profils que vous souhaitez...</span><br>
+                  <span class="text-muted">{{ v.description }}</span><br>
                   <br>
                 </div>
               </td>
               <td>
                 <br>
                 <br>
-                <div style="text-align:center;">
-                  <span class="h4">400 €</span>
-                </div>
+                <span class="h4">{{ v.price }} €</span>
               </td>
               <td>
                 <br>
                 <br>
                 <div style="text-align:center;">
                   <button class="btn btn-block btn-default" type="button" onclick="update_event('conference')">
-                    {% if company.sections.programme.events.conference %}
+                    {% if v.registered %}
                       Se désinsrire
                     {% else %}
                       S'inscrire
@@ -46,41 +45,7 @@
                 </div>
               </td>
             </tr>
-            <tr {% if company.sections.programme.events.networking %}bgcolor="#F6FCFD"{% endif %}>
-              <td>
-                <br>
-                <div class="col-md-1">
-                  <div class="product-img"><img alt="Product Image" src="{{ url_for('static', filename='images/to.png') }}"></div>
-                </div>
-                <div class="col-md-11">
-                  <span class="text-primary"><b>Soirée networking</b></span>
-                  {% if company.sections.programme.events.networking %}
-                    <span class='label label-primary'>Inscrit</span><br>
-                  {% endif %}
-                  <span class="text-muted">La soirée networking aura lieu mercredi soir à partir de 18 h. C'est une occasion unique de participer à une conférence sur le rectrutement innovant...</span><br>
-                  <br>
-                </div>
-              </td>
-              <td>
-                <br>
-                <br>
-                <div style="text-align:center;">
-                  <font size="3">Gratuit</font>
-                </div>
-              </td>
-              <td>
-                <br>
-                <br>
-                <div style="text-align:center;">
-                  <button class="btn btn-block btn-default" type="button" onclick="update_event('networking')">
-                  {% if company.sections.programme.events.networking %}
-                    Se désinsrire
-                  {% else %}
-                    S'inscrire
-                  {% endif %}
-                </div>
-              </td>
-            </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div><!-- /.box-body -->
