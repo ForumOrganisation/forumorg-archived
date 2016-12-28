@@ -1,6 +1,7 @@
 {% extends "dashboard/section.html" %}
 {% set title = 'Bon de commande' %}
 {% block main %}
+{% set count = [0] %}
 <div class="row">
     <div class="pad margin no-print">
       <div class="callout callout-info" style="margin-bottom: 0!important;">
@@ -61,16 +62,17 @@
       </div>
       <div class="row">
         <div class="col-xs-12 table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped" width="240">
                 <thead>
                 <tr>
-                  <th>Produit</th>
-                  <th>Quantité</th>
-                  <th>Sous-total</th>
+                  <th width="70%">Produit</th>
+                  <th width="15%">Quantité</th>
+                  <th width="15%">Sous-total</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for k,v in company.sections.equipement.furniture.items() %}
+                  {% if count.append(count.pop() + make_price(k, v)) %}{% endif %} 
                 <tr>
                   <td>{{ k }}</td>
                   <td>{{ v }}</td>
@@ -89,17 +91,18 @@
       </div>
       <div class="row">
         <div class="col-xs-12 table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped" width="240">
                 <thead>
                 <tr>
-                  <th>Jour</th>
-                  <th>Nombre de repas</th>
-                  <th>Sous-total</th>
+                  <th width="70%">Jour</th>
+                  <th width="15%">Nombre de repas</th>
+                  <th width="15%">Sous-total</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for k,v in company.sections.restauration.dishes.items() %}
                 {% if v != 0 %}
+                {% if count.append(count.pop() + v*20) %}{% endif %} 
                 <tr>
                   <td>{{ k|capitalize }}</td>
                   <td>{{ v }}</td>
@@ -119,16 +122,17 @@
       </div>
       <div class="row">
         <div class="col-xs-12 table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped" width="240">
                 <thead>
                 <tr>
-                  <th>Nom de l'évènement</th>
-                  <th>Sous-total</th>
+                  <th width="85%">Nom de l'évènement</th>
+                  <th width="15%">Sous-total</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for k,v in company.sections.programme.events.items() %}
                 {% if v.registered %}
+                {% if count.append(count.pop() + v.price) %}{% endif %} 
                 <tr>
                   <td>{{ v.name }}</td>
                   <td>{{ v.price }} €</td>
@@ -159,7 +163,7 @@
             <table class="table">
               <tbody><tr>
                 <th style="width:50%">Sous-total (€)</th>
-                <td>250.30</td>
+                <td>{{ count.0 }}</td>
               </tr>
               <tr>
                 <th>T.V.A</th>
@@ -167,7 +171,7 @@
               </tr>
               <tr>
                 <th>Total (€)</th>
-                <td>265.24</td>
+                <td>{{ count.0 }}</td>
               </tr>
             </tbody></table>
           </div>
@@ -187,3 +191,12 @@
 {% endblock main %}
 {% block scripts %}
 {% endblock scripts %}
+
+<script type="text/javascript">
+function calculate_sum(price) {
+  price = price.split("(")[1].split(" ")[0];
+  price = Number($(".quantity").val()) * Number(price);
+  $(".price").html(price + " €");
+}
+
+</script>
