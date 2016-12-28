@@ -191,12 +191,4 @@
 {% endblock main %}
 {% block scripts %}
 {% endblock scripts %}
-
-<script type="text/javascript">
-function calculate_sum(price) {
-  price = price.split("(")[1].split(" ")[0];
-  price = Number($(".quantity").val()) * Number(price);
-  $(".price").html(price + " €");
-}
-
 </script>

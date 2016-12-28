@@ -47,6 +47,13 @@
         "registered":false,
         "image":"images/to.png",
         "description":"La soirée networking aura lieu mercredi soir à partir de 18h."
+      },
+      "webtv":{
+        "name":"Web TV",
+        "price":300,
+        "registered":true,
+        "image":"images/tv4.png",
+        "description":"L'interview aura lieu pendant le salon et sera diffusée pendant et après le forum sur le site WebTV ainsi que sur nos réseaux sociaux..."
       }
     }
   }
