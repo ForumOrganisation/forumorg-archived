@@ -55,6 +55,7 @@
       </div>
       <!-- /.row -->
 
+      {% if company.sections.equipement.furniture.items() %}
       <div class="box-header">
         <h3 class="box-title">Liste des équipements</h3>
       </div>
@@ -63,47 +64,26 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                  <th>Qty</th>
-                  <th>Product</th>
-                  <th>Serial #</th>
-                  <th>Description</th>
-                  <th>Subtotal</th>
+                  <th>Produit</th>
+                  <th>Quantité</th>
+                  <th>Sous-total</th>
                 </tr>
                 </thead>
                 <tbody>
+                {% for k,v in company.sections.equipement.furniture.items() %}
                 <tr>
-                  <td>1</td>
-                  <td>Call of Duty</td>
-                  <td>455-981-221</td>
-                  <td>El snort testosterone trophy driving gloves handsome</td>
-                  <td>$64.50</td>
+                  <td>{{ k }}</td>
+                  <td>{{ v }}</td>
+                  <td>{{ make_price(k, v) }} €</td>
                 </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Need for Speed IV</td>
-                  <td>247-925-726</td>
-                  <td>Wes Anderson umami biodiesel</td>
-                  <td>$50.00</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Monsters DVD</td>
-                  <td>735-845-642</td>
-                  <td>Terry Richardson helvetica tousled street art master</td>
-                  <td>$10.70</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Grown Ups Blue Ray</td>
-                  <td>422-568-642</td>
-                  <td>Tousled lomo letterpress</td>
-                  <td>$25.99</td>
-                </tr>
+                {% endfor %}
                 </tbody>
              </table>
         </div>
       </div>
+      {% endif %}
 
+      {% if company.sections.restauration.dishes.mercredi != 0 or company.sections.restauration.dishes.jeudi != 0 %}
       <div class="box-header">
         <h3 class="box-title">Liste des repas</h3>
       </div>
@@ -112,47 +92,28 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                  <th>Qty</th>
-                  <th>Product</th>
-                  <th>Serial #</th>
-                  <th>Description</th>
-                  <th>Subtotal</th>
+                  <th>Jour</th>
+                  <th>Nombre de repas</th>
+                  <th>Sous-total</th>
                 </tr>
                 </thead>
                 <tbody>
+                {% for k,v in company.sections.restauration.dishes.items() %}
+                {% if v != 0 %}
                 <tr>
-                  <td>1</td>
-                  <td>Call of Duty</td>
-                  <td>455-981-221</td>
-                  <td>El snort testosterone trophy driving gloves handsome</td>
-                  <td>$64.50</td>
+                  <td>{{ k|capitalize }}</td>
+                  <td>{{ v }}</td>
+                  <td>{{ v*20 }} €</td>
                 </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Need for Speed IV</td>
-                  <td>247-925-726</td>
-                  <td>Wes Anderson umami biodiesel</td>
-                  <td>$50.00</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Monsters DVD</td>
-                  <td>735-845-642</td>
-                  <td>Terry Richardson helvetica tousled street art master</td>
-                  <td>$10.70</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Grown Ups Blue Ray</td>
-                  <td>422-568-642</td>
-                  <td>Tousled lomo letterpress</td>
-                  <td>$25.99</td>
-                </tr>
+                {% endif %}
+                {% endfor %}
                 </tbody>
              </table>
         </div>
       </div>
+      {% endif %}
 
+      {% if company.sections.programme.events.conference.registered or company.sections.programme.events.networking.registered %}
       <div class="box-header">
         <h3 class="box-title">Liste des évènements</h3>
       </div>
@@ -161,46 +122,24 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                  <th>Qty</th>
-                  <th>Product</th>
-                  <th>Serial #</th>
-                  <th>Description</th>
-                  <th>Subtotal</th>
+                  <th>Nom de l'évènement</th>
+                  <th>Sous-total</th>
                 </tr>
                 </thead>
                 <tbody>
+                {% for k,v in company.sections.programme.events.items() %}
+                {% if v.registered %}
                 <tr>
-                  <td>1</td>
-                  <td>Call of Duty</td>
-                  <td>455-981-221</td>
-                  <td>El snort testosterone trophy driving gloves handsome</td>
-                  <td>$64.50</td>
+                  <td>{{ v.name }}</td>
+                  <td>{{ v.price }} €</td>
                 </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Need for Speed IV</td>
-                  <td>247-925-726</td>
-                  <td>Wes Anderson umami biodiesel</td>
-                  <td>$50.00</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Monsters DVD</td>
-                  <td>735-845-642</td>
-                  <td>Terry Richardson helvetica tousled street art master</td>
-                  <td>$10.70</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Grown Ups Blue Ray</td>
-                  <td>422-568-642</td>
-                  <td>Tousled lomo letterpress</td>
-                  <td>$25.99</td>
-                </tr>
+                {% endif %}
+                {% endfor %}
                 </tbody>
              </table>
         </div>
       </div>
+      {% endif %}
 
       <div class="row">
         <!-- accepted payments column -->
@@ -209,7 +148,7 @@
           <img src="{{ url_for('static', filename='images/cheque.png') }}" alt="Chèque">
 
           <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-            Envoyer un chèque à l'adresse...
+            Envoyer un chèque à notre adresse.
           </p>
         </div>
         <!-- /.col -->
@@ -241,9 +180,6 @@
       <div class="row no-print">
         <div class="col-xs-12">
           <a href="javascript:window.print()" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Imprimer Bon de commande</a>
-          <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
-            <i class="fa fa-download"></i> Générer PDF
-          </button>
         </div>
       </div>
     </section>
