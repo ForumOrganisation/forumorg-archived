@@ -11,16 +11,16 @@ from company import validate_login
 
 ######### ADMIN ###########
 
-@app.route('/admin')
-@app.route('/admin/<page>')
+@app.route('/dashboard')
+@app.route('/dashboard/<page>')
 @login_required
-def admin(page=None):
+def dashboard(page=None):
     # asking for specific page
     if page:
-        return render_template('admin/sections/{}.html'.format(page))
+        return render_template('dashboard/sections/{}.html'.format(page))
     # default option is main dashboard
     else:
-        return render_template('admin/admin.html')
+        return render_template('dashboard/dashboard.html')
 
 @app.route('/connexion', methods=["GET", "POST"])
 def login():
@@ -39,7 +39,7 @@ def login():
         # all is good
         company = Company(company_id, password, data=company)
         login_user(company, remember=remember_me)
-        return redirect(request.args.get('next') or url_for('admin'))
+        return redirect(request.args.get('next') or url_for('dashboard'))
     return render_template('login.html')
 
 @app.route('/deconnexion')

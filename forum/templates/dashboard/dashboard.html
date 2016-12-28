@@ -1,4 +1,4 @@
-{% extends "admin/base_imp.html" %} {% set title = 'Vue globale' %} {% block content %} 
+{% extends "dashboard/base_imp.html" %} {% set title = 'Vue globale' %} {% block content %} 
 <!-- Equipement/Restauration -->
   <div class="row">
     <div class="col-md-6">
@@ -136,7 +136,7 @@
                   </table>
                 </div><!-- /.box-body -->
               </div>
-              <strong><a href="{{ url_for('admin', page='badges') }}"><span class="pull-right badge bg-grey">+ Plus d'informations</span></a></strong>
+              <strong><a href="{{ url_for('dashboard', page='badges') }}"><span class="pull-right badge bg-grey">+ Plus d'informations</span></a></strong>
             </div><!-- /.col -->
           </div><!-- /.row -->
         </div><!-- ./box-body -->

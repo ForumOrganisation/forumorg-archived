@@ -1,6 +1,6 @@
 # Perso
 *.json
-/TASKS
+TODO
 .Python
 !sample.json
 
