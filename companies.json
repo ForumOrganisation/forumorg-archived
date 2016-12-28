@@ -1,0 +1,9 @@
+{
+  "companies":[
+    {
+      "id": "admin",
+      "name" : "admin",
+      "password": "admin"
+    }
+  ]
+}

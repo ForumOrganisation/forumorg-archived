@@ -1,0 +1,53 @@
+{
+  "equipement":{
+    "completed":false,
+    "general":{
+      "duration":1,
+      "equiped":"non",
+      "banner":"",
+      "size":0,
+      "bandeau":"sans"
+    },
+    "furniture":{
+
+    }
+  },
+  "restauration":{
+    "completed":false,
+    "dishes":{
+      "mercredi":0,
+      "jeudi":0
+    }
+  },
+  "badges":{
+    "persons":[
+
+    ],
+    "completed":false
+  },
+  "transport":{
+    "completed":false,
+    "transports":[
+
+    ]
+  },
+  "programme":{
+    "completed":false,
+    "events":{
+      "conference":{
+        "name":"Offre Conférence",
+        "price":400,
+        "registered":false,
+        "image":"images/conf.png",
+        "description":"Une conférence privilège vous permet de bénéficier d'une communication spécifique de la part de Forum Organisation sur les profils que vous souhaitez..."
+      },
+      "networking":{
+        "name":"Soirée Networking",
+        "price":0,
+        "registered":false,
+        "image":"images/to.png",
+        "description":"La soirée networking aura lieu mercredi soir à partir de 18h."
+      }
+    }
+  }
+}
