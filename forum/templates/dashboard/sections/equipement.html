@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>durée</label>
+                    <label>durée de participation (jours)</label>
                     <select class="form-control select2 duration" style="width: 100%;">
                       <option>2</option>
                       <option>1</option>
@@ -48,7 +48,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>bandeau</label>
-                    <select class="form-control select2" style="width: 100%;">
+                    <select class="form-control select2 bandeau" style="width: 100%;">
                       <option>Avec</option>
                       <option>Sans</option>
                     </select>
@@ -221,7 +221,17 @@
 {% block scripts %}
 <script type="text/javascript">
 $("document").ready(function() {
-  console.log("lol");
+  {% set general = company.sections.equipement.general %};
+
+  var $duration = $('.duration').select2();
+  var $size = $('.size').select2();
+  var $equiped = $('.equiped').select2();
+  var $bandeau = $('.bandeau').select2();
+
+  $duration.val("{{ general.duration }}").trigger("change");
+  $size.val("{{ general.size }}").trigger("change");
+  $equiped.val("{{ general.equiped }}").trigger("change");
+  $bandeau.val("{{ general.bandeau }}").trigger("change");
 });
 
 $('#confirm_stand').on('click', function(e) {
@@ -232,25 +242,21 @@ $('#confirm_stand').on('click', function(e) {
        duration: Number($(".duration").val()),
        equiped: $(".equiped").val(),
        banner: $("#banner").val(),
-       size: Number($(".size").val())
+       size: Number($(".size").val()),
+       bandeau: $(".bandeau").val()
     };
-    if (general.duration && general.size && general.equiped && general.banner) {
-        company.sections.equipement.general = general;
-        $.ajax({
-            type: "POST",
-            url: "{{ url_for('update_company') }}",
-            data: {"company": JSON.stringify(company)},
-            success: function() {
-                Notify("Changements sauvegardés.");
-                setTimeout(function(){
-                    location.reload();
-                }, 1000); 
-            }
-        });
+    company.sections.equipement.general = general;
+    $.ajax({
+      type: "POST",
+      url: "{{ url_for('update_company') }}",
+      data: {"company": JSON.stringify(company)},
+      success: function() {
+          Notify("Changements sauvegardés.");
+          setTimeout(function(){
+              location.reload();
+          }, 1000); 
     }
-    else {
-        Notify("Veuillez remplir tous les champs.", null, null, "error");
-    }
+    });
     return false;
 });
 

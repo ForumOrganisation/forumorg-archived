@@ -5,10 +5,11 @@
             "equipement": {
                 "completed": true, 
                 "general": {
-                    "duration": 2, 
-                    "equiped": "true", 
-                    "banner": "AMAZON", 
-                    "size": 9
+                    "duration": 1,
+                    "equiped": "non",
+                    "banner": "AMAZON HAP",
+                    "size": 12,
+                    "bandeau": "Avec"
                 }, 
                 "furniture": {
                     "Mange-debout - 89 \u20ac": 1, 
