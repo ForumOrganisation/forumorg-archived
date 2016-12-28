@@ -35,7 +35,7 @@
                 <br>
                 <br>
                 <div style="text-align:center;">
-                  <button class="btn btn-block btn-default" type="button" onclick="update_event('conference')">
+                  <button class="btn btn-block btn-default" type="button" onclick="update_event('{{ k }}')">
                     {% if v.registered %}
                       Se désinsrire
                     {% else %}
@@ -58,11 +58,11 @@
 <script type="text/javascript">
 var company = {{ company|tojson }};
 
-function update_event(event, value) {
+function update_event(event) {
     var r = confirm("Confirmer votre choix ?");
     if (r) {
         var company = {{ company|tojson }};
-        company.sections.programme.events[event] = !company.sections.programme.events[event];
+        company.sections.programme.events[event].registered = !company.sections.programme.events[event].registered;
         $.ajax({
             type: "POST",
             url: "{{ url_for('update_company') }}",

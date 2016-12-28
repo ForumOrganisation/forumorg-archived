@@ -19,4 +19,4 @@ def load_company(company_id):
     return Company(company_id=company_id, data=comp) if comp else None
 
 def validate_login(password_hash, password):
-    return check_password_hash(password_hash, password)
+    return password_hash == password

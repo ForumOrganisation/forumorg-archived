@@ -39,7 +39,10 @@ def login():
         # all is good
         company = Company(company_id, password, data=company)
         login_user(company, remember=remember_me)
-        return redirect(request.args.get('next') or url_for('dashboard'))
+        if company_id == "admin":
+            return redirect('/admin')
+        else:
+            return redirect(request.args.get('next') or url_for('dashboard'))
     return render_template('login.html')
 
 @app.route('/deconnexion')
@@ -55,8 +58,8 @@ def unauthorized_handler():
 def update_company():
     company = request.form.get('company')
     company = json.loads(company)
-    set_company(company)
-    return "Succes."
+    set_company(company["id"], company)
+    return "Success."
 
 ######### VITRINE ###########
 

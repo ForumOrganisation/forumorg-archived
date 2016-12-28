@@ -11,25 +11,21 @@
           <table class="table table-hover">
             <tbody><tr>
               <th>Jour</th>
-              <th>Nombre de repas (2 inclus/jour)</th>
+              <th>Nombre de repas</th>
               <th><i class="fa fa-remove"></i></th>
             </tr>
+            {% for k,v in company.sections.restauration.dishes.items() %}
             <tr>
-              <td>Mercredi</td>
+              <td>{{ k|capitalize }}</td>
               <td>
-              <span class="badge bg-grey">deux repas</span>
-              <span class="label bg-primary">{{ company.sections.restauration.dishes.mercredi|to_human }} repas</span>
+              <span class="label label-default">deux repas inclus</span>
+              {% if v != 0 %}
+              <span class="label label-primary">{{ v|to_human }} repas</span>
+              {% endif %}
               </td>
-              <td><i onclick="remove_dish('mercredi')" class="fa fa-remove" style="color:red"></i></td>
+              <td><i onclick="remove_dish('{{ k }}')" class="fa fa-remove" style="color:red"></i></td>
             </tr>
-            <tr>
-              <td>Jeudi</td>
-              <td>
-              <span class="badge bg-grey">deux repas</span>
-              <span class="label label-primary">{{ company.sections.restauration.dishes.jeudi|to_human }} repas</span>
-              </td>
-              <td><i onclick="remove_dish('jeudi')" class="fa fa-remove" style="color:red"></i></td>
-            </tr>
+            {% endfor %}
           </tbody></table>
         </div>
         <!-- /.box-body -->

@@ -127,18 +127,14 @@
                             <td><span class="badge bg-grey">inclus</span></td>
                             <td><i class="fa fa-remove" style="color:white"></i></td>
                           </tr>                 
-
                           {% for k,v in company.sections.equipement.furniture.items() %}
-
                           <tr>
                             <td>{{ k }}</td>
                             <td><span class="badge bg-blue">{{ v }}</span></td>
                             <td><span class="badge bg-blue">30 €</span></td>
                             <td><i onclick="remove_furniture('{{ k }}', '{{ v }}')" class="fa fa-remove" style="color:red"></i></td>
                           </tr>
-
                           {% endfor %}
-
                         </tbody>
                       </table>
       							</div>

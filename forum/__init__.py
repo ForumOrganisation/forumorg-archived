@@ -1,8 +1,10 @@
 from flask import Flask
 from flask_login import LoginManager
 from flask_admin import Admin
-import storage
+from flask_admin.base import MenuLink
 from admin import CompanyView
+
+import storage
 
 import datetime
 import locale
@@ -20,8 +22,8 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 # Admin Interface
-admin = Admin(app, name='Administrateur')
-admin.add_view(CompanyView(storage.get_companies(), name='Liste des entreprises'))
+admin = Admin(app, name='Interface Admin', index_view=CompanyView(storage.get_companies(), url='/admin'))
+admin.add_link(MenuLink(name='Se deconnecter', url='/deconnexion'))
 
 # Jinja Filters
 @app.template_filter('format_dt')
