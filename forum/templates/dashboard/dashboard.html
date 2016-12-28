@@ -17,7 +17,7 @@
                           <tr>
                             <td>{{ k }}</td>
                             <td><span class="badge bg-blue">{{ v }}</span></td>
-                            <td><span class="badge bg-blue">30 €</span></td>
+                            <td><span class="badge bg-blue">{{ make_price(k,v) }} €</span></td>
                           </tr>
                         {% endfor %}
                       {% else %}
