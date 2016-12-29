@@ -1,6 +1,15 @@
 $(document).ready(function() {
 	"use strict";
 
+/******************** TYPED ********************/  
+$(function() {
+        $(".element").typed({
+            strings: ["Échangez", "Rencontrez", "Recrutez"],
+            typeSpeed: 30,
+            backDelay: 1000,
+        });
+});
+
 /******************** NAVBAR ********************/
 var animationProp = $('.navbar-nemo'); //Navbar wraper
 
@@ -162,6 +171,5 @@ $('#contact-form').on('submit', function(e) {
 
 return false;
 });
-
 
 });

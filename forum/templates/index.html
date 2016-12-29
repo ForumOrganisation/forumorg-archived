@@ -89,14 +89,14 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-7 mb60">
+            <div class="col-md-10 mb60">
                 
                 <div class="logo-home">
                     <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Forum Rhône-Alpes" style="border-radius: 0px; border-color: rgb(255, 255, 255); border-style: none; border-width: 1px;">
                 </div>
 
-                <h1 class="heading-text">Forum Rhône-Alpes<br></h1>
-                <p class="sub-heading">Le n°1 des salons de recrutement d'élèves-ingénieurs de France</p>
+                <h2 class="heading-text"><span class="element">Recrutez</span> au Forum Rhône-Alpes<br></h2>
+                <h3 class="heading-text">Le n°1 des salons de recrutement d'élèves-ingénieurs de France</h3>
 
                 <div class="home-download-btn">
                         
@@ -326,6 +326,30 @@
 <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/k6gmpgta';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
 </body>
 
+<style>
+.typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+</style>
+
 <!-- =========================
      SCRIPTS 
 ============================== -->
@@ -344,6 +368,7 @@
 <script src="{{ url_for('static', filename='js/jquery.datetimepicker.full.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/jquery.countdown.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/application.js') }}"></script>
+<script src="{{ url_for('static', filename='js/typed.min.js') }}"></script>
 <script>
     /******************** ENABLE LINK FOR NAVBAR LOGIN ********************/
     $(document).ready(function() {
