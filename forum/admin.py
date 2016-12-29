@@ -2,6 +2,7 @@ from wtforms import form, fields
 from flask_admin.contrib.pymongo import ModelView, filters
 from flask_admin.model.fields import InlineFormField, InlineFieldList
 from flask_login import current_user
+from flask import flash
 
 import os
 import json
@@ -12,11 +13,16 @@ class CompanyForm(form.Form):
     password = fields.StringField('Mot de passe')
 
 class CompanyView(ModelView):
-    column_list = ('id', 'name', 'password')
+    column_list = ('id', 'name', 'password', 'sections')
+    column_labels = dict(id='Identifiant', name='Nom', password='Mot de passe')
+    column_searchable_list = ('id')
     form = CompanyForm
     create_modal = True
     edit_modal = True
     can_export = True
+    can_delete = False
+    can_view_details = True
+    column_exclude_list = ('sections')
 
     def __init__(self, model, *args, **kwargs):
         super(CompanyView, self).__init__(model, *args, **kwargs)
@@ -35,9 +41,12 @@ class CompanyView(ModelView):
             self._on_model_change(form, model, True)
             self.coll.insert(model)
         except Exception as ex:
-            flash(gettext('Failed to create record. %(error)s', error=str(ex)),
+            if str(ex)[:6] == 'E11000':
+                flash('Une entreprise avec le meme identifiant existe deja.',
                   'error')
-            log.exception('Failed to create record.')
+            else:
+                flash('Failed to create record. {}'.format(str(ex)),
+                  'error')
             return False
         else:
             self.after_model_change(form, model, True)
