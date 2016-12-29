@@ -39,8 +39,12 @@ def format_dt(dt):
         locale.setlocale(locale.LC_ALL, "fr_FR")
     except: # heroku shitteries
         locale.setlocale(locale.LC_ALL, "fr_FR.utf8")
-    dt = datetime.datetime.strptime(dt, format("%d/%m/%Y %H:%M"))
-    dt = dt.strftime("%a %d %b %H:%M")
+
+    try:
+        dt = datetime.datetime.strptime(dt, format("%d/%m/%Y %H:%M"))
+        dt = dt.strftime("%a %d %b %H:%M")
+    except:
+        print('Error in datetime formatting')
     return dt
 
 @app.template_filter('to_human')

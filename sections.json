@@ -21,7 +21,6 @@
   },
   "badges":{
     "persons":[
-
     ],
     "completed":false
   },
@@ -51,7 +50,7 @@
       "webtv":{
         "name":"Web TV",
         "price":300,
-        "registered":true,
+        "registered":false,
         "image":"images/tv4.png",
         "description":"L'interview aura lieu pendant le salon et sera diffusée pendant et après le forum sur le site WebTV ainsi que sur nos réseaux sociaux..."
       }
