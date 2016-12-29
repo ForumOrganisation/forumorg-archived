@@ -116,6 +116,7 @@ $(function(){
            if(!value) {
              return;
            }
+           console.log("value2input");
            console.log(value);
            this.$input.filter('[name="address"]').val(value.address);
            this.$input.filter('[name="town"]').val(value.town);
@@ -161,7 +162,7 @@ $(function(){
     Address.defaults = $.extend({}, $.fn.editabletypes.abstractinput.defaults, {
         tpl: '<div class="editable-address"><label><span>Addresse: </span><input type="text" name="address" class="input-small" placeholder="Ex. 7 Rue de la Paix"></label></div>'+
              '<div class="editable-address"><label><span>Ville: </span><input type="text" name="town" class="input-small" placeholder="Ex. Lyon 69100"></label></div>'+
-             '<div class="editable-address"><label><span>Pays: </span><input type="text" name="country" class="input-mini"  placeholder="Ex. France"></label></div>',
+             '<div class="editable-address"><label><span>Pays: </span><input type="text" name="country" class="input-mini" placeholder="Ex. France"></label></div>',
              
         inputclass: ''
     });
