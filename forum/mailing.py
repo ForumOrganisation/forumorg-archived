@@ -1,10 +1,11 @@
-import requests
+import sendgrid
+import os
+from sendgrid.helpers.mail import *
 
 def send_mail(email, contact_name, company_name, telephone):
     # Create a text/plain message
     me = 'no-reply@forumorg.org'
-    you = ['elmehdi.baha@gmail.com']
-    #you = ['elmehdi.baha@forumorg.org', 'contact-fra@forumorg.org']
+    you = 'elmehdi.baha@forumorg.org'
     subject = '[FRA] Demande de participation ({})'.format(company_name)
     text = """\
     Bonjour !
@@ -19,14 +20,21 @@ def send_mail(email, contact_name, company_name, telephone):
     L'equipe Forum.
     """.format(contact_name, telephone, company_name, email)
 
+    sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+    # Setting from, subject, content, reply to
+    from_email = Email(me)
+    to_email = Email(you)
+    content = Content('text/plain', text)
+    mail = Mail(from_email, subject, to_email, content)
+    mail.personalizations[0].add_bcc(Email('elmehdi.baha@forumorg.org'))
+    # Adding bcc
+    #mail.personalizations[0].add_bcc(Email('elmehdi.baha@forumorg.org'))
+    # Sending email
+    print("Sending email from {}...".format(company_name))
     try:
-        requests.post(
-        "https://api.mailgun.net/v3/sandboxe0de963426a24a9eb4d269c82fb4987f.mailgun.org/messages",
-        auth=("api", "key-64479a70e89891605fa3c663bb55c299"),
-        data={"from": "no-reply <{}>".format(me),
-              "to": you,
-              "subject": subject,
-              "text": text})
-        return "Email sent."
+        response = sg.client.mail.send.post(request_body=mail.get())
+        print("Email sent: {}".format(response.body))
     except:
-        return "Email not sent."
+        print('Big error.')
+    finally:
+        return 'Success.'
