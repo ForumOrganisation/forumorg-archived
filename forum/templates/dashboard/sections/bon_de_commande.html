@@ -194,9 +194,28 @@
             country: "",
         },
         validate: function(value) {
-            if(!(value.address && value.town && value.country)) return 'veuillez remplir tous les champs.'; 
+            if((value.address && value.town && value.country)) {
+              var company = {{ company|tojson }};
+              var full_address = {
+                address: value.address,
+                town: value.town,
+                country: value.country
+              }
+              company.sections.full_address = full_address;
+              $.ajax({
+                type: "POST",
+                url: "{{ url_for('update_company') }}",
+                data: {"company": JSON.stringify(company)},
+                success: function() {
+                  Notify("Changements sauvegardés.");
+                }
+              });
+            } else {
+              return 'veuillez remplir tous les champs.'; 
+            }
         },
         display: function(value) {
+            value = company.sections.full_address;
             if (!(value.address && value.town && value.country)) {
                 $(this).html("Aucune adresse enregistrée.");
                 return;
@@ -205,7 +224,6 @@
               value.address + '<br>'
             + value.town + '<br>'
             + value.country + '<br>';
-
             $(this).html(html); 
         }         
     }); 
