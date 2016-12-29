@@ -5,7 +5,8 @@ $(document).ready(function() {
 $(function() {
         $(".element").typed({
             strings: ["Échangez", "Rencontrez", "Recrutez"],
-            typeSpeed: 30,
+            typeSpeed: 50,
+	    backSpeed: 100,
             backDelay: 1000,
         });
 });
