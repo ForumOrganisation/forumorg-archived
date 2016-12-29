@@ -6,6 +6,7 @@ def send_mail(email, contact_name, company_name, telephone):
     # Create a text/plain message
     me = 'no-reply@forumorg.org'
     you = 'elmehdi.baha@forumorg.org'
+    #you = 'contact-fra@forumorg.org'
     subject = '[FRA] Demande de participation ({})'.format(company_name)
     text = """\
     Bonjour !
@@ -26,15 +27,14 @@ def send_mail(email, contact_name, company_name, telephone):
     to_email = Email(you)
     content = Content('text/plain', text)
     mail = Mail(from_email, subject, to_email, content)
-    mail.personalizations[0].add_bcc(Email('elmehdi.baha@forumorg.org'))
     # Adding bcc
+    mail.personalizations[0].add_bcc(Email('elmehdi.baha@gmail.com'))
     #mail.personalizations[0].add_bcc(Email('elmehdi.baha@forumorg.org'))
     # Sending email
     print("Sending email from {}...".format(company_name))
     try:
         response = sg.client.mail.send.post(request_body=mail.get())
         print("Email sent: {}".format(response.body))
+        return 'Email sent.'
     except:
-        print('Big error.')
-    finally:
-        return 'Success.'
+        return 'Email not sent.'
