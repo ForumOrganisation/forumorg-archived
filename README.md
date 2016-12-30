@@ -23,14 +23,18 @@ pip install -r requirements.txt
 ```
 
 Before starting the application, launch a mongodb instance, and create a database named `heroku_lx65hjrq`.
-Within the database, create a collection named `companies`.
-Finally, set the environnement variable `MONDODB_URI` to its uri.
+Don't forget to set the environnement variable `MONDODB_URI` to the database uri.
 
 ```
 export MONGODB_URI=mongodb://localhost:27017/heroku_lx65hjrq (most of the times)
 ```
+To have access to the admin interface (allows viewing/editing db models), you may also want to set:
 
-To get the project running, simply start the Flask server:
+```
+export ADMIN_ID=your_id && export ADMIN_PASSWORD=your_password
+```
+
+Finally, to get the project running, simply start the Flask server:
 
 ```
 python ./runserver.py
