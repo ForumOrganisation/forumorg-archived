@@ -129,10 +129,11 @@
                           </tr>                 
                           {% for k,v in company.sections.equipement.furniture.items() %}
                           <tr>
-                            <td>{{ k }}</td>
-                            <td><span class="badge bg-blue">{{ v }}</span></td>
-                            <td><span class="badge bg-blue">{{ make_price(k,v) }} €</span></td>
-                            <td><i onclick="remove_furniture('{{ k }}', '{{ v }}')" class="fa fa-remove" style="color:red"></i></td>
+                            <td>{{ v.name }}</td>
+                            <td><span class="badge bg-blue">{{ v.quantity }}</span></td>
+                            <td><span class="badge bg-blue">{{ v.price }}</span></td>
+                            <td><i onclick="remove_furniture('{{ k }}')" class="fa fa-remove" style="color:red"></i></td>
+
                           </tr>
                           {% endfor %}
                         </tbody>
@@ -166,15 +167,9 @@
                   <div class="form-group">
                     <label>item</label>
                     <select class="form-control select2 name" style="width: 100%;">
-                      <option>Banque à hôtesse (89 €)</option>
-                      <option>Chaise (35 €)</option>
-                      <option>Chauffeuse (67 €)</option>
-                      <option>Mange-debout (89 €)</option>
-                      <option>Portemanteau (35 €)</option>
-                      <option>Ecran LCD 26" (67 €)</option>
-                      <option>Ecran LCD 32" (60 €)</option>
-                      <option>Ecran LCD 42" (29 €)</option>
-                      <option>Ecran LCD 52" (78 €)</option>
+                      {% for k,v in company.sections.equipement.furniture.items() %}
+                      <option>{{ v.name }} - {{ v.price }} €</option>
+                      {% endfor %}
                     </select>
                   </div>
                 </div>
@@ -197,7 +192,7 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>total</label>
-                    <p class="price">132 €</p>
+                    <p class="price">98 €</p>
                   </div>
                 </div>
 
@@ -216,7 +211,7 @@
 {% block scripts %}
 <script type="text/javascript">
 function update_price(price) {
-  price = price.split("(")[1].split(" ")[0];
+  price = price.split(/€/g)[0].split(" - ")[1];
   price = Number($(".quantity").val()) * Number(price);
   $(".price").html(price + " €");
 }
@@ -275,14 +270,16 @@ $('#confirm_add').on('click', function(e) {
     e.preventDefault();
     var company = {{ company|tojson }};
     var furnitures = company.sections.equipement.furniture;
-    var name = $(".name").val();
-    var quantity = Number($(".quantity").val());
-    if (furnitures[name]) {
-      furnitures[name] += quantity;
-    } else {
-      furnitures[name] = quantity;
+    var value_quantity = Number($(".quantity").val());
+    var value_name = $(".name").val();
+    value_name = value_name.split(/€/g)[0].split(" - ")[0];
+    for (var furniture in company.sections.equipement.furniture){
+      alert(furniture[name]);
+      if (furniture[name] == value_name){
+        furniture[quantity] += value_quantity;
+      }
     }
-
+      
     $.ajax({
         type: "POST",
         url: "{{ url_for('update_company') }}",
@@ -297,12 +294,12 @@ $('#confirm_add').on('click', function(e) {
     return false;
 });
 
-function remove_furniture(name, quantity) {
+function remove_furniture(name) {
     var r = confirm("Confirmer la suppresion ?");
     if (r) {
         var company = {{ company|tojson }};
         var furnitures = company.sections.equipement.furniture;
-        delete company.sections.equipement.furniture[name];
+        company.sections.equipement.furniture[name][quantity] = 0;
         $.ajax({
             type: "POST",
             url: "{{ url_for('update_company') }}",

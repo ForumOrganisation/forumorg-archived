@@ -9,6 +9,26 @@
       "bandeau":"sans"
     },
     "furniture":{
+      "banque_hotesse":{
+        "name":"Banque a Hotesse",
+        "quantity":0,
+        "price":98
+      },
+      "chaise":{
+        "name":"Chaise",
+        "quantity":0,
+        "price":34
+      },
+      "chauffeuse":{
+        "name":"Chauffeuse",
+        "quantity":0,
+        "price":77
+      },
+      "mange_debout":{
+        "name":"Mange debout",
+        "quantity":0,
+        "price":133
+      }
     }
   },
   "restauration":{

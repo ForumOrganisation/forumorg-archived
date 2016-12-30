@@ -90,7 +90,7 @@
                 <thead>
                 <tr>
                   <th width="70%">Jour</th>
-                  <th width="15%">Quantité</th>
+                  <th width="15%">Nombre de repas</th>
                   <th width="15%">Sous-total</th>
                 </tr>
                 </thead>
@@ -120,8 +120,7 @@
             <table class="table table-striped" width="240">
                 <thead>
                 <tr>
-                  <th width="70%">Nom de l'évènement</th>
-                  <th width="15%">Quantité</th>
+                  <th width="85%">Nom de l'évènement</th>
                   <th width="15%">Sous-total</th>
                 </tr>
                 </thead>
@@ -131,7 +130,6 @@
                 {% if count.append(count.pop() + v.price) %}{% endif %} 
                 <tr>
                   <td>{{ v.name }}</td>
-                  <td>1</td>
                   <td>{{ v.price }} €</td>
                 </tr>
                 {% endif %}
@@ -159,16 +157,16 @@
           <div class="table-responsive">
             <table class="table">
               <tbody><tr>
-                <th style="width:50%">Sous-total</th>
-                <td>{{ count.0 }} €</td>
+                <th style="width:50%">Sous-total (€)</th>
+                <td>{{ count.0 }}</td>
               </tr>
               <tr>
                 <th>T.V.A</th>
-                <td><span class="text-muted">L'association n'étant pas assujettie à la TVA, nos prix sont nets de taxes (TTC)</span></td>
+                <td><span class="text-muted">L'association n'étant pas assujettie à la TVA, nos prix sont nets de taxes (TTC).</span></td>
               </tr>
               <tr>
-                <th>Total</th>
-                <td>{{ count.0 }} €</td>
+                <th>Total (€)</th>
+                <td>{{ count.0 }}</td>
               </tr>
             </tbody></table>
           </div>
@@ -188,48 +186,48 @@
 {% endblock main %}
 {% block scripts %}
 <script type="text/javascript">
-var company = {{ company|tojson }};
-
-$('#address').editable({
-    mode : "inline",
-    value: {
-        address: "", 
-        town: "",
-        country: "",
-    },
-    validate: function(value) {
-        if((value.address && value.town && value.country)) {
-          var full_address = {
-            address: value.address,
-            town: value.town,
-            country: value.country
-          }
-          company.sections.full_address = full_address;
-          $.ajax({
-            type: "POST",
-            url: "{{ url_for('update_company') }}",
-            data: {"company": JSON.stringify(company)},
-            success: function() {
-              Notify("Changements sauvegardés.");
+    $('#address').editable({
+        mode : "inline",
+        value: {
+            address: "", 
+            town: "",
+            country: "",
+        },
+        validate: function(value) {
+            if((value.address && value.town && value.country)) {
+              var company = {{ company|tojson }};
+              var full_address = {
+                address: value.address,
+                town: value.town,
+                country: value.country
+              }
+              company.sections.full_address = full_address;
+              $.ajax({
+                type: "POST",
+                url: "{{ url_for('update_company') }}",
+                data: {"company": JSON.stringify(company)},
+                success: function() {
+                  Notify("Changements sauvegardés.");
+                }
+              });
+            } else {
+              return 'veuillez remplir tous les champs.'; 
             }
-          });
-        } else {
-          return 'veuillez remplir tous les champs.'; 
-        }
-    },
-    display: function(value) {
-        value = company.sections.full_address;
-        if (!(value.address && value.town && value.country)) {
-            $(this).html("Aucune adresse enregistrée.");
-            return;
-        }
-        var html =
-          value.address + '<br>'
-        + value.town + '<br>'
-        + value.country + '<br>';
-        $(this).html(html); 
-    }         
-});
+        },
+        display: function(value) {
+
+            if (!(value.address && value.town && value.country)) {
+                $(this).html("Aucune adresse enregistrée.");
+                return;
+            } 
+            var html =
+              value.address + '<br>'
+            + value.town + '<br>'
+            + value.country + '<br>';
+
+            $(this).html(html); 
+        }         
+    }); 
 </script>
 {% endblock scripts %}
 </script>
