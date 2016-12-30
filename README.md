@@ -31,7 +31,7 @@ export MONGODB_URI=mongodb://localhost:27017/heroku_lx65hjrq (most of the times)
 To have access to the admin interface (allows viewing/editing db models), you may also want to set:
 
 ```
-export ADMIN_ID=your_id; export ADMIN_PASSWORD=your_password
+export ADMIN_ID=your_id && export ADMIN_PASSWORD=your_password
 ```
 
 Finally, to get the project running, simply start the Flask server:
