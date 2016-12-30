@@ -51,7 +51,7 @@
       </div>
       <!-- /.row -->
 
-      {% if company.sections.equipement.furniture.items() %}
+      {% if not company.sections.equipement.furniture|empty_furniture %}
       <div class="box-header">
         <h3 class="box-title">Liste des équipements</h3>
       </div>
@@ -67,12 +67,14 @@
                 </thead>
                 <tbody>
                 {% for k,v in company.sections.equipement.furniture.items() %}
-                  {% if count.append(count.pop() + make_price(k, v)) %}{% endif %} 
+                {% if v.quantity != 0 %}
+                {% if count.append(count.pop() + v.price*v.quantity) %}{% endif %} 
                 <tr>
-                  <td>{{ k }}</td>
-                  <td>{{ v }}</td>
-                  <td>{{ make_price(k, v) }} €</td>
+                  <td>{{ v.name }}</td>
+                  <td>{{ v.quantity }}</td>
+                  <td>{{ v.quantity * v.price }} €</td>
                 </tr>
+                {% endif %}
                 {% endfor %}
                 </tbody>
              </table>
@@ -80,7 +82,7 @@
       </div>
       {% endif %}
 
-      {% if company.sections.restauration.dishes.mercredi != 0 or company.sections.restauration.dishes.jeudi != 0 %}
+      {% if not company.sections.restauration.dishes|empty_dishes %}
       <div class="box-header">
         <h3 class="box-title">Liste des repas</h3>
       </div>
@@ -90,7 +92,7 @@
                 <thead>
                 <tr>
                   <th width="70%">Jour</th>
-                  <th width="15%">Nombre de repas</th>
+                  <th width="15%">Quantité</th>
                   <th width="15%">Sous-total</th>
                 </tr>
                 </thead>
@@ -111,7 +113,7 @@
       </div>
       {% endif %}
 
-      {% if company.sections.programme.events.conference.registered or company.sections.programme.events.networking.registered %}
+      {% if company.sections.programme.events|empty_events %}
       <div class="box-header">
         <h3 class="box-title">Liste des évènements</h3>
       </div>
@@ -157,16 +159,16 @@
           <div class="table-responsive">
             <table class="table">
               <tbody><tr>
-                <th style="width:50%">Sous-total (€)</th>
-                <td>{{ count.0 }}</td>
+                <th style="width:50%">Sous-total</th>
+                <td>{{ count.0 }} €</td>
               </tr>
               <tr>
                 <th>T.V.A</th>
                 <td><span class="text-muted">L'association n'étant pas assujettie à la TVA, nos prix sont nets de taxes (TTC).</span></td>
               </tr>
               <tr>
-                <th>Total (€)</th>
-                <td>{{ count.0 }}</td>
+                <th>Total</th>
+                <td>{{ count.0 }} €</td>
               </tr>
             </tbody></table>
           </div>
@@ -194,7 +196,7 @@
             country: "",
         },
         validate: function(value) {
-            if((value.address && value.town && value.country)) {
+            if(value.address && value.town && value.country) {
               var company = {{ company|tojson }};
               var full_address = {
                 address: value.address,

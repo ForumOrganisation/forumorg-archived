@@ -10,15 +10,17 @@
               <div class="box box-solid">
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
-                {% if company.sections.equipement.furniture.items() %}
+                {% if not company.sections.equipement.furniture|empty_furniture %}
                   <table class="table table-hover">
                       <tbody>
                         {% for k,v in company.sections.equipement.furniture.items() %}
+                        {% if v.quantity > 0 %}
                           <tr>
-                            <td>{{ k }}</td>
-                            <td><span class="badge bg-blue">{{ v }}</span></td>
-                            <td><span class="badge bg-blue">{{ make_price(k,v) }} €</span></td>
+                            <td>{{ v.name }}</td>
+                            <td><span class="badge bg-blue">{{ v.quantity|to_human }}</span></td>
+                            <td><span class="badge bg-blue">{{ v.price }} €</span></td>
                           </tr>
+                        {% endif %}
                         {% endfor %}
                       {% else %}
                       <tr>
@@ -160,7 +162,7 @@
               <div class="box box-solid">
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
-                {% if company.sections.programme.events.conference.registered or company.sections.programme.events.networking.registered %}
+                {% if company.sections.programme.events|empty_events %}
                   <table class="table">
                     <tbody>
                       {% for k,v in company.sections.programme.events.items() %}

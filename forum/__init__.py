@@ -66,4 +66,16 @@ def to_human(num):
     }
     return opts[num]
 
+@app.template_filter('empty_furniture')
+def empty_furniture(f):
+    return sum([v['quantity'] for k,v in f.items()]) == 0
+
+@app.template_filter('empty_events')
+def empty_events(e):
+    return any([v['registered'] for k,v in e.items()])
+
+@app.template_filter('empty_dishes')
+def empty_dishes(d):
+    return sum(d.values()) == 0
+
 import views

@@ -94,47 +94,48 @@
                        <table class="table table-responsive">
                         <tbody>
                           <tr>
-                            <td><span class="text-muted">Banque à hôtesse </span></td>
+                            <td><span class="text-muted">Banque à hôtesse</span></td>
                             <td><span class="badge bg-grey">1</span></td>
                             <td><span class="badge bg-grey">inclus</span></td>
                             <td><i class="fa fa-remove" style="color:white"></i></td>
                           </tr>
 
                           <tr>
-                            <td><span class="text-muted">Chaise </span></td>
+                            <td><span class="text-muted">Chaise</span></td>
                             <td><span class="badge bg-grey">1</span></td>
                             <td><span class="badge bg-grey">inclus</span></td>
                             <td><i class="fa fa-remove" style="color:white"></i></td>
                           </tr>
 
                           <tr>
-                            <td><span class="text-muted">Portemanteau </span></td>
+                            <td><span class="text-muted">Portemanteau</span></td>
                             <td><span class="badge bg-grey">1</span></td>
                             <td><span class="badge bg-grey">inclus</span></td>
                             <td><i class="fa fa-remove" style="color:white"></i></td>
                           </tr>
 
                           <tr>
-                            <td><span class="text-muted">Rail de spots </span></td>
+                            <td><span class="text-muted">Rail de spots</span></td>
                             <td><span class="badge bg-grey">1</span></td>
                             <td><span class="badge bg-grey">inclus</span></td>
                             <td><i class="fa fa-remove" style="color:white"></i></td>
                           </tr>
 
                           <tr>
-                            <td><span class="text-muted">Tabouret haut </span></td>
+                            <td><span class="text-muted">Tabouret haut</span></td>
                             <td><span class="badge bg-grey">1</span></td>
                             <td><span class="badge bg-grey">inclus</span></td>
                             <td><i class="fa fa-remove" style="color:white"></i></td>
-                          </tr>                 
+                          </tr>
                           {% for k,v in company.sections.equipement.furniture.items() %}
+                          {% if v.quantity != 0 %}
                           <tr>
                             <td>{{ v.name }}</td>
                             <td><span class="badge bg-blue">{{ v.quantity }}</span></td>
-                            <td><span class="badge bg-blue">{{ v.price }}</span></td>
+                            <td><span class="badge bg-blue">{{ v.price * v.quantity }} €</span></td>
                             <td><i onclick="remove_furniture('{{ k }}')" class="fa fa-remove" style="color:red"></i></td>
-
                           </tr>
+                          {% endif %}
                           {% endfor %}
                         </tbody>
                       </table>
@@ -168,7 +169,7 @@
                     <label>item</label>
                     <select class="form-control select2 name" style="width: 100%;">
                       {% for k,v in company.sections.equipement.furniture.items() %}
-                      <option>{{ v.name }} - {{ v.price }} €</option>
+                      <option>{{ v.name }} - {{ v.price }} €</option>
                       {% endfor %}
                     </select>
                   </div>
@@ -272,11 +273,10 @@ $('#confirm_add').on('click', function(e) {
     var furnitures = company.sections.equipement.furniture;
     var value_quantity = Number($(".quantity").val());
     var value_name = $(".name").val();
-    value_name = value_name.split(/€/g)[0].split(" - ")[0];
-    for (var furniture in company.sections.equipement.furniture){
-      alert(furniture[name]);
-      if (furniture[name] == value_name){
-        furniture[quantity] += value_quantity;
+    value_name = value_name.split(' - ')[0];
+    for (var key in furnitures){
+      if (furnitures[key].name == value_name) {
+        furnitures[key].quantity += value_quantity;
       }
     }
       
@@ -299,7 +299,7 @@ function remove_furniture(name) {
     if (r) {
         var company = {{ company|tojson }};
         var furnitures = company.sections.equipement.furniture;
-        company.sections.equipement.furniture[name][quantity] = 0;
+        furnitures[name].quantity = 0;
         $.ajax({
             type: "POST",
             url: "{{ url_for('update_company') }}",
