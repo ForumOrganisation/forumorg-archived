@@ -153,8 +153,6 @@ $('#contact-form').on('submit', function(e) {
     }
 
     if (validateEmail(data.email) && data.nom && data.tel && data.nom_complet && response.length != 0) {
-      alert('Captcha validé');
-      /*
       $.ajax({
              type: "GET",
              url: $(this).attr('action'),
@@ -169,11 +167,6 @@ $('#contact-form').on('submit', function(e) {
         $("#send_mail").prop('disabled', false);
         error_msg.fadeIn(500);
         success_msg.fadeOut(500);
-    }
-    */
-    }
-    else {
-      alert('Captcha non validé.');
     }
 
 return false;
