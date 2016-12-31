@@ -1,6 +1,6 @@
 # forum-prod
 
-This is the repository for the official website of [Forum Organisation](https://forum-prod.herokuapp.com).
+This is the repository for the official website of [Forum Rhône-Alpes](http://www.forum-rhone-alpes.com).
 
 ## Getting Started
 
