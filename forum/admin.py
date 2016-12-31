@@ -25,7 +25,6 @@ class CompanyForm(form.Form):
 class CompanyView(ModelView):
     column_list = ('id', 'name', 'password', 'sections')
     column_labels = dict(id='Identifiant', name='Nom', password='Mot de passe')
-    column_searchable_list = ('id')
     form = CompanyForm
     create_modal = True
     edit_modal = True
