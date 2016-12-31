@@ -139,10 +139,10 @@ function validateEmail(email) {
 |----------------------------------------------------------------------------
 */
 
-
 /******************** CONTACT FORM ********************/
 $('#contact-form').on('submit', function(e) {
     e.preventDefault();
+    var response = grecaptcha.getResponse();  
     var error_msg = $(this).find('.error-msg');
     var success_msg = $(this).find('.success-msg');
     var data = {
@@ -151,24 +151,30 @@ $('#contact-form').on('submit', function(e) {
        tel: $(this).find('input[name="tel"]').val(),
        email: $(this).find('input[name="email"]').val()
     }
-    console.log(data);
 
-   if (validateEmail(data.email) && data.nom && data.tel && data.nom_complet) {
+    if (validateEmail(data.email) && data.nom && data.tel && data.nom_complet && response.length != 0) {
+      alert('Captcha validé');
+      /*
       $.ajax({
-           type: "GET",
-           url: $(this).attr('action'),
-           data: data,
-           success: function() {
-              $("#send_mail").prop('disabled', true);
-              success_msg.fadeIn(500);
-              error_msg.fadeOut(500);
-           }
+             type: "GET",
+             url: $(this).attr('action'),
+             data: data,
+             success: function() {
+                $("#send_mail").prop('disabled', true);
+                success_msg.fadeIn(500);
+                error_msg.fadeOut(500);
+        }
       });
-   } else {
-      $("#send_mail").prop('disabled', false);
-      error_msg.fadeIn(500);
-      success_msg.fadeOut(500);
-   }
+    } else {
+        $("#send_mail").prop('disabled', false);
+        error_msg.fadeIn(500);
+        success_msg.fadeOut(500);
+    }
+    */
+    }
+    else {
+      alert('Captcha non validé.');
+    }
 
 return false;
 });
