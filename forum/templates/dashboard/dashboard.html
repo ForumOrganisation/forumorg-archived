@@ -18,7 +18,7 @@
                           <tr>
                             <td>{{ v.name }}</td>
                             <td><span class="badge bg-blue">{{ v.quantity|to_human }}</span></td>
-                            <td><span class="badge bg-blue">{{ v.price }} €</span></td>
+                            <td><span class="badge bg-blue">{{ v.price * v.quantity }} €</span></td>
                           </tr>
                         {% endif %}
                         {% endfor %}

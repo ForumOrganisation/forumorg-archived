@@ -2,78 +2,40 @@
 {% set title = 'Equipement' %} 
 {% block main %} 
 <!-- /.box-header -->
-<div class="row">
-    <div class="col-xs-12">
-      <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Détails du stand</h3>
+<!-- /.box-header -->
+{% set general = company.sections.equipement.general %}
+<div class="box-body">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="info-box bg-aqua">
+        <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Stand</span>
+          <span class="info-box-number">{{ 'deux jours' if general.duration > 1 else 'un jour' }}</span>
+          <span class="progress-description">{{ '??' if general.size == 0 else general.size }} m2</span>
         </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-            <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>durée de participation (jours)</label>
-                    <select class="form-control select2 duration" style="width: 100%;">
-                      <option>2</option>
-                      <option>1</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>taille (m2)</label>
-                    <select class="form-control select2 size" style="width: 100%;">
-                      <option>9</option>
-                      <option>12</option>
-                      <option>18</option>
-                      <option>27</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>stand équipé</label>
-                    <select class="form-control select2 equiped" style="width: 100%;">
-                      <option>oui</option>
-                      <option>non</option>
-                    </select>
-                  </div>
-                </div>
-            </div>
-
-            <div class="row r-center">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>bandeau</label>
-                    <select class="form-control select2 bandeau" style="width: 100%;">
-                      <option>avec</option>
-                      <option>sans</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>enseigne</label>
-                    <div class="input-group">
-                      <div class="input-group-addon">
-                        <i class="fa fa-tag"></i>
-                      </div>
-                      <input type="text" value="{{ company.sections.equipement.general.banner }}" class="form-control" id="banner" placeholder="Ex. Amazon">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <button type="submit" class="btn btn-primary" id="confirm_stand">Confirmer</button>
-                </div>
-            </div>
-          </div>
-        </div>
+      </div><!-- /.info-box-content -->
+    </div><!-- /.info-box -->
+    <div class="col-md-4">
+      <div class="info-box bg-green">
+        <span class="info-box-icon"><i class="glyphicon glyphicon-object-align-right"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Type de stand</span>
+          <span class="info-box-number">{{ 'Non équipé' if general.equiped else 'Equipé' }}</span>
+          <span class="progress-description">{{ 'Avec' if general.bandeau else 'Sans' }} bandeau</span>
+        </div><!-- /.info-box-content -->
+      </div><!-- /.info-box -->
     </div>
+    <div class="col-md-4">
+      <div class="info-box bg-yellow">
+        <span class="info-box-icon"><i class="fa fa-map-signs"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Enseigne</span>
+          <span class="info-box-number">{{ '???' if general.banner == '' else general.banner }}</span>
+        </div><!-- /.info-box-content -->
+      </div><!-- /.info-box -->
+    </div>
+  </div>
 </div>
 
 <div class="row">
@@ -82,15 +44,15 @@
         <div class="box-header">
           <h3 class="box-title">Equipement</h3>
         </div>
-      	<div class="box-body">
-      		<div class="row">
-      			<div class="col-md-12">
-      				<div class="row">
-      					<!-- /.col -->
-      					<div class="col-md-12">
-      						<!-- Widget: user widget style 1 -->
-      						<div class="box box-widget widget-user-2">
-      							<div class="box-footer no-padding">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <!-- /.col -->
+                <div class="col-md-12">
+                  <!-- Widget: user widget style 1 -->
+                  <div class="box box-widget widget-user-2">
+                    <div class="box-footer no-padding">
                        <table class="table table-responsive">
                         <tbody>
                           <tr>
@@ -139,11 +101,11 @@
                           {% endfor %}
                         </tbody>
                       </table>
-      							</div>
-      						</div>
-      					</div>
-      				</div>
-      			</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -184,8 +146,6 @@
                       <option>3</option>
                       <option>4</option>
                       <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
                     </select>
                   </div>
                 </div>
@@ -193,7 +153,7 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>total</label>
-                    <p class="price">98 €</p>
+                    <p class="price">89 €</p>
                   </div>
                 </div>
 
@@ -218,19 +178,8 @@ function update_price(price) {
 }
 
 $("document").ready(function() {
-  {% set general = company.sections.equipement.general %};
-
-  var $duration = $('.duration').select2();
-  var $size = $('.size').select2();
-  var $equiped = $('.equiped').select2();
-  var $bandeau = $('.bandeau').select2();
   var $name = $('.name').select2();
   var $quantity = $('.quantity').select2();
-
-  $duration.val("{{ general.duration }}").trigger("change");
-  $size.val("{{ general.size }}").trigger("change");
-  $equiped.val("{{ general.equiped }}").trigger("change");
-  $bandeau.val("{{ general.bandeau }}").trigger("change");
 
   $name.on("select2:select", function (e) {
     update_price(e.params.data.text);
@@ -239,6 +188,7 @@ $("document").ready(function() {
   $quantity.on("select2:select", function (e) {
     update_price($(".name").val());
   });
+
 });
 
 $('#confirm_stand').on('click', function(e) {

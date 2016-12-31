@@ -2,32 +2,83 @@
   "equipement":{
     "completed":false,
     "general":{
-      "duration":1,
-      "equiped":"non",
-      "banner":"",
-      "size": 9,
-      "bandeau":"sans"
+      "duration": 0,
+      "equiped": false,
+      "banner": "",
+      "size": 0,
+      "bandeau": false,
+      "emplacement": ""
     },
     "furniture":{
       "banque_hotesse":{
         "name":"Banque a Hotesse",
         "quantity":0,
-        "price":98
+        "price":94
       },
       "chaise":{
         "name":"Chaise",
         "quantity":0,
-        "price":34
+        "price":24
       },
       "chauffeuse":{
         "name":"Chauffeuse",
         "quantity":0,
-        "price":77
+        "price":65
       },
       "mange_debout":{
         "name":"Mange debout",
         "quantity":0,
-        "price":133
+        "price":82
+      },
+      "portemanteau":{
+        "name":"Portemanteau",
+        "quantity":0,
+        "price":31
+      },
+      "presentoir":{
+        "name":"Presentoir documents",
+        "quantity":0,
+        "price":72
+      },
+      "table":{
+        "name":"Table",
+        "quantity":0,
+        "price":72
+      },
+      "tabouret":{
+        "name":"Tabouret haut",
+        "quantity":0,
+        "price":32
+      },
+      "ecran_32":{
+        "name":"Ecran LCD 32\" (82cm)",
+        "quantity":0,
+        "price":205
+      },
+      "ecran_42":{
+        "name":"Ecran LCD 42\" (107cm)",
+        "quantity":0,
+        "price":350
+      },
+      "poste_2":{
+        "name":"Poste 2KW supplémentaire",
+        "quantity":0,
+        "price":290
+      },
+      "poste_3":{
+        "name":"Poste 3KW supplémentaire",
+        "quantity":0,
+        "price":315
+      },
+      "poste_6":{
+        "name":"Poste 6KW supplémentaire",
+        "quantity":0,
+        "price":450
+      },
+      "poste_9":{
+        "name":"Poste 9KW supplémentaire",
+        "quantity":0,
+        "price":550
       }
     }
   },

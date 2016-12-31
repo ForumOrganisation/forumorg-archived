@@ -30,7 +30,7 @@ class CompanyView(ModelView):
     create_modal = True
     edit_modal = True
     can_export = True
-    can_delete = False
+    can_delete = True
     can_view_details = True
     export_types = ['csv']
     #export_types += ['transport', 'restauration', 'badges', 'equipement']
