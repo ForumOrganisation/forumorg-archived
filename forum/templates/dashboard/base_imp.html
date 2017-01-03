@@ -14,18 +14,18 @@
 {%- endmacro %}
 {% macro header_section(name) -%}
 <div class="box-header with-border">
-  <h3 class="box-title">{{ name|capitalize|replace("_", " ") }}</h3>
-  <div class="box-tools pull-right">
-    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-    </button>
-  </div>
+    <h3 class="box-title">{{ name|capitalize|replace("_", " ") }}</h3>
+    <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+    </div>
 </div>
 {%- endmacro %}
 <!-- HEADER -->
 {% block header %}
 <h1>
-  Dashboard
-  <small>{{ title }}</small>
+    Dashboard
+    <small>{{ title }}</small>
 </h1>
 {% endblock header %}
 <!-- SECTIONS -->
@@ -39,10 +39,10 @@
 {{ section_block('bon_de_commande', 'fa fa-paperclip')}}
 {% endblock sections %}
 {% block footer %}
-  <!-- To the right -->
-  <div class="pull-right hidden-xs">
+<!-- To the right -->
+<div class="pull-right hidden-xs">
     Fait avec <span class="fa fa-heart"></span>
-  </div>
-  <!-- Default to the left -->
-  <strong>Copyright &copy; 2016 <a href="#">Forum Organisation</a>.</strong> Tous droits réservés.
+</div>
+<!-- Default to the left -->
+<strong>Copyright &copy; 2016 <a href="#">Forum Organisation</a>.</strong> Tous droits réservés.
 {% endblock footer %}

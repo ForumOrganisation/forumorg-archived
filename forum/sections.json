@@ -2,12 +2,12 @@
   "equipement":{
     "completed":false,
     "general":{
-      "duration": 0,
-      "equiped": false,
-      "banner": "",
-      "size": 0,
-      "bandeau": false,
-      "emplacement": ""
+      "duration":0,
+      "equiped":false,
+      "banner":"",
+      "size":0,
+      "bandeau":false,
+      "emplacement":""
     },
     "furniture":{
       "banque_hotesse":{
@@ -91,6 +91,7 @@
   },
   "badges":{
     "persons":[
+
     ],
     "completed":false
   },
@@ -126,7 +127,8 @@
       }
     }
   },
-  "full_address":{
+  "profile":{
+    "name":"",
     "address":"",
     "town":"",
     "country":""

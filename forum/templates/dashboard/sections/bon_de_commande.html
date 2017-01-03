@@ -4,206 +4,214 @@
 {% set count = [0] %}
 <div class="row">
     <div class="pad margin no-print">
-      <div class="callout callout-info" style="margin-bottom: 0!important;">
-        <h4><i class="fa fa-info"></i> Note:</h4>
-        Cette page a été optimisée pour l'impression. Cliquez sur le bouton d'impression au bas de la page pour imprimer votre bon de commande.
-      </div>
+        <div class="callout callout-info" style="margin-bottom: 0!important;">
+            <h4><i class="fa fa-info"></i> Note:</h4>
+            Cette page a été optimisée pour l'impression. Cliquez sur le bouton d'impression au bas de la page pour
+            imprimer votre bon de commande.
+        </div>
     </div>
 
     <section class="invoice">
-      <!-- title row -->
-      <div class="row">
-        <div class="col-xs-12">
-          <h2 class="page-header">
-            <i class="fa fa-globe"></i> Forum Organisation.
-            <small class="pull-right">Date: {% now 'local', '%d/%m/%Y' %}</small>
-          </h2>
+        <!-- title row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-header">
+                    <i class="fa fa-globe"></i> Forum Organisation.
+                    <small class="pull-right">Date: {% now 'local', '%d/%m/%Y' %}</small>
+                </h2>
+            </div>
+            <!-- /.col -->
         </div>
-        <!-- /.col -->
-      </div>
-      <!-- info row -->
-      <div class="row invoice-info">
-        <div class="col-sm-4 invoice-col">
-          De
-          <address>
-            <strong>Forum Organisation.</strong><br>
-            20 Avenue Albert Einstein<br>
-            Villeurbanne, 69100<br>
-            Tel: 04 78 94 29 30<br>
-            Email: contact-fra@forumorg.org
-          </address>
+        <!-- info row -->
+        <div class="row invoice-info">
+            <div class="col-sm-4 invoice-col">
+                De
+                <address>
+                    <strong>Forum Organisation.</strong><br>
+                    20 Avenue Albert Einstein<br>
+                    Villeurbanne, 69100<br>
+                    Tel: 04 78 94 29 30<br>
+                    Email: contact-fra@forumorg.org
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                À
+                <address>
+                    <strong>{{ company.name }}</strong><br>
+                    <a href="#" id="address" data-type="address" data-pk="1" data-title="Adresse de facturation."
+                       class="editable editable-click" style="display: inline;"></a>
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                <b>Bon de commande</b><br>
+                <br>
+                <b>Paiement avant:</b> 10/03/2017<br>
+            </div>
+            <!-- /.col -->
         </div>
-        <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-          À
-          <address>
-            <strong>{{ company.name }}</strong><br>
-            <a href="#" id="address" data-type="address" data-pk="1" data-title="Adresse de facturation." class="editable editable-click" style="display: inline;"></a>
-          </address>
-        </div>
-        <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-          <b>Bon de commande</b><br>
-          <br>
-          <b>Paiement avant:</b> 10/03/2017<br>
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+        <!-- /.row -->
 
-      {% if not company.sections.equipement.furniture|empty_furniture %}
-      <div class="box-header">
-        <h3 class="box-title">Liste des équipements</h3>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 table-responsive">
-            <table class="table table-striped" width="240">
-                <thead>
-                <tr>
-                  <th width="70%">Produit</th>
-                  <th width="15%">Quantité</th>
-                  <th width="15%">Sous-total</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for k,v in company.sections.equipement.furniture.items() %}
-                {% if v.quantity != 0 %}
-                {% if count.append(count.pop() + v.price*v.quantity) %}{% endif %} 
-                <tr>
-                  <td>{{ v.name }}</td>
-                  <td>{{ v.quantity }}</td>
-                  <td>{{ v.quantity * v.price }} €</td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-                </tbody>
-             </table>
+        {% if not company.sections.equipement.furniture|empty_furniture %}
+        <div class="box-header">
+            <h3 class="box-title">Liste des équipements</h3>
         </div>
-      </div>
-      {% endif %}
-
-      {% if not company.sections.restauration.dishes|empty_dishes %}
-      <div class="box-header">
-        <h3 class="box-title">Liste des repas</h3>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 table-responsive">
-            <table class="table table-striped" width="240">
-                <thead>
-                <tr>
-                  <th width="70%">Jour</th>
-                  <th width="15%">Quantité</th>
-                  <th width="15%">Sous-total</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for k,v in company.sections.restauration.dishes.items() %}
-                {% if v != 0 %}
-                {% if count.append(count.pop() + v*20) %}{% endif %} 
-                <tr>
-                  <td>{{ k|capitalize }}</td>
-                  <td>{{ v }}</td>
-                  <td>{{ v*20 }} €</td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-                </tbody>
-             </table>
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <table class="table table-striped" width="240">
+                    <thead>
+                    <tr>
+                        <th width="70%">Produit</th>
+                        <th width="15%">Quantité</th>
+                        <th width="15%">Sous-total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for k,v in company.sections.equipement.furniture.items() %}
+                    {% if v.quantity != 0 %}
+                    {% if count.append(count.pop() + v.price*v.quantity) %}{% endif %}
+                    <tr>
+                        <td>{{ v.name }}</td>
+                        <td>{{ v.quantity }}</td>
+                        <td>{{ v.quantity * v.price }} €</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
-      {% endif %}
+        {% endif %}
 
-      {% if company.sections.programme.events|empty_events %}
-      <div class="box-header">
-        <h3 class="box-title">Liste des évènements</h3>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 table-responsive">
-            <table class="table table-striped" width="240">
-                <thead>
-                <tr>
-                  <th width="85%">Nom de l'évènement</th>
-                  <th width="15%">Sous-total</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for k,v in company.sections.programme.events.items() %}
-                {% if v.registered %}
-                {% if count.append(count.pop() + v.price) %}{% endif %} 
-                <tr>
-                  <td>{{ v.name }}</td>
-                  <td>{{ v.price }} €</td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-                </tbody>
-             </table>
+        {% if not company.sections.restauration.dishes|empty_dishes %}
+        <div class="box-header">
+            <h3 class="box-title">Liste des repas</h3>
         </div>
-      </div>
-      {% endif %}
-
-      <div class="row">
-        <!-- accepted payments column -->
-        <div class="col-xs-6">
-          <p class="lead">Méthodes de paiement:</p>
-          <img src="{{ url_for('static', filename='images/cheque.png') }}" alt="Chèque">
-
-          <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-            Envoyer un chèque à notre adresse.
-          </p>
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <table class="table table-striped" width="240">
+                    <thead>
+                    <tr>
+                        <th width="70%">Jour</th>
+                        <th width="15%">Quantité</th>
+                        <th width="15%">Sous-total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for k,v in company.sections.restauration.dishes.items() %}
+                    {% if v != 0 %}
+                    {% if count.append(count.pop() + v*20) %}{% endif %}
+                    <tr>
+                        <td>{{ k|capitalize }}</td>
+                        <td>{{ v }}</td>
+                        <td>{{ v*20 }} €</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <!-- /.col -->
-        <div class="col-xs-6">
-          <p class="lead">Montant dû 10/3/2017</p>
+        {% endif %}
 
-          <div class="table-responsive">
-            <table class="table">
-              <tbody><tr>
-                <th style="width:50%">Sous-total</th>
-                <td>{{ count.0 }} €</td>
-              </tr>
-              <tr>
-                <th>T.V.A</th>
-                <td><span class="text-muted">L'association n'étant pas assujettie à la TVA, nos prix sont nets de taxes (TTC).</span></td>
-              </tr>
-              <tr>
-                <th>Total</th>
-                <td>{{ count.0 }} €</td>
-              </tr>
-            </tbody></table>
-          </div>
+        {% if company.sections.programme.events|empty_events %}
+        <div class="box-header">
+            <h3 class="box-title">Liste des évènements</h3>
         </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <table class="table table-striped" width="240">
+                    <thead>
+                    <tr>
+                        <th width="85%">Nom de l'évènement</th>
+                        <th width="15%">Sous-total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for k,v in company.sections.programme.events.items() %}
+                    {% if v.registered %}
+                    {% if count.append(count.pop() + v.price) %}{% endif %}
+                    <tr>
+                        <td>{{ v.name }}</td>
+                        <td>{{ v.price }} €</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
 
-      <!-- this row will not appear when printing -->
-      <div class="row no-print">
-        <div class="col-xs-12">
-          <a href="javascript:window.print()" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Imprimer Bon de commande</a>
+        <div class="row">
+            <!-- accepted payments column -->
+            <div class="col-xs-6">
+                <p class="lead">Méthodes de paiement:</p>
+                <img src="{{ url_for('static', filename='images/cheque.png') }}" alt="Chèque">
+
+                <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                    Envoyer un chèque à notre adresse.
+                </p>
+            </div>
+            <!-- /.col -->
+            <div class="col-xs-6">
+                <p class="lead">Montant dû 10/3/2017</p>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th style="width:50%">Sous-total</th>
+                            <td>{{ count.0 }} €</td>
+                        </tr>
+                        <tr>
+                            <th>T.V.A</th>
+                            <td><span class="text-muted">L'association n'étant pas assujettie à la TVA, nos prix sont nets de taxes (TTC).</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <td>{{ count.0 }} €</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.col -->
         </div>
-      </div>
+        <!-- /.row -->
+
+        <!-- this row will not appear when printing -->
+        <div class="row no-print">
+            <div class="col-xs-12">
+                <a href="javascript:window.print()" target="_blank" class="btn btn-default pull-right"><i
+                        class="fa fa-print"></i> Imprimer Bon de commande</a>
+            </div>
+        </div>
     </section>
 </div>
 {% endblock main %}
 {% block scripts %}
 <script type="text/javascript">
+    var company = {{ company|tojson }};
+    var profile = company.sections.profile;
     $('#address').editable({
         mode : "inline",
         value: {
-            address: "", 
-            town: "",
-            country: "",
+            address: profile.address,
+            town: profile.town,
+            country: profile.country,
         },
         validate: function(value) {
             if(value.address && value.town && value.country) {
-              var company = {{ company|tojson }};
-              var full_address = {
+              var profile = {
+                name: {{company.name}},
                 address: value.address,
                 town: value.town,
                 country: value.country
               }
-              company.sections.full_address = full_address;
+              company.sections.profile = profile;
               $.ajax({
                 type: "POST",
                 url: "{{ url_for('update_company') }}",
@@ -213,7 +221,7 @@
                 }
               });
             } else {
-              return 'veuillez remplir tous les champs.'; 
+              return 'veuillez remplir tous les champs.';
             }
         },
         display: function(value) {
@@ -221,15 +229,16 @@
             if (!(value.address && value.town && value.country)) {
                 $(this).html("Aucune adresse enregistrée.");
                 return;
-            } 
+            }
             var html =
               value.address + '<br>'
             + value.town + '<br>'
             + value.country + '<br>';
 
-            $(this).html(html); 
-        }         
-    }); 
+            $(this).html(html);
+        }
+    });
+
 </script>
 {% endblock scripts %}
 </script>

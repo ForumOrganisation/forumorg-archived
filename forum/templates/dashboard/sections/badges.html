@@ -3,97 +3,100 @@
 {% block main %}
 <div class="row">
     <div class="col-xs-12">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Liste des personnes</h3>
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Liste des personnes</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                {% if company.sections.badges.persons %}
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <th>Nom complet</th>
+                        <th>Fonction</th>
+                        <th>Jours présents</th>
+                        <th><i class="fa fa-remove"></i></th>
+                    </tr>
+                    {% for person in company.sections.badges.persons %}
+                    <tr>
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.function }}</td>
+                        <td><span class="label label-primary">{{ person.days }}</span></td>
+                        <td><i onclick="remove_person({{loop.index0}})" class="fa fa-remove" style="color:red"></i></td>
+                    </tr>
+                    {% endfor%}
+                    {% else %}
+                    <tr>
+                        <td colspan="4"><h2 class="lead text-center">Aucune personne trouvée :(</h2></td>
+                    </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
         </div>
-        <!-- /.box-header -->
-        <div class="box-body table-responsive no-padding">
-          {% if company.sections.badges.persons %}
-          <table class="table table-hover">
-            <tbody><tr>
-              <th>Nom complet</th>
-              <th>Fonction</th>
-              <th>Jours présents</th>
-              <th><i class="fa fa-remove"></i></th>
-            </tr>
-            {% for person in company.sections.badges.persons %}
-            <tr>
-              <td>{{ person.name }}</td>
-              <td>{{ person.function }}</td>
-              <td><span class="label label-primary">{{ person.days }}</span></td>
-              <td><i onclick="remove_person({{loop.index0}})" class="fa fa-remove" style="color:red"></i></td>
-            </tr>
-            {% endfor%}
-          {% else %}
-            <tr>
-              <td colspan="4"><h2 class="lead text-center">Aucune personne trouvée :(</h2></td>
-            </tr>
-          {% endif %}
-          </tbody></table>
-        </div>
-        <!-- /.box-body -->
-      </div>
-      <!-- /.box -->
+        <!-- /.box -->
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-      <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Ajouter une personne</h3>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Ajouter une personne</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-            <div class="row">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
 
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>nom complet</label>
-                    <div class="input-group">
-                      <div class="input-group-addon">
-                        <i class="fa fa-tag"></i>
-                      </div>
-                      <input type="text" id="name" class="form-control" placeholder="Ex. Sophie BISENUS">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>nom complet</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                                <input type="text" id="name" class="form-control" placeholder="Ex. Sophie BISENUS">
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
 
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>fonction</label>
-                    <div class="input-group">
-                      <div class="input-group-addon">
-                        <i class="fa fa-tag"></i>
-                      </div>
-                      <input type="text" id="function" class="form-control" placeholder="Ex. Chargé des ressources humaines">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>fonction</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                                <input type="text" id="function" class="form-control"
+                                       placeholder="Ex. Chargé des ressources humaines">
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
 
-                <div class="col-md-4">
-                  <div class="form-group">
-                  	<label>sélectionner</label>
-                  	<select id="days" class="form-control">
-	                    <option>mercredi</option>
-	                    <option>jeudi</option>
-	                    <option>les deux</option>
-                  	</select>
-                  </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>sélectionner</label>
+                            <select id="days" class="form-control">
+                                <option>mercredi</option>
+                                <option>jeudi</option>
+                                <option>les deux</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- /.input group -->
                 </div>
-                <!-- /.input group -->
             </div>
+            <div class="box-footer">
+                <button id="confirm_badges" type="submit" class="btn btn-primary">Confirmer</button>
+            </div>
+            <!-- /.box-body -->
         </div>
-        <div class="box-footer">
-            <button id="confirm_badges" type="submit" class="btn btn-primary">Confirmer</button>
-        </div>
-        <!-- /.box-body -->
-      </div>
-      <!-- /.box -->
+        <!-- /.box -->
     </div>
 </div>
 {% endblock main %}
@@ -146,5 +149,6 @@ function remove_person(index) {
         });
     }
 }
+
 </script>
 {% endblock scripts %}

@@ -1,86 +1,88 @@
-{% extends "dashboard/section.html" %} 
-{% set title = 'Restauration' %} 
-{% block main %} 
+{% extends "dashboard/section.html" %}
+{% set title = 'Restauration' %}
+{% block main %}
 <div class="row">
     <div class="col-xs-12">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Liste des repas</h3>
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Liste des repas</h3>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <th>Jour</th>
+                        <th>Nombre de repas</th>
+                        <th><i class="fa fa-remove"></i></th>
+                    </tr>
+                    {% for k,v in company.sections.restauration.dishes.items() %}
+                    <tr>
+                        <td>{{ k|capitalize }}</td>
+                        <td>
+                            <span class="label label-default">deux repas inclus</span>
+                            {% if v != 0 %}
+                            <span class="label label-primary">{{ v|to_human }} repas</span>
+                            {% endif %}
+                        </td>
+                        <td><i onclick="remove_dish('{{ k }}')" class="fa fa-remove" style="color:red"></i></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
         </div>
-        <div class="box-body table-responsive no-padding">
-          <table class="table table-hover">
-            <tbody><tr>
-              <th>Jour</th>
-              <th>Nombre de repas</th>
-              <th><i class="fa fa-remove"></i></th>
-            </tr>
-            {% for k,v in company.sections.restauration.dishes.items() %}
-            <tr>
-              <td>{{ k|capitalize }}</td>
-              <td>
-              <span class="label label-default">deux repas inclus</span>
-              {% if v != 0 %}
-              <span class="label label-primary">{{ v|to_human }} repas</span>
-              {% endif %}
-              </td>
-              <td><i onclick="remove_dish('{{ k }}')" class="fa fa-remove" style="color:red"></i></td>
-            </tr>
-            {% endfor %}
-          </tbody></table>
-        </div>
-        <!-- /.box-body -->
-      </div>
-      <!-- /.box -->
+        <!-- /.box -->
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
-      <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Ajouter un repas</h3>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Ajouter un repas</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-            <div class="row r-center">
-                <div class="col-md-4">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row r-center">
+                    <div class="col-md-4">
 
-                  <div class="form-group">
-                    <label>jour</label>
-                    <select class="form-control select2 day" style="width: 100%;">
-                      <option>mercredi</option>
-                      <option>jeudi</option>
-                    </select>
-                  </div>
+                        <div class="form-group">
+                            <label>jour</label>
+                            <select class="form-control select2 day" style="width: 100%;">
+                                <option>mercredi</option>
+                                <option>jeudi</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>combien</label>
+                            <select class="form-control select2 qty" style="width: 100%;">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <button id="confirm_dish" type="submit" class="btn btn-primary">Confirmer</button>
+                    </div>
+
+                    <!-- /.input group -->
                 </div>
-
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>combien</label>
-                    <select class="form-control select2 qty" style="width: 100%;">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <button id="confirm_dish" type="submit" class="btn btn-primary">Confirmer</button>
-                </div>
-
-                <!-- /.input group -->
             </div>
+            <!-- /.box-body -->
         </div>
-        <!-- /.box-body -->
-      </div>
-      <!-- /.box -->
+        <!-- /.box -->
     </div>
 </div>
 
@@ -128,5 +130,6 @@ function remove_dish(day) {
         });
     }
 }
+
 </script>
 {% endblock scripts %}

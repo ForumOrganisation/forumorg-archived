@@ -1,13 +1,13 @@
-from flask import Flask, render_template, request, url_for, redirect
-from forum import login_manager
-from flask_login import login_user, login_required, logout_user
 import json
 
+from flask import redirect, render_template, request, url_for
+from flask_login import login_required, login_user, logout_user
+from login import validate_login
+from storage import Company, get_company, set_company
+
 from forum import app
-from company import Company
-from storage import get_company, set_company
 from mailing import send_mail
-from company import validate_login
+
 
 ######### ADMIN ###########
 
@@ -22,6 +22,7 @@ def dashboard(page=None):
     else:
         return render_template('dashboard/dashboard.html')
 
+
 @app.route('/connexion', methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
@@ -31,13 +32,13 @@ def login():
         company = get_company(company_id)
         # checking stuff out
         if not company_id or not password:
-            return render_template('login.html', error= "blank_fields")
+            return render_template('login.html', error="blank_fields")
         if not company:
             return render_template('login.html', error="no_company_found")
         if not validate_login(company['password'], password):
             return render_template('login.html', error="wrong_password")
         # all is good
-        company = Company(company_id, password, data=company)
+        company = Company(id=company_id, password=password)
         login_user(company, remember=remember_me)
         if company_id == "admin":
             return redirect('/admin')
@@ -45,21 +46,20 @@ def login():
             return redirect(request.args.get('next') or url_for('dashboard'))
     return render_template('login.html')
 
+
 @app.route('/deconnexion')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@login_manager.unauthorized_handler
-def unauthorized_handler():
-    return redirect(url_for('login'))
 
 @app.route('/update_company', methods=["POST"])
 def update_company():
     company = request.form.get('company')
     company = json.loads(company)
-    set_company(company["id"], company)
+    set_company(company['id'], company)
     return "Success."
+
 
 ######### VITRINE ###########
 
@@ -67,6 +67,7 @@ def update_company():
 @app.route('/', methods=["GET"])
 def index():
     return render_template('index.html')
+
 
 @app.route('/send_request', methods=["GET"])
 def send_request():

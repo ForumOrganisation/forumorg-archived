@@ -1,6 +1,9 @@
-import sendgrid
 import os
+
+import sendgrid
+
 from sendgrid.helpers.mail import *
+
 
 def send_mail(email, contact_name, company_name, telephone):
     # Create a text/plain message

@@ -1,197 +1,213 @@
-{% extends "dashboard/base_imp.html" %} {% set title = 'Vue globale' %} {% block content %} 
+{% extends "dashboard/base_imp.html" %} {% set title = 'Vue globale' %} {% block content %}
+{% macro more_button(name) -%}
+    <strong>
+        <a href="{{ url_for('dashboard', page=name) }}">
+        <span class="pull-right badge bg-grey">Consulter / Modifier</a></span>
+    </strong>
+{%- endmacro %}
 <!-- Equipement/Restauration -->
-  <div class="row">
+<div class="row">
     <div class="col-md-6">
-      <div class="box">
-        {{ header_section('equipement') }}
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="box box-solid">
-                <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                {% if not company.sections.equipement.furniture|empty_furniture %}
-                  <table class="table table-hover">
-                      <tbody>
-                        {% for k,v in company.sections.equipement.furniture.items() %}
-                        {% if v.quantity > 0 %}
-                          <tr>
-                            <td>{{ v.name }}</td>
-                            <td><span class="badge bg-blue">{{ v.quantity|to_human }}</span></td>
-                            <td><span class="badge bg-blue">{{ v.price * v.quantity }} €</span></td>
-                          </tr>
-                        {% endif %}
-                        {% endfor %}
-                      {% else %}
-                      <tr>
-                            <td colspan="4"><h2 class="lead text-center">Aucun mobilier supplémentaire trouvé :(</h2></td>
-                      </tr>
-                      {% endif %}
-                      </tbody>
-                  </table>
+        <div class="box">
+            {{ header_section('equipement') }}
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding">
+                                {% if not company.sections.equipement.furniture|empty_furniture %}
+                                <table class="table table-hover">
+                                    <tbody>
+                                    {% for k,v in company.sections.equipement.furniture.items() %}
+                                    {% if v.quantity > 0 %}
+                                    <tr>
+                                        <td>{{ v.name }}</td>
+                                        <td><span class="badge bg-blue">{{ v.quantity|to_human }}</span></td>
+                                        <td><span class="badge bg-blue">{{ v.price * v.quantity }} €</span></td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="4"><h2 class="lead text-center">Aucun mobilier supplémentaire
+                                            trouvé :(</h2></td>
+                                    </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                {{ more_button('equipement') }}
             </div>
-          </div><strong><a href="{{ url_for('dashboard', page='equipement') }}"><span class="pull-right badge bg-grey">Consulter / modifier</a></span></strong>
         </div>
-      </div>
     </div><!-- /.col -->
     <div class="col-md-6">
-      <div class="box">
-        {{ header_section('restauration') }}
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="box box-solid">
-                <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                  <table class="table table-hover">
-                    <tbody><tr>
-                      <th>Jour</th>
-                      <th>Nombre de repas</th>
-                    </tr>
-                    {% for k,v in company.sections.restauration.dishes.items() %}
-                    <tr>
-                      <td>{{ k|capitalize }}</td>
-                      <td>
-                      <span class="label label-default">deux repas inclus</span>
-                      {% if v != 0 %}
-                      <span class="label label-primary">{{ v|to_human }} repas</span>
-                      {% endif %}
-                      </td>
-                    </tr>
-                    {% endfor %}
-                  </tbody></table>
-                </div><!-- /.box-body -->
-              </div>
-              <strong><a href="{{ url_for('dashboard', page='restauration') }}"><span class="pull-right badge bg-grey">Consulter / modifier</a></span></strong>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- ./box-body -->
-      </div><!-- /.box -->
+        <div class="box">
+            {{ header_section('restauration') }}
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr>
+                                        <th>Jour</th>
+                                        <th>Nombre de repas</th>
+                                    </tr>
+                                    {% for k,v in company.sections.restauration.dishes.items() %}
+                                    <tr>
+                                        <td>{{ k|capitalize }}</td>
+                                        <td>
+                                            <span class="label label-default">deux repas inclus</span>
+                                            {% if v != 0 %}
+                                            <span class="label label-primary">{{ v|to_human }} repas</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div><!-- /.box-body -->
+                        </div>
+                        {{ more_button('restauration') }}
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- ./box-body -->
+        </div><!-- /.box -->
     </div>
-  </div>
-  <!-- Transport/Badges -->
-  <div class="row">
+</div>
+<!-- Transport/Badges -->
+<div class="row">
     <div class="col-md-6">
-      <div class="box">
-        {{ header_section('transport') }}
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="box box-solid">
-                <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                {% if company.sections.transport.transports %}
-                  <table class="table table-hover">
-                      <tbody>
-                      <tr>
-                        <th>Lieu de départ</th>
-                        <th>Lieu d'arrivée</th>
-                        <th>Départ</th>
-                        <th>Personnes</th>
-                      </tr>
-                      {% for transport in company.sections.transport.transports %}
-                      <tr>
-                        <td>{{ transport.departure_place }}</td>
-                        <td>{{ transport.arrival_place }}</td>
-                        <td>{{ transport.departure_time|format_dt }}</td>
-                        <td><span class="label label-primary">{{ transport.nb_persons|to_human }}</span></td>
-                      </tr>
-                      {% endfor%}
-                    {% else %}
-                      <tr>
-                        <td colspan="4"><h2 class="lead text-center">Aucun transport trouvé :(</h2></td>
-                      </tr>
-                    {% endif %}
-                    </tbody>
-                  </table>
-                </div><!-- /.box-body -->
-              </div><strong><a href="{{ url_for('dashboard', page='transport') }}"><span class="pull-right badge bg-grey">Consulter / modifier</span></a></strong>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- ./box-body -->
-      </div><!-- /.box -->
+        <div class="box">
+            {{ header_section('transport') }}
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding">
+                                {% if company.sections.transport.transports %}
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr>
+                                        <th>Lieu de départ</th>
+                                        <th>Lieu d'arrivée</th>
+                                        <th>Départ</th>
+                                        <th>Personnes</th>
+                                    </tr>
+                                    {% for transport in company.sections.transport.transports %}
+                                    <tr>
+                                        <td>{{ transport.departure_place }}</td>
+                                        <td>{{ transport.arrival_place }}</td>
+                                        <td>{{ transport.departure_time|format_dt }}</td>
+                                        <td><span class="label label-primary">{{ transport.nb_persons|to_human }}</span>
+                                        </td>
+                                    </tr>
+                                    {% endfor%}
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="4"><h2 class="lead text-center">Aucun transport trouvé :(</h2></td>
+                                    </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div><!-- /.box-body -->
+                        </div>
+                        {{ more_button('transport') }}
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- ./box-body -->
+        </div><!-- /.box -->
     </div>
     <div class="col-md-6">
-      <div class="box">
-        {{ header_section('badges') }}
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="box box-solid">
-                <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                  {% if company.sections.badges.persons %}
-                  <table class="table table-hover">
-                    <tbody><tr>
-                      <th>Nom complet</th>
-                      <th>Fonction</th>
-                      <th>Jours présents</th>
-                    </tr>
-                    {% for person in company.sections.badges.persons %}
-                    <tr>
-                      <td>{{ person.name }}</td>
-                      <td>{{ person.function }}</td>
-                      <td><span class="label label-primary">{{ person.days }}</span></td>
-                    </tr>
-                    {% endfor%}
-                  {% else %}
-                    <tr>
-                      <td colspan="4"><h2 class="lead text-center">Aucune personne trouvée :(</h2></td>
-                    </tr>
-                  {% endif %}
-                  </tbody>
-                  </table>
-                </div><!-- /.box-body -->
-              </div>
-              <strong><a href="{{ url_for('dashboard', page='badges') }}"><span class="pull-right badge bg-grey">Consulter / modifier</span></a></strong>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- ./box-body -->
-      </div><!-- /.box -->
+        <div class="box">
+            {{ header_section('badges') }}
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding">
+                                {% if company.sections.badges.persons %}
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr>
+                                        <th>Nom complet</th>
+                                        <th>Fonction</th>
+                                        <th>Jours présents</th>
+                                    </tr>
+                                    {% for person in company.sections.badges.persons %}
+                                    <tr>
+                                        <td>{{ person.name }}</td>
+                                        <td>{{ person.function }}</td>
+                                        <td><span class="label label-primary">{{ person.days }}</span></td>
+                                    </tr>
+                                    {% endfor%}
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="4"><h2 class="lead text-center">Aucune personne trouvée :(</h2>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div><!-- /.box-body -->
+                        </div>
+                        {{ more_button('badges') }}
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- ./box-body -->
+        </div><!-- /.box -->
     </div>
-  </div><!-- Programme/Bon de commande -->
-  <div class="row">
+</div><!-- Programme/Bon de commande -->
+<div class="row">
     <div class="col-md-6">
-      <div class="box">
-        {{ header_section('programme') }}
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="box box-solid">
-                <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                {% if company.sections.programme.events|empty_events %}
-                  <table class="table">
-                    <tbody>
-                      {% for k,v in company.sections.programme.events.items() %}
-                        {% if v.registered %}
-                          <tr>
-                            <td>
-                              <span class="text-primary"><b>{{ v.name }}</b></span>
-                              <span class='label label-primary'>inscrit</span><br>
-                            </td>
-                            <td>
-                              <span class="h4">{{ v.price }} €</span>
-                            </td>
-                          </tr>
-                        {% endif %}
-                      {% endfor %}
-                    {% else %}
-                    <tr>
-                      <td colspan="4"><h2 class="lead text-center">Aucune participation trouvée :(</h2></td>
-                    </tr>
-                    {% endif %}
-                    </tbody>
-                  </table>
-                </div><!-- /.box-body -->
-              </div><strong><a href="{{ url_for('dashboard', page='programme') }}"><span class="pull-right badge bg-grey">Consulter / modifier</a></span></strong>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- ./box-body -->
-      </div><!-- /.box -->
+        <div class="box">
+            {{ header_section('programme') }}
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-solid">
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding">
+                                {% if company.sections.programme.events|empty_events %}
+                                <table class="table">
+                                    <tbody>
+                                    {% for k,v in company.sections.programme.events.items() %}
+                                    {% if v.registered %}
+                                    <tr>
+                                        <td>
+                                            <span class="text-primary"><b>{{ v.name }}</b></span>
+                                            <span class='label label-primary'>inscrit</span><br>
+                                        </td>
+                                        <td>
+                                            <span class="h4">{{ v.price }} €</span>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="4"><h2 class="lead text-center">Aucune participation trouvée
+                                            :(</h2></td>
+                                    </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div><!-- /.box-body -->
+                        </div>
+                        {{ more_button('programme') }}
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- ./box-body -->
+        </div><!-- /.box -->
     </div>
-    </div>
-  </div>
+</div>
+</div>
 {% endblock content %}

@@ -2,55 +2,57 @@
 {% set title = 'Programme' %}
 {% block main %}
 <div class="row">
-  <div class="col-xs-12">
-    <div class="box">
-      <div class="box-header">
-        <h3 class="box-title">Liste des évènements</h3>
-      </div><!-- /.box-header -->
-      <div class="box-body table-responsive no-padding">
-        <table class="table">
-          <tbody>
-            {% for k,v in company.sections.programme.events.items() %}
-            <tr {% if v.registered %}bgcolor="#F6FCFD"{% endif %}>
-              <td>
-                <br>
-                <div class="col-md-1">
-                  <div class="product-img"><img alt="Product Image" src="{{ url_for('static', filename=v.image) }}"></div>
-                </div>
-                <div class="col-md-11">
-                  <span class="text-primary"><b>{{ v.name }}</b></span>
-                  {% if v.registered %}
-                    <span class='label label-primary'>Inscrit</span><br>
-                  {% endif %}
-                  <span class="text-muted">{{ v.description }}</span><br>
-                  <br>
-                </div>
-              </td>
-              <td style="min-width:100px">
-                <br>
-                <br>
-                <span class="h4">{{ v.price }} €</span>
-              </td>
-              <td>
-                <br>
-                <br>
-                <div style="text-align:center;">
-                  <button class="btn btn-block btn-default" type="button" onclick="update_event('{{ k }}')">
-                    {% if v.registered %}
-                      Se désinsrire
-                    {% else %}
-                      S'inscrire
-                    {% endif %}
-                  </button>
-                </div>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div><!-- /.box-body -->
-    </div><!-- /.box -->
-  </div>
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Liste des évènements</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table">
+                    <tbody>
+                    {% for k,v in company.sections.programme.events.items() %}
+                    <tr {% if v.registered %}bgcolor="#F6FCFD" {% endif %}>
+                        <td>
+                            <br>
+                            <div class="col-md-1">
+                                <div class="product-img"><img alt="Product Image"
+                                                              src="{{ url_for('static', filename=v.image) }}"></div>
+                            </div>
+                            <div class="col-md-11">
+                                <span class="text-primary"><b>{{ v.name }}</b></span>
+                                {% if v.registered %}
+                                <span class='label label-primary'>Inscrit</span><br>
+                                {% endif %}
+                                <span class="text-muted">{{ v.description }}</span><br>
+                                <br>
+                            </div>
+                        </td>
+                        <td style="min-width:100px">
+                            <br>
+                            <br>
+                            <span class="h4">{{ v.price }} €</span>
+                        </td>
+                        <td>
+                            <br>
+                            <br>
+                            <div style="text-align:center;">
+                                <button class="btn btn-block btn-default" type="button"
+                                        onclick="update_event('{{ k }}')">
+                                    {% if v.registered %}
+                                    Se désinsrire
+                                    {% else %}
+                                    S'inscrire
+                                    {% endif %}
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
 </div>
 {% endblock main %}
 
@@ -76,6 +78,7 @@ function update_event(event) {
         });
     }
 }
+
 </script>
 {% endblock scripts %}
 
