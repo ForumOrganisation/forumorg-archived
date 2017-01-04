@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	"use strict";
 
-/******************** TYPED ********************/  
+/******************** TYPED ********************/
 $(function() {
         $(".element").typed({
             strings: ["Échangez", "Rencontrez", "Recrutez"],
@@ -53,7 +53,7 @@ if ( vidContainer1 != null ) {
    var pauseButton = vidContainer1.querySelector("button");
 
   vid.addEventListener('ended', function() {
-     // only functional if "loop" is removed 
+     // only functional if "loop" is removed
      vid.pause();
      // to capture IE10
      // vidFade();
@@ -80,7 +80,7 @@ if( vidContainer2 != null ) {
   var pauseButton = vidContainer2.querySelector("button");
 
   vid.addEventListener('ended', function() {
-     // only functional if "loop" is removed 
+     // only functional if "loop" is removed
      vid.pause();
      // to capture IE10
      // vidFade();
@@ -133,26 +133,21 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-/*
-|----------------------------------------------------------------------------
-| SUBSCRIBE OR CONTACT FORMS
-|----------------------------------------------------------------------------
-*/
-
 /******************** CONTACT FORM ********************/
 $('#contact-form').on('submit', function(e) {
     e.preventDefault();
-    var response = grecaptcha.getResponse();  
+    var response = grecaptcha.getResponse();
     var error_msg = $(this).find('.error-msg');
     var success_msg = $(this).find('.success-msg');
     var data = {
        nom_complet: $(this).find('input[name="nom_complet"]').val(),
        nom: $(this).find('input[name="nom"]').val(),
        tel: $(this).find('input[name="tel"]').val(),
-       email: $(this).find('input[name="email"]').val()
+       email: $(this).find('input[name="email"]').val(),
+       captcha: response
     }
 
-    if (validateEmail(data.email) && data.nom && data.tel && data.nom_complet && response.length != 0) {
+    if (validateEmail(data.email) && data.nom && data.tel && data.nom_complet) {
       $.ajax({
              type: "GET",
              url: $(this).attr('action'),
@@ -161,10 +156,16 @@ $('#contact-form').on('submit', function(e) {
                 $("#send_mail").prop('disabled', true);
                 success_msg.fadeIn(500);
                 error_msg.fadeOut(500);
-        }
+            },
+            error: function() {
+                $("#send_mail").prop('enabled', true);
+                error_msg.fadeIn(500);
+                alert('Veuillez cocher la case \'Je ne suis pas un robot\'');
+                success_msg.fadeOut(500);
+            }
       });
     } else {
-        $("#send_mail").prop('disabled', false);
+        $("#send_mail").prop('enabled', true);
         error_msg.fadeIn(500);
         success_msg.fadeOut(500);
     }

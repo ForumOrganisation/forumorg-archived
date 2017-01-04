@@ -16,12 +16,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <!-- =========================
-    FAV AND TOUCH ICONS  
+    FAV AND TOUCH ICONS
     ============================== -->
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
     <!-- =========================
-    STYLESHEETS 
+    STYLESHEETS
     ============================== -->
     <!-- BOOTSTRAP CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
@@ -281,8 +281,7 @@
                             </div>
 
                             <div class="text-center">
-                                <div class="g-recaptcha btn" data-sitekey="6Lc4QxAUAAAAAAq-CJ2_11hdu3mWzBzlOeC-BCw-"
-                                     data-callback="correctCaptcha"></div>
+                                <div class="g-recaptcha btn" data-sitekey="6Lc4QxAUAAAAAAq-CJ2_11hdu3mWzBzlOeC-BCw-"></div>
                             </div>
 
                             <br>
@@ -311,27 +310,6 @@
                                     </svg>
                                 </i> Veuillez remplir tous les champs...
                                 </p>
-                            </div>
-
-                            <!-- MODAL WINDOW -->
-                            <div class="modal fade" id="mailModal" tabindex="-1" role="dialog"
-                                 aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">Demande envoyée</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            Votre demande de participation a été envoyée :) !
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                         </form>
@@ -437,7 +415,7 @@
 </style>
 
 <!-- =========================
-     SCRIPTS 
+     SCRIPTS
 ============================== -->
 <script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
@@ -459,7 +437,5 @@
     /******************** ENABLE LINK FOR NAVBAR LOGIN ********************/
     $(document).ready(function() {
         $("#login").off("click");
-        console.log("login off");
     });
-
 </script>
