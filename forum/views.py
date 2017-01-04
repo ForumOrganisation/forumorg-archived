@@ -2,7 +2,7 @@ import json
 import os
 import requests
 
-from flask import abort, redirect, render_template, request, url_for
+from flask import abort, redirect, render_template, request, send_from_directory, url_for
 from flask_login import login_required, login_user, logout_user
 from login import validate_login
 from storage import Company, get_company, set_company
@@ -95,3 +95,9 @@ def send_request():
         return send_mail(email, contact_name, company_name, telephone)
     else:
         abort(500)
+
+######## INDEXING ########
+@app.route('/robots.txt')
+@app.route('/sitemap.xml')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
