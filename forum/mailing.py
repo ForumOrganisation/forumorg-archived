@@ -32,10 +32,8 @@ def send_mail(email, contact_name, company_name, telephone):
     # Adding bcc
     mail.personalizations[0].add_bcc(Email('elmehdi.baha@forumorg.org'))
     # Sending email
-    print("Sending email from {}...".format(company_name))
     try:
         response = sg.client.mail.send.post(request_body=mail.get())
-        print("Email sent: {}".format(response.body))
         return 'Email sent.'
     except:
         return 'Email not sent.'
