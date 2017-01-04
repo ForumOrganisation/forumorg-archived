@@ -146,7 +146,7 @@ $('#contact-form').on('submit', function(e) {
        captcha: grecaptcha.getResponse()
     }
 
-    if (validateEmail(data.email) && data.nom && data.tel && data.nom_complet) {
+    if (validateEmail(data.email) && data.nom && data.tel && data.nom_complet && data.captcha) {
       $.ajax({
              type: "GET",
              url: $(this).attr('action'),

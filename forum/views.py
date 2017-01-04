@@ -90,7 +90,6 @@ def send_request():
     if ts and not success:
         print("Bot found from: {} at: {}".format(res.get('hostname'), res.get('challenge_ts')))
 
-    raise
     # Sending mail...
     if success:
         return send_mail(email, contact_name, company_name, telephone)
