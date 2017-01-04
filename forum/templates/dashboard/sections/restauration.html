@@ -20,9 +20,11 @@
                         <td>{{ k|capitalize }}</td>
                         <td>
                             <span class="label label-default">deux repas inclus</span>
-                            {% if v != 0 %}
-                            <span class="label label-primary">{{ v|to_human }} repas</span>
-                            {% endif %}
+                            {% for type,qty in v.items() %}
+                                {% if qty != 0 %}
+                                    <span class="label bg-{{ 'purple' if type == 'Assis' else 'blue' }}">{{ qty|to_human }} repas ({{type|lower }})</span>
+                                {% endif %}
+                            {% endfor %}
                         </td>
                         <td><i onclick="remove_dish('{{ k }}')" class="fa fa-remove" style="color:red"></i></td>
                     </tr>
@@ -74,6 +76,16 @@
                     </div>
 
                     <div class="col-md-4">
+                        <div class="form-group">
+                            <label>type</label>
+                            <select class="form-control select2 type" style="width: 100%;">
+                                <option>Plateau-Repas</option>
+                                <option>Assis</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
                         <button id="confirm_dish" type="submit" class="btn btn-primary">Confirmer</button>
                     </div>
 
@@ -95,7 +107,8 @@ $('#confirm_dish').on('click', function(e) {
     var dishes = company.sections.restauration.dishes;
     var day = $(".day").val();
     var qty = Number($(".qty").val());
-    dishes[day] += qty;
+    var type = $(".type").val();
+    dishes[day][type] += qty;
 
     $.ajax({
       type: "POST",
@@ -105,7 +118,7 @@ $('#confirm_dish').on('click', function(e) {
           Notify("Changements sauvegardés.");
           setTimeout(function(){
               location.reload();
-          }, 1000); 
+          }, 1000);
       }
     });
     return false;
@@ -116,7 +129,8 @@ function remove_dish(day) {
     if (r) {
         var company = {{ company|tojson }};
         var dishes = company.sections.restauration.dishes;
-        dishes[day] = 0;
+        dishes[day]["Assis"] = 0;
+        dishes[day]["Plateau-Repas"] = 0;
         $.ajax({
             type: "POST",
             url: "{{ url_for('update_company') }}",
@@ -125,7 +139,7 @@ function remove_dish(day) {
                 Notify("Suppression confirmée.");
                 setTimeout(function(){
                     location.reload();
-                }, 1000); 
+                }, 1000);
             }
         });
     }

@@ -30,14 +30,14 @@ def get_sections():
         return json.load(file)
 
 class CompanyForm(form.Form):
-    id = fields.StringField('Identifiant', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. LOREAL"})
+    id = fields.StringField('Identifiant', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. loreal"})
     password = fields.PasswordField('Mot de passe', validators=[validators.Required(), validators.Length(min=5, max=30)], render_kw={"placeholder": "Ex. 123456"})
-    name = fields.StringField('Nom complet', render_kw={"placeholder": "Ex. L'Oreal"})
+    name = fields.StringField('Nom complet', render_kw={"placeholder": "Ex. L'Oreal"}, validators=[validators.Required(), validators.Length(min=3, max=30)])
     emplacement = fields.StringField('Emplacement', render_kw={"placeholder": "Ex. F13"})
-    duration = fields.IntegerField('Jours de presence', render_kw={"placeholder": "Ex. 2"})
+    duration = fields.IntegerField('Jours de presence', validators=[validators.optional()], render_kw={"placeholder": "Ex. 2"})
     equiped = fields.BooleanField('Equipe?')
     bandeau = fields.BooleanField('Bandeau?')
-    size = fields.IntegerField('Surface', render_kw={"placeholder": "Ex. 12"})
+    size = fields.IntegerField('Surface', validators=[validators.optional()], render_kw={"placeholder": "Ex. 12"})
 
 class CompanyView(ModelView):
     form = CompanyForm
@@ -94,6 +94,11 @@ class CompanyView(ModelView):
     def _on_model_change(self, form, model, is_created):
         if is_created:
             model['sections'] = self.sections
+        for s in SECTIONS[6:]:
+            if s in form.data:
+                model['sections']['equipement']['general'][s] = form.data.get(s)
+                form.data.pop(s, None)
+                model.pop(s, None)
         if 'emplacement' in form.data:
             model['sections']['equipement']['general']['emplacement'] = form.data.get('emplacement')
             form.data.pop('emplacement', None)

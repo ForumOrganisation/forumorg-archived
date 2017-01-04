@@ -9,7 +9,7 @@
       "bandeau":false,
       "emplacement":""
     },
-    "furniture":{
+    "furnitures":{
       "banque_hotesse":{
         "name":"Banque a Hotesse",
         "quantity":0,
@@ -84,9 +84,18 @@
   },
   "restauration":{
     "completed":false,
-    "dishes":{
-      "mercredi":0,
-      "jeudi":0
+    "dishes":
+    {
+      "mercredi":
+        {
+          "Assis": 0,
+          "Plateau-Repas": 0
+        },
+      "jeudi":
+        {
+          "Assis": 0,
+          "Plateau-Repas": 0
+        }
     }
   },
   "badges":{

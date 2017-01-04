@@ -16,10 +16,10 @@
                         <div class="box box-solid">
                             <!-- /.box-header -->
                             <div class="box-body table-responsive no-padding">
-                                {% if not company.sections.equipement.furniture|empty_furniture %}
+                                {% if not company.sections.equipement.furnitures|empty_furnitures %}
                                 <table class="table table-hover">
                                     <tbody>
-                                    {% for k,v in company.sections.equipement.furniture.items() %}
+                                    {% for k,v in company.sections.equipement.furnitures.items() %}
                                     {% if v.quantity > 0 %}
                                     <tr>
                                         <td>{{ v.name }}</td>
@@ -64,9 +64,11 @@
                                         <td>{{ k|capitalize }}</td>
                                         <td>
                                             <span class="label label-default">deux repas inclus</span>
-                                            {% if v != 0 %}
-                                            <span class="label label-primary">{{ v|to_human }} repas</span>
-                                            {% endif %}
+                                            {% for type,qty in v.items() %}
+                                                {% if qty != 0 %}
+                                                    <span class="label bg-{{ 'purple' if type == 'Assis' else 'blue' }}">{{ qty|to_human }} repas ({{type|lower }})</span>
+                                                {% endif %}
+                                            {% endfor %}
                                         </td>
                                     </tr>
                                     {% endfor %}

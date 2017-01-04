@@ -67,7 +67,7 @@
                             <img src="{{ url_for('static', filename='dist/img/avatar5.png') }}" class="user-image"
                                  alt="User Image">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs">{{company.name}}</span>
+                            <span class="hidden-xs">{{company.sections.profile.name}}</span>
                         </a>
                     </li>
                     <!-- Sign Out Menu -->
@@ -94,7 +94,7 @@
                          alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>{{company.name}}</p>
+                    <p>{{company.sections.profile.name}}</p>
                     <!-- Status -->
                     <a href="#"><i class="fa fa-circle text-success"></i> En Ligne</a>
                 </div>
@@ -144,7 +144,7 @@
     bottom: 0px;
     margin-bottom: 22px;
     margin-right: 15px;
-    max-width: 300px;   
+    max-width: 300px;
 }
 
 /* CUSTOM STYLES */

@@ -59,12 +59,15 @@ def to_human(num):
         6: "six",
         7: "sept",
         8: "huit",
-        9: "neuf"
+        9: "neuf",
+        10: "dix",
+        11: "onze",
+        12: "douze"
     }
     return opts[num]
 
 
-@app.template_filter('empty_furniture')
+@app.template_filter('empty_furnitures')
 def empty_furniture(f):
     return sum([v['quantity'] for k, v in f.items()]) == 0
 
@@ -74,6 +77,6 @@ def empty_events(e):
 
 @app.template_filter('empty_dishes')
 def empty_dishes(d):
-    return sum(d.values()) == 0
+    return sum([sum(a.values()) for a in d.values()]) == 0
 
 import views

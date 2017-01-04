@@ -11,8 +11,17 @@
                 <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Stand</span>
-                    <span class="info-box-number">{{ 'deux jours' if general.duration > 1 else 'un jour' }}</span>
-                    <span class="progress-description">{{ '??' if general.size == 0 else general.size }} m2</span>
+                    <span class="info-box-number">
+                        {{ general.duration|to_human if general.duration else '?' }} jour(s)
+                    </span>
+                    <span class="progress-description">
+                    <span class="info-box-number">
+                    {% if general.size %}
+                        {{ '??' if general.size == 0 else general.size }}
+                    {% else %}
+                        ??
+                    {% endif %} m2
+                    </span>
                 </div>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
@@ -31,7 +40,7 @@
                 <span class="info-box-icon"><i class="fa fa-map-signs"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Enseigne</span>
-                    <span class="info-box-number">{{ '???' if general.banner == '' else general.banner }}</span>
+                    <span class="info-box-number">{{ '????' if general.banner == '' else general.banner }}</span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div>
@@ -89,7 +98,7 @@
                                                 <td><span class="badge bg-grey">inclus</span></td>
                                                 <td><i class="fa fa-remove" style="color:white"></i></td>
                                             </tr>
-                                            {% for k,v in company.sections.equipement.furniture.items() %}
+                                            {% for k,v in company.sections.equipement.furnitures.items() %}
                                             {% if v.quantity != 0 %}
                                             <tr>
                                                 <td>{{ v.name }}</td>
@@ -131,7 +140,7 @@
                         <div class="form-group">
                             <label>item</label>
                             <select class="form-control select2 name" style="width: 100%;">
-                                {% for k,v in company.sections.equipement.furniture.items() %}
+                                {% for k,v in company.sections.equipement.furnitures.items() %}
                                 <option>{{ v.name }} - {{ v.price }} €</option>
                                 {% endfor %}
                             </select>
@@ -212,7 +221,7 @@ $('#confirm_stand').on('click', function(e) {
           Notify("Changements sauvegardés.");
           setTimeout(function(){
               location.reload();
-          }, 1000); 
+          }, 1000);
     }
     });
     return false;
@@ -221,7 +230,7 @@ $('#confirm_stand').on('click', function(e) {
 $('#confirm_add').on('click', function(e) {
     e.preventDefault();
     var company = {{ company|tojson }};
-    var furnitures = company.sections.equipement.furniture;
+    var furnitures = company.sections.equipement.furnitures;
     var value_quantity = Number($(".quantity").val());
     var value_name = $(".name").val();
     value_name = value_name.split(' - ')[0];
@@ -230,7 +239,7 @@ $('#confirm_add').on('click', function(e) {
         furnitures[key].quantity += value_quantity;
       }
     }
-      
+
     $.ajax({
         type: "POST",
         url: "{{ url_for('update_company') }}",
@@ -239,7 +248,7 @@ $('#confirm_add').on('click', function(e) {
             Notify("Changements sauvegardés.");
             setTimeout(function(){
                 location.reload();
-            }, 1000); 
+            }, 1000);
         }
     });
     return false;
@@ -249,7 +258,7 @@ function remove_furniture(name) {
     var r = confirm("Confirmer la suppresion ?");
     if (r) {
         var company = {{ company|tojson }};
-        var furnitures = company.sections.equipement.furniture;
+        var furnitures = company.sections.equipement.furnitures;
         furnitures[name].quantity = 0;
         $.ajax({
             type: "POST",
@@ -259,7 +268,7 @@ function remove_furniture(name) {
                 Notify("Suppression confirmée.");
                 setTimeout(function(){
                     location.reload();
-                }, 1000); 
+                }, 1000);
             }
         });
     }
