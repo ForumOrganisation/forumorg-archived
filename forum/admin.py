@@ -7,7 +7,6 @@ from flask_admin.base import expose
 from flask_admin.contrib.pymongo import ModelView, filters
 from flask_admin.helpers import get_redirect_target
 from flask_login import current_user
-from mongoengine.errors import NotUniqueError
 from werkzeug import secure_filename
 from wtforms import StringField, fields, form, validators
 
