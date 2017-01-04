@@ -83,14 +83,14 @@ def send_request():
     # ReCaptcha
     base_url = 'https://www.google.com/recaptcha/api/siteverify'
     secret = os.environ.get('RECAPTCHA_SECRET_KEY')
-    res = requests.post(base_url, data={'response':captcha,'secret':secret}).json()
-    print(res)
+    res = requests.post(base_url, data={'response':captcha, 'secret':secret}).json()
     ts, host, success = res.get('challenge_ts'), res.get('hostname'), res.get('success')
 
     # Logging bots...
     if ts and not success:
         print("Bot found from: {} at: {}".format(res.get('hostname'), res.get('challenge_ts')))
 
+    raise
     # Sending mail...
     if success:
         return send_mail(email, contact_name, company_name, telephone)

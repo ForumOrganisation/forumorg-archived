@@ -136,7 +136,6 @@ function validateEmail(email) {
 /******************** CONTACT FORM ********************/
 $('#contact-form').on('submit', function(e) {
     e.preventDefault();
-    var response = grecaptcha.getResponse();
     var error_msg = $(this).find('.error-msg');
     var success_msg = $(this).find('.success-msg');
     var data = {
@@ -144,7 +143,7 @@ $('#contact-form').on('submit', function(e) {
        nom: $(this).find('input[name="nom"]').val(),
        tel: $(this).find('input[name="tel"]').val(),
        email: $(this).find('input[name="email"]').val(),
-       captcha: response
+       captcha: grecaptcha.getResponse()
     }
 
     if (validateEmail(data.email) && data.nom && data.tel && data.nom_complet) {
