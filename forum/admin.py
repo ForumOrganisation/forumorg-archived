@@ -21,7 +21,7 @@ def sections_formatter(v,c,m,p):
         return m['sections'][p]['completed']
 SECTIONS = ['equipement', 'transport', 'restauration', 'programme', 'badges',\
             'nom complet',\
-            'emplacement', 'duration', 'equiped', 'bandeau', 'size']
+            'emplacement', 'duration', 'equiped', 'banner', 'bandeau', 'size']
 
 def get_sections():
     fn = os.path.join(os.path.dirname(__file__), 'sections.json')
@@ -31,12 +31,13 @@ def get_sections():
 class CompanyForm(form.Form):
     id = fields.StringField('Identifiant', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. loreal"})
     password = fields.PasswordField('Mot de passe', validators=[validators.Required(), validators.Length(min=5, max=30)], render_kw={"placeholder": "Ex. 123456"})
-    name = fields.StringField('Nom complet', render_kw={"placeholder": "Ex. L'Oreal"}, validators=[validators.Required(), validators.Length(min=3, max=30)])
+    name = fields.StringField('Nom complet', render_kw={"placeholder": "Ex. L'Oreal"}, validators=[validators.Length(min=3, max=30)])
     emplacement = fields.StringField('Emplacement', render_kw={"placeholder": "Ex. F13"})
+    banner = fields.StringField('Banniere', render_kw={"placeholder": "Ex. Amazon Happy"})
+    size = fields.IntegerField('Surface', validators=[validators.optional()], render_kw={"placeholder": "Ex. 12"})
     duration = fields.IntegerField('Jours de presence', validators=[validators.optional()], render_kw={"placeholder": "Ex. 2"})
     equiped = fields.BooleanField('Equipe?')
     bandeau = fields.BooleanField('Bandeau?')
-    size = fields.IntegerField('Surface', validators=[validators.optional()], render_kw={"placeholder": "Ex. 12"})
 
 class CompanyView(ModelView):
     form = CompanyForm
