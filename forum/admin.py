@@ -143,3 +143,38 @@ class CompanyView(ModelView):
             headers={'Content-Disposition': disposition},
             mimetype='text/csv'
         )
+
+class UserForm(form.Form):
+    id = fields.StringField('Email', render_kw={"placeholder": "Ex. yokoya@live.com"})
+    password = fields.PasswordField('Mot de passe', validators=[validators.Required(), validators.Length(min=5, max=30)], render_kw={"placeholder": "Ex. 123456"})
+
+class UserView(ModelView):
+    column_list = ['id', 'events']
+    column_labels = dict(id='Email')
+    export_types = ['csv']
+    can_export = True
+    can_delete = True
+    can_view_details = True
+    form = UserForm
+
+    def __init__(self, *args, **kwargs):
+        super(UserView, self).__init__(*args, **kwargs)
+        self.name = 'Utilisateurs'
+
+class EventForm(form.Form):
+    name = fields.StringField('Nom')
+    type = fields.StringField('Type')
+    quota = fields.IntegerField('Quota')
+    places_left = fields.IntegerField('Places restantes')
+
+class EventView(ModelView):
+    column_list = ['name', 'type', 'quota', 'places_left']
+    column_labels = dict(id='Email')
+    export_types = ['csv']
+    can_export = True
+    can_delete = True
+    form = EventForm
+
+    def __init__(self, *args, **kwargs):
+        super(EventView, self).__init__(*args, **kwargs)
+        self.name = 'Journee Objectif Ingenieur'

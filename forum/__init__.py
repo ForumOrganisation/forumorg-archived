@@ -5,10 +5,11 @@ import os
 from flask import Flask
 from flask_admin import Admin
 from flask_admin.base import MenuLink
+from flask_admin.contrib.pymongo import ModelView
 from flask_login import LoginManager
 
-from admin import CompanyView
-from storage import get_companies, init_storage
+from admin import CompanyView, EventView, UserView
+from storage import get_companies, get_events, get_users, init_storage
 
 # App init
 app = Flask(__name__)
@@ -26,6 +27,8 @@ login_manager.login_view = 'login'
 
 # Admin Interface
 admin = Admin(app, name='Interface Admin', index_view=CompanyView(get_companies(), url='/admin'))
+admin.add_view(UserView(get_users()))
+admin.add_view(EventView(get_events()))
 admin.add_link(MenuLink(name='Se deconnecter', url='/deconnexion'))
 
 # Context processors
