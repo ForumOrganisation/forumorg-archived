@@ -8,3 +8,8 @@ install:
 script: true
  # enabling docker integration
 sudo: false
+deploy:
+  provider: heroku
+  api_key:
+    secure: "dcb448e2-53a9-43fd-acb3-faa9a9408510"
+  on: production
