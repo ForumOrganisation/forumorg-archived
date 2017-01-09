@@ -3,7 +3,7 @@ import os
 import requests
 
 from flask import abort, redirect, render_template, request, send_from_directory, url_for
-from flask_login import login_required, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 from login import validate_login
 from storage import Company, get_company, set_company
 
@@ -17,12 +17,10 @@ from mailing import send_mail
 @app.route('/dashboard/<page>')
 @login_required
 def dashboard(page=None):
-    # asking for specific page
-    if page:
-        return render_template('dashboard/sections/{}.html'.format(page))
-    # default option is main dashboard
-    else:
-        return render_template('dashboard/dashboard.html')
+    if current_user.id == os.environ.get('ADMIN_ID'):
+        return redirect('/admin')
+    url = 'dashboard/sections/{}.html'.format(page) if page else 'dashboard/dashboard.html'
+    return render_template(url)
 
 
 @app.route('/connexion', methods=["GET", "POST"])

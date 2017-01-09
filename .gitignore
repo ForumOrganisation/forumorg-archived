@@ -1,6 +1,5 @@
 # Perso
 *.json
-TODO
 .Python
 !sections.json
 

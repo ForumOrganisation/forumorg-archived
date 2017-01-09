@@ -13,7 +13,7 @@ from wtforms import StringField, fields, form, validators
 from export import generate_vals
 
 def sections_formatter(v,c,m,p):
-    if m['id'] != 'admin':
+    if m['id'] != os.environ.get('ADMIN_ID'):
         if p == 'nom complet':
             return m['sections']['profile']['name']
         if p in SECTIONS[6:]:
@@ -149,13 +149,14 @@ class UserForm(form.Form):
     password = fields.PasswordField('Mot de passe', validators=[validators.Required(), validators.Length(min=5, max=30)], render_kw={"placeholder": "Ex. 123456"})
 
 class UserView(ModelView):
-    column_list = ['id', 'events']
+    column_list = ['id', 'events', 'confirmed_on', 'registered_on']
     column_labels = dict(id='Email')
     export_types = ['csv']
     can_export = True
     can_delete = True
     can_view_details = True
     form = UserForm
+    column_export_list = ['id', 'registered_on', 'confirmed_on']
 
     def __init__(self, *args, **kwargs):
         super(UserView, self).__init__(*args, **kwargs)
