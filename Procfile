@@ -1,2 +1,2 @@
-web: gunicorn forum:app --worker-class gevent
+web: gunicorn forum:app
 dev: python ./runserver.py
