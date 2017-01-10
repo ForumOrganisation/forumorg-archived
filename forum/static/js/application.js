@@ -22,23 +22,22 @@ if ( matchMedia( 'only screen and (min-width: 768px)' ).matches && animationProp
    //if visitor refresh on the middle of the document
    if(scrollPos > animationEndPos) {
       animationProp.removeClass('navbar-transparent');
-      logo.attr('src', 'images/logo-alt.png');
+      logo.attr('src', 'static/images/fo-base.png');
    }
 
    //toggle existing class
    $(document).scroll(function() {
       scrollPos = $(this).scrollTop();
-
       if( scrollPos > animationEndPos ) {
          animationProp.removeClass('navbar-transparent');
 
          //change logo into black
-         logo.attr('src', 'images/logo-alt.png');
+         logo.attr('src', 'static/images/fo-base.png');
       } else {
          animationProp.addClass('navbar-transparent');
 
          //change logo into base
-         logo.attr('src', 'images/logo.png');
+         logo.attr('src', 'static/images/fo-alt.png');
 
       }
    });
