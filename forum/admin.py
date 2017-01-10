@@ -156,7 +156,7 @@ class UserView(ModelView):
     can_delete = True
     can_view_details = True
     form = UserForm
-    column_export_list = ['id', 'registered_on', 'confirmed_on']
+    column_export_list = ['id', 'registered_on', 'confirmed_on', 'events']
 
     def __init__(self, *args, **kwargs):
         super(UserView, self).__init__(*args, **kwargs)
