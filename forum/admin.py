@@ -1,54 +1,64 @@
 import json
 import os
+import csv
 
-from flask import Response, flash, stream_with_context
+from flask import Response, flash, stream_with_context, redirect
 from flask_admin.babel import gettext
 from flask_admin.base import expose
-from flask_admin.contrib.pymongo import ModelView, filters
+from flask_admin.contrib.pymongo import ModelView
 from flask_admin.helpers import get_redirect_target
 from flask_login import current_user
 from werkzeug import secure_filename
-from wtforms import StringField, fields, form, validators
+from wtforms import fields, form, validators
+from export import log
 
 from export import generate_vals
 
-def sections_formatter(v,c,m,p):
-    if m['id'] != os.environ.get('ADMIN_ID'):
+
+def sections_formatter(v, c, m, p):
+    if m['id'] != 'admin':
         if p == 'nom complet':
             return m['sections']['profile']['name']
-        if p in SECTIONS[6:]:
+        try:
             return m['sections']['equipement']['general'][p]
-        return m['sections'][p]['completed']
-SECTIONS = ['equipement', 'transport', 'restauration', 'programme', 'badges',\
-            'nom complet',\
-            'emplacement', 'duration', 'equiped', 'banner', 'bandeau', 'size']
+        except:
+            return m['sections'][p]['completed']
+
+
+SECTIONS = ['equipement', 'transport', 'restauration', 'programme', 'badges',
+            'nom complet', 'emplacement', 'duration', 'equiped', 'banner', 'bandeau', 'size']
+
 
 def get_sections():
     fn = os.path.join(os.path.dirname(__file__), 'sections.json')
     with open(fn) as file:
         return json.load(file)
 
+
 class CompanyForm(form.Form):
-    id = fields.StringField('Identifiant', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. loreal"})
-    password = fields.PasswordField('Mot de passe', validators=[validators.Required(), validators.Length(min=5, max=30)], render_kw={"placeholder": "Ex. 123456"})
-    name = fields.StringField('Nom complet', render_kw={"placeholder": "Ex. L'Oreal"}, validators=[validators.Length(min=3, max=30)])
+    id = fields.StringField('Identifiant', validators=[validators.Required(), validators.Length(min=0, max=30)], render_kw={"placeholder": "Ex. LOREAL"})
+    password = fields.StringField('Mot de passe', validators=[validators.Required(), validators.Length(min=0, max=30)], render_kw={"placeholder": "Ex. motdepasse"})
+    name = fields.StringField('Nom complet', render_kw={"placeholder": "Ex. L'Oreal"})
     emplacement = fields.StringField('Emplacement', render_kw={"placeholder": "Ex. F13"})
     banner = fields.StringField('Banniere', render_kw={"placeholder": "Ex. Amazon Happy"})
-    size = fields.IntegerField('Surface', validators=[validators.optional()], render_kw={"placeholder": "Ex. 12"})
-    duration = fields.IntegerField('Jours de presence', validators=[validators.optional()], render_kw={"placeholder": "Ex. 2"})
+    size = fields.SelectField('Surface', choices=[(9, '9 m2'), (12, '12 m2'), (18, '18 m2'), (36, '36 m2')], coerce=int)
+    duration = fields.SelectField('Jours de presence', choices=[(1, '1 jour'), (2, '2 jours')], coerce=int)
     equiped = fields.BooleanField('Equipe?')
     bandeau = fields.BooleanField('Bandeau?')
 
+
 class CompanyView(ModelView):
     form = CompanyForm
-    column_list = ['id'] + SECTIONS[:5]
+    column_list = ['id'] + ['equipement', 'transport', 'restauration', 'programme', 'badges']
     column_labels = dict(id='Identifiant')
-    column_formatters = dict((s,sections_formatter) for s in SECTIONS)
+    column_formatters = dict((s, sections_formatter) for s in SECTIONS)
     export_types = ['csv', 'transport', 'restauration', 'badges', 'equipement']
     can_export = True
     can_delete = True
-    column_details_list = SECTIONS[5:]
+    create_modal = True
+    edit_modal = True
     can_view_details = True
+    column_details_list = ['id', 'password'] + SECTIONS[6:]
 
     def __init__(self, *args, **kwargs):
         super(CompanyView, self).__init__(*args, **kwargs)
@@ -57,59 +67,18 @@ class CompanyView(ModelView):
         self.name = 'Entreprises'
         self.sections = get_sections()
 
-    def create_model(self, form):
-        try:
-            model = form.data
-            self._on_model_change(form, model, True)
-            self.coll.insert(model)
-        except Exception as ex:
-            if str(ex)[:6] == 'E11000':
-                flash('Une entreprise avec le meme identifiant existe deja.',
-                  'error')
-            else:
-                flash('Failed to create record. {}'.format(str(ex)),
-                  'error')
-            return False
-        else:
-            self.after_model_change(form, model, True)
-
-        return model
-
-    def update_model(self, form, model):
-        try:
-            model.update(form.data)
-            self._on_model_change(form, model, False)
-            pk = self.get_pk_value(model)
-            self.coll.update({'_id': pk}, model)
-        except Exception as ex:
-            flash(gettext('Failed to update record. %(error)s', error=str(ex)),
-                  'error')
-            log.exception('Failed to update record.')
-            return False
-        else:
-            self.after_model_change(form, model, False)
-
-        return True
-
     def _on_model_change(self, form, model, is_created):
         if is_created:
             model['sections'] = self.sections
+        model['sections']['profile']['name'] = model.pop('name')
+        # Adding sections
         for s in SECTIONS[6:]:
-            if s in form.data:
-                model['sections']['equipement']['general'][s] = form.data.get(s)
-                form.data.pop(s, None)
-                model.pop(s, None)
-        if 'emplacement' in form.data:
-            model['sections']['equipement']['general']['emplacement'] = form.data.get('emplacement')
-            form.data.pop('emplacement', None)
-            model.pop('emplacement', None)
-        if 'name' in form.data:
-            model['sections']['profile']['name'] = form.data.get('name')
-            form.data.pop('name', None)
-            model.pop('name', None)
+            d = {s: model.pop(s)}
+            if d[s]:
+                model['sections']['equipement']['general'].update(d)
 
     def is_accessible(self):
-        return current_user.get_id() == "admin" and current_user.is_authenticated
+        return current_user.get_id() == 'admin' and current_user.is_authenticated
 
     @expose('/export/<export_type>/')
     def export(self, export_type):
@@ -135,8 +104,7 @@ class CompanyView(ModelView):
         writer = csv.writer(Echo())
         data = [r for r in data if r['id'] != 'admin']
         gen_vals = generate_vals(writer, export_type, data)
-        # filename = self.get_export_name(export_type='csv')
-        filename = 'export.csv'
+        filename = self.get_export_name(export_type='csv')
         disposition = 'attachment;filename=%s' % (secure_filename(filename.replace(self.name, export_type)),)
         return Response(
             stream_with_context(gen_vals),
@@ -144,9 +112,11 @@ class CompanyView(ModelView):
             mimetype='text/csv'
         )
 
+
 class UserForm(form.Form):
     id = fields.StringField('Email', render_kw={"placeholder": "Ex. yokoya@live.com"})
     password = fields.PasswordField('Mot de passe', validators=[validators.Required(), validators.Length(min=5, max=30)], render_kw={"placeholder": "Ex. 123456"})
+
 
 class UserView(ModelView):
     column_list = ['id', 'events', 'confirmed_on', 'registered_on']
@@ -162,11 +132,13 @@ class UserView(ModelView):
         super(UserView, self).__init__(*args, **kwargs)
         self.name = 'Utilisateurs'
 
+
 class EventForm(form.Form):
     name = fields.StringField('Nom')
     type = fields.StringField('Type')
     quota = fields.IntegerField('Quota')
     places_left = fields.IntegerField('Places restantes')
+
 
 class EventView(ModelView):
     column_list = ['name', 'type', 'quota', 'places_left']

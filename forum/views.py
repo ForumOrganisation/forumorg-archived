@@ -11,8 +11,7 @@ from forum import app
 from mailing import send_mail
 
 
-######### ADMIN ###########
-
+# Admin
 @app.route('/dashboard')
 @app.route('/dashboard/<page>')
 @login_required
@@ -61,8 +60,7 @@ def update_company():
     return "Success."
 
 
-######### VITRINE ###########
-
+# VITRINE
 # start of app
 @app.route('/', methods=["GET"])
 def index():
@@ -71,7 +69,7 @@ def index():
 
 @app.route('/send_request', methods=["GET"])
 def send_request():
-    #Params
+    # Params
     email = request.args.get('email')
     contact_name = request.args.get('nom_complet')
     company_name = request.args.get('nom')
@@ -81,20 +79,16 @@ def send_request():
     # ReCaptcha
     base_url = 'https://www.google.com/recaptcha/api/siteverify'
     secret = os.environ.get('RECAPTCHA_SECRET_KEY')
-    res = requests.post(base_url, data={'response':captcha, 'secret':secret}).json()
-    ts, host, success = res.get('challenge_ts'), res.get('hostname'), res.get('success')
-
-    # Logging bots...
-    if ts and not success:
-        print("Bot found from: {} at: {}".format(res.get('hostname'), res.get('challenge_ts')))
+    res = requests.post(base_url, data={'response': captcha, 'secret': secret}).json()
 
     # Sending mail...
-    if success:
+    if res.get('success'):
         return send_mail(email, contact_name, company_name, telephone)
     else:
         abort(500)
 
-######## INDEXING ########
+
+# INDEXING
 @app.route('/robots.txt')
 @app.route('/sitemap.xml')
 def static_from_root():

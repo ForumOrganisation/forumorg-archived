@@ -1,59 +1,60 @@
+from __future__ import print_function
 from flask_admin._compat import csv_encode
+import sys
+
+
+def log(m):
+    print(m, file=sys.stderr)
+
 
 # Export utility
-# UNDER WORKS #
-
-def generate_vals(writer, export_type, o_data):
-    new_data = (r['sections'][export_type] for r in o_data)
-    data = []
-    for nr, od in zip(new_data, o_data):
-        nr['company_id'] = od['id']
-        data.append(nr)
+def generate_vals(writer, export_type, data):
+    titles = ['id_entreprise']
     if export_type == 'equipement':
-        titles = data[0]['general'].keys() + data[0]['furniture'].keys()
-        titles = ['company_id'] + titles
+        titles += ['duration', 'equiped', 'banner', 'size', 'bandeau', 'emplacement']
+        titles += data[0]['sections']['equipement']['furnitures'].keys()
         yield writer.writerow(titles)
         for row in data:
             vals = []
-            for t in titles:
-                if t in row['general']:
-                    temp = row['general'].get(t)
-                    if 'quantity' in temp:
-                        vals += temp.get('quantity') if temp else ''
-                    else:
-                        vals += temp
-                elif t in row['furniture']:
-                    temp = row['general'].get(t, None)
-                    if temp:
-                        vals += temp.get('quantity')
-                    else:
-                        vals += ''
-                else:
-                    vals += [row['company_id']]
-            # vals = [csv_encode(v) for v in vals]
+            for t in titles[:1]:
+                vals.append(row.get('id', ''))
+            for t in titles[1:7]:
+                vals.append(row['sections']['equipement']['general'].get(t, 0))
+            for t in titles[7:]:
+                vals.append(row['sections']['equipement']['furnitures'][t].get('quantity'))
+            vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
     if export_type == 'restauration':
-        titles = ['company_id'] + ['mercredi', 'jeudi']
-        print(titles)
+        titles += ['mercredi_assis', 'mercredi_plateau', 'jeudi_assis', 'jeudi_plateau']
         yield writer.writerow(titles)
         for row in data:
-            vals = [row.get('dishes').get(t, '0') for t in titles]
-            vals = vals + row.get('name')
+            vals = []
+            vals.append(row.get('id', ''))
+            vals.append(row['sections']['restauration']['dishes']['mercredi'].get('Assis', 0))
+            vals.append(row['sections']['restauration']['dishes']['mercredi'].get('Plateau-Repas', 0))
+            vals.append(row['sections']['restauration']['dishes']['jeudi'].get('Assis', 0))
+            vals.append(row['sections']['restauration']['dishes']['jeudi'].get('Plateau-Repas', 0))
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
     if export_type == 'transport':
-        titles = ['company_id'] + data[0]['transports'][0][0].keys()
+        titles += ['departure_place', 'arrival_place', 'nb_persons', 'comment', 'phone', 'departure_time']
         yield writer.writerow(titles)
         for row in data:
-            vals = [row.get(t, '') for t in titles]
-            vals = vals + row.get('name')
-            vals = [csv_encode(v) for v in vals]
-            yield writer.writerow(vals)
+            for t in row['sections']['transport']['transports']:
+                vals = []
+                vals.append(row.get('id', ''))
+                for title in titles[1:]:
+                    vals.append(t.get(title, ''))
+                vals = [csv_encode(v) for v in vals]
+                yield writer.writerow(vals)
     if export_type == 'badges':
-        titles = ['company_id'] + data[0]['persons'].keys()
+        titles += ['name', 'function', 'days']
         yield writer.writerow(titles)
         for row in data:
-            vals = [row.get(t, '') for t in titles]
-            vals = vals + row.get('name')
-            vals = [csv_encode(v) for v in vals]
-            yield writer.writerow(vals)
+            for t in row['sections']['badges']['persons']:
+                vals = []
+                vals.append(row.get('id', ''))
+                for title in titles[1:]:
+                    vals.append(t.get(title, ''))
+                vals = [csv_encode(v) for v in vals]
+                yield writer.writerow(vals)
