@@ -1,278 +1,348 @@
 {% extends "dashboard/section.html" %}
 {% set title = 'Equipement' %}
 {% block main %}
-<!-- /.box-header -->
-<!-- /.box-header -->
-{% set general = company.sections.equipement.general %}
-<div class="box-body">
+  <!-- /.box-header -->
+  <!-- /.box-header -->
+  {% set general = company.sections.equipement.general %}
+  <div class="box-body">
     <div class="row">
-        <div class="col-md-4">
-            <div class="info-box bg-aqua">
-                <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Stand</span>
-                    <span class="info-box-number">
-                        {{ general.duration|to_human if general.duration else '?' }} jour(s)
-                    </span>
-                    <span class="progress-description">
-                    <span class="info-box-number">
-                    {% if general.size %}
-                        {{ '??' if general.size == 0 else general.size }}
-                    {% else %}
-                        ??
-                    {% endif %} m2
-                    </span>
-                </div>
-            </div><!-- /.info-box-content -->
-        </div><!-- /.info-box -->
-        <div class="col-md-4">
-            <div class="info-box bg-green">
-                <span class="info-box-icon"><i class="glyphicon glyphicon-object-align-right"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Type de stand</span>
-                    <span class="info-box-number">{{ 'Non équipé' if general.equiped else 'Equipé' }}</span>
-                    <span class="progress-description">{{ 'Avec' if general.bandeau else 'Sans' }} bandeau</span>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div>
-        <div class="col-md-4">
-            <div class="info-box bg-yellow">
-                <span class="info-box-icon"><i class="fa fa-map-signs"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Enseigne</span>
-                    <span class="info-box-number">{{ '????' if general.banner == '' else general.banner }}</span>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Equipement</h3>
+      <div class="col-md-4">
+        <div class="info-box bg-aqua">
+          <span class="info-box-icon">
+            <i class="fa fa-bookmark-o"></i>
+          </span>
+          <div class="info-box-content">
+            <span class="info-box-text">Stand</span>
+            <span class="info-box-number">
+              {{ general.duration|to_human if general.duration else '?' }}
+              jour(s)
+            </span>
+            <span class="progress-description">
+              <span class="info-box-number">
+                {% if general.size %}
+                  {{ '??' if general.size == 0 else general.size }}
+                {% else %}
+                  ??
+                {% endif %}
+                m2
+              </span>
             </div>
-            <div class="box-body">
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+        <div class="col-md-4">
+          <div class="info-box bg-green">
+            <span class="info-box-icon">
+              <i class="glyphicon glyphicon-object-align-right"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Type de stand</span>
+              <span class="info-box-number">{{ 'Non équipé' if general.equiped else 'Equipé' }}</span>
+              <span class="progress-description">{{ 'Avec' if general.bandeau else 'Sans' }}
+                bandeau</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div class="col-md-4">
+          <div class="info-box bg-yellow">
+            <span class="info-box-icon">
+              <i class="fa fa-map-signs"></i>
+            </span>
+            <div class="info-box-content">
+              <span class="info-box-text">Enseigne</span>
+              <span class="info-box-number">{{ '????' if general.banner == '' else general.banner }}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Equipement</h3>
+          </div>
+          <div class="box-body">
+            <div class="row">
+              <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <!-- /.col -->
-                            <div class="col-md-12">
-                                <!-- Widget: user widget style 1 -->
-                                <div class="box box-widget widget-user-2">
-                                    <div class="box-footer no-padding">
-                                        <table class="table table-responsive">
-                                            <tbody>
-                                            <tr>
-                                                <td><span class="text-muted">Banque à hôtesse</span></td>
-                                                <td><span class="badge bg-grey">1</span></td>
-                                                <td><span class="badge bg-grey">inclus</span></td>
-                                                <td><i class="fa fa-remove" style="color:white"></i></td>
-                                            </tr>
+                  <!-- /.col -->
+                  <div class="col-md-12">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user-2">
+                      <div class="box-footer no-padding">
+                        <table class="table table-responsive">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <span class="text-muted">Banque à hôtesse</span>
+                              </td>
+                              <td>
+                                <span class="badge bg-grey">1</span>
+                              </td>
+                              <td>
+                                <span class="badge bg-grey">inclus</span>
+                              </td>
+                              <td>
+                                <i class="fa fa-remove" style="color:white"></i>
+                              </td>
+                            </tr>
 
-                                            <tr>
-                                                <td><span class="text-muted">Chaise</span></td>
-                                                <td><span class="badge bg-grey">1</span></td>
-                                                <td><span class="badge bg-grey">inclus</span></td>
-                                                <td><i class="fa fa-remove" style="color:white"></i></td>
-                                            </tr>
+                            <tr>
+                              <td>
+                                <span class="text-muted">Chaise</span>
+                              </td>
+                              <td>
+                                <span class="badge bg-grey">1</span>
+                              </td>
+                              <td>
+                                <span class="badge bg-grey">inclus</span>
+                              </td>
+                              <td>
+                                <i class="fa fa-remove" style="color:white"></i>
+                              </td>
+                            </tr>
 
-                                            <tr>
-                                                <td><span class="text-muted">Portemanteau</span></td>
-                                                <td><span class="badge bg-grey">1</span></td>
-                                                <td><span class="badge bg-grey">inclus</span></td>
-                                                <td><i class="fa fa-remove" style="color:white"></i></td>
-                                            </tr>
+                            <tr>
+                              <td>
+                                <span class="text-muted">Portemanteau</span>
+                              </td>
+                              <td>
+                                <span class="badge bg-grey">1</span>
+                              </td>
+                              <td>
+                                <span class="badge bg-grey">inclus</span>
+                              </td>
+                              <td>
+                                <i class="fa fa-remove" style="color:white"></i>
+                              </td>
+                            </tr>
 
-                                            <tr>
-                                                <td><span class="text-muted">Rail de spots</span></td>
-                                                <td><span class="badge bg-grey">1</span></td>
-                                                <td><span class="badge bg-grey">inclus</span></td>
-                                                <td><i class="fa fa-remove" style="color:white"></i></td>
-                                            </tr>
+                            <tr>
+                              <td>
+                                <span class="text-muted">Rail de spots</span>
+                              </td>
+                              <td>
+                                <span class="badge bg-grey">1</span>
+                              </td>
+                              <td>
+                                <span class="badge bg-grey">inclus</span>
+                              </td>
+                              <td>
+                                <i class="fa fa-remove" style="color:white"></i>
+                              </td>
+                            </tr>
 
-                                            <tr>
-                                                <td><span class="text-muted">Tabouret haut</span></td>
-                                                <td><span class="badge bg-grey">1</span></td>
-                                                <td><span class="badge bg-grey">inclus</span></td>
-                                                <td><i class="fa fa-remove" style="color:white"></i></td>
-                                            </tr>
-                                            {% for k,v in company.sections.equipement.furnitures.items() %}
-                                            {% if v.quantity != 0 %}
-                                            <tr>
-                                                <td>{{ v.name }}</td>
-                                                <td><span class="badge bg-blue">{{ v.quantity }}</span></td>
-                                                <td><span class="badge bg-blue">{{ v.price * v.quantity }} €</span></td>
-                                                <td><i onclick="remove_furniture('{{ k }}')" class="fa fa-remove"
-                                                       style="color:red"></i></td>
-                                            </tr>
-                                            {% endif %}
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <tr>
+                              <td>
+                                <span class="text-muted">Tabouret haut</span>
+                              </td>
+                              <td>
+                                <span class="badge bg-grey">1</span>
+                              </td>
+                              <td>
+                                <span class="badge bg-grey">inclus</span>
+                              </td>
+                              <td>
+                                <i class="fa fa-remove" style="color:white"></i>
+                              </td>
+                            </tr>
+                            {% for k, v in company.sections.equipement.furnitures.items() %}
+                              {% if v.quantity != 0 %}
+                                <tr>
+                                  <td>{{ v.name }}</td>
+                                  <td>
+                                    <span class="badge bg-blue">{{ v.quantity }}</span>
+                                  </td>
+                                  <td>
+                                    <span class="badge bg-blue">{{ v.price * v.quantity }}
+                                      €</span>
+                                  </td>
+                                  <td>
+                                    <i onclick="remove_furniture('{{ k }}')" class="fa fa-remove" style="color:red"></i>
+                                  </td>
+                                </tr>
+                              {% endif %}
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
         <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Ajouter un équipement</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
+          <div class="box-header">
+            <h3 class="box-title">Ajouter un équipement</h3>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <div class="row r-center">
+              <div class="col-md-4">
+
+                <div class="form-group">
+                  <label>item</label>
+                  <select class="form-control select2 name" style="width: 100%;">
+                    {% for k, v in company.sections.equipement.furnitures.items() %}
+                      <option>{{ v.name }}
+                        -
+                        {{ v.price }}
+                        €</option>
+                    {% endfor %}
+                  </select>
                 </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="row r-center">
-                    <div class="col-md-4">
+              </div>
 
-                        <div class="form-group">
-                            <label>item</label>
-                            <select class="form-control select2 name" style="width: 100%;">
-                                {% for k,v in company.sections.equipement.furnitures.items() %}
-                                <option>{{ v.name }} - {{ v.price }} €</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>quantité</label>
-                            <select class="form-control select2 quantity" style="width: 100%;">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>total</label>
-                            <p class="price">89 €</p>
-                        </div>
-                    </div>
-                    <!-- /.box -->
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>quantité</label>
+                  <select class="form-control select2 quantity" style="width: 100%;">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
                 </div>
-            </div>
+              </div>
 
-            <div class="box-footer">
-                <button id="confirm_add" type="submit" class="btn btn-primary">Confirmer</button>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>total</label>
+                  <p class="price">89 €</p>
+                </div>
+              </div>
+              <!-- /.box -->
             </div>
+          </div>
+
+          <div class="box-footer">
+            <button id="confirm_add" type="submit" class="btn btn-primary">Confirmer</button>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</div>
+  </div>
 </div>
 {% endblock main %}
 {% block scripts %}
 <script type="text/javascript">
-function update_price(price) {
-  price = price.split(/€/g)[0].split(" - ")[1];
-  price = Number($(".quantity").val()) * Number(price);
-  $(".price").html(price + " €");
-}
+  function update_price(price) {
+    price = price.split(/€/g)[0].split(" - ")[1];
+    price = Number($(".quantity").val()) * Number(price);
+    $(".price").html(price + " €");
+  }
 
-$("document").ready(function() {
-  var $name = $('.name').select2();
-  var $quantity = $('.quantity').select2();
+  $("document").ready(function () {
+    var $name = $('.name').select2();
+    var $quantity = $('.quantity').select2();
 
-  $name.on("select2:select", function (e) {
-    update_price(e.params.data.text);
+    $name.on("select2:select", function (e) {
+      update_price(e.params.data.text);
+    });
+
+    $quantity.on("select2:select", function (e) {
+      update_price($(".name").val());
+    });
+
   });
 
-  $quantity.on("select2:select", function (e) {
-    update_price($(".name").val());
-  });
-
-});
-
-$('#confirm_stand').on('click', function(e) {
+  $('#confirm_stand').on('click', function (e) {
     e.preventDefault();
     var company = {{ company|tojson }};
     var general = company.sections.equipement.general;
     var general = {
-       duration: Number($(".duration").val()),
-       equiped: $(".equiped").val(),
-       banner: $("#banner").val(),
-       size: Number($(".size").val()),
-       bandeau: $(".bandeau").val()
+      duration: Number($(".duration").val()),
+      equiped: $(".equiped").val(),
+      banner: $("#banner").val(),
+      size: Number($(".size").val()),
+      bandeau: $(".bandeau").val()
     };
     company.sections.equipement.general = general;
     $.ajax({
       type: "POST",
       url: "{{ url_for('update_company') }}",
-      data: {"company": JSON.stringify(company)},
-      success: function() {
-          Notify("Changements sauvegardés.");
-          setTimeout(function(){
-              location.reload();
-          }, 1000);
-    }
+      data: {
+        "company": JSON.stringify(company)
+      },
+      success: function () {
+        Notify("Changements sauvegardés.");
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      }
     });
     return false;
-});
+  });
 
-$('#confirm_add').on('click', function(e) {
+  $('#confirm_add').on('click', function (e) {
     e.preventDefault();
     var company = {{ company|tojson }};
     var furnitures = company.sections.equipement.furnitures;
     var value_quantity = Number($(".quantity").val());
     var value_name = $(".name").val();
     value_name = value_name.split(' - ')[0];
-    for (var key in furnitures){
+    for (var key in furnitures) {
       if (furnitures[key].name == value_name) {
         furnitures[key].quantity += value_quantity;
       }
     }
 
     $.ajax({
-        type: "POST",
-        url: "{{ url_for('update_company') }}",
-        data: {"company": JSON.stringify(company)},
-        success: function() {
-            Notify("Changements sauvegardés.");
-            setTimeout(function(){
-                location.reload();
-            }, 1000);
-        }
+      type: "POST",
+      url: "{{ url_for('update_company') }}",
+      data: {
+        "company": JSON.stringify(company)
+      },
+      success: function () {
+        Notify("Changements sauvegardés.");
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      }
     });
     return false;
-});
+  });
 
-function remove_furniture(name) {
+  function remove_furniture(name) {
     var r = confirm("Confirmer la suppresion ?");
     if (r) {
-        var company = {{ company|tojson }};
-        var furnitures = company.sections.equipement.furnitures;
-        furnitures[name].quantity = 0;
-        $.ajax({
-            type: "POST",
-            url: "{{ url_for('update_company') }}",
-            data: {"company": JSON.stringify(company)},
-            success: function() {
-                Notify("Suppression confirmée.");
-                setTimeout(function(){
-                    location.reload();
-                }, 1000);
-            }
-        });
+      var company = {{ company|tojson }};
+      var furnitures = company.sections.equipement.furnitures;
+      furnitures[name].quantity = 0;
+      $.ajax({
+        type: "POST",
+        url: "{{ url_for('update_company') }}",
+        data: {
+          "company": JSON.stringify(company)
+        },
+        success: function () {
+          Notify("Suppression confirmée.");
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        }
+      });
     }
-}
-
+  }
 </script>
 {% endblock scripts %}

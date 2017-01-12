@@ -140,6 +140,7 @@
     "name":"",
     "address":"",
     "town":"",
-    "country":""
+    "country":"",
+    "acompte":false
   }
 }

@@ -1,149 +1,158 @@
 {% extends "dashboard/section.html" %}
 {% set title = 'Restauration' %}
 {% block main %}
-<div class="row">
+  <div class="row">
     <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Liste des repas</h3>
-            </div>
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                    <tbody>
-                    <tr>
-                        <th>Jour</th>
-                        <th>Nombre de repas</th>
-                        <th><i class="fa fa-remove"></i></th>
-                    </tr>
-                    {% for k,v in company.sections.restauration.dishes.items() %}
-                    <tr>
-                        <td>{{ k|capitalize }}</td>
-                        <td>
-                            <span class="label label-default">deux repas inclus</span>
-                            {% for type,qty in v.items() %}
-                                {% if qty != 0 %}
-                                    <span class="label bg-{{ 'purple' if type == 'Assis' else 'blue' }}">{{ qty|to_human }} repas ({{type|lower }})</span>
-                                {% endif %}
-                            {% endfor %}
-                        </td>
-                        <td><i onclick="remove_dish('{{ k }}')" class="fa fa-remove" style="color:red"></i></td>
-                    </tr>
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Liste des repas</h3>
+        </div>
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th>Jour</th>
+                <th>Nombre de repas</th>
+                <th>
+                  <i class="fa fa-remove"></i>
+                </th>
+              </tr>
+              {% for k, v in company.sections.restauration.dishes.items() %}
+                <tr>
+                  <td>{{ k|capitalize }}</td>
+                  <td>
+                    <span class="label label-default">deux repas inclus</span>
+                    {% for type, qty in v.items() %}
+                      {% if qty != 0 %}
+                        <span class="label bg-{{ 'purple' if type == 'Assis' else 'blue' }}">{{ qty|to_human }}
+                          repas ({{type|lower }})</span>
+                      {% endif %}
                     {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.box-body -->
+                  </td>
+                  <td>
+                    <i onclick="remove_dish('{{ k }}')" class="fa fa-remove" style="color:red"></i>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
-        <!-- /.box -->
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
     </div>
-</div>
+  </div>
 
-<div class="row">
+  <div class="row">
     <div class="col-md-12">
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Ajouter un repas</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="row r-center">
-                    <div class="col-md-4">
-
-                        <div class="form-group">
-                            <label>jour</label>
-                            <select class="form-control select2 day" style="width: 100%;">
-                                <option>mercredi</option>
-                                <option>jeudi</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>combien</label>
-                            <select class="form-control select2 qty" style="width: 100%;">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>type</label>
-                            <select class="form-control select2 type" style="width: 100%;">
-                                <option>Plateau-Repas</option>
-                                <option>Assis</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- /.input group -->
-                </div>
-            </div>
-
-            <div class="box-footer">
-                <button id="confirm_dish" type="submit" class="btn btn-primary">Confirmer</button>
-            </div>
-            <!-- /.box-body -->
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Ajouter un repas</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
         </div>
-        <!-- /.box -->
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row r-center">
+            <div class="col-md-4">
+
+              <div class="form-group">
+                <label>jour</label>
+                <select class="form-control select2 day" style="width: 100%;">
+                  <option>mercredi</option>
+                  <option>jeudi</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>combien</label>
+                <select class="form-control select2 qty" style="width: 100%;">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>type</label>
+                <select class="form-control select2 type" style="width: 100%;">
+                  <option>Plateau-Repas</option>
+                  <option>Assis</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- /.input group -->
+          </div>
+        </div>
+
+        <div class="box-footer">
+          <button id="confirm_dish" type="submit" class="btn btn-primary">Confirmer</button>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
     </div>
-</div>
+  </div>
 
 {% endblock main %}
 {% block scripts %}
-<script type="text/javascript">
-$('#confirm_dish').on('click', function(e) {
-    e.preventDefault();
-    var company = {{ company|tojson }};
-    var dishes = company.sections.restauration.dishes;
-    var day = $(".day").val();
-    var qty = Number($(".qty").val());
-    var type = $(".type").val();
-    dishes[day][type] += qty;
+  <script type="text/javascript">
+    $('#confirm_dish').on('click', function (e) {
+      e.preventDefault();
+      var company = {{ company|tojson }};
+      var dishes = company.sections.restauration.dishes;
+      var day = $(".day").val();
+      var qty = Number($(".qty").val());
+      var type = $(".type").val();
+      dishes[day][type] += qty;
 
-    $.ajax({
-      type: "POST",
-      url: "{{ url_for('update_company') }}",
-      data: {"company": JSON.stringify(company)},
-      success: function() {
+      $.ajax({
+        type: "POST",
+        url: "{{ url_for('update_company') }}",
+        data: {
+          "company": JSON.stringify(company)
+        },
+        success: function () {
           Notify("Changements sauvegardés.");
-          setTimeout(function(){
-              location.reload();
+          setTimeout(function () {
+            location.reload();
           }, 1000);
-      }
+        }
+      });
+      return false;
     });
-    return false;
-});
 
-function remove_dish(day) {
-    var r = confirm("Confirmer la suppresion ?");
-    if (r) {
+    function remove_dish(day) {
+      var r = confirm("Confirmer la suppresion ?");
+      if (r) {
         var company = {{ company|tojson }};
         var dishes = company.sections.restauration.dishes;
         dishes[day]["Assis"] = 0;
         dishes[day]["Plateau-Repas"] = 0;
         $.ajax({
-            type: "POST",
-            url: "{{ url_for('update_company') }}",
-            data: {"company": JSON.stringify(company)},
-            success: function() {
-                Notify("Suppression confirmée.");
-                setTimeout(function(){
-                    location.reload();
-                }, 1000);
-            }
+          type: "POST",
+          url: "{{ url_for('update_company') }}",
+          data: {
+            "company": JSON.stringify(company)
+          },
+          success: function () {
+            Notify("Suppression confirmée.");
+            setTimeout(function () {
+              location.reload();
+            }, 1000);
+          }
         });
+      }
     }
-}
-
-</script>
+  </script>
 {% endblock scripts %}

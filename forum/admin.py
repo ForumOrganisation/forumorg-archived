@@ -19,6 +19,8 @@ def sections_formatter(v, c, m, p):
     if m['id'] != 'admin':
         if p == 'nom complet':
             return m['sections']['profile']['name']
+        if p == 'acompte':
+            return m['sections']['profile']['acompte']
         try:
             return m['sections']['equipement']['general'][p]
         except:
@@ -26,7 +28,7 @@ def sections_formatter(v, c, m, p):
 
 
 SECTIONS = ['equipement', 'transport', 'restauration', 'programme', 'badges',
-            'nom complet', 'emplacement', 'duration', 'equiped', 'banner', 'bandeau', 'size']
+            'nom complet', 'acompte', 'emplacement', 'duration', 'equiped', 'banner', 'bandeau', 'size']
 
 
 def get_sections():
@@ -45,6 +47,7 @@ class CompanyForm(form.Form):
     duration = fields.SelectField('Jours de presence', choices=[(1, '1 jour'), (2, '2 jours')], coerce=int)
     equiped = fields.BooleanField('Equipe?')
     bandeau = fields.BooleanField('Bandeau?')
+    acompte = fields.BooleanField('Acompte paye?')
 
 
 class CompanyView(ModelView):
@@ -58,7 +61,7 @@ class CompanyView(ModelView):
     create_modal = True
     edit_modal = True
     can_view_details = True
-    column_details_list = ['id', 'password'] + SECTIONS[6:]
+    column_details_list = ['id', 'password'] + SECTIONS[-8:]
 
     def __init__(self, *args, **kwargs):
         super(CompanyView, self).__init__(*args, **kwargs)
@@ -70,9 +73,12 @@ class CompanyView(ModelView):
     def _on_model_change(self, form, model, is_created):
         if is_created:
             model['sections'] = self.sections
-        model['sections']['profile']['name'] = model.pop('name')
+        if model.get('name'):
+            model['sections']['profile']['name'] = model.pop('name')
+        if model.get('acompte'):
+            model['sections']['profile']['acompte'] = model.pop('acompte')
         # Adding sections
-        for s in SECTIONS[6:]:
+        for s in SECTIONS[-6:]:
             d = {s: model.pop(s)}
             if d[s]:
                 model['sections']['equipement']['general'].update(d)
