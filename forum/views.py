@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import json
 import os
 import requests
@@ -18,8 +20,15 @@ from mailing import send_mail
 def dashboard(page=None):
     if current_user.id == os.environ.get('ADMIN_ID'):
         return redirect('/admin')
-    url = 'dashboard/sections/{}.html'.format(page) if page else 'dashboard/dashboard.html'
-    return render_template(url)
+    try:
+        completed = current_user.data['sections'].get(page).get('completed')
+    except:
+        completed = False
+    if completed:
+        return u'La section était normalement validée, non ?'
+    else:
+        url = 'dashboard/sections/{}.html'.format(page) if page else 'dashboard/dashboard.html'
+        return render_template(url)
 
 
 @app.route('/connexion', methods=["GET", "POST"])

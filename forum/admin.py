@@ -28,7 +28,9 @@ def sections_formatter(v, c, m, p):
 
 
 SECTIONS = ['equipement', 'transport', 'restauration', 'programme', 'badges',
-            'nom complet', 'acompte', 'emplacement', 'duration', 'equiped', 'banner', 'bandeau', 'size']
+            'nom complet', 'acompte', 'emplacement', 'duration', 'equiped',
+            'banner', 'bandeau', 'size'
+            ]
 
 
 def get_sections():
@@ -48,6 +50,11 @@ class CompanyForm(form.Form):
     equiped = fields.BooleanField('Equipe?')
     bandeau = fields.BooleanField('Bandeau?')
     acompte = fields.BooleanField('Acompte paye?')
+    equipement = fields.BooleanField('Valider Equipement')
+    restauration = fields.BooleanField('Valider Restauration')
+    badges = fields.BooleanField('Valider Badges')
+    transport = fields.BooleanField('Valider Transports')
+    programme = fields.BooleanField('Valider Programme')
 
 
 class CompanyView(ModelView):
@@ -65,7 +72,7 @@ class CompanyView(ModelView):
     edit_modal = True
     can_view_details = True
     details_modal = True
-    column_details_list = ['id', 'password'] + SECTIONS[-8:]
+    column_details_list = ['id', 'password'] + SECTIONS
 
     def __init__(self, *args, **kwargs):
         super(CompanyView, self).__init__(*args, **kwargs)
@@ -86,6 +93,11 @@ class CompanyView(ModelView):
             d = {s: model.pop(s)}
             if d[s]:
                 model['sections']['equipement']['general'].update(d)
+
+        for s in SECTIONS[:5]:
+            d = {'completed': model.pop(s)}
+            if d['completed']:
+                model['sections'][s].update(d)
 
     def is_accessible(self):
         return current_user.get_id() == 'admin' and current_user.is_authenticated

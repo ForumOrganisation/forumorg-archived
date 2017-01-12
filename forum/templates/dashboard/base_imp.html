@@ -8,11 +8,11 @@
         <span>{{ name|capitalize|replace("_", " ") }}</span>
       {% else %}
         <li {% if request.path == url_for('dashboard', page=name) %} class="active" {% endif %}>
-          <a href="{{ url_for('dashboard', page=name) }}">
+          <a href="{{ url_for('dashboard', page=name) if not company.sections.get(name).completed else '' }}">
             <i class="{{ icon }}"></i>
             <span>{{ name|capitalize|replace("_", " ") }}</span>
             {% if company.sections.get(name).completed %}
-              <small class="label pull-right bg-green">complété</small>
+              <small class="label pull-right bg-green">validé</small>
             {% endif %}
           {% endif %}
         </a>
