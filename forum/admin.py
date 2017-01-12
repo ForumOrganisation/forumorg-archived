@@ -53,7 +53,10 @@ class CompanyForm(form.Form):
 class CompanyView(ModelView):
     form = CompanyForm
     column_list = ['id'] + ['equipement', 'transport', 'restauration', 'programme', 'badges']
-    column_labels = dict(id='Identifiant')
+    column_labels = dict(id='Identifiant', acompte='Acompte paye?',
+                        duration='Duree de presence', equiped='Equipe?',
+                        banner='Banniere', bandeau='Bandeau?', size='Taille (m2)',
+                        password='Mot de passe')
     column_formatters = dict((s, sections_formatter) for s in SECTIONS)
     export_types = ['csv', 'transport', 'restauration', 'badges', 'equipement']
     can_export = True
@@ -61,6 +64,7 @@ class CompanyView(ModelView):
     create_modal = True
     edit_modal = True
     can_view_details = True
+    details_modal = True
     column_details_list = ['id', 'password'] + SECTIONS[-8:]
 
     def __init__(self, *args, **kwargs):
