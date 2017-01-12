@@ -1,6 +1,9 @@
-# forum-prod
+# forum-fra
 
 This is the repository for the official website of [Forum Rhône-Alpes](http://www.forum-rhone-alpes.com).
+
+[![Build Status](https://travis-ci.org/ForumOrganisation/forum-fra.svg?branch=master)](https://travis-ci.org/ForumOrganisation/forum-fra)
+[![Build Status](https://travis-ci.org/ForumOrganisation/forum-fra.svg?branch=production)](https://travis-ci.org/ForumOrganisation/forum-fra)
 
 ## Getting Started
 
