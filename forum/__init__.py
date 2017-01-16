@@ -5,7 +5,6 @@ import os
 from flask import Flask
 from flask_admin import Admin
 from flask_admin.base import MenuLink
-from flask_admin.contrib.pymongo import ModelView
 from flask_login import LoginManager
 
 from admin import CompanyView, EventView, UserView
@@ -31,8 +30,6 @@ admin.add_view(UserView(get_users()))
 admin.add_view(EventView(get_events()))
 admin.add_link(MenuLink(name='Se deconnecter', url='/deconnexion'))
 
-# Context processors
-# ... None
 
 # Jinja Filters
 @app.template_filter('format_dt')
@@ -74,12 +71,15 @@ def to_human(num):
 def empty_furniture(f):
     return sum([v['quantity'] for k, v in f.items()]) == 0
 
+
 @app.template_filter('empty_events')
 def empty_events(e):
     return any([v['registered'] for k, v in e.items()])
 
+
 @app.template_filter('empty_dishes')
 def empty_dishes(d):
     return sum([sum(a.values()) for a in d.values()]) == 0
+
 
 import views

@@ -20,15 +20,8 @@ from mailing import send_mail
 def dashboard(page=None):
     if current_user.id == os.environ.get('ADMIN_ID'):
         return redirect('/admin')
-    try:
-        completed = current_user.data['sections'].get(page).get('completed')
-    except:
-        completed = False
-    if completed:
-        return u'La section était normalement validée, non ?'
-    else:
-        url = 'dashboard/sections/{}.html'.format(page) if page else 'dashboard/dashboard.html'
-        return render_template(url)
+    url = 'dashboard/sections/{}.html'.format(page) if page and page != "accueil" else 'dashboard/dashboard.html'
+    return render_template(url)
 
 
 @app.route('/connexion', methods=["GET", "POST"])
@@ -67,6 +60,18 @@ def update_company():
     company = json.loads(company)
     set_company(company['id'], company)
     return "Success."
+
+@app.route('/update_banner', methods=["POST"])
+@login_required
+def update_banner():
+    company_id = request.form.get('pk')
+    banner = request.form.get('value')
+
+    company = get_company(company_id)
+    company['banner'] = banner
+    set_company(company['id'], company)
+    return "Success."
+
 
 
 # VITRINE

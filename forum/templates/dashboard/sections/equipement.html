@@ -1,9 +1,27 @@
 {% extends "dashboard/section.html" %}
 {% set title = 'Equipement' %}
+{% set titles = ['Chaises', 'Tables', 'Banque hôtesse', 'Tabourets', 'Porte manteau'] %}
+{% set sizes = {
+  9: [
+    2, 1, 1, 1, 1
+  ],
+  12: [
+    2, 1, 1, 1, 1
+  ],
+  18: [
+    2, 1, 1, 1, 1
+  ],
+  24: [
+    4, 2, 2, 2, 1
+  ],
+  30: [
+    5, 3, 2, 3, 1
+  ],
+  36: [8, 4, 4, 4, 1]
+} %}
 {% block main %}
   <!-- /.box-header -->
   <!-- /.box-header -->
-  {% set general = company.sections.equipement.general %}
   <div class="box-body">
     <div class="row">
       <div class="col-md-4">
@@ -14,16 +32,13 @@
           <div class="info-box-content">
             <span class="info-box-text">Stand</span>
             <span class="info-box-number">
-              {{ general.duration|to_human if general.duration else '?' }}
+              {{ company.duration|to_human if company.duration else '?' }}
               jour(s)
             </span>
             <span class="progress-description">
               <span class="info-box-number">
-                {% if general.size %}
-                  {{ '??' if general.size == 0 else general.size }}
-                {% else %}
-                  ??
-                {% endif %}
+                {{ '??' if not company.size or company.size == 0
+                    else company.size }}
                 m2
               </span>
             </div>
@@ -38,9 +53,7 @@
             </span>
             <div class="info-box-content">
               <span class="info-box-text">Type de stand</span>
-              <span class="info-box-number">{{ 'Non équipé' if general.equiped else 'Equipé' }}</span>
-              <span class="progress-description">{{ 'Avec' if general.bandeau else 'Sans' }}
-                bandeau</span>
+              <span class="info-box-number">{{ 'Non équipé' if company.equiped == 'non' else 'Equipé' }}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -53,7 +66,11 @@
             </span>
             <div class="info-box-content">
               <span class="info-box-text">Enseigne</span>
-              <span class="info-box-number">{{ '????' if general.banner == '' else general.banner }}</span>
+              <span class="info-box-number">
+                <a href="#" id="banner" data-type="text" data-pk="{{ company.id }}" data-url="/update_banner" data-title="Entrez votre bannière">
+                  {{ 'Ajoutez votre bannière' if not company.banner else company.banner }}
+                </a>
+              </span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -79,80 +96,22 @@
                       <div class="box-footer no-padding">
                         <table class="table table-responsive">
                           <tbody>
-                            <tr>
-                              <td>
-                                <span class="text-muted">Banque à hôtesse</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-grey">1</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-grey">inclus</span>
-                              </td>
-                              <td>
-                                <i class="fa fa-remove" style="color:white"></i>
-                              </td>
-                            </tr>
-
-                            <tr>
-                              <td>
-                                <span class="text-muted">Chaise</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-grey">1</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-grey">inclus</span>
-                              </td>
-                              <td>
-                                <i class="fa fa-remove" style="color:white"></i>
-                              </td>
-                            </tr>
-
-                            <tr>
-                              <td>
-                                <span class="text-muted">Portemanteau</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-grey">1</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-grey">inclus</span>
-                              </td>
-                              <td>
-                                <i class="fa fa-remove" style="color:white"></i>
-                              </td>
-                            </tr>
-
-                            <tr>
-                              <td>
-                                <span class="text-muted">Rail de spots</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-grey">1</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-grey">inclus</span>
-                              </td>
-                              <td>
-                                <i class="fa fa-remove" style="color:white"></i>
-                              </td>
-                            </tr>
-
-                            <tr>
-                              <td>
-                                <span class="text-muted">Tabouret haut</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-grey">1</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-grey">inclus</span>
-                              </td>
-                              <td>
-                                <i class="fa fa-remove" style="color:white"></i>
-                              </td>
-                            </tr>
+                            {% for t in titles %}
+                              <tr>
+                                <td>
+                                  <span class="text-muted">{{ t }}</span>
+                                </td>
+                                <td>
+                                  <span class="badge bg-grey">{{ sizes[company.size][loop.index0] }}</span>
+                                </td>
+                                <td>
+                                  <span class="badge bg-grey">inclus</span >
+                                </td>
+                                <td>
+                                  <i class="fa fa-remove" style="color:white"></i>
+                                </td>
+                              </tr>
+                            {% endfor %}
                             {% for k, v in company.sections.equipement.furnitures.items() %}
                               {% if v.quantity != 0 %}
                                 <tr>
@@ -244,6 +203,7 @@
   </div>
 </div>
 {% endblock main %}
+
 {% block scripts %}
 <script type="text/javascript">
   function update_price(price) {
@@ -264,34 +224,6 @@
       update_price($(".name").val());
     });
 
-  });
-
-  $('#confirm_stand').on('click', function (e) {
-    e.preventDefault();
-    var company = {{ company|tojson }};
-    var general = company.sections.equipement.general;
-    var general = {
-      duration: Number($(".duration").val()),
-      equiped: $(".equiped").val(),
-      banner: $("#banner").val(),
-      size: Number($(".size").val()),
-      bandeau: $(".bandeau").val()
-    };
-    company.sections.equipement.general = general;
-    $.ajax({
-      type: "POST",
-      url: "{{ url_for('update_company') }}",
-      data: {
-        "company": JSON.stringify(company)
-      },
-      success: function () {
-        Notify("Changements sauvegardés.");
-        setTimeout(function () {
-          location.reload();
-        }, 1000);
-      }
-    });
-    return false;
   });
 
   $('#confirm_add').on('click', function (e) {

@@ -11,7 +11,7 @@ def log(m):
 def generate_vals(writer, export_type, data):
     titles = ['id_entreprise']
     if export_type == 'equipement':
-        titles += ['duration', 'equiped', 'banner', 'size', 'bandeau', 'emplacement']
+        titles += ['duration', 'equiped', 'banner', 'size', 'emplacement']
         titles += data[0]['sections']['equipement']['furnitures'].keys()
         yield writer.writerow(titles)
         for row in data:

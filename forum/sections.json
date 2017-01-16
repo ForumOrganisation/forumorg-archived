@@ -1,14 +1,5 @@
 {
   "equipement":{
-    "completed":false,
-    "general":{
-      "duration":0,
-      "equiped":false,
-      "banner":"",
-      "size":0,
-      "bandeau":false,
-      "emplacement":""
-    },
     "furnitures":{
       "banque_hotesse":{
         "name":"Banque a Hotesse",
@@ -83,7 +74,6 @@
     }
   },
   "restauration":{
-    "completed":false,
     "dishes":
     {
       "mercredi":
@@ -101,17 +91,14 @@
   "badges":{
     "persons":[
 
-    ],
-    "completed":false
+    ]
   },
   "transport":{
-    "completed":false,
     "transports":[
 
     ]
   },
   "programme":{
-    "completed":false,
     "events":{
       "conference":{
         "name":"Offre Conférence",
@@ -137,10 +124,7 @@
     }
   },
   "profile":{
-    "name":"",
     "address":"",
-    "town":"",
-    "country":"",
-    "acompte":false
+    "country":""
   }
 }

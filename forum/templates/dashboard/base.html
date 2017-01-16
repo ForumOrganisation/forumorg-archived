@@ -64,7 +64,7 @@
                   <!-- The user image in the navbar-->
                   <img src="{{ url_for('static', filename='dist/img/avatar5.png') }}" class="user-image" alt="User Image">
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs">{{company.sections.profile.name}}</span>
+                  <span class="hidden-xs">{{company.name}}</span>
                 </a>
               </li>
               <!-- Sign Out Menu -->
@@ -90,7 +90,7 @@
               <img src="{{ url_for('static', filename='dist/img/avatar5.png') }}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p>{{company.sections.profile.name}}</p>
+              <p>{{company.name}}</p>
               <!-- Status -->
               <a href="#">
                 <i class="fa fa-circle text-success"></i>
@@ -114,8 +114,6 @@
         <section class="content-header">
           {% block header %}{% endblock header %}
         </section>
-
-        {% block acompte %}{% endblock acompte %}
 
         <!-- Main content -->
         <section class="content">
@@ -170,7 +168,6 @@
     <script src="{{ url_for('static', filename='js/Notify.js') }}"></script>
     <!-- bootstrap editable -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-    <script src="{{ url_for('static', filename='js/address.js') }}"></script>
 
     <!-- Page script -->
     <script>
@@ -180,6 +177,7 @@
         $("#datetime").inputmask("datetime", {"placeholder": "jj/mm/aaaa hh:ss"});
         $("#phone").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
         $("#persons").inputmask("9", {"placeholder": "x"});
+        $('#banner').editable();
       });
     </script>
     {% block scripts %}{% endblock scripts %}

@@ -1,17 +1,5 @@
 {% extends "dashboard/base_imp.html" %}
 {% set title = 'Vue globale' %}
-{% block acompte %}
-  {% if not company.sections.profile.acompte %}
-    <div class="pad margin no-print">
-      <div class="callout callout-warning" style=>
-        <h4>
-          <i class="fa fa-warning"></i>
-          Message:</h4>
-        Votre acompte auprès de notre service de comptabilité n'a pas encore été payé. Veuillez le régler dans les plus brefs délais.
-      </div>
-    </div>
-  {% endif %}
-{% endblock acompte %}
 {% block content %}
   {% macro more_button(name) -%}
     <strong>
@@ -22,6 +10,16 @@
   {%- endmacro %}
   <!-- Equipement/Restauration -->
   <div class="row">
+    {% if company.acompte == 'non' %}
+      <div class="pad margin no-print">
+        <div class="callout callout-warning">
+          <h4>
+            <i class="fa fa-warning"></i>Message:
+          </h4>
+          Votre acompte auprès de notre service de comptabilité n'a pas encore été payé. Veuillez le régler dans les plus brefs délais.
+        </div>
+      </div>
+    {% endif %}
     <div class="col-md-6">
       <div class="box">
         {{ header_section('equipement') }}

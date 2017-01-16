@@ -42,8 +42,8 @@
         <div class="col-sm-4 invoice-col">
           À
           <address>
-            <strong>{{ company.sections.profile.name }}</strong><br>
-            <a href="#" id="address" data-type="address" data-pk="1" data-title="Adresse de facturation." class="editable editable-click" style="display: inline;"></a>
+            <strong>{{ company.sections.profile.address }}</strong><br>
+            <span>{{ company.sections.profile.country }}</span><br>
           </address>
         </div>
         <!-- /.col -->
@@ -202,51 +202,3 @@
     </section>
   </div>
 {% endblock main %}
-{% block scripts %}
-  <script type="text/javascript">
-    var company = {{ company|tojson }};
-    var profile = company.sections.profile;
-    $('#address').editable({
-      mode: "inline",
-      value: {
-        address: profile.address,
-        town: profile.town,
-        country: profile.country
-      },
-      validate: function (value) {
-        if (value.address && value.town && value.country) {
-          var profile = {
-            name: "{{company.sections.profile.name}}",
-            address: value.address,
-            town: value.town,
-            country: value.country
-          }
-          company.sections.profile = profile;
-          $.ajax({
-            type: "POST",
-            url: "{{ url_for('update_company') }}",
-            data: {
-              "company": JSON.stringify(company)
-            },
-            success: function () {
-              Notify("Changements sauvegardés.");
-            }
-          });
-        } else {
-          return 'veuillez remplir tous les champs.';
-        }
-      },
-      display: function (value) {
-
-        if (!(value.address && value.town && value.country)) {
-          $(this).html("Aucune adresse enregistrée.");
-          return;
-        }
-        var html = value.address + '<br>' + value.town + '<br>' + value.country + '<br>';
-
-        $(this).html(html);
-      }
-    });
-  </script>
-{% endblock scripts %}
-</script>
