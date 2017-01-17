@@ -32,7 +32,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Stand</span>
             <span class="info-box-number">
-              {{ company.duration|to_human if company.duration else '?' }}
+              {{ company.duration|to_human|capitalize if company.duration else '?' }}
               jour(s)
             </span>
             <span class="progress-description">
@@ -67,8 +67,8 @@
             <div class="info-box-content">
               <span class="info-box-text">Enseigne</span>
               <span class="info-box-number">
-                <a href="#" id="banner" data-type="text" data-pk="{{ company.id }}" data-url="/update_banner" data-title="Entrez votre bannière">
-                  {{ 'Ajoutez votre bannière' if not company.banner else company.banner }}
+                <a href="#" id="banner" data-type="text" data-pk="{{ company.id }}" style="color:white" data-url="/update_banner" data-title="Entrez votre bannière">
+                  {{ company.banner }}
                 </a>
               </span>
             </div>

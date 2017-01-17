@@ -177,7 +177,7 @@
         $("#datetime").inputmask("datetime", {"placeholder": "jj/mm/aaaa hh:ss"});
         $("#phone").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
         $("#persons").inputmask("9", {"placeholder": "x"});
-        $('#banner').editable();
+        $('#banner').editable({mode: 'inline', emptytext: 'Ajoutez votre bannière'});
       });
     </script>
     {% block scripts %}{% endblock scripts %}

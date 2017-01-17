@@ -74,13 +74,14 @@
           <div class="box-body">
             <div class="row">
               <div class="col-md-4">
-
+                {% set places = ['Gare Part-Dieu','Forum Rhône-Alpes','Hôtel Okko','Hôtel Lyon Metropole', 'Aéroport Saint Exupéry','Terasses du Parc (Soirée Networking)','Hôtel Ibis Part Dieu','Hôtel Le Roosvelt','Hôtel Carlton', 'Hôtel Reine Astrid','Hôtel Park et
+                Suites Lyon Part-Dieu','Gare Perrache','Hôtel Campanile Part-Dieu']%}
                 <div class="form-group">
                   <label>je pars de</label>
                   <select class="form-control select2 from" style="width: 100%;">
-                    <option>Part-Dieu</option>
-                    <option>Hotel Alexandrie</option>
-                    <option>Double Mixte</option>
+                    {% for p in places %}
+                      <option>{{ p }}</option>
+                    {% endfor %}
                   </select>
                 </div>
               </div>
@@ -89,9 +90,9 @@
                 <div class="form-group">
                   <label>vers</label>
                   <select class="form-control select2 to" style="width: 100%;">
-                    <option>Part-Dieu</option>
-                    <option>Hotel Alexandrie</option>
-                    <option>Double Mixte</option>
+                    {% for p in places %}
+                      <option>{{ p }}</option>
+                    {% endfor %}
                   </select>
                 </div>
               </div>
