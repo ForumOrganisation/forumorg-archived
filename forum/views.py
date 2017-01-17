@@ -11,6 +11,7 @@ from storage import Company, get_company, set_company
 
 from forum import app
 from mailing import send_mail
+from export import log
 
 
 # Admin
@@ -56,22 +57,29 @@ def logout():
 
 @app.route('/update_company', methods=["POST"])
 def update_company():
-    company = request.form.get('company')
-    company = json.loads(company)
-    set_company(company['id'], company)
-    return "Success."
+    page = request.form.get('page')
+    if current_user.data.get(page) == 'non':
+        company = request.form.get('company')
+        company = json.loads(company)
+        set_company(company['id'], company)
+        return "success"
+    else:
+        return "error"
+
 
 @app.route('/update_banner', methods=["POST"])
 @login_required
 def update_banner():
-    company_id = request.form.get('pk')
-    banner = request.form.get('value')
+    if current_user.data.get('equipement') == 'non':
+        company_id = request.form.get('pk')
+        banner = request.form.get('value')
 
-    company = get_company(company_id)
-    company['banner'] = banner
-    set_company(company['id'], company)
-    return "Success."
-
+        company = get_company(company_id)
+        company['banner'] = banner
+        set_company(company['id'], company)
+        return "success"
+    else:
+        abort(500)
 
 
 # VITRINE

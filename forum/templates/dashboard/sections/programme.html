@@ -73,13 +73,18 @@
           type: "POST",
           url: "{{ url_for('update_company') }}",
           data: {
-            "company": JSON.stringify(company)
+            "company": JSON.stringify(company),
+            "page": "programme"
           },
-          success: function () {
-            Notify("Programme mis à jour.");
-            setTimeout(function () {
-              location.reload();
-            }, 1000);
+          success: function (result) {
+            if (result == "success") {
+              Notify("Programme mis à jour.");
+              setTimeout(function () {
+                location.reload();
+              }, 1000);
+            } else {
+              Notify("Section validée: Impossible à modifier");
+            }
           }
         });
       }

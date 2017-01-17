@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/select2/select2.min.css') }}">
     <!-- bootstrap editable -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <!-- pace -->
+    <link href="{{ url_for('static', filename='css/dataurl.css') }}" rel="stylesheet"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -166,6 +168,8 @@
     <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
     <!-- Notify -->
     <script src="{{ url_for('static', filename='js/Notify.js') }}"></script>
+    <!-- Pace -->
+    <script src="{{ url_for('static', filename='js/pace.min.js') }}"></script>
     <!-- bootstrap editable -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 
@@ -177,7 +181,24 @@
         $("#datetime").inputmask("datetime", {"placeholder": "jj/mm/aaaa hh:ss"});
         $("#phone").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
         $("#persons").inputmask("9", {"placeholder": "x"});
-        $('#banner').editable({mode: 'inline', emptytext: 'Ajoutez votre bannière'});
+        $('#banner').editable({
+          mode: 'inline',
+          emptytext: 'Ajoutez votre bannière',
+          error: function (response, newValue) {
+            if (response.status == 500) {
+              return 'Impossible à modifier.';
+            } else {
+              return response.responseText;
+            }
+          }
+        });
+        {% set page = request.path.split('/')[-1] %}
+        if ({{ 'true' if company.get(page) == 'oui' else 'false' }}) {
+          $('input[type=text]').attr('disabled', 'disabled');
+          $('select').attr('disabled', 'disabled');
+          $('button').attr('disabled', 'disabled');
+          $('i').attr('onclick', '');
+        }
       });
     </script>
     {% block scripts %}{% endblock scripts %}

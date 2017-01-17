@@ -120,13 +120,18 @@
         type: "POST",
         url: "{{ url_for('update_company') }}",
         data: {
-          "company": JSON.stringify(company)
+          "company": JSON.stringify(company),
+          "page": "restauration"
         },
-        success: function () {
-          Notify("Changements sauvegardés.");
-          setTimeout(function () {
-            location.reload();
-          }, 1000);
+        success: function (result) {
+          if (result == "success") {
+            Notify("Changements sauvegardés.");
+            setTimeout(function () {
+              location.reload();
+            }, 1000);
+          } else {
+            Notify("Section validée: Impossible à modifier");
+          }
         }
       });
       return false;
@@ -143,13 +148,18 @@
           type: "POST",
           url: "{{ url_for('update_company') }}",
           data: {
-            "company": JSON.stringify(company)
+            "company": JSON.stringify(company),
+            "page": "restauration"
           },
-          success: function () {
-            Notify("Suppression confirmée.");
-            setTimeout(function () {
-              location.reload();
-            }, 1000);
+          success: function (result) {
+            if (result == "success") {
+              Notify("Suppression confirmée.");
+              setTimeout(function () {
+                location.reload();
+              }, 1000);
+            } else {
+              Notify("Section validée: Impossible à modifier");
+            }
           }
         });
       }
