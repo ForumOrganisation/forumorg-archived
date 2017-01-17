@@ -7,7 +7,7 @@ import requests
 from flask import abort, redirect, render_template, request, send_from_directory, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from login import validate_login
-from storage import Company, get_company, set_company
+from storage import Company, get_company, set_company, get_companies
 
 from forum import app
 from mailing import send_mail
@@ -56,12 +56,25 @@ def logout():
 
 
 @app.route('/update_company', methods=["POST"])
+@login_required
 def update_company():
     page = request.form.get('page')
     if current_user.data.get(page) == 'non':
         company = request.form.get('company')
         company = json.loads(company)
         set_company(company['id'], company)
+        return "success"
+    else:
+        return "error"
+
+
+@app.route('/validate_section', methods=["POST"])
+@login_required
+def validate_section():
+    page = request.form.get('page')
+    if current_user.data.get(page) == 'non':
+        companies = get_companies()
+        companies.update_one({'id': current_user.id}, {'$set': {page: 'oui'}})
         return "success"
     else:
         return "error"

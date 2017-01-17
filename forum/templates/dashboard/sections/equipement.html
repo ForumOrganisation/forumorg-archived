@@ -197,9 +197,11 @@
           <div class="box-footer">
             <button id="confirm_add" type="submit" class="btn btn-primary">Confirmer</button>
           </div>
+
         </div>
       </div>
     </div>
+    {% block validate %}{{ super() }}{% endblock %}
   </div>
 </div>
 {% endblock main %}
