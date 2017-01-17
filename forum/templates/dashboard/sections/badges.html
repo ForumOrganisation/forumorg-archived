@@ -107,6 +107,7 @@
         <!-- /.box -->
       </div>
     </div>
+    {% block validate %}{{ super() }}{% endblock %}
   {% endblock main %}
   {% block scripts %}
     <script type="text/javascript">
