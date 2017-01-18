@@ -6,6 +6,7 @@ from flask import Response, flash, stream_with_context, redirect
 from flask_admin.babel import gettext
 from flask_admin.base import expose
 from flask_admin.contrib.pymongo import ModelView
+from flask_admin.contrib.pymongo.filters import BasePyMongoFilter, FilterEqual
 from flask_admin.helpers import get_redirect_target
 from flask_admin.form import rules
 from flask_login import current_user
@@ -119,6 +120,15 @@ class UserForm(form.Form):
     ), validators.Length(min=5, max=30)], render_kw={"placeholder": "Ex. 123456"})
 
 
+class FilterRegister(FilterEqual, BasePyMongoFilter):
+    def apply(self, query, value):
+        query.append({'events.{}.registered'.format(value): True})
+        return query
+
+    def operation(self):
+        return "evenement"
+
+
 class UserView(ModelView):
     column_list = ['id', 'events', 'confirmed_on', 'registered_on']
     column_labels = dict(id='Email')
@@ -127,7 +137,8 @@ class UserView(ModelView):
     can_delete = True
     can_view_details = True
     form = UserForm
-    column_export_list = ['id', 'registered_on', 'confirmed_on', 'events']
+    column_export_list = ['id', 'registered_on', 'confirmed_on', 'events', 'profile']
+    column_filters = (FilterRegister(column='events', name='participants', options=(('styf', 'styf'), ('joi', 'joi'))),)
 
     def __init__(self, *args, **kwargs):
         super(UserView, self).__init__(*args, **kwargs)

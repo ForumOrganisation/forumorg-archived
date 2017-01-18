@@ -8,11 +8,7 @@ from flask_admin.base import MenuLink
 from flask_login import LoginManager
 
 from admin import CompanyView, EventView, UserView
-<<<<<<< HEAD
 from storage import get_companies, get_events, get_users, init_storage, get_jobs
-=======
-from storage import get_companies, get_events, get_users, init_storage, get_styf
->>>>>>> 23159615ded7fa3162dcfb266913b97b0b2e30c2
 
 # App init
 app = Flask(__name__)
@@ -32,8 +28,8 @@ login_manager.login_view = 'login'
 admin = Admin(app, name='Interface Admin', index_view=CompanyView(get_companies(), url='/admin'))
 admin.add_view(UserView(get_users()))
 admin.add_view(EventView(get_events()))
-admin.add_view(EventView(get_styf()))
 admin.add_link(MenuLink(name='Se deconnecter', url='/deconnexion'))
+
 
 # Jinja Filters
 @app.template_filter('to_jobs')
