@@ -30,6 +30,10 @@ def get_users():
     return db.users
 
 
+def get_styf():
+    return db.users.find({'events.styf.registered': True})
+
+
 def get_events():
     return db.events
 
