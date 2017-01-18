@@ -2,13 +2,14 @@ import datetime
 import locale
 import os
 
-from flask import Flask
+from flask import Flask, request
 from flask_admin import Admin
 from flask_admin.base import MenuLink
 from flask_login import LoginManager
+from flask_babelex import Babel
 
 from admin import CompanyView, EventView, UserView
-from storage import get_companies, get_events, get_users, init_storage, get_jobs
+from storage import get_companies, get_events, get_users, init_storage
 
 # App init
 app = Flask(__name__)
@@ -23,6 +24,16 @@ init_storage()
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+# Babel
+babel = Babel(app)
+
+
+@babel.localeselector
+def get_locale():
+    lg = request.accept_languages.best_match(['fr', 'en'])
+    return lg
+
 
 # Admin Interface
 admin = Admin(app, name='Interface Admin', index_view=CompanyView(get_companies(), url='/admin'))
