@@ -1,0 +1,189 @@
+{% extends "dashboard/section.html" %}
+{% set title = 'Job Board' %}
+{% block main %}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Liste des offres d'emploi</h3>
+        </div>
+
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <h3 class="box-title">Collapsible Accordion</h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <div class="box-group" id="accordion">
+              {% for job in current_user.id | to_jobs %}
+                <div class="panel box box-primary">
+                  <div class="box-header with-border row">
+                    <div class="col-md-3" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
+                      {{ job.title }}
+                    </div>
+                    <div class="col-md-3" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
+                      {{ job.type }}
+                    </div>
+                    <div class="col-md-2" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
+                      {{ job.duration }}
+                    </div>
+                    <div class="col-md-3" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
+                      {{ job.locations|join(', ') }}
+                    </div>
+                    <div class="col-md-1" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
+                      <i onclick="remove_job('{{ job.id }}')" class="fa fa-remove" style="color:red"></i>
+                    </div>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                    <div class="box-body">
+                      <p class="h4">Description de l'offre</p>
+                      <p>{{ job.description }}</p>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Ajouter une offre d'emploi</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Titre de l'offre</label>
+                <div class="input-group">
+                  <input id="title" type="text" class="form-control" placeholder="Ex. Développeur Web Python (H/F)" size="50">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Type de l'offre</label>
+                <div class="input-group">
+                  <select class="form-control select2 type">
+                    <option>Stage</option>
+                    <option>CDD</option>
+                    <option>CDI</option>
+                    <option>VIE</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- /.input group -->
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Durée de la mission</label>
+                <div class="input-group">
+                  <input id="duration " type="text" class="form-control" placeholder="Ex. 12 mois" size="50">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nom</label>
+                <div class="input-group">
+                  <select class="form-control select2 duration" id="duration" size="50">
+                    <option>3 mois</option>
+                    <option>6 mois</option>
+                    <option>12 mois</option>
+                    <option>Indéfini</option>
+                    <option>Autre</option>
+                  </select>
+                  <input type="text" name="duration" class="duration" style="display:none"/>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="box-footer">
+          <button id="confirm_job" type="submit" class="btn btn-primary">Confirmer</button>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+  </div>
+  {% block validate %}{{ super() }}{% endblock %}
+
+{% endblock main %}
+{% block scripts %}
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#duration').change(function () {
+        if ($('.duration').val() == 'Autre') {
+          $('input[name=duration]').show();
+        } else {
+          $('input[name=duration]').hide();
+        }
+      });
+    });
+
+    $('#confirm_job').on('click', function (e) {
+      e.preventDefault();
+
+      var job = {
+        company_id: {{ current_user.id }},
+        title: $(".title").val(),
+        type: $(".type").val(),
+        duration: $(".duration").val(),
+        description: $(".description").val(),
+        locations: $(".locations").val()
+      }
+
+      $.ajax({
+        type: "POST",
+        url: "{{ url_for('add_job') }}",
+        data: {
+          "job": JSON.stringify(job)
+        },
+        success: function () {
+          Notify("Changements sauvegardés.");
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        }
+      });
+      return false;
+    });
+
+    function remove_job(job_id) {
+      var r = confirm("Confirmer la suppresion ?");
+      if (r) {
+        $.ajax({
+          type: "POST",
+          url: "{{ url_for('remove_job') }}",
+          data: {
+            "id": job_id
+          },
+          success: function () {
+            Notify("Suppression confirmée.");
+            setTimeout(function () {
+              location.reload();
+            }, 1000);
+          }
+        });
+      }
+    }
+  </script>
+{% endblock scripts %}

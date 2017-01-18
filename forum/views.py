@@ -7,7 +7,7 @@ import requests
 from flask import abort, redirect, render_template, request, send_from_directory, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from login import validate_login
-from storage import Company, get_company, set_company, get_companies
+from storage import Company, get_company, set_company, get_companies, get_jobs
 
 from forum import app
 from mailing import send_mail
@@ -73,8 +73,7 @@ def update_company():
 def validate_section():
     page = request.form.get('page')
     if current_user.data.get(page) == 'non':
-        companies = get_companies()
-        companies.update_one({'id': current_user.id}, {'$set': {page: 'oui'}})
+        get_companies().update_one({'id': current_user.id}, {'$set': {page: 'oui'}})
         return "success"
     else:
         return "error"
@@ -93,6 +92,25 @@ def update_banner():
         return "success"
     else:
         abort(500)
+
+
+@app.route('/add_job', methods=["POST"])
+@login_required
+def add_job():
+    job = request.form.get('job')
+    job = json.loads(job)
+    job_id = get_jobs().insert_one(job, upsert=True).inserted_id
+    get_companies().update_one({'id': current_user.id}, {'$push': {'jobs': job_id}})
+    return "success"
+
+
+@app.route('/remove_job', methods=["POST"])
+@login_required
+def remove_job():
+    job_id = request.form.get('job_id')
+    job_id = get_jobs().delete_one({'id': job_id}).inserted_id
+    get_companies().update_one({'id': current_user.id}, {'$pull': {'jobs': job_id}})
+    return "success"
 
 
 # VITRINE

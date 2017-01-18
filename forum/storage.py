@@ -26,6 +26,10 @@ def get_companies():
     return db.companies
 
 
+def get_jobs():
+    return db.jobs
+
+
 def get_users():
     return db.users
 
