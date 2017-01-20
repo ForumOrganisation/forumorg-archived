@@ -9,7 +9,7 @@ from flask_login import LoginManager
 from flask_babelex import Babel
 
 from admin import CompanyView, EventView, UserView
-from storage import get_companies, get_events, get_users, init_storage
+from storage import get_companies, get_events, get_users, init_storage, get_jobs
 
 # App init
 app = Flask(__name__)
@@ -45,9 +45,7 @@ admin.add_link(MenuLink(name='Se deconnecter', url='/deconnexion'))
 # Jinja Filters
 @app.template_filter('to_jobs')
 def to_jobs(company_id):
-    # return list(get_jobs().find({'company_id': company_id}))
-    return [{'id': 'amazon', 'title': 'TITLE_JOB TITLE_JOB TITLE_JOB (M/F)', 'type': 'Stage', 'duration': '6 mois',
-            'description': 'zeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaae', 'locations': ['Paris', 'New York', 'SF']}]
+    return list(get_jobs().find({'company_id': company_id}))
 
 
 @app.template_filter('format_dt')
