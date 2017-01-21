@@ -121,27 +121,7 @@
         <!-- Main content -->
         <section class="content">
           {% block content %}
-            {% block validate %}
-              <div>
-                {% if company.get(page) == 'non' %}
-                  <div class="callout callout-warning">
-                    <h4>
-                      <i class="fa fa-warning"></i>Message:
-                    </h4>
-                    Cette section n'est pas encore validée.
-                    <a href="#" class="section">Cliquez ici pour valider la section.</a>
-                  </div>
-                {% else %}
-                  <div class="callout callout-info">
-                    <h4>
-                      <i class="fa fa-info"></i>Message:
-                    </h4>
-                    Cette section a été validée. Pour modifier la section, veuillez contactez
-                    <a href="mailto:contact-fra@forumorg.org">notre équipe</a>.
-                  </div>
-                {% endif %}
-              </div>
-            {% endblock %}
+            {% block validate %}{% endblock %}
           {% endblock content %}
         </section>
         <!-- /.content -->
@@ -219,6 +199,7 @@
           $('input[type=text]').attr('disabled', 'disabled');
           $('select').attr('disabled', 'disabled');
           $('button').attr('disabled', 'disabled');
+          $('textarea').attr('disabled', 'disabled');
           $('i').attr('onclick', '');
         }
         $('.section').click(function (e) {
@@ -248,8 +229,8 @@
         });
       }
     </script>
-    {% block scripts %}{% endblock scripts %}
     <!-- AdminLTE App -->
     <script src="{{ url_for('static', filename='dist/js/app.js') }}"></script>
+    {% block scripts %}{% endblock scripts %}
   </body>
 </html>

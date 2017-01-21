@@ -32,6 +32,7 @@
 {% block sections %}
   {{ section_block('accueil', 'fa fa-home')}}
   {{ section_block('profil', 'fa fa-user')}}
+  {{ section_block('job_board', 'glyphicon glyphicon-bullhorn')}}
   {{ section_block('equipement', 'glyphicon glyphicon-object-align-right')}}
   {{ section_block('restauration', 'fa fa-glass')}}
   {{ section_block('transport', 'fa fa-car')}}
@@ -39,6 +40,29 @@
   {{ section_block('programme', 'fa fa-calendar-plus-o')}}
   {{ section_block('bon_de_commande', 'fa fa-paperclip')}}
 {% endblock sections %}
+{% block content %}
+  {% block validate %}
+    <div>
+      {% if company.get(page) == 'oui' %}
+        <div class="callout callout-info">
+          <h4>
+            <i class="fa fa-info"></i>Message:
+          </h4>
+          Cette section a été validée. Pour modifier la section, veuillez contactez
+          <a href="mailto:contact-fra@forumorg.org">notre équipe</a>.
+        </div>
+      {% else %}
+        <div class="callout callout-warning">
+          <h4>
+            <i class="fa fa-warning"></i>Message:
+          </h4>
+          Cette section n'est pas encore validée.
+          <a href="#" class="section">Cliquez ici pour valider la section.</a>
+        </div>
+      {% endif %}
+    </div>
+  {% endblock %}
+{% endblock %}
 {% block footer %}
   <!-- To the right -->
   <div class="pull-right hidden-xs">

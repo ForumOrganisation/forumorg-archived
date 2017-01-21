@@ -99,8 +99,7 @@ def update_banner():
 def add_job():
     job = request.form.get('job')
     job = json.loads(job)
-    job_id = get_jobs().insert_one(job, upsert=True).inserted_id
-    get_companies().update_one({'id': current_user.id}, {'$push': {'jobs': job_id}})
+    get_jobs().insert_one(job)
     return "success"
 
 
@@ -108,8 +107,7 @@ def add_job():
 @login_required
 def remove_job():
     job_id = request.form.get('job_id')
-    job_id = get_jobs().delete_one({'id': job_id}).inserted_id
-    get_companies().update_one({'id': current_user.id}, {'$pull': {'jobs': job_id}})
+    get_jobs().delete_one({'id': job_id})
     return "success"
 
 

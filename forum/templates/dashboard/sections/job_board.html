@@ -4,48 +4,45 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Liste des offres d'emploi</h3>
-        </div>
 
-        <div class="box box-solid">
-          <div class="box-header with-border">
-            <h3 class="box-title">Collapsible Accordion</h3>
-          </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <div class="box-group" id="accordion">
-              {% for job in current_user.id | to_jobs %}
-                <div class="panel box box-primary">
-                  <div class="box-header with-border row">
-                    <div class="col-md-3" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-                      {{ job.title }}
+        <div class="box-group" id="accordion">
+          {% set jobs = current_user.id | to_jobs %}
+          {% if not jobs %}
+            <h2 class="lead text-center" style="padding:20px">Aucune offre trouvée :(</h2>
+          {% else %}
+            {% for job in jobs %}
+              <div class="panel box box-primary">
+                <div class="box-header with-border">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <h4 class="box-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_{{loop.index}}" class="{{ 'collapsed' if loop.first }}" aria-expanded="{{'true' if loop.first else 'false'}}">
+                          {{ job.title }}
+                          -
+                          {{job.type}}
+                          -
+                          {{job.duration}}
+                          -
+                          {{job.location}}
+                        </a>
+                      </h4>
                     </div>
-                    <div class="col-md-3" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-                      {{ job.type }}
-                    </div>
-                    <div class="col-md-2" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-                      {{ job.duration }}
-                    </div>
-                    <div class="col-md-3" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-                      {{ job.locations|join(', ') }}
-                    </div>
-                    <div class="col-md-1" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
-                      <i onclick="remove_job('{{ job.id }}')" class="fa fa-remove" style="color:red"></i>
-                    </div>
-                  </div>
-                  <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                    <div class="box-body">
-                      <p class="h4">Description de l'offre</p>
-                      <p>{{ job.description }}</p>
+                    <div class="col-md-1">
+                      <i onclick="remove_job('{{ job._id }}')" class="fa fa-remove" style="color:red"></i>
                     </div>
                   </div>
                 </div>
-              {% endfor %}
-            </div>
-          </div>
+                <div id="collapse_{{loop.index}}" class="panel-collapse collapse {{'in' if loop.first}}" aria-expanded="{{'true' if loop.first else 'false'}}">
+                  <div class="box-body">
+                    {% for line in job.description.splitlines() %}
+                      {{line}}<br/>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
         </div>
-        <!-- /.box-body -->
       </div>
     </div>
   </div>
@@ -65,63 +62,57 @@
         <div class="box-body">
           <div class="row">
             <div class="col-md-6">
+
               <div class="form-group">
                 <label>Titre de l'offre</label>
-                <div class="input-group">
-                  <input id="title" type="text" class="form-control" placeholder="Ex. Développeur Web Python (H/F)" size="50">
-                </div>
+                <input type="text" class="form-control input-lg title" placeholder="Ex. Développeur Web Python (H/F)">
               </div>
-            </div>
 
-            <div class="col-md-6">
+              <div class="form-group">
+                <label>Description de l'offre</label>
+                <textarea class="form-control description" placeholder="Votre description..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Lien url de l'offre (optionnel)</label>
+                <input type="text" class="form-control title" placeholder="Ex. www.abc.xyz">
+              </div>
+
+              <div class="form-group">
+                <label>Ville et/ou Pays</label>
+                <input type="text" class="form-control location" placeholder="Ex. Grenoble"/>
+              </div>
+
               <div class="form-group">
                 <label>Type de l'offre</label>
-                <div class="input-group">
-                  <select class="form-control select2 type">
-                    <option>Stage</option>
-                    <option>CDD</option>
-                    <option>CDI</option>
-                    <option>VIE</option>
-                  </select>
-                </div>
+                <select class="form-control select2 type">
+                  <option>Stage</option>
+                  <option>CDD</option>
+                  <option>CDI</option>
+                  <option>VIE</option>
+                </select>
               </div>
-            </div>
-            <!-- /.input group -->
-          </div>
-          <div class="row">
-            <div class="col-md-6">
+
               <div class="form-group">
                 <label>Durée de la mission</label>
-                <div class="input-group">
-                  <input id="duration " type="text" class="form-control" placeholder="Ex. 12 mois" size="50">
-                </div>
+                <select class="form-control select2 duration" size="50">
+                  <option selected="true">3 mois</option>
+                  <option>6 mois</option>
+                  <option>Indéfini</option>
+                  <option>Autre</option>
+                </select>
+                <input type="text" class="duration_" style="display:none"/>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Nom</label>
-                <div class="input-group">
-                  <select class="form-control select2 duration" id="duration" size="50">
-                    <option>3 mois</option>
-                    <option>6 mois</option>
-                    <option>12 mois</option>
-                    <option>Indéfini</option>
-                    <option>Autre</option>
-                  </select>
-                  <input type="text" name="duration" class="duration" style="display:none"/>
-                </div>
-              </div>
-            </div>
-
           </div>
-        </div>
 
-        <div class="box-footer">
-          <button id="confirm_job" type="submit" class="btn btn-primary">Confirmer</button>
+          <div class="box-footer">
+            <button id="confirm_job" type="submit" class="btn btn-primary">Confirmer</button>
+          </div>
+          <!-- /.box-body -->
         </div>
-        <!-- /.box-body -->
+        <!-- /.box -->
       </div>
-      <!-- /.box -->
     </div>
   </div>
   {% block validate %}{{ super() }}{% endblock %}
@@ -130,11 +121,11 @@
 {% block scripts %}
   <script type="text/javascript">
     $(document).ready(function () {
-      $('#duration').change(function () {
+      $('.duration').change(function () {
         if ($('.duration').val() == 'Autre') {
-          $('input[name=duration]').show();
+          $('.duration_').show();
         } else {
-          $('input[name=duration]').hide();
+          $('.duration_').hide();
         }
       });
     });
@@ -142,28 +133,39 @@
     $('#confirm_job').on('click', function (e) {
       e.preventDefault();
 
-      var job = {
-        company_id: {{ current_user.id }},
-        title: $(".title").val(),
-        type: $(".type").val(),
-        duration: $(".duration").val(),
-        description: $(".description").val(),
-        locations: $(".locations").val()
+      var dur;
+      if ($('.duration').val() == 'Autre') {
+        dur = $('.duration_').val();
+      } else {
+        dur = $('.duration').val()
       }
 
-      $.ajax({
-        type: "POST",
-        url: "{{ url_for('add_job') }}",
-        data: {
-          "job": JSON.stringify(job)
-        },
-        success: function () {
-          Notify("Changements sauvegardés.");
-          setTimeout(function () {
-            location.reload();
-          }, 1000);
-        }
-      });
+      var job = {
+        company_id: "{{ current_user.id }}",
+        title: $(".title").val(),
+        type: $(".type").val(),
+        duration: dur,
+        description: $(".description").val(),
+        location: $(".location").val()
+      }
+
+      if (job.title && job.type && job.duration && job.description && job.location) {
+        $.ajax({
+          type: "POST",
+          url: "{{ url_for('add_job') }}",
+          data: {
+            "job": JSON.stringify(job)
+          },
+          success: function () {
+            Notify("Changements sauvegardés.");
+            setTimeout(function () {
+              location.reload();
+            }, 1000);
+          }
+        });
+      } else {
+        Notify("Veuillez remplir tous les champs.", null, null, "error");
+      }
       return false;
     });
 
