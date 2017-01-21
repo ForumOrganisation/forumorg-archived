@@ -1,60 +1,42 @@
 {% extends "dashboard/section.html" %}
 {% set title = 'Profil' %}
 {% block main %}
+  {% set profile = company.sections.profile %}
   <div class="row">
     <div class="col-xs-12">
-
       <div class="col-md-6">
         <div class="box">
           <div class="box-header">
             <h3 class="box-title">Responsable du stand</h3>
           </div>
           <br>
-
           <div class="box-body table-responsive no-padding">
             <form class="form-horizontal">
               <div class="form-group">
                 <label for="inputName" class="col-sm-3 control-label">Responsable</label>
-
                 <div class="col-sm-8">
-                  {% if company.sections.profile.stand.name %}
-                    {{ company.sections.profile.stand.name }}
-                  {% else %}
-                    <input type="text" class="form-control" id="name_stand" placeholder="ex: Marie MARTIN">
-                  {% endif %}
+                  <input type="text" class="form-control" id="name_stand" placeholder="ex: Marie MARTIN" value="{{ profile.stand.name|default('') }}">
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputName" class="col-sm-3 control-label">Téléphone</label>
 
                 <div class="col-sm-8">
-                  {% if company.sections.profile.stand.phone %}
-                    {{ company.sections.profile.stand.phone }}
-                  {% else %}
-                    <input type="text" class="form-control" id="phone_stand" placeholder="ex: 01 23 45 67 89">
-                  {% endif %}
+                  <input type="text" class="form-control" id="phone_stand" placeholder="ex: 01 23 45 67 89" value="{{ profile.stand.phone|default('') }}" data-mask>
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputName" class="col-sm-3 control-label">Fax</label>
 
                 <div class="col-sm-8">
-                  {% if company.sections.profile.stand.fax %}
-                    {{ company.sections.profile.stand.fax }}
-                  {% else %}
-                    <input type="text" class="form-control" id="fax_stand" placeholder="ex: 01 23 45 67 89">
-                  {% endif %}
+                  <input type="text" class="form-control" id="fax_stand" placeholder="ex: 01 23 45 67 89" value="{{ profile.stand.fax|default('') }}">
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputEmail" class="col-sm-3 control-label">Email</label>
 
                 <div class="col-sm-8">
-                  {% if company.sections.profile.stand.mail %}
-                    {{ company.sections.profile.stand.mail }}
-                  {% else %}
-                    <input class="form-control" id="mail_stand" placeholder="ex: marie.martin@entreprise.com"></input>
-                  {% endif %}
+                  <input class="form-control" id="mail_stand" placeholder="ex: marie.martin@entreprise.com" value="{{ profile.stand.mail|default('') }}"></input>
                 </div>
               </div>
 
@@ -81,22 +63,14 @@
                 <label for="inputName" class="col-sm-3 control-label">Nom</label>
 
                 <div class="col-sm-8">
-                  {% if company.sections.profile.facturation.name %}
-                    {{ company.sections.profile.facturation.name }}
-                  {% else %}
-                    <input type="text" class="form-control" id="name_facturation" placeholder="ex: ABMI Groupe">
-                  {% endif %}
+                  <input type="text" class="form-control" id="name_facturation" placeholder="ex: ABMI Groupe" value="{{ profile.facturation.name|default('') }}">
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputName" class="col-sm-3 control-label">Adresse</label>
 
                 <div class="col-sm-8">
-                  {% if company.sections.profile.facturation.mail %}
-                    {{ company.sections.profile.facturation.mail }}
-                  {% else %}
-                    <input type="text" class="form-control" id="mail_facturation" placeholder="ex: 2 Rue de la République">
-                  {% endif %}
+                  <input type="text" class="form-control" id="address_facturation" placeholder="ex: 2 Rue de la République" value="{{ profile.facturation.address|default('') }}">
 
                 </div>
               </div>
@@ -104,11 +78,7 @@
                 <label for="inputName" class="col-sm-3 control-label">Code postal</label>
 
                 <div class="col-sm-8">
-                  {% if company.sections.profile.facturation.code_postal %}
-                    {{ company.sections.profile.facturation.code_postal }}
-                  {% else %}
-                    <input type="text" class="form-control" id="code_postal" placeholder="ex: 69100">
-                  {% endif %}
+                  <input type="text" class="form-control" id="code_postal" placeholder="ex: 69100" value="{{ profile.facturation.code_postal|default('') }}">
                 </div>
               </div>
 
@@ -116,11 +86,7 @@
                 <label for="inputName" class="col-sm-3 control-label">Ville</label>
 
                 <div class="col-sm-8">
-                  {% if company.sections.profile.facturation.city %}
-                    {{ company.sections.profile.facturation.city }}
-                  {% else %}
-                    <input type="text" class="form-control" id="city" placeholder="ex: Villeurbanne">
-                  {% endif %}
+                  <input type="text" class="form-control" id="city" placeholder="ex: Villeurbanne" value="{{ profile.facturation.city|default('') }}">
                 </div>
               </div>
 
@@ -128,11 +94,7 @@
                 <label for="inputName" class="col-sm-3 control-label">Pays</label>
 
                 <div class="col-sm-8">
-                  {% if company.sections.profile.facturation.country %}
-                    {{ company.sections.profile.facturation.country }}
-                  {% else %}
-                    <input type="text" class="form-control" id="country" placeholder="ex: France">
-                  {% endif %}
+                  <input type="text" class="form-control" id="country" placeholder="ex: France" value="{{ profile.facturation.country|default('') }}">
                 </div>
               </div>
 
@@ -140,11 +102,7 @@
                 <label for="inputName" class="col-sm-3 control-label">Téléphone</label>
 
                 <div class="col-sm-8">
-                  {% if company.sections.profile.facturation.phone %}
-                    {{ company.sections.profile.facturation.phone }}
-                  {% else %}
-                    <input type="text" class="form-control" id="phone_facturation" placeholder="ex: 01 23 45 67 89">
-                  {% endif %}
+                  <input type="text" class="form-control" id="phone_facturation" placeholder="ex: 01 23 45 67 89" value="{{ profile.facturation.phone|default('') }}" data-mask>
                 </div>
               </div>
 
@@ -152,22 +110,14 @@
                 <label for="inputName" class="col-sm-3 control-label">Fax</label>
 
                 <div class="col-sm-8">
-                  {% if company.sections.profile.facturation.fax %}
-                    {{ company.sections.profile.facturation.fax }}
-                  {% else %}
-                    <input type="text" class="form-control" id="fax_facturation" placeholder="ex: 01 23 45 67 89">
-                  {% endif %}
+                  <input type="text" class="form-control" id="fax_facturation" placeholder="ex: 01 23 45 67 89" value="{{ profile.facturation.fax|default('') }}">
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputEmail" class="col-sm-3 control-label">Email</label>
 
                 <div class="col-sm-8">
-                  {% if company.sections.profile.facturation.mail %}
-                    {{ company.sections.profile.facturation.mail }}
-                  {% else %}
-                    <input class="form-control" id="mail_facturation" placeholder="ex: marie.martin@entreprise.com"></input>
-                  {% endif %}
+                  <input class="form-control" id="mail_facturation" placeholder="ex: marie.martin@entreprise.com" value="{{ profile.facturation.mail|default('') }}"></input>
                 </div>
               </div>
 
@@ -186,7 +136,6 @@
       <!-- /.row -->
     </div>
   </div>
-  {% block validate %}{{ super() }}{% endblock %}
 </div>
 </div>
 {% endblock main %}
@@ -203,7 +152,6 @@ $('#confirm_stand').on('click', function (e) {
   };
   if (stand_items.name && stand_items.phone && stand_items.fax && stand_items.mail) {
     company.sections.profile.stand = stand_items;
-    console.log(company.profile.stand.name);
     $.ajax({
       type: "POST",
       url: "{{ url_for('update_company') }}",
@@ -244,7 +192,8 @@ $('#confirm_facturation').on('click', function (e) {
       data: {
         "company": JSON.stringify(company)
       },
-      success: function () {
+      success: function (msg) {
+        console.log(msg);
         Notify("Changements sauvegardés.");
         setTimeout(function () {
           location.reload();
