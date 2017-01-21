@@ -1,208 +1,260 @@
 {% extends "dashboard/section.html" %}
 {% set title = 'Profil' %}
 {% block main %}
-<div class="row">
+  <div class="row">
     <div class="col-xs-12">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Profil</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body table-responsive no-padding">
-           <!-- /.col -->
-        <div class="col-md-6">
-           <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Responsable du stand</h3>
-            </div>
-            <br>
 
-            <div class="box-body table-responsive no-padding">
-                <form class="form-horizontal">
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-3 control-label">Responsable</label>
-
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputName" placeholder="ex: Marie MARTIN">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-3 control-label">Téléphone</label>
-
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputEmail" placeholder="ex: 01 23 45 67 89">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-3 control-label">Fax</label>
-
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputName" placeholder="ex: 01 23 45 67 89">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputEmail" class="col-sm-3 control-label">Email</label>
-
-                    <div class="col-sm-8">
-                      <input class="form-control" id="inputEmail" placeholder="ex: marie.martin@entreprise.com"></input>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="col-sm-offset-8 col-sm-7">
-                      <button type="submit" class="btn btn-default">Enregistrer</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
+      <div class="col-md-6">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Responsable du stand</h3>
           </div>
+          <br>
 
-<div class="col-md-6">
-  <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Informations de facturation</h3>
-            </div>
-            <br>
+          <div class="box-body table-responsive no-padding">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">Responsable</label>
 
-            <div class="box-body table-responsive no-padding">
-                <form class="form-horizontal">
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-3 control-label">Nom</label>
-
-                    <div class="col-sm-8">
-                      {% if company.sections.resp_stand.name %}
-                      {{ company.sections.resp_stand.name }}
-                      {% else %}
-                      <input type="text" class="form-control" id="inputName" placeholder="ex: ABMI Groupe">
-                      {% endif %}
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-3 control-label">Adresse</label>
-
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputEmail" placeholder="ex: 2 Rue de la République">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-3 control-label">Code postal</label>
-
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputName" placeholder="ex: 69100">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-3 control-label">Ville</label>
-
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputName" placeholder="ex: Villeurbanne">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-3 control-label">Pays</label>
-
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputName" placeholder="ex: France">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-3 control-label">Téléphone</label>
-
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputEmail" placeholder="ex: 01 23 45 67 89">
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <label for="inputName" class="col-sm-3 control-label">Fax</label>
-
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" id="inputName" placeholder="ex: 01 23 45 67 89">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputEmail" class="col-sm-3 control-label">Email</label>
-
-                    <div class="col-sm-8">
-                      <input class="form-control" id="inputEmail" placeholder="ex: marie.martin@entreprise.com"></input>
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <div class="col-sm-offset-8 col-sm-9">
-                      <button type="submit" class="btn btn-default">Enregistrer</button>
-                    </div>
-                  </div>
-                </form>
+                <div class="col-sm-8">
+                  {% if company.sections.profile.stand.name %}
+                    {{ company.sections.profile.stand.name }}
+                  {% else %}
+                    <input type="text" class="form-control" id="name_stand" placeholder="ex: Marie MARTIN">
+                  {% endif %}
+                </div>
               </div>
-              <!-- /.tab-pane -->
-            </div>
-            <!-- /.tab-content -->
+              <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">Téléphone</label>
+
+                <div class="col-sm-8">
+                  {% if company.sections.profile.stand.phone %}
+                    {{ company.sections.profile.stand.phone }}
+                  {% else %}
+                    <input type="text" class="form-control" id="phone_stand" placeholder="ex: 01 23 45 67 89">
+                  {% endif %}
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">Fax</label>
+
+                <div class="col-sm-8">
+                  {% if company.sections.profile.stand.fax %}
+                    {{ company.sections.profile.stand.fax }}
+                  {% else %}
+                    <input type="text" class="form-control" id="fax_stand" placeholder="ex: 01 23 45 67 89">
+                  {% endif %}
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail" class="col-sm-3 control-label">Email</label>
+
+                <div class="col-sm-8">
+                  {% if company.sections.profile.stand.mail %}
+                    {{ company.sections.profile.stand.mail }}
+                  {% else %}
+                    <input class="form-control" id="mail_stand" placeholder="ex: marie.martin@entreprise.com"></input>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-offset-8 col-sm-7">
+                  <button type="submit" class="btn btn-default" id="confirm_stand">Enregistrer</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Informations de facturation</h3>
+          </div>
+          <br>
+
+          <div class="box-body table-responsive no-padding">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">Nom</label>
+
+                <div class="col-sm-8">
+                  {% if company.sections.profile.facturation.name %}
+                    {{ company.sections.profile.facturation.name }}
+                  {% else %}
+                    <input type="text" class="form-control" id="name_facturation" placeholder="ex: ABMI Groupe">
+                  {% endif %}
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">Adresse</label>
+
+                <div class="col-sm-8">
+                  {% if company.sections.profile.facturation.mail %}
+                    {{ company.sections.profile.facturation.mail }}
+                  {% else %}
+                    <input type="text" class="form-control" id="mail_facturation" placeholder="ex: 2 Rue de la République">
+                  {% endif %}
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">Code postal</label>
+
+                <div class="col-sm-8">
+                  {% if company.sections.profile.facturation.code_postal %}
+                    {{ company.sections.profile.facturation.code_postal }}
+                  {% else %}
+                    <input type="text" class="form-control" id="code_postal" placeholder="ex: 69100">
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">Ville</label>
+
+                <div class="col-sm-8">
+                  {% if company.sections.profile.facturation.city %}
+                    {{ company.sections.profile.facturation.city }}
+                  {% else %}
+                    <input type="text" class="form-control" id="city" placeholder="ex: Villeurbanne">
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">Pays</label>
+
+                <div class="col-sm-8">
+                  {% if company.sections.profile.facturation.country %}
+                    {{ company.sections.profile.facturation.country }}
+                  {% else %}
+                    <input type="text" class="form-control" id="country" placeholder="ex: France">
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">Téléphone</label>
+
+                <div class="col-sm-8">
+                  {% if company.sections.profile.facturation.phone %}
+                    {{ company.sections.profile.facturation.phone }}
+                  {% else %}
+                    <input type="text" class="form-control" id="phone_facturation" placeholder="ex: 01 23 45 67 89">
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputName" class="col-sm-3 control-label">Fax</label>
+
+                <div class="col-sm-8">
+                  {% if company.sections.profile.facturation.fax %}
+                    {{ company.sections.profile.facturation.fax }}
+                  {% else %}
+                    <input type="text" class="form-control" id="fax_facturation" placeholder="ex: 01 23 45 67 89">
+                  {% endif %}
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail" class="col-sm-3 control-label">Email</label>
+
+                <div class="col-sm-8">
+                  {% if company.sections.profile.facturation.mail %}
+                    {{ company.sections.profile.facturation.mail }}
+                  {% else %}
+                    <input class="form-control" id="mail_facturation" placeholder="ex: marie.martin@entreprise.com"></input>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-offset-8 col-sm-9">
+                  <button type="submit" class="btn btn-default" id="confirm_facturation">Enregistrer</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.tab-pane -->
+        </div>
+        <!-- /.tab-content -->
         <!-- /.col -->
       </div>
       <!-- /.row -->
-</div>
-</div>
+    </div>
+  </div>
+  {% block validate %}{{ super() }}{% endblock %}
 </div>
 </div>
 {% endblock main %}
 {% block scripts %}
 <script type="text/javascript">
-$('#confirm_transport').on('click', function(e) {
-    e.preventDefault();
-    var company = {{ company|tojson }};
-    var transports = company.sections.transport.transports;
-    var transport = {
-       departure_place: $(".from").val(),
-       arrival_place: $(".to").val(),
-       nb_persons: Number($("#persons").val()),
-       comment: $("#comment").val(),
-       phone: $("#phone").val(),
-       departure_time: $("#datetime").val()
-    };
-    if (transport.phone && transport.nb_persons && transport.departure_time) {
-        company.sections.transport.transports.push(transport);
-        $.ajax({
-            type: "POST",
-            url: "{{ url_for('update_company') }}",
-            data: {"company": JSON.stringify(company)},
-            success: function() {
-                Notify("Changements sauvegardés.");
-                setTimeout(function(){
-                    location.reload();
-                }, 1000); 
-            }
-        });
-    }
-    else {
-        Notify("Veuillez remplir tous les champs.", null, null, "error");
-    }
-    return false;
+$('#confirm_stand').on('click', function (e) {
+  e.preventDefault();
+  var company = {{ company|tojson }};
+  var stand_items = {
+    name: $("#name_stand").val(),
+    phone: $("#phone_stand").val(),
+    fax: $("#fax_stand").val(),
+    mail: $("#mail_stand").val()
+  };
+  if (stand_items.name && stand_items.phone && stand_items.fax && stand_items.mail) {
+    company.sections.profile.stand = stand_items;
+    console.log(company.profile.stand.name);
+    $.ajax({
+      type: "POST",
+      url: "{{ url_for('update_company') }}",
+      data: {
+        "company": JSON.stringify(company)
+      },
+      success: function () {
+        Notify("Changements sauvegardés.");
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      }
+    });
+  } else {
+    Notify("Veuillez remplir tous les champs.", null, null, "error");
+  }
+  return false;
 });
 
-function remove_transport(index) {
-    var r = confirm("Confirmer la suppresion ?");
-    if (r) {
-        var company = {{ company|tojson }};
-        company.sections.transport.transports.splice(index, 1);
-        $.ajax({
-            type: "POST",
-            url: "{{ url_for('update_company') }}",
-            data: {"company": JSON.stringify(company)},
-            success: function() {
-                Notify("Suppression confirmée.");
-                setTimeout(function(){
-                    location.reload();
-                }, 1000); 
-            }
-        });
-    }
-}
+$('#confirm_facturation').on('click', function (e) {
+  e.preventDefault();
+  var company = {{ company|tojson }};
+  var facturation_items = {
+    name: $("#name_facturation").val(),
+    address: $("#address_facturation").val(),
+    code_postal: $("#code_postal").val(),
+    city: $("#city").val(),
+    country: $("#country").val(),
+    phone: $("#phone_facturation").val(),
+    fax: $("#fax_facturation").val(),
+    mail: $("#mail_facturation").val()
+  };
+  if (facturation_items.name && facturation_items.address && facturation_items.code_postal && facturation_items.city && facturation_items.country && facturation_items.phone && facturation_items.fax && facturation_items.mail) {
+    company.sections.profile.facturation = facturation_items;
+    $.ajax({
+      type: "POST",
+      url: "{{ url_for('update_company') }}",
+      data: {
+        "company": JSON.stringify(company)
+      },
+      success: function () {
+        Notify("Changements sauvegardés.");
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      }
+    });
+  } else {
+    Notify("Veuillez remplir tous les champs.", null, null, "error");
+  }
+  return false;
+});
 </script>
 {% endblock scripts %}
