@@ -59,13 +59,13 @@ def logout():
 @login_required
 def update_company():
     page = request.form.get('page')
-    if current_user.data.get(page) == 'non':
+    if current_user.data.get(page) == 'oui':
+        return "error"
+    else:
         company = request.form.get('company')
         company = json.loads(company)
         set_company(company['id'], company)
         return "success"
-    else:
-        return "error"
 
 
 @app.route('/validate_section', methods=["POST"])

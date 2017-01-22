@@ -124,7 +124,21 @@
     }
   },
   "profile":{
-    "address":"",
-    "country":""
-  }
+    "stand":{
+        "name":"",
+        "phone":"",
+        "fax":"",
+        "mail":""
+    },
+    "facturation":{
+        "name":"",
+        "address":"",
+        "city":"",
+        "country":"",
+        "code_postal":"",
+        "phone":"",
+        "fax":"",
+        "mail":""
+        }
+    }
 }
