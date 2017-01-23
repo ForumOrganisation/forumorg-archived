@@ -2,7 +2,7 @@ import os
 
 import sendgrid
 
-from sendgrid.helpers.mail import *
+from sendgrid.helpers.mail import Email, Content, Mail
 
 
 def send_mail(email, contact_name, company_name, telephone):
@@ -33,7 +33,7 @@ def send_mail(email, contact_name, company_name, telephone):
     mail.personalizations[0].add_bcc(Email('elmehdi.baha@forumorg.org'))
     # Sending email
     try:
-        response = sg.client.mail.send.post(request_body=mail.get())
+        sg.client.mail.send.post(request_body=mail.get())
         return 'Email sent.'
     except:
         return 'Email not sent.'
