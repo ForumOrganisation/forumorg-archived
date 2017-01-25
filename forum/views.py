@@ -72,7 +72,7 @@ def update_company():
 @login_required
 def validate_section():
     page = request.form.get('page')
-    if current_user.data.get(page) == 'non':
+    if not current_user.data.get(page):
         get_db().companies.update_one({'id': current_user.id}, {'$set': {page: True}})
         return "success"
     else:
@@ -82,7 +82,7 @@ def validate_section():
 @app.route('/update_banner', methods=["POST"])
 @login_required
 def update_banner():
-    if current_user.data.get('equipement') == 'non':
+    if not current_user.data.get('equipement'):
         company_id = request.form.get('pk')
         banner = request.form.get('value')
 

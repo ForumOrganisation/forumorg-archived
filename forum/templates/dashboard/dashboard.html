@@ -11,7 +11,7 @@
   {%- endmacro %}
   <!-- Equipement/Restauration -->
   <div class="row">
-    {% if company.acompte == 'non' %}
+    {% if not company.acompte %}
       <div class="pad margin no-print">
         <div class="callout callout-warning">
           <h4>

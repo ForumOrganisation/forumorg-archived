@@ -24,7 +24,7 @@
                     <span class="label label-default">deux repas inclus</span>
                     {% for type, qty in v.items() %}
                       {% if qty != 0 %}
-                        <span class="label bg-{{ 'purple' if type == 'Assis' else 'blue' }}">{{ qty|to_human }}
+                        <span class="label bg-{{ 'purple' if type == 'seated' else 'blue' }}">{{ qty|to_human }}
                           repas ({{'assis' if type == 'seated' else 'plateau-repas' }})</span>
                       {% endif %}
                     {% endfor %}

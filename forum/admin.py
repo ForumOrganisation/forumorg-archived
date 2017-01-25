@@ -15,34 +15,21 @@ from export import generate_vals
 
 class CompanyForm(form.Form):
     # Basic
-    id = fields.StringField('Identifiant', validators=[validators.Required(
-    ), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. LOREAL"})
-    password = fields.StringField('Mot de passe', validators=[validators.Required(
-    ), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. motdepasse"})
-    name = fields.StringField('Nom complet', render_kw={
-                              "placeholder": "Ex. L'Oreal"})
-    acompte = fields.SelectField('Acompte paye?', choices=[
-                                 (False, 'non'), (True, 'oui')])
+    id = fields.StringField('Identifiant', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "minuscule_sans_espace"})
+    password = fields.StringField('Mot de passe', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. password"})
+    name = fields.StringField('Nom complet', render_kw={"placeholder": "Ex. L'Oreal"})
+    acompte = fields.BooleanField('Acompte paye?')
     # Equipement
-    emplacement = fields.StringField('Emplacement', render_kw={
-                                     "placeholder": "Ex. F13"})
-    size = fields.SelectField('Surface', choices=[(
-        9, '9 m2'), (12, '12 m2'), (18, '18 m2'), (36, '36 m2')], coerce=int)
-    duration = fields.SelectField('Jours de presence', choices=[
-                                  (1, '1 jour'), (2, '2 jours')], coerce=int)
-    equiped = fields.SelectField(
-        'Equipe?', choices=[(False, 'non'), (True, 'oui')])
+    emplacement = fields.StringField('Emplacement', render_kw={"placeholder": "Ex. F13"})
+    size = fields.SelectField('Surface', choices=[(9, '9 m2'), (12, '12 m2'), (18, '18 m2'), (36, '36 m2')], coerce=int)
+    duration = fields.SelectField('Jours de presence', choices=[(1, '1 jour'), (2, '2 jours')], coerce=int)
+    equiped = fields.BooleanField('Equipe?')
     # Dashboard
-    equipement = fields.SelectField('Valider Equipement', choices=[
-                                    (False, 'non'), (True, 'oui')])
-    restauration = fields.SelectField('Valider Restauration', choices=[
-                                      (False, 'non'), (True, 'oui')])
-    badges = fields.SelectField('Valider Badges', choices=[
-                                (False, 'non'), (True, 'oui')])
-    transport = fields.SelectField('Valider Transports', choices=[
-                                   (False, 'non'), (True, 'oui')])
-    programme = fields.SelectField('Valider Programme', choices=[
-                                   (False, 'non'), (True, 'oui')])
+    equipement = fields.BooleanField('Equipement valide?')
+    restauration = fields.BooleanField('Restauration valide?')
+    badges = fields.BooleanField('Badges valide?')
+    transport = fields.BooleanField('Transports valide?')
+    programme = fields.BooleanField('Programme valide?')
 
 
 class CompanyView(ModelView):

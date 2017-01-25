@@ -36,7 +36,7 @@
                 <label for="inputEmail" class="col-sm-3 control-label">Email</label>
 
                 <div class="col-sm-8">
-                  <input class="form-control" id="mail_stand" placeholder="ex: marie.martin@entreprise.com" value="{{ profile.stand.mail|default('') }}" required></input>
+                  <input class="form-control" type="email" id="mail_stand" placeholder="ex: marie.martin@entreprise.com" value="{{ profile.stand.mail|default('') }}" required></input>
                 </div>
               </div>
 
@@ -117,7 +117,7 @@
                 <label for="inputEmail" class="col-sm-3 control-label">Email</label>
 
                 <div class="col-sm-8">
-                  <input class="form-control" id="mail_facturation" placeholder="ex: marie.martin@entreprise.com" value="{{ profile.facturation.mail|default('') }}" required></input>
+                  <input class="form-control" type="email" id="mail_facturation" placeholder="ex: marie.martin@entreprise.com" value="{{ profile.facturation.mail|default('') }}" required></input>
                 </div>
               </div>
 
@@ -167,7 +167,7 @@ $('#confirm_stand').on('submit', function (e) {
   return false;
 });
 
-$('#confirm_facturation').on('click', function (e) {
+$('#confirm_facturation').on('submit', function (e) {
   e.preventDefault();
   var company = {{ company|tojson }};
   var facturation_items = {
