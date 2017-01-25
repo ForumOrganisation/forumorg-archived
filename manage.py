@@ -53,14 +53,14 @@ def create_joi():
 
 
 @manager.command
-def create_index_users():
+def create_indexes():
     db.users.create_index(keys='id', name='index_id', unique=True)
+    db.companies.create_index(keys='id', name='index_id', unique=True)
 
 
 @manager.command
 def create_admin():
-    admin_data = dict(id='admin', password=os.environ.get('ADMIN_PASSWORD'))
-    db.companies.update_one(admin_data, upsert=True)
+    db.companies.update_one({'id': 'admin'}, {'$set': {'password': os.environ.get('ADMIN_PASSWORD')}}, upsert=True)
 
 
 if __name__ == "__main__":
