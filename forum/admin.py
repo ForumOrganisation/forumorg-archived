@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import csv
 
 from flask import Response, flash, stream_with_context, redirect
@@ -15,9 +17,9 @@ from export import generate_vals
 
 class CompanyForm(form.Form):
     # Basic
-    id = fields.StringField('Identifiant', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "minuscule_sans_espace"})
+    id = fields.StringField('Identifiant', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. loreal, amadeus, canalplus"})
     password = fields.StringField('Mot de passe', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. password"})
-    name = fields.StringField('Nom complet', render_kw={"placeholder": "Ex. L'Oreal"})
+    name = fields.StringField('Nom complet', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. L'Oreal, Amadeus, Canal+"})
     acompte = fields.BooleanField('Acompte paye?')
     # Equipement
     emplacement = fields.StringField('Emplacement', render_kw={"placeholder": "Ex. F13"})
@@ -38,12 +40,12 @@ class CompanyView(ModelView):
                             'restauration', 'badges', 'programme']
     export_types = ['equipement', 'transport', 'restauration', 'badges']
     form_rules = [
-        rules.FieldSet(('id', 'password', 'name'), 'Profil'),
+        rules.FieldSet(('id', 'password2', 'name'), 'Profil'),
         rules.FieldSet(('equipement', 'restauration', 'badges',
-                        'programme', 'transport'), 'Avancement'),
+                        'programme', 'transport'), 'Suivi'),
         rules.FieldSet(('acompte',), 'Finances'),
         rules.FieldSet(('size', 'duration', 'equiped',
-                        'emplacement'), 'Finances'),
+                        'emplacement'), 'Equipement'),
     ]
 
     can_export = True
