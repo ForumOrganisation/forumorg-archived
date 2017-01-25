@@ -170,4 +170,4 @@ class EventView(ModelView):
 
     def __init__(self, *args, **kwargs):
         super(EventView, self).__init__(*args, **kwargs)
-        self.name = 'Journee Objectif Ingenieur'
+        self.name = 'Evenements'
