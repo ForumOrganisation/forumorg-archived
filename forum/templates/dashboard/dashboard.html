@@ -1,5 +1,6 @@
 {% extends "dashboard/base_imp.html" %}
 {% set title = 'Vue globale' %}
+{% set events = get_events() %}
 {% block content %}
   {% macro more_button(name) -%}
     <strong>
@@ -29,18 +30,19 @@
               <div class="box box-solid">
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
-                  {% if not company.sections.equipement.furnitures | empty_furnitures %}
+                  {% if not company.sections.furnitures | empty_furnitures %}
                     <table class="table table-hover">
                       <tbody>
-                        {% for k, v in company.sections.equipement.furnitures.items() %}
-                          {% if v.quantity > 0 %}
+                        {% for furniture_id, quantity in company.sections.furnitures.items() %}
+                          {% if quantity != 0 %}
+                            {% set f = furniture_id | to_furniture %}
                             <tr>
-                              <td>{{ v.name }}</td>
+                              <td>{{ f.name }}</td>
                               <td>
-                                <span class="badge bg-blue">{{ v.quantity|to_human }}</span>
+                                <span class="badge bg-blue">{{ quantity|to_human }}</span>
                               </td>
                               <td>
-                                <span class="badge bg-blue">{{ v.price * v.quantity }}
+                                <span class="badge bg-blue">{{ f.price * quantity }}
                                   €</span>
                               </td>
                             </tr>
@@ -79,15 +81,15 @@
                         <th>Jour</th>
                         <th>Nombre de repas</th>
                       </tr>
-                      {% for k, v in company.sections.restauration.dishes.items() %}
+                      {% for k, v in company.sections.catering | dictsort | reverse %}
                         <tr>
-                          <td>{{ k|capitalize }}</td>
+                          <td>{{ 'Mercredi' if k == 'wed' else 'Jeudi' }}</td>
                           <td>
                             <span class="label label-default">deux repas inclus</span>
                             {% for type, qty in v.items() %}
                               {% if qty != 0 %}
-                                <span class="label bg-{{ 'purple' if type == 'Assis' else 'blue' }}">{{ qty|to_human }}
-                                  repas ({{type|lower }})</span>
+                                <span class="label bg-{{ 'purple' if type == 'seated' else 'blue' }}">{{ qty|to_human }}
+                                  repas ({{'assis' if type == 'seated' else 'plateau-repas' }})</span>
                               {% endif %}
                             {% endfor %}
                           </td>
@@ -120,7 +122,7 @@
               <div class="box box-solid">
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
-                  {% if company.sections.transport.transports %}
+                  {% if company.sections.transports %}
                     <table class="table table-hover">
                       <tbody>
                         <tr>
@@ -129,7 +131,7 @@
                           <th>Départ</th>
                           <th>Personnes</th>
                         </tr>
-                        {% for transport in company.sections.transport.transports %}
+                        {% for transport in company.sections.transports %}
                           <tr>
                             <td>{{ transport.departure_place }}</td>
                             <td>{{ transport.arrival_place }}</td>
@@ -170,7 +172,7 @@
                 <div class="box box-solid">
                   <!-- /.box-header -->
                   <div class="box-body table-responsive no-padding">
-                    {% if company.sections.badges.persons %}
+                    {% if company.sections.persons %}
                       <table class="table table-hover">
                         <tbody>
                           <tr>
@@ -178,7 +180,7 @@
                             <th>Fonction</th>
                             <th>Jours présents</th>
                           </tr>
-                          {% for person in company.sections.badges.persons %}
+                          {% for person in company.sections.persons %}
                             <tr>
                               <td>{{ person.name }}</td>
                               <td>{{ person.function }}</td>
@@ -221,20 +223,21 @@
                   <div class="box box-solid">
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                      {% if company.sections.programme.events | empty_events %}
+                      {% if company.sections.events | empty_events %}
                         <table class="table">
                           <tbody>
-                            {% for k, v in company.sections.programme.events.items() %}
-                              {% if v.registered %}
+                            {% for e in events | selectattr('image') %}
+                              {% set registered = company.sections.events.get(e.id) %}
+                              {% if registered %}
                                 <tr>
                                   <td>
                                     <span class="text-primary">
-                                      <b>{{ v.name }}</b>
+                                      <b>{{ e.name }}</b>
                                     </span>
                                     <span class='label label-primary'>inscrit</span><br>
                                   </td>
                                   <td>
-                                    <span class="h4">{{ v.price }}
+                                    <span class="h4">{{ e.price }}
                                       €</span>
                                   </td>
                                 </tr>

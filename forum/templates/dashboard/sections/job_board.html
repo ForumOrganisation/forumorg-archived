@@ -59,132 +59,144 @@
           </div>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-6">
+        <form id="confirm_job">
+          <div class="box-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Titre de l'offre</label>
+                  <input type="text" class="form-control input-lg title" placeholder="Ex. Développeur Web Python (H/F)" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Ville et/ou Pays</label>
+                  <input type="text" class="form-control location" placeholder="Ex. Grenoble" required>
+                </div>
+              </div>
+            </div>
 
-              <div class="form-group">
-                <label>Titre de l'offre</label>
-                <input type="text" class="form-control input-lg title" placeholder="Ex. Développeur Web Python (H/F)">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Description de l'offre</label>
+                  <textarea class="form-control description" placeholder="Votre description..." required></textarea>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Lien url de l'offre (optionnel)</label>
+                  <input type="text" class="form-control title" placeholder="Ex. www.abc.xyz">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+
+                <div class="form-group">
+                  <label>Durée de la mission</label>
+                  <select class="form-control select2 duration" size="50">
+                    <option selected="true">3 mois</option>
+                    <option>6 mois</option>
+                    <option>Indéfini</option>
+                    <option>Autre</option>
+                  </select>
+                  <input type="text" class="duration_" style="display:none"/>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label>Description de l'offre</label>
-                <textarea class="form-control description" placeholder="Votre description..."></textarea>
+              <div class="col-md-6">
+
+                <div class="form-group">
+                  <label>Type de l'offre</label>
+                  <select class="form-control select2 type">
+                    <option>Stage</option>
+                    <option>CDD</option>
+                    <option>CDI</option>
+                    <option>VIE</option>
+                  </select>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label>Lien url de l'offre (optionnel)</label>
-                <input type="text" class="form-control title" placeholder="Ex. www.abc.xyz">
-              </div>
-
-              <div class="form-group">
-                <label>Ville et/ou Pays</label>
-                <input type="text" class="form-control location" placeholder="Ex. Grenoble"/>
-              </div>
-
-              <div class="form-group">
-                <label>Type de l'offre</label>
-                <select class="form-control select2 type">
-                  <option>Stage</option>
-                  <option>CDD</option>
-                  <option>CDI</option>
-                  <option>VIE</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label>Durée de la mission</label>
-                <select class="form-control select2 duration" size="50">
-                  <option selected="true">3 mois</option>
-                  <option>6 mois</option>
-                  <option>Indéfini</option>
-                  <option>Autre</option>
-                </select>
-                <input type="text" class="duration_" style="display:none"/>
-              </div>
             </div>
           </div>
 
           <div class="box-footer">
-            <button id="confirm_job" type="submit" class="btn btn-primary">Confirmer</button>
+            <button type="submit" class="btn btn-primary">Confirmer</button>
           </div>
-          <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
+        </form>
+        <!-- /.box-body -->
       </div>
+      <!-- /.box -->
     </div>
   </div>
+</div>
 
 {% endblock main %}
 {% block scripts %}
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('.duration').change(function () {
-        if ($('.duration').val() == 'Autre') {
-          $('.duration_').show();
-        } else {
-          $('.duration_').hide();
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('.duration').change(function () {
+      if ($('.duration').val() == 'Autre') {
+        $('.duration_').show();
+      } else {
+        $('.duration_').hide();
+      }
+    });
+  });
+
+  $('#confirm_job').on('submit', function (e) {
+    e.preventDefault();
+
+    var dur;
+    if ($('.duration').val() == 'Autre') {
+      dur = $('.duration_').val();
+    } else {
+      dur = $('.duration').val()
+    }
+
+    var job = {
+      company_id: "{{ current_user.id }}",
+      title: $(".title").val(),
+      type: $(".type").val(),
+      duration: dur,
+      description: $(".description").val(),
+      location: $(".location").val()
+    }
+    $.ajax({
+      type: "POST",
+      url: "{{ url_for('add_job') }}",
+      data: {
+        "job": JSON.stringify(job)
+      },
+      success: function () {
+        Notify("Changements sauvegardés.");
+        setTimeout(function () {
+          location.reload();
+        }, 1000);
+      }
+    });
+    return false;
+  });
+
+  function remove_job(job_id) {
+    var r = confirm("Confirmer la suppresion ?");
+    if (r) {
+      $.ajax({
+        type: "POST",
+        url: "{{ url_for('remove_job') }}",
+        data: {
+          "id": job_id
+        },
+        success: function () {
+          Notify("Suppression confirmée.");
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
         }
       });
-    });
-
-    $('#confirm_job').on('click', function (e) {
-      e.preventDefault();
-
-      var dur;
-      if ($('.duration').val() == 'Autre') {
-        dur = $('.duration_').val();
-      } else {
-        dur = $('.duration').val()
-      }
-
-      var job = {
-        company_id: "{{ current_user.id }}",
-        title: $(".title").val(),
-        type: $(".type").val(),
-        duration: dur,
-        description: $(".description").val(),
-        location: $(".location").val()
-      }
-
-      if (job.title && job.type && job.duration && job.description && job.location) {
-        $.ajax({
-          type: "POST",
-          url: "{{ url_for('add_job') }}",
-          data: {
-            "job": JSON.stringify(job)
-          },
-          success: function () {
-            Notify("Changements sauvegardés.");
-            setTimeout(function () {
-              location.reload();
-            }, 1000);
-          }
-        });
-      } else {
-        Notify("Veuillez remplir tous les champs.", null, null, "error");
-      }
-      return false;
-    });
-
-    function remove_job(job_id) {
-      var r = confirm("Confirmer la suppresion ?");
-      if (r) {
-        $.ajax({
-          type: "POST",
-          url: "{{ url_for('remove_job') }}",
-          data: {
-            "id": job_id
-          },
-          success: function () {
-            Notify("Suppression confirmée.");
-            setTimeout(function () {
-              location.reload();
-            }, 1000);
-          }
-        });
-      }
     }
-  </script>
+  }
+</script>
 {% endblock scripts %}

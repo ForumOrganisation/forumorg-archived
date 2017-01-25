@@ -9,7 +9,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive no-padding">
-          {% if company.sections.badges.persons %}
+          {% if company.sections.persons %}
             <table class="table table-hover">
               <tbody>
                 <tr>
@@ -20,7 +20,7 @@
                     <i class="fa fa-remove"></i>
                   </th>
                 </tr>
-                {% for person in company.sections.badges.persons %}
+                {% for person in company.sections.persons %}
                   <tr>
                     <td>{{ person.name }}</td>
                     <td>{{ person.function }}</td>
@@ -59,49 +59,50 @@
             </div>
           </div>
           <!-- /.box-header -->
-          <div class="box-body">
-            <div class="row">
-
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>nom complet</label>
-                  <div class="input-group">
-                    <div class="input-group-addon">
-                      <i class="fa fa-tag"></i>
+          <form id="confirm_badges">
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>nom complet</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-tag"></i>
+                      </div>
+                      <input type="text" id="name" class="form-control" placeholder="Ex. Sophie BISENUS" required>
                     </div>
-                    <input type="text" id="name" class="form-control" placeholder="Ex. Sophie BISENUS">
                   </div>
                 </div>
-              </div>
 
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>fonction</label>
-                  <div class="input-group">
-                    <div class="input-group-addon">
-                      <i class="fa fa-tag"></i>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>fonction</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-tag"></i>
+                      </div>
+                      <input type="text" id="function" class="form-control" placeholder="Ex. Chargé des ressources humaines" required>
                     </div>
-                    <input type="text" id="function" class="form-control" placeholder="Ex. Chargé des ressources humaines">
                   </div>
                 </div>
-              </div>
 
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>sélectionner</label>
-                  <select id="days" class="form-control">
-                    <option>mercredi</option>
-                    <option>jeudi</option>
-                    <option>les deux</option>
-                  </select>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>sélectionner</label>
+                    <select id="days" class="form-control">
+                      <option>mercredi</option>
+                      <option>jeudi</option>
+                      <option>les deux</option>
+                    </select>
+                  </div>
                 </div>
+                <!-- /.input group -->
               </div>
-              <!-- /.input group -->
             </div>
-          </div>
-          <div class="box-footer">
-            <button id="confirm_badges" type="submit" class="btn btn-primary">Confirmer</button>
-          </div>
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary">Confirmer</button>
+            </div>
+          </form>
           <!-- /.box-body -->
         </div>
         <!-- /.box -->
@@ -111,23 +112,23 @@
   {% endblock main %}
   {% block scripts %}
     <script type="text/javascript">
-      $('#confirm_badges').on('click', function (e) {
+      $('#confirm_badges').on('submit', function (e) {
         e.preventDefault();
         var company = {{ company|tojson }};
-        var persons = company.sections.badges.persons;
+        var persons = company.sections.persons;
         var person = {
           days: $("#days").val(),
           name: $("#name").val(),
           function: $("#function").val()
         };
         if (person.days && person.name && person.function) {
-          company.sections.badges.persons.push(person);
+          company.sections.persons.push(person);
           $.ajax({
             type: "POST",
             url: "{{ url_for('update_company') }}",
             data: {
               "company": JSON.stringify(company),
-              "page": "equipement"
+              "page": "badges"
             },
             success: function (result) {
               if (result == "success") {
@@ -150,7 +151,7 @@
         var r = confirm("Confirmer la suppresion ?");
         if (r) {
           var company = {{ company|tojson }};
-          company.sections.badges.persons.splice(index, 1);
+          company.sections.persons.splice(index, 1);
           $.ajax({
             type: "POST",
             url: "{{ url_for('update_company') }}",

@@ -7,7 +7,7 @@ import requests
 from flask import abort, redirect, render_template, request, send_from_directory, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from login import validate_login
-from storage import Company, get_company, set_company, get_companies, get_jobs
+from storage import Company, get_company, set_company, get_db
 
 from forum import app
 from mailing import send_mail
@@ -19,7 +19,7 @@ from export import log
 @app.route('/dashboard/<page>')
 @login_required
 def dashboard(page=None):
-    if current_user.id == os.environ.get('ADMIN_ID'):
+    if current_user.id == 'admin':
         return redirect('/admin')
     url = 'dashboard/sections/{}.html'.format(page) if page and page != "accueil" else 'dashboard/dashboard.html'
     return render_template(url)
@@ -73,7 +73,7 @@ def update_company():
 def validate_section():
     page = request.form.get('page')
     if current_user.data.get(page) == 'non':
-        get_companies().update_one({'id': current_user.id}, {'$set': {page: 'oui'}})
+        get_db().companies.update_one({'id': current_user.id}, {'$set': {page: 'oui'}})
         return "success"
     else:
         return "error"
@@ -99,7 +99,7 @@ def update_banner():
 def add_job():
     job = request.form.get('job')
     job = json.loads(job)
-    get_jobs().insert_one(job)
+    get_db().jobs.insert_one(job)
     return "success"
 
 
@@ -107,7 +107,7 @@ def add_job():
 @login_required
 def remove_job():
     job_id = request.form.get('job_id')
-    get_jobs().delete_one({'id': job_id})
+    get_db().jobs.delete_one({'id': job_id})
     return "success"
 
 

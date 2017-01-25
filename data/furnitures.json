@@ -1,0 +1,99 @@
+[
+  {
+    "id": "chaise",
+    "name": "Chaise",
+    "price": 24,
+    "quantities": {
+      "9": 2,
+      "12": 2,
+      "18": 2,
+      "24": 4,
+      "30": 5,
+      "36": 8
+    }
+  }, {
+    "id": "table",
+    "name": "Table",
+    "price": 72,
+    "quantities": {
+      "9": 1,
+      "12": 1,
+      "18": 1,
+      "24": 2,
+      "30": 3,
+      "36": 4
+    }
+  }, {
+    "id": "banque_hotesse",
+    "name": "Banque à Hôtesse",
+    "price": 94,
+    "quantities": {
+      "9": 1,
+      "12": 1,
+      "18": 1,
+      "24": 2,
+      "30": 2,
+      "36": 4
+    }
+  }, {
+    "id": "tabouret",
+    "name": "Tabouret haut",
+    "price": 32,
+    "quantities": {
+      "9": 1,
+      "12": 1,
+      "18": 1,
+      "24": 2,
+      "30": 3,
+      "36": 4
+    }
+  }, {
+    "id": "portemanteau",
+    "name": "Portemanteau",
+    "price": 31,
+    "quantities": {
+      "9": 1,
+      "12": 1,
+      "18": 1,
+      "24": 1,
+      "30": 1,
+      "36": 1
+    }
+  }, {
+    "id": "chauffeuse",
+    "name": "Chauffeuse",
+    "price": 65
+  }, {
+    "id": "mange_debout",
+    "name": "Mange-debout",
+    "price": 82
+  }, {
+    "id": "presentoir",
+    "name": "Présentoir Documents",
+    "price": 72
+  }, {
+    "id": "ecran_32",
+    "name": "Ecran LCD 32\" (82cm)",
+    "price": 205
+  }, {
+    "id": "ecran_42",
+    "name": "Ecran LCD 42\" (107cm)",
+    "price": 350
+  }, {
+    "id": "poste_2",
+    "name": "Poste 2KW supplémentaire",
+    "price": 290
+  }, {
+    "id": "poste_3",
+    "name": "Poste 3KW supplémentaire",
+    "price": 315
+  }, {
+    "id": "poste_6",
+    "name": "Poste 6KW supplémentaire",
+    "price": 450
+  }, {
+    "id": "poste_9",
+    "name": "Poste 9KW supplémentaire",
+    "price": 550
+  }
+]

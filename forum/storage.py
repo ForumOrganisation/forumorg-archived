@@ -13,6 +13,10 @@ def init_storage():
     db = client.get_default_database()
 
 
+def get_db():
+    return db
+
+
 def get_company(company_id):
     company = db.companies.find_one({'id': company_id}, {'_id': False})
     return company
@@ -20,22 +24,6 @@ def get_company(company_id):
 
 def set_company(company_id, company_data):
     return db.companies.replace_one({'id': company_id}, company_data)
-
-
-def get_companies():
-    return db.companies
-
-
-def get_jobs():
-    return db.jobs
-
-
-def get_users():
-    return db.users
-
-
-def get_events():
-    return db.events
 
 
 class Company(flask_login.UserMixin):

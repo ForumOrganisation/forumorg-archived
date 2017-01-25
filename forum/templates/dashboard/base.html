@@ -154,7 +154,6 @@
       }
 
     </style>
-    <!-- ./wrapper -->
 
     <!-- REQUIRED JS SCRIPTS -->
 
@@ -175,8 +174,8 @@
     <script src="{{ url_for('static', filename='js/pace.min.js') }}"></script>
     <!-- bootstrap editable -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-
-    <!-- Page script -->
+    <!-- AdminLTE App -->
+    <script src="{{ url_for('static', filename='dist/js/app.js') }}"></script>
     <script>
       $(function () {
         //Initialize Select2 Elements
@@ -212,27 +211,28 @@
       });
 
       function validate_section() {
-        $.ajax({
-          type: "POST",
-          url: "{{ url_for('validate_section') }}",
-          data: {
-            "page": "{{ page }}"
-          },
-          success: function (result) {
-            if (result == "success") {
-              Notify("Section validée.");
-              setTimeout(function () {
-                location.reload();
-              }, 1000);
-            } else {
-              Notify("Un problème est survenu.");
+        var r = confirm("Pour annuler votre validation, il faudra nous contacter. Voulez-vous continuer?");
+        if (r) {
+          $.ajax({
+            type: "POST",
+            url: "{{ url_for('validate_section') }}",
+            data: {
+              "page": "{{ page }}"
+            },
+            success: function (result) {
+              if (result == "success") {
+                Notify("Section validée.");
+                setTimeout(function () {
+                  location.reload();
+                }, 1000);
+              } else {
+                Notify("Un problème est survenu.");
+              }
             }
-          }
-        });
+          });
+        }
       }
     </script>
-    <!-- AdminLTE App -->
-    <script src="{{ url_for('static', filename='dist/js/app.js') }}"></script>
     {% block scripts %}{% endblock scripts %}
   </body>
 </html>

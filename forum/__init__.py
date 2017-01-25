@@ -9,7 +9,7 @@ from flask_login import LoginManager
 from flask_babelex import Babel
 
 from admin import CompanyView, EventView, UserView
-from storage import get_companies, get_events, get_users, init_storage, get_jobs
+from storage import init_storage, get_db
 
 # App init
 app = Flask(__name__)
@@ -31,21 +31,39 @@ babel = Babel(app)
 
 @babel.localeselector
 def get_locale():
-    lg = request.accept_languages.best_match(['fr', 'en'])
-    return lg
+    return request.accept_languages.best_match(['fr', 'en'])
 
 
 # Admin Interface
-admin = Admin(app, name='Interface Admin', index_view=CompanyView(get_companies(), url='/admin'))
-admin.add_view(UserView(get_users()))
-admin.add_view(EventView(get_events()))
+admin = Admin(app, name='Interface Admin', index_view=CompanyView(get_db().companies, url='/admin'))
+admin.add_view(UserView(get_db().users))
+admin.add_view(EventView(get_db().events))
 admin.add_link(MenuLink(name='Se deconnecter', url='/deconnexion'))
+
+
+@app.context_processor
+def get_furnitures():
+    def _get_furnitures():
+        return list(get_db().furnitures.find({}, {'_id': False}))
+    return dict(get_furnitures=_get_furnitures)
+
+
+@app.context_processor
+def get_events():
+    def _get_events():
+        return list(get_db().events.find({}, {'_id': False}))
+    return dict(get_events=_get_events)
 
 
 # Jinja Filters
 @app.template_filter('to_jobs')
 def to_jobs(company_id):
-    return list(get_jobs().find({'company_id': company_id}))
+    return list(get_db().jobs.find({'company_id': company_id}))
+
+
+@app.template_filter('to_furniture')
+def to_furniture(furniture_id):
+    return get_db().furnitures.find_one({'id': furniture_id})
 
 
 @app.template_filter('format_dt')
@@ -85,12 +103,12 @@ def to_human(num):
 
 @app.template_filter('empty_furnitures')
 def empty_furniture(f):
-    return sum([v['quantity'] for k, v in f.items()]) == 0
+    return sum(f.values()) == 0
 
 
 @app.template_filter('empty_events')
 def empty_events(e):
-    return any([v['registered'] for k, v in e.items()])
+    return any(e.values())
 
 
 @app.template_filter('empty_dishes')

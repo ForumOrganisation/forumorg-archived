@@ -1,5 +1,6 @@
 {% extends "dashboard/section.html" %}
 {% set title = 'Bon de commande' %}
+{% set events = get_events() %}
 {% block main %}
   {% set count = [0] %}
   <div class="row">
@@ -42,8 +43,8 @@
         <div class="col-sm-4 invoice-col">
           À
           <address>
-            <strong>{{ company.sections.profile.address }}</strong><br>
-            <span>{{ company.sections.profile.country }}</span><br>
+            <strong>{{ company.sections.profile.facturation.address|default("Pas d'addresse spécifiée") }}</strong><br>
+            <span>{{ company.sections.profile.facturation.country|default("Pas de pays spécifié") }}</span><br>
           </address>
         </div>
         <!-- /.col -->
@@ -56,14 +57,14 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-
-      {% if not company.sections.equipement.furnitures | empty_furnitures %}
+      {% if not company.sections.furnitures | empty_furnitures %}
         <div class="box-header">
           <h3 class="box-title">Liste des équipements</h3>
         </div>
         <div class="row">
           <div class="col-xs-12 table-responsive">
-            <table class="table table-striped" width="240">
+            <table class="table
+              table-striped" width="240">
               <thead>
                 <tr>
                   <th width="70%">Produit</th>
@@ -72,13 +73,14 @@
                 </tr>
               </thead>
               <tbody>
-                {% for k, v in company.sections.equipement.furnitures.items() %}
-                  {% if v.quantity != 0 %}
-                    {% if count.append(count.pop() + v.price * v.quantity) %}{% endif %}
+                {% for furniture_id, quantity in company.sections.furnitures.items() %}
+                  {% if quantity != 0 %}
+                    {% set f = furniture_id | to_furniture %}
+                    {% if count.append(count.pop() + f.price * quantity) %}{% endif %}
                     <tr>
-                      <td>{{ v.name }}</td>
-                      <td>{{ v.quantity }}</td>
-                      <td>{{ v.quantity * v.price }}
+                      <td>{{ f.name }}</td>
+                      <td>{{ quantity }}</td>
+                      <td>{{ quantity * f.price }}
                         €</td>
                     </tr>
                   {% endif %}
@@ -88,8 +90,7 @@
           </div>
         </div>
       {% endif %}
-
-      {% if not company.sections.restauration.dishes | empty_dishes %}
+      {% if not company.sections.catering | empty_dishes %}
         <div class="box-header">
           <h3 class="box-title">Liste des repas</h3>
         </div>
@@ -104,11 +105,12 @@
                 </tr>
               </thead>
               <tbody>
-                {% for k, v in company.sections.restauration.dishes.items() %}
+                {% for k, v in company.sections.catering | dictsort | reverse %}
                   {% set qty = v.values() | sum %}
-                  {% if count.append(count.pop() + qty * 20) %}{% endif %}
+                  {% if
+                  count.append(count.pop() + qty * 20) %}{% endif %}
                   <tr>
-                    <td>{{ k|capitalize }}</td>
+                    <td>{{ 'Mercredi' if k == 'wed' else 'Jeudi' }}</td>
                     <td>{{ qty }}</td>
                     <td>{{ qty*20 }}
                       €</td>
@@ -119,8 +121,7 @@
           </div>
         </div>
       {% endif %}
-
-      {% if company.sections.programme.events | empty_events %}
+      {% if company.sections.events | empty_events %}
         <div class="box-header">
           <h3 class="box-title">Liste des évènements</h3>
         </div>
@@ -134,12 +135,13 @@
                 </tr>
               </thead>
               <tbody>
-                {% for k, v in company.sections.programme.events.items() %}
-                  {% if v.registered %}
-                    {% if count.append(count.pop() + v.price) %}{% endif %}
+                {% for e in events | selectattr('image') %}
+                  {% set registered = company.sections.events.get(e.id) %}
+                  {% if registered %}
+                    {% if count.append(count.pop() + e.price) %}{% endif %}
                     <tr>
-                      <td>{{ v.name }}</td>
-                      <td>{{ v.price }}
+                      <td>{{ e.name }}</td>
+                      <td>{{ e.price }}
                         €</td>
                     </tr>
                   {% endif %}
@@ -149,7 +151,6 @@
           </div>
         </div>
       {% endif %}
-
       <div class="row">
         <!-- accepted payments column -->
         <div class="col-xs-6">

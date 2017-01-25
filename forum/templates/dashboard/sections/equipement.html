@@ -1,24 +1,6 @@
 {% extends "dashboard/section.html" %}
 {% set title = 'Equipement' %}
-{% set titles = ['Chaises', 'Tables', 'Banque hôtesse', 'Tabourets', 'Porte manteau'] %}
-{% set sizes = {
-  9: [
-    2, 1, 1, 1, 1
-  ],
-  12: [
-    2, 1, 1, 1, 1
-  ],
-  18: [
-    2, 1, 1, 1, 1
-  ],
-  24: [
-    4, 2, 2, 2, 1
-  ],
-  30: [
-    5, 3, 2, 3, 1
-  ],
-  36: [8, 4, 4, 4, 1]
-} %}
+{% set furnitures = get_furnitures() %}
 {% block main %}
   <!-- /.box-header -->
   <!-- /.box-header -->
@@ -33,12 +15,11 @@
             <span class="info-box-text">Stand</span>
             <span class="info-box-number">
               {{ company.duration|to_human|capitalize if company.duration else '?' }}
-              jour(s)
+              jour{{'s' if company.duration == 2 else ''}}
             </span>
             <span class="progress-description">
               <span class="info-box-number">
-                {{ '??' if not company.size or company.size == 0
-                    else company.size }}
+                {{ company.size|default('??', true) }}
                 m2
               </span>
             </div>
@@ -96,13 +77,13 @@
                       <div class="box-footer no-padding">
                         <table class="table table-responsive">
                           <tbody>
-                            {% for t in titles %}
+                            {% for f in furnitures | selectattr('quantities') %}
                               <tr>
                                 <td>
-                                  <span class="text-muted">{{ t }}</span>
+                                  <span class="text-muted">{{ f.name }}</span>
                                 </td>
                                 <td>
-                                  <span class="badge bg-grey">{{ sizes[company.size][loop.index0] }}</span>
+                                  <span class="badge bg-grey">{{ f.quantities[company.size|string] }}</span>
                                 </td>
                                 <td>
                                   <span class="badge bg-grey">inclus</span >
@@ -112,19 +93,20 @@
                                 </td>
                               </tr>
                             {% endfor %}
-                            {% for k, v in company.sections.equipement.furnitures.items() %}
-                              {% if v.quantity != 0 %}
+                            {% for furniture_id, quantity in company.sections.furnitures.items() %}
+                              {% if quantity != 0 %}
+                                {% set f = furniture_id | to_furniture %}
                                 <tr>
-                                  <td>{{ v.name }}</td>
+                                  <td>{{ f.name }}</td>
                                   <td>
-                                    <span class="badge bg-blue">{{ v.quantity }}</span>
+                                    <span class="badge bg-blue">{{ quantity }}</span>
                                   </td>
                                   <td>
-                                    <span class="badge bg-blue">{{ v.price * v.quantity }}
+                                    <span class="badge bg-blue">{{ f.price * quantity }}
                                       €</span>
                                   </td>
                                   <td>
-                                    <i onclick="remove_furniture('{{ k }}')" class="fa fa-remove" style="color:red"></i>
+                                    <i onclick="remove_furniture('{{ furniture_id }}')" class="fa fa-remove" style="color:red"></i>
                                   </td>
                                 </tr>
                               {% endif %}
@@ -154,50 +136,51 @@
             </div>
           </div>
           <!-- /.box-header -->
-          <div class="box-body">
-            <div class="row r-center">
-              <div class="col-md-4">
+          <form id="confirm_add">
+            <div class="box-body">
+              <div class="row r-center">
+                <div class="col-md-4">
 
-                <div class="form-group">
-                  <label>item</label>
-                  <select class="form-control select2 name" style="width: 100%;">
-                    {% for k, v in company.sections.equipement.furnitures.items() %}
-                      <option>{{ v.name }}
-                        -
-                        {{ v.price }}
-                        €</option>
-                    {% endfor %}
-                  </select>
+                  <div class="form-group">
+                    <label>équipement</label>
+                    <select class="form-control select2 id" style="width: 100%;">
+                      {% for f in furnitures %}
+                        <option value="{{ f.id }}">{{ f.name }}
+                          -
+                          {{ f.price }}
+                          €</option>
+                      {% endfor %}
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>quantité</label>
-                  <select class="form-control select2 quantity" style="width: 100%;">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>quantité</label>
+                    <select class="form-control select2 quantity" style="width: 100%;">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>total</label>
-                  <p class="price">89 €</p>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>total</label>
+                    <p class="price">24 €</p>
+                  </div>
                 </div>
+                <!-- /.box -->
               </div>
-              <!-- /.box -->
             </div>
-          </div>
 
-          <div class="box-footer">
-            <button id="confirm_add" type="submit" class="btn btn-primary">Confirmer</button>
-          </div>
-
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary">Confirmer</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -208,38 +191,42 @@
 
 {% block scripts %}
 <script type="text/javascript">
-  function update_price(price) {
-    price = price.split(/€/g)[0].split(" - ")[1];
-    price = Number($(".quantity").val()) * Number(price);
-    $(".price").html(price + " €");
+  function update_price() {
+    var furnitures = {{ furnitures|tojson }};
+    var id = $('.id').val();
+    var price = 0;
+    for (idx in furnitures) {
+      if (furnitures[idx]['id'] == id) {
+        price = furnitures[idx]['price'];
+        break;
+      }
+    }
+    price = price * Number($('.quantity').val());
+    $('.price').html(price + ' €');
   }
 
   $("document").ready(function () {
-    var $name = $('.name').select2();
+    var $id = $('.id').select2();
     var $quantity = $('.quantity').select2();
 
-    $name.on("select2:select", function (e) {
-      update_price(e.params.data.text);
+    $id.on("select2:select", function (e) {
+      update_price();
     });
 
     $quantity.on("select2:select", function (e) {
-      update_price($(".name").val());
+      update_price();
     });
 
   });
 
-  $('#confirm_add').on('click', function (e) {
+  $('#confirm_add').on('submit', function (e) {
     e.preventDefault();
     var company = {{ company|tojson }};
-    var furnitures = company.sections.equipement.furnitures;
-    var value_quantity = Number($(".quantity").val());
-    var value_name = $(".name").val();
-    value_name = value_name.split(' - ')[0];
-    for (var key in furnitures) {
-      if (furnitures[key].name == value_name) {
-        furnitures[key].quantity += value_quantity;
-      }
-    }
+    var furnitures = company.sections.furnitures;
+    var furniture_id = $(".id").val();
+    var old_quantity = furnitures[furniture_id] || 0;
+    var new_quantity = Number($(".quantity").val());
+    furnitures[furniture_id] = old_quantity + new_quantity;
 
     $.ajax({
       type: "POST",
@@ -262,12 +249,12 @@
     return false;
   });
 
-  function remove_furniture(name) {
+  function remove_furniture(furniture_id) {
     var r = confirm("Confirmer la suppresion ?");
     if (r) {
       var company = {{ company|tojson }};
-      var furnitures = company.sections.equipement.furnitures;
-      furnitures[name].quantity = 0;
+      var furnitures = company.sections.furnitures;
+      delete furnitures[furniture_id];
       $.ajax({
         type: "POST",
         url: "{{ url_for('update_company') }}",

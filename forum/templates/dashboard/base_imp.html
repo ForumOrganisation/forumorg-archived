@@ -33,12 +33,23 @@
   {{ section_block('accueil', 'fa fa-home')}}
   {{ section_block('profil', 'fa fa-user')}}
   {{ section_block('job_board', 'glyphicon glyphicon-bullhorn')}}
-  {{ section_block('equipement', 'glyphicon glyphicon-object-align-right')}}
-  {{ section_block('restauration', 'fa fa-glass')}}
-  {{ section_block('transport', 'fa fa-car')}}
-  {{ section_block('badges', 'fa fa-clone')}}
-  {{ section_block('programme', 'fa fa-calendar-plus-o')}}
-  {{ section_block('bon_de_commande', 'fa fa-paperclip')}}
+  <li class="active treeview">
+    <a href="#">
+      <i class="fa fa-dashboard"></i>
+      <span>Logistique</span>
+      <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+      </span>
+    </a>
+    <ul class="treeview-menu">
+      {{ section_block('equipement', 'glyphicon glyphicon-object-align-right')}}
+      {{ section_block('restauration', 'fa fa-glass')}}
+      {{ section_block('transport', 'fa fa-car')}}
+      {{ section_block('badges', 'fa fa-clone')}}
+      {{ section_block('programme', 'fa fa-calendar-plus-o')}}
+      {{ section_block('bon_de_commande', 'fa fa-paperclip')}}
+    </ul>
+  </li>
 {% endblock sections %}
 {% block content %}
   {% block validate %}

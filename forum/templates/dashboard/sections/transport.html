@@ -9,7 +9,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive no-padding">
-          {% if company.sections.transport.transports %}
+          {% if company.sections.transports %}
             <table class="table table-hover">
               <tbody>
                 <tr>
@@ -23,7 +23,7 @@
                     <i class="fa fa-remove"></i>
                   </th>
                 </tr>
-                {% for transport in company.sections.transport.transports %}
+                {% for transport in company.sections.transports %}
                   <tr>
                     <td>{{ transport.departure_place }}</td>
                     <td>{{ transport.arrival_place }}</td>
@@ -71,95 +71,97 @@
             </div>
           </div>
           <!-- /.box-header -->
-          <div class="box-body">
-            <div class="row">
-              <div class="col-md-4">
-                {% set places = ['Gare Part-Dieu','Forum Rhône-Alpes','Hôtel Okko','Hôtel Lyon Metropole', 'Aéroport Saint Exupéry','Terasses du Parc (Soirée Networking)','Hôtel Ibis Part Dieu','Hôtel Le Roosvelt','Hôtel Carlton', 'Hôtel Reine Astrid','Hôtel Park et
-                Suites Lyon Part-Dieu','Gare Perrache','Hôtel Campanile Part-Dieu']%}
-                <div class="form-group">
-                  <label>je pars de</label>
-                  <select class="form-control select2 from" style="width: 100%;">
-                    {% for p in places %}
-                      <option>{{ p }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>vers</label>
-                  <select class="form-control select2 to" style="width: 100%;">
-                    {% for p in places %}
-                      <option>{{ p }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>ex: le
-                    <span class="text-muted">08/03/2016</span>
-                    à
-                    <span class="text-muted">07h00</span>
-
-                    <div class="input-group date">
-                      <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                      </div>
-                      <input type="text" id="datetime" class="form-control" data-mask>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
+          <form id="confirm_transport">
+            <div class="box-body">
               <div class="row">
-
                 <div class="col-md-4">
+                  {% set places = ['Gare Part-Dieu','Forum Rhône-Alpes','Hôtel Okko','Hôtel Lyon Metropole', 'Aéroport Saint Exupéry','Terasses du Parc (Soirée Networking)','Hôtel Ibis Part Dieu','Hôtel Le Roosvelt','Hôtel Carlton', 'Hôtel Reine Astrid','Hôtel Park et
+                  Suites Lyon Part-Dieu','Gare Perrache','Hôtel Campanile Part-Dieu']%}
                   <div class="form-group">
-                    <label>nombre de personnes</label>
-
-                    <div class="input-group date">
-                      <div class="input-group-addon">
-                        <i class="fa fa-users"></i>
-                      </div>
-                      <input type="text" id="persons" class="form-control" data-mask>
-                    </div>
+                    <label>je pars de</label>
+                    <select class="form-control select2 from" style="width: 100%;">
+                      {% for p in places %}
+                        <option>{{ p }}</option>
+                      {% endfor %}
+                    </select>
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>appeler le</label>
-                    <div class="input-group">
-                      <div class="input-group-addon">
-                        <i class="fa fa-phone"></i>
-                      </div>
-                      <input type="text" id="phone" class="form-control" data-mask>
-                    </div>
+                    <label>vers</label>
+                    <select class="form-control select2 to" style="width: 100%;">
+                      {% for p in places %}
+                        <option>{{ p }}</option>
+                      {% endfor %}
+                    </select>
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>commentaire</label>
-                    <div class="input-group">
-                      <div class="input-group-addon">
-                        <i class="fa fa-tag"></i>
+                    <label>ex: le
+                      <span class="text-muted">08/03/2016</span>
+                      à
+                      <span class="text-muted">07h00</span>
+
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" id="datetime" class="form-control" data-mask>
                       </div>
-                      <input id="comment" type="text" class="form-control" placeholder="Ex. Terminal T2">
                     </div>
                   </div>
+
                 </div>
 
-                <!-- /.input group -->
+                <div class="row">
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>nombre de personnes</label>
+
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                          <i class="fa fa-users"></i>
+                        </div>
+                        <input type="text" id="persons" class="form-control" data-mask>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>appeler le</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-phone"></i>
+                        </div>
+                        <input type="text" id="phone" class="form-control" data-mask>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>commentaire</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-tag"></i>
+                        </div>
+                        <input id="comment" type="text" class="form-control" placeholder="Ex. Terminal T2">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- /.input group -->
+                </div>
               </div>
-            </div>
-            <div class="box-footer">
-              <button id="confirm_transport" type="submit" class="btn btn-primary">Confirmer</button>
-            </div>
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Confirmer</button>
+              </div>
+            </form>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
@@ -169,10 +171,10 @@
     {% endblock main %}
     {% block scripts %}
       <script type="text/javascript">
-        $('#confirm_transport').on('click', function (e) {
+        $('#confirm_transport').on('submit', function (e) {
           e.preventDefault();
           var company = {{ company|tojson }};
-          var transports = company.sections.transport.transports;
+          var transports = company.sections.transports;
           var transport = {
             departure_place: $(".from").val(),
             arrival_place: $(".to").val(),
@@ -182,7 +184,7 @@
             departure_time: $("#datetime").val()
           };
           if (transport.phone && transport.nb_persons && transport.departure_time) {
-            company.sections.transport.transports.push(transport);
+            company.sections.transports.push(transport);
             $.ajax({
               type: "POST",
               url: "{{ url_for('update_company') }}",
@@ -211,7 +213,7 @@
           var r = confirm("Confirmer la suppresion ?");
           if (r) {
             var company = {{ company|tojson }};
-            company.sections.transport.transports.splice(index, 1);
+            company.sections.transports.splice(index, 1);
             $.ajax({
               type: "POST",
               url: "{{ url_for('update_company') }}",

@@ -1,0 +1,21 @@
+[
+  {
+    "id": "conference",
+    "name": "Offre Conférence",
+    "price": 400,
+    "image": "images/conf.png",
+    "description": "Une conférence privilège vous permet de bénéficier d'une communication spécifique de la part de Forum Organisation sur les profils que vous souhaitez..."
+  }, {
+    "id": "networking",
+    "name": "Soirée Networking",
+    "price": 0,
+    "image": "images/to.png",
+    "description": "La soirée networking aura lieu mercredi soir à partir de 18h."
+  }, {
+    "id": "webtv",
+    "name": "Web TV",
+    "price": 300,
+    "image": "images/tv4.png",
+    "description": "L'interview aura lieu pendant le salon et sera diffusée pendant et après le forum sur le site WebTV ainsi que sur nos réseaux sociaux..."
+  }
+]

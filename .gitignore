@@ -1,7 +1,6 @@
 # Perso
-*.json
+pip-selfcheck.json
 .Python
-!sections.json
 
 *.py[co]
 *.DS_*

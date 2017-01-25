@@ -1,0 +1,121 @@
+[
+  "banque_hotesse" : {
+    "name": "Banque a Hotesse",
+    "price": 94
+  },
+  "chaise" : {
+    "name": "Chaise",
+    "price": 24
+  },
+  "chauffeuse" : {
+    "name": "Chauffeuse",
+    "price": 65
+  },
+  "mange_debout" : {
+    "name": "Mange debout",
+    "price": 82
+  },
+  "portemanteau" : {
+    "name": "Portemanteau",
+    "price": 31
+  },
+  "presentoir" : {
+    "name": "Presentoir documents",
+    "price": 72
+  },
+  "table" : {
+    "name": "Table",
+    "price": 72
+  },
+  "tabouret" : {
+    "name": "Tabouret haut",
+    "price": 32
+  },
+  "ecran_32" : {
+    "name": "Ecran LCD 32\" (82cm)",
+    "price": 205
+  },
+  "ecran_42" : {
+    "name": "Ecran LCD 42\" (107cm)",
+    "price": 350
+  },
+  "poste_2" : {
+    "name": "Poste 2KW supplémentaire",
+    "price": 290
+  },
+  "poste_3" : {
+    "name": "Poste 3KW supplémentaire",
+    "price": 315
+  },
+  "poste_6" : {
+    "name": "Poste 6KW supplémentaire",
+    "price": 450
+  },
+  "poste_9" : {
+    "name": "Poste 9KW supplémentaire",
+    "price": 550
+  }
+}
+},
+"restauration" : {
+"dishes": {
+  "mercredi": {
+    "Assis": 0,
+    "Plateau-Repas": 0
+  },
+  "jeudi": {
+    "Assis": 0,
+    "Plateau-Repas": 0
+  }
+}
+},
+"badges" : {
+"persons": []
+},
+"transport" : {
+"transports": []
+},
+"programme" : {
+"events": {
+  "conference": {
+    "name": "Offre Conférence",
+    "price": 400,
+    "registered": false,
+    "image": "images/conf.png",
+    "description": "Une conférence privilège vous permet de bénéficier d'une communication spécifique de la part de Forum Organisation sur les profils que vous souhaitez..."
+  },
+  "networking": {
+    "name": "Soirée Networking",
+    "price": 0,
+    "registered": false,
+    "image": "images/to.png",
+    "description": "La soirée networking aura lieu mercredi soir à partir de 18h."
+  },
+  "webtv": {
+    "name": "Web TV",
+    "price": 300,
+    "registered": false,
+    "image": "images/tv4.png",
+    "description": "L'interview aura lieu pendant le salon et sera diffusée pendant et après le forum sur le site WebTV ainsi que sur nos réseaux sociaux..."
+  }
+}
+},
+"profile" : {
+"stand": {
+  "name": "",
+  "phone": "",
+  "fax": "",
+  "mail": ""
+},
+"facturation": {
+  "name": "",
+  "address": "",
+  "city": "",
+  "country": "",
+  "code_postal": "",
+  "phone": "",
+  "fax": "",
+  "mail": ""
+}
+}
+}
