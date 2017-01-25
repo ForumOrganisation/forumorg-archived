@@ -22,7 +22,7 @@ class CompanyForm(form.Form):
     name = fields.StringField('Nom complet', render_kw={
                               "placeholder": "Ex. L'Oreal"})
     acompte = fields.SelectField('Acompte paye?', choices=[
-                                 ('non', 'non'), ('oui', 'oui')])
+                                 (False, 'non'), (True, 'oui')])
     # Equipement
     emplacement = fields.StringField('Emplacement', render_kw={
                                      "placeholder": "Ex. F13"})
@@ -31,18 +31,18 @@ class CompanyForm(form.Form):
     duration = fields.SelectField('Jours de presence', choices=[
                                   (1, '1 jour'), (2, '2 jours')], coerce=int)
     equiped = fields.SelectField(
-        'Equipe?', choices=[('non', 'non'), ('oui', 'oui')])
+        'Equipe?', choices=[(False, 'non'), (True, 'oui')])
     # Dashboard
     equipement = fields.SelectField('Valider Equipement', choices=[
-                                    ('non', 'non'), ('oui', 'oui')])
+                                    (False, 'non'), (True, 'oui')])
     restauration = fields.SelectField('Valider Restauration', choices=[
-                                      ('non', 'non'), ('oui', 'oui')])
+                                      (False, 'non'), (True, 'oui')])
     badges = fields.SelectField('Valider Badges', choices=[
-                                ('non', 'non'), ('oui', 'oui')])
+                                (False, 'non'), (True, 'oui')])
     transport = fields.SelectField('Valider Transports', choices=[
-                                   ('non', 'non'), ('oui', 'oui')])
+                                   (False, 'non'), (True, 'oui')])
     programme = fields.SelectField('Valider Programme', choices=[
-                                   ('non', 'non'), ('oui', 'oui')])
+                                   (False, 'non'), (True, 'oui')])
 
 
 class CompanyView(ModelView):

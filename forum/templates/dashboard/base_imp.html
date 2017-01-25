@@ -5,7 +5,7 @@
     <a href="{{ url_for('dashboard', page=name) }}">
       <i class="{{ icon }}"></i>
       <span>{{ name|capitalize|replace("_", " ") }}</span>
-      {% if company.get(name) == 'oui' %}
+      {% if company.get(name) %}
         <small class="label pull-right bg-green">validé</small>
       {% endif %}
     </a>
@@ -54,7 +54,7 @@
 {% block content %}
   {% block validate %}
     <div>
-      {% if company.get(page) == 'oui' %}
+      {% if company.get(page) %}
         <div class="callout callout-info">
           <h4>
             <i class="fa fa-info"></i>Message:

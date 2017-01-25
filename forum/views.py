@@ -59,7 +59,7 @@ def logout():
 @login_required
 def update_company():
     page = request.form.get('page')
-    if current_user.data.get(page) == 'oui':
+    if current_user.data.get(page):
         return "error"
     else:
         company = request.form.get('company')
@@ -73,7 +73,7 @@ def update_company():
 def validate_section():
     page = request.form.get('page')
     if current_user.data.get(page) == 'non':
-        get_db().companies.update_one({'id': current_user.id}, {'$set': {page: 'oui'}})
+        get_db().companies.update_one({'id': current_user.id}, {'$set': {page: True}})
         return "success"
     else:
         return "error"
