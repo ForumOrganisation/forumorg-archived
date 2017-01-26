@@ -115,7 +115,12 @@
 </style>
 <script type="text/javascript">
   function format(d) {
-    return '<div style="padding:5px 10px 0px 10px"><h4>Description de l\'offre</h4><p>' + d.description.replace(/(?:\r\n|\r|\n)/g, '<br />') + '</p><h4>Lien url de l\'offre</h4><p>' + d.url + '</p></div>';
+    s = '<div style="padding:5px 10px 0px 10px"><h4>Description de l\'offre</h4><p>' + d.description.replace(/(?:\r\n|\r|\n)/g, '<br />') + '</p>';
+    if (d.url) {
+      s += '<h4>Lien url de l\'offre</h4>' + d.url;
+    }
+    s += '</div>';
+    return s;
   }
   $(document).ready(function () {
     $('.duration').change(function () {
