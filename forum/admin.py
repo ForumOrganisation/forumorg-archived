@@ -40,7 +40,7 @@ class CompanyView(ModelView):
                             'restauration', 'badges', 'programme']
     export_types = ['equipement', 'transport', 'restauration', 'badges']
     form_rules = [
-        rules.FieldSet(('id', 'password2', 'name'), 'Profil'),
+        rules.FieldSet(('id', 'password', 'name'), 'Profil'),
         rules.FieldSet(('equipement', 'restauration', 'badges',
                         'programme', 'transport'), 'Suivi'),
         rules.FieldSet(('acompte',), 'Finances'),
