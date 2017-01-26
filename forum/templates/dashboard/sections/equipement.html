@@ -14,8 +14,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Stand</span>
             <span class="info-box-number">
-              {{ company.duration|to_human|capitalize if company.duration else '?' }}
-              jour{{'s' if company.duration == 2 else ''}}
+              {{ company.duration|to_days if company.duration else '??' }}
             </span>
             <span class="progress-description">
               <span class="info-box-number">
@@ -59,7 +58,6 @@
         </div>
       </div>
     </div>
-
     <div class="row">
       <div class="col-xs-12">
         <div class="box">
@@ -123,7 +121,6 @@
         </div>
       </div>
     </div>
-
     <div class="row">
       <div class="col-md-12">
         <div class="box">
@@ -140,7 +137,6 @@
             <div class="box-body">
               <div class="row r-center">
                 <div class="col-md-4">
-
                   <div class="form-group">
                     <label>équipement</label>
                     <select class="form-control select2 id" style="width: 100%;">
@@ -153,7 +149,6 @@
                     </select>
                   </div>
                 </div>
-
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>quantité</label>
@@ -166,7 +161,6 @@
                     </select>
                   </div>
                 </div>
-
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>total</label>
@@ -176,7 +170,6 @@
                 <!-- /.box -->
               </div>
             </div>
-
             <div class="box-footer">
               <button type="submit" class="btn btn-primary">Confirmer</button>
             </div>
@@ -188,7 +181,6 @@
   </div>
 </div>
 {% endblock main %}
-
 {% block scripts %}
 <script type="text/javascript">
   function update_price() {
@@ -204,21 +196,16 @@
     price = price * Number($('.quantity').val());
     $('.price').html(price + ' €');
   }
-
   $("document").ready(function () {
     var $id = $('.id').select2();
     var $quantity = $('.quantity').select2();
-
     $id.on("select2:select", function (e) {
       update_price();
     });
-
     $quantity.on("select2:select", function (e) {
       update_price();
     });
-
   });
-
   $('#confirm_add').on('submit', function (e) {
     e.preventDefault();
     var company = {{ company|tojson }};
@@ -227,7 +214,6 @@
     var old_quantity = furnitures[furniture_id] || 0;
     var new_quantity = Number($(".quantity").val());
     furnitures[furniture_id] = old_quantity + new_quantity;
-
     $.ajax({
       type: "POST",
       url: "{{ url_for('update_company') }}",
@@ -248,7 +234,6 @@
     });
     return false;
   });
-
   function remove_furniture(furniture_id) {
     var r = confirm("Confirmer la suppresion ?");
     if (r) {

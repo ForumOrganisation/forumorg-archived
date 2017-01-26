@@ -84,6 +84,16 @@ def format_dt(dt):
     return dt
 
 
+@app.template_filter('to_days')
+def to_days(duration):
+    opts = {
+        "wed": "Mercredi",
+        "thu": "Jeudi",
+        "both": "Mercredi & Jeudi"
+    }
+    return opts[duration]
+
+
 @app.template_filter('to_human')
 def to_human(num):
     opts = {
