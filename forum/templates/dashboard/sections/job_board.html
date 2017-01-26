@@ -2,20 +2,20 @@
 {% set title = 'Job Board' %}
 {% block main %}
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-md-12">
       <div class="box">
         <div class="box-header">
           <h3 class="box-title">Liste des offres</h3>
         </div>
         <div class="box-body no-padding">
-          <table class="table table-hover responsive nowrap">
+          <table class="table responsive table-hover nowrap" cellspacing="0" width="100%">
             <thead>
               <tr>
                 <th>Détails</th>
                 <th>Titre</th>
                 <th>Type</th>
                 <th>Durée</th>
-                <th>Ville et/ou Pays</th>
+                <th>Lieu</th>
                 <th>Supprimer</th>
               </tr>
             </thead>
@@ -138,7 +138,7 @@
       },
       "columns": [
         {
-          width: "5%",
+          width: "3%",
           className: 'details-control',
           orderable: false,
           data: null,
@@ -146,7 +146,7 @@
         }, {
           data: "title",
           orderable: false,
-          width: "35%"
+          width: "40%"
         }, {
           data: "type"
         }, {
