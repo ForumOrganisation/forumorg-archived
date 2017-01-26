@@ -4,49 +4,26 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="box">
-
-        <div class="box-group" id="accordion">
-          {% set jobs = current_user.id | to_jobs %}
-          {% if not jobs %}
-            <h2 class="lead text-center" style="padding:20px">Aucune offre trouvée :(</h2>
-          {% else %}
-            {% for job in jobs %}
-              <div class="panel box box-primary">
-                <div class="box-header with-border">
-                  <div class="row">
-                    <div class="col-md-11">
-                      <h4 class="box-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_{{loop.index}}" class="{{ 'collapsed' if loop.first }}" aria-expanded="{{'true' if loop.first else 'false'}}">
-                          {{ job.title }}
-                          -
-                          {{job.type}}
-                          -
-                          {{job.duration}}
-                          -
-                          {{job.location}}
-                        </a>
-                      </h4>
-                    </div>
-                    <div class="col-md-1">
-                      <i onclick="remove_job('{{ job._id }}')" class="fa fa-remove" style="color:red"></i>
-                    </div>
-                  </div>
-                </div>
-                <div id="collapse_{{loop.index}}" class="panel-collapse collapse {{'in' if loop.first}}" aria-expanded="{{'true' if loop.first else 'false'}}">
-                  <div class="box-body">
-                    {% for line in job.description.splitlines() %}
-                      {{line}}<br/>
-                    {% endfor %}
-                  </div>
-                </div>
-              </div>
-            {% endfor %}
-          {% endif %}
+        <div class="box-header">
+          <h3 class="box-title">Liste des offres</h3>
+        </div>
+        <div class="box-body no-padding">
+          <table class="table table-hover responsive nowrap">
+            <thead>
+              <tr>
+                <th>Détails</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>Durée</th>
+                <th>Ville et/ou Pays</th>
+                <th>Supprimer</th>
+              </tr>
+            </thead>
+          </table>
         </div>
       </div>
     </div>
   </div>
-
   <div class="row">
     <div class="col-md-12">
       <div class="box">
@@ -70,12 +47,11 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Ville et/ou Pays</label>
+                  <label>Ville/Pays</label>
                   <input type="text" class="form-control location" placeholder="Ex. Grenoble" required>
                 </div>
               </div>
             </div>
-
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
@@ -86,14 +62,12 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Lien url de l'offre (optionnel)</label>
-                  <input type="text" class="form-control title" placeholder="Ex. www.abc.xyz">
+                  <input type="text" class="form-control url" placeholder="Ex. www.abc.xyz">
                 </div>
               </div>
             </div>
-
             <div class="row">
               <div class="col-md-6">
-
                 <div class="form-group">
                   <label>Durée de la mission</label>
                   <select class="form-control select2 duration" size="50">
@@ -105,9 +79,7 @@
                   <input type="text" class="duration_" style="display:none"/>
                 </div>
               </div>
-
               <div class="col-md-6">
-
                 <div class="form-group">
                   <label>Type de l'offre</label>
                   <select class="form-control select2 type">
@@ -118,10 +90,8 @@
                   </select>
                 </div>
               </div>
-
             </div>
           </div>
-
           <div class="box-footer">
             <button type="submit" class="btn btn-primary">Confirmer</button>
           </div>
@@ -132,10 +102,21 @@
     </div>
   </div>
 </div>
-
 {% endblock main %}
 {% block scripts %}
+<style>
+  td.details-control {
+    background: url("../../../static/images/open.png") no-repeat center center;
+    cursor: pointer;
+  }
+  tr.shown td.details-control {
+    background: url("../../../static/images/close.png") no-repeat center center;
+  }
+</style>
 <script type="text/javascript">
+  function format(d) {
+    return '<div style="padding:5px 10px 0px 10px"><h4>Description de l\'offre</h4><p>' + d.description.replace(/(?:\r\n|\r|\n)/g, '<br />') + '</p><h4>Lien url de l\'offre</h4><p>' + d.url + '</p></div>';
+  }
   $(document).ready(function () {
     $('.duration').change(function () {
       if ($('.duration').val() == 'Autre') {
@@ -144,25 +125,72 @@
         $('.duration_').hide();
       }
     });
+    var jobs = {{ current_user.id | to_jobs | tojson }};
+    var table = $('.table').DataTable({
+      "data": jobs,
+      "language": {
+        "emptyTable": '<h2 class="lead text-center">Aucune offre de stage trouvée :(</h2>'
+      },
+      "columns": [
+        {
+          width: "5%",
+          className: 'details-control',
+          orderable: false,
+          data: null,
+          defaultContent: ''
+        }, {
+          data: "title",
+          orderable: false,
+          width: "35%"
+        }, {
+          data: "type"
+        }, {
+          data: "duration"
+        }, {
+          data: "location"
+        }, {
+          orderable: false,
+          mRender: function (data, type, row) {
+            return '<a onclick="remove_job(\'' + row._id + '\')" href="#" style="color:red">Supprimer l\'offre</a>';
+          }
+        }
+      ],
+      "paging": false,
+      "info": false,
+      "searching": false
+    });
+    // Add event listener for opening and closing details
+    $('.table tbody').on('click', 'td.details-control', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row(tr);
+      if (row.child.isShown()) {
+        // This row is already open - close it
+        row.child.hide();
+        tr.removeClass('shown');
+      } else {
+        // Open this row
+        console.log(format(row.data()));
+        row.child(format(row.data())).show();
+        tr.addClass('shown');
+      }
+    });
   });
-
   $('#confirm_job').on('submit', function (e) {
     e.preventDefault();
-
     var dur;
     if ($('.duration').val() == 'Autre') {
       dur = $('.duration_').val();
     } else {
       dur = $('.duration').val()
     }
-
     var job = {
       company_id: "{{ current_user.id }}",
       title: $(".title").val(),
       type: $(".type").val(),
       duration: dur,
       description: $(".description").val(),
-      location: $(".location").val()
+      location: $(".location").val(),
+      url: $(".url").val()
     }
     $.ajax({
       type: "POST",
@@ -179,7 +207,6 @@
     });
     return false;
   });
-
   function remove_job(job_id) {
     var r = confirm("Confirmer la suppresion ?");
     if (r) {

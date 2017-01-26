@@ -58,7 +58,10 @@ def get_events():
 # Jinja Filters
 @app.template_filter('to_jobs')
 def to_jobs(company_id):
-    return list(get_db().jobs.find({'company_id': company_id}))
+    jobs = list(get_db().jobs.find({'company_id': company_id}))
+    for j in jobs:
+        j['_id'] = str(j['_id'])
+    return jobs
 
 
 @app.template_filter('to_furniture')
