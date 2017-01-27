@@ -18,7 +18,7 @@
             </span>
             <span class="progress-description">
               <span class="info-box-number">
-                {{ company.size|default('??', true) }}
+                {{ company.size|to_size if company.size else '??' }}
                 m2
               </span>
             </div>

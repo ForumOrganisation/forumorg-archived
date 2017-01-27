@@ -94,6 +94,11 @@ def to_days(duration):
     return opts[duration]
 
 
+@app.template_filter('to_size')
+def to_size(size):
+    return int(size) if size.is_integer() else size
+
+
 @app.template_filter('to_human')
 def to_human(num):
     opts = {

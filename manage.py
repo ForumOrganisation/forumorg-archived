@@ -20,11 +20,12 @@ def create_events_fra():
 
 @manager.command
 def create_furnitures():
+    db.drop_collection('furnitures')
     db.create_collection('furnitures', capped=True, size=20480)
     fn = os.path.join(os.path.dirname(__file__), 'data/furnitures.json')
     with open(fn, 'r') as f:
         data = json.loads(f.read())
-        db.furnitures.insert(data)
+        db.furnitures.insert(data, check_keys=False)
 
 
 @manager.command
