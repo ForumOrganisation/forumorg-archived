@@ -81,7 +81,7 @@
                                   <span class="text-muted">{{ f.name }}</span>
                                 </td>
                                 <td>
-                                  <span class="badge bg-grey">{{ f.quantities[company.size|string] }}</span>
+                                  <span class="badge bg-grey">{{ f.quantities[company.size|to_size|string] }}</span>
                                 </td>
                                 <td>
                                   <span class="badge bg-grey">inclus</span >

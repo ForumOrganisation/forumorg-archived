@@ -96,7 +96,7 @@ def to_days(duration):
 
 @app.template_filter('to_size')
 def to_size(size):
-    return int(size) if size.is_integer() else size
+    return int(size) if float(size).is_integer() else float(size)
 
 
 @app.template_filter('to_human')
