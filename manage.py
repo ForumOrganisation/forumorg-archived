@@ -1,13 +1,25 @@
 import os
 import json
+import csv
 
 from flask_script import Manager
 from pymongo import MongoClient
 from forum import app
+import wget
 
 manager = Manager(app)
 client = MongoClient(host=os.environ.get('MONGODB_URI'))
 db = client.get_default_database()
+
+
+@manager.command
+def update_companies():
+    new = wget.download(os.environ.get('NEW_URL'), 'data/new.csv')
+    fn = os.path.join(os.path.dirname(__file__), 'data/new.csv')
+    with open(fn, 'r') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            db.companies.update_one({'id': row[0]}, {'$set': {'password': row[1]}})
 
 
 @manager.command
