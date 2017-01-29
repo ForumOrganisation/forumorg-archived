@@ -14,7 +14,9 @@ db = client.get_default_database()
 
 @manager.command
 def change_companies():
-    db.companies.update_many({}, {'$set': {'id': 'id.lower()'}})
+    cur = db.companies.find({})
+    for doc in cur:
+        db.companies.update_one({'_id': doc['_id']}, {'$set': {'id': doc['id'].lower()}})
 
 
 @manager.command
