@@ -13,6 +13,11 @@ db = client.get_default_database()
 
 
 @manager.command
+def change_companies():
+    db.companies.update_many({}, {'$set': {'id': 'id.lower()'}})
+
+
+@manager.command
 def update_companies():
     new = wget.download(os.environ.get('NEW_URL'), 'data/new.csv')
     fn = os.path.join(os.path.dirname(__file__), 'data/new.csv')
