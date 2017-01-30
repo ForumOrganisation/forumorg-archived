@@ -135,7 +135,7 @@ class UserView(ModelView):
     column_export_list = ['id', 'registered_on',
                           'confirmed_on', 'events', 'profile']
     column_filters = (FilterRegister(column='events', name='participants', options=(
-        ('styf', 'styf'), ('joi', 'joi'), ('master_class', 'master_class'))),)
+        ('styf', 'styf'), ('joi', 'joi'), ('master_class', 'master_class'), ('fra', 'fra'))),)
 
     def __init__(self, *args, **kwargs):
         super(UserView, self).__init__(*args, **kwargs)
