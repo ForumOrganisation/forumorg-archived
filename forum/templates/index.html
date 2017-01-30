@@ -1,12 +1,9 @@
 <html>
   <head>
     <script src='https://www.google.com/recaptcha/api.js'></script>
-
     <meta charset="utf-8">
-
     <!-- TITLE OF SITE -->
     <title>Forum Rhône-Alpes | Accueil</title>
-
     <!-- META DATA -->
     <meta name="description" content="Le Forum Rhône-Alpes est le premier salon de recrutement d'élèves ingénieurs de France. La 31ème édition aura lieu les 8 & 9 mars 2017">
     <meta
@@ -14,18 +11,15 @@
       content="forum rhône alpes, forum rhone alpes, forum recrutement, salon recrutement, forum recrutement élèves ingénieurs, forum recrutement étudiants, forum recrutement eleves ingenieurs, forum recrutement etudiants, forum emploi, forum stage, salon emploi, salon recrutement élèves ingénieurs, salon recrutement étudiants, salon recrutement eleves ingenieurs, salon recrutement etudiants, salon rhone alpes, recrutement ingénieurs, carrefour européen, carrefour europeen, carrefour maghrébin, carrefour maghrebin, emploi étudiant, emploi ingénieurs, emploi rhone alpes, ingénieur, salon stage, stage ingénieurs, stage rhone alpes, stage, recrutement, emploi">
     <meta name="author" content="ForumOrganisation">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
     <!-- =========================
     FAV AND TOUCH ICONS
     ============================== -->
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
     <!-- =========================
     STYLESHEETS
     ============================== -->
     <!-- BOOTSTRAP CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
-
     <!-- EXTERNAL PLUGIN CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/swiper.min.css') }}">
     <!-- Screenshot Slider -->
@@ -33,21 +27,15 @@
     <!-- Screenshot Slider -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/themes/default/default.css') }}">
     <!-- Nivo Lightbox -->
-
     <!-- TYPOGRAPHY -->
     <link id="toTypography" href="{{ url_for('static', filename='css/typography/typography-1.css') }}" rel="stylesheet">
-
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
     <!-- COLORS -->
     <link id="toColor" href="{{ url_for('static', filename='css/colors/blue.css') }}" rel="stylesheet">
-
     <!-- RESPONSIVE FIXES -->
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
-
     <!--[if lt IE 9]> <script src="js/html5shiv.js"></script> <script src="js/respond.min.js"></script> <![endif]-->
-
   </head>
   <body class="body-container">
     <div id="page" class="page">
@@ -61,13 +49,11 @@
               <span class="icon-bar icon-bar-middle"></span>
               <span class="icon-bar icon-bar-bottom"></span>
             </button>
-
             <!-- YOUR LOGO -->
             <a class="navbar-brand" href="{{ url_for('index') }}">
               <img src="{{ url_for('static', filename='images/fo-alt.png')}}" alt="Forum Organisation">
             </a>
           </div>
-
           <div class="collapse navbar-collapse" id="nemo-navigation">
             <ul class="nav navbar-nav navbar-right">
               <li class="active">
@@ -83,13 +69,15 @@
                 <a href="#faq">FAQ</a>
               </li>
               <li class="">
+                <a href="http://www.forumorg.org/fra" id="fra">Espace Candidats</a>
+              </li>
+              <li class="">
                 <a href="{{ url_for('login') }}" id="login">Connexion</a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-
       <!-- =========================
          APP HOME
     ============================== -->
@@ -99,23 +87,18 @@
             <source src="{{ url_for('static', filename='video/video.mp4') }}" type="video/mp4; codecs=&quot;avc1.4D401E, mp4a.40.2&quot;">
           </video>
         </div>
-
         <div class="container">
           <div class="row">
             <div class="col-md-12 mb60">
-
               <div class="logo-home">
                 <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Forum Rhône-Alpes" style="border-radius: 0px; border-color: rgb(255, 255, 255); border-style: none; border-width: 1px;">
               </div>
-
               <h2 class="heading-text">
                 <span class="element">Recrutez</span>
                 au Forum Rhône-Alpes<br></h2>
               <h3 class="heading-text">Le n°1 des salons de recrutement d'élèves-ingénieurs de France</h3>
               <br><br>
-
               <div class="home-download-btn">
-
                 <a href="#contact" class="btn btn-white btn-lg">Participer dès maintenant</a>
                 <div class="stores-on text-center">
                   <span>Rendez-vous le 8 et 9 Mars 2017</span>
@@ -127,7 +110,6 @@
         </div>
       </section>
       <!-- start page -->
-
       <!-- =========================
          APP FEATURES
     ============================== -->
@@ -136,42 +118,32 @@
           <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
               <div class="section-heading text-center">
-
                 <h2 class="heading-text">Pourquoi participer ?</h2>
                 <hr class="lines">
                 <p class="sub-heading" style="color: rgb(97, 97, 97); font-size: 16px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;" src="{{ url_for('static', filename='images/uploads/maxresdefault.jpg') }}">Notre dernière édition a réuni plus de 180 exposants et plus de 4000 étudiants et jeunes diplômés<br></p>
-
               </div>
               <!-- /.section-heading -->
             </div>
           </div>
           <!-- /.row -->
-
           <div class="row">
             <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb60">
-
               <div class="media media-chained">
                 <div class="media-left">
-
                   <i class="icon svg-lightning-regular icon-shape width-75 radius-30 icon-border-1">
                     <!--?xml version="1.0" encoding="utf-8"?-->
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                       <path d="M32 0l-27.063 11.063 8 8-12.938 12.938 27.063-11.063-8-8zM24.875 20.438l-19.688 8 8.625-8.625 0.813-0.875-0.813-0.875-6.688-6.625 19.688-8-9.438 9.5 0.813 0.875z"></path>
                     </svg>
                   </i>
-
                 </div>
                 <div class="media-body">
-
                   <h3 class="title-text" style="color: rgb(39, 39, 39); font-size: 22px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;" src="images/uploads/maxresdefault.jpg">Un seul événement pour tous vos besoins en recrutement<br></h3>
                   <p>Profitez du Forum Rhônes-Alpes pour rencontrer les profils de la région Rhône-Alpes Auvergne avec une sélection de choix parmi les étudiants de l'INSA Lyon, Grenoble INP, l'ECAM et nos autres écoles partenaires...</p>
-
                 </div>
               </div>
-
               <div class="media media-chained">
                 <div class="media-left">
-
                   <i class="icon svg-gift-regular icon-shape width-75 radius-30 icon-border-1">
                     <!--?xml version="1.0" encoding="utf-8"?-->
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
@@ -179,19 +151,14 @@
                         d="M32 8h-10.188c0.563-0.625 0.938-1.5 0.938-2.438 0-2.125-1.563-3.688-3.688-3.688-1.188 0-2.438 0.563-3.063 1.563-0.625-1-1.813-1.563-3.063-1.563-2.125 0-3.688 1.563-3.688 3.688 0 0.938 0.375 1.813 0.938 2.438h-10.188v4.938h1.25v17.188h29.5v-17.188h1.25zM19.063 3.063c1.375 0 2.5 1.125 2.5 2.5 0 1.313-1.125 2.438-2.5 2.438h-2.438v-2.438c0-1.375 1.125-2.5 2.438-2.5zM10.438 5.563c0-1.375 1.125-2.5 2.5-2.5 1.313 0 2.438 1.125 2.438 2.5v2.438h-2.438c-1.375 0-2.5-1.125-2.5-2.438zM1.25 9.25h14.125v2.438h-14.125zM2.438 12.938h12.938v16h-12.938zM29.563 28.938h-12.938v-16h12.938zM30.75 11.688h-14.125v-2.438h14.125z"></path>
                     </svg>
                   </i>
-
                 </div>
                 <div class="media-body">
-
                   <h3 class="title-text">Un recrutement qui correspond à vos besoins</h3>
                   <p>Nous communiquons de manière personnalisée sur votre présence au Forum Rhône-Alpes. Vous êtes alors sûrs d'avoir les profils qui vous conviennent le plus.</p>
-
                 </div>
               </div>
-
               <div class="media media-chained">
                 <div class="media-left">
-
                   <i class="icon svg-basic-geolocalize-05 icon-shape width-75 radius-30 icon-border-1">
                     <!--?xml version="1.0" encoding="utf-8"?-->
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
@@ -199,28 +166,21 @@
                         d="M18.5 9.5c0-1.375-1.125-2.5-2.5-2.5s-2.5 1.125-2.5 2.5c0 1.375 1.125 2.5 2.5 2.5s2.5-1.125 2.5-2.5zM14.5 9.5c0-0.813 0.688-1.5 1.5-1.5s1.5 0.688 1.5 1.5c0 0.813-0.688 1.5-1.5 1.5s-1.5-0.688-1.5-1.5zM16 24.313l0.375-0.5c0.25-0.313 6.625-8.188 6.625-13.313 0-4.125-3.188-7.5-7-7.5-3.875 0-7 3.375-7 7.5 0 5.125 6.313 13 6.625 13.313zM16 4c3.313 0 6 2.938 6 6.5 0 4.063-4.625 10.375-6 12.188-1.375-1.813-6-8.125-6-12.188 0-3.563 2.688-6.5 6-6.5zM21.5 18v1h4.188l4.938 9h-29.25l4.938-9h4.188v-1h-4.813l-6.063 11h32.75l-6.063-11z"></path>
                     </svg>
                   </i>
-
                 </div>
                 <div class="media-body">
-
                   <h3 class="title-text">Une diversité sans concession</h3>
                   <p>Que vous soyez grand groupe, PME ou startup, le Forum Rhône-Alpes s'adapte à vos objectifs et moyens. Sa dimension internationale en fait de plus, un lieu de rencontre pour des entreprises présentes partout dans le monde.</p>
-
                 </div>
               </div>
-
             </div>
             <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb60">
-
               <img src="{{ url_for('static', filename='images/forum.jpg') }}" alt="" class="img-responsive img-right" style="border-radius: 0px; border-color: rgb(153, 153, 153); border-style: none; border-width: 1px;">
-
             </div>
           </div>
           <!-- /.row -->
         </div>
       </section>
       <!-- start page -->
-
       <!-- =========================
          CONTACT US
     ============================== -->
@@ -271,19 +231,15 @@
                     </tbody>
                   </table>
                 </div>
-
                 <div class="text-center">
                   <div class="g-recaptcha btn" data-sitekey="6Lc4QxAUAAAAAAq-CJ2_11hdu3mWzBzlOeC-BCw-"></div>
                 </div>
-
                 <br>
-
                 <div class="text-center">
                   <button id="send_mail" type="submit" class="btn btn-base btn-lg">
                     <span>Envoyer votre demande</span>
                   </button>
                 </div>
-
                 <div class="result">
                   <p class="success-msg">
                     <i class="icon svg-check icon-xs">
@@ -306,7 +262,6 @@
                     Veuillez remplir tous les champs...
                   </p>
                 </div>
-
               </form>
             </div>
           </div>
@@ -315,7 +270,6 @@
       </div>
     </div>
     <!-- start page -->
-
     <!-- =========================
          FAQ
     ============================== -->
@@ -324,49 +278,40 @@
         <div class="row">
           <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
             <div class="section-heading text-center">
-
               <h2 class="heading-text">FAQ</h2>
               <hr class="lines">
               <p class="sub-heading">Vous avez des questions ? On y répond ici.</p>
-
             </div>
             <!-- /.section-heading -->
           </div>
         </div>
         <!-- /.row -->
-
         <div class="row faqs-2-items">
           <div class="col-md-6 mb60">
             <h5 class="title-text">Est-ce que les candidats sont mobiles?</h5>
             <p>Les étudiants et jeunes diplômés sont mobiles en France et à l'international (60% des étudiants ne sont pas originaires de la région Rhône-Alpes-Auvergne).</p>
           </div>
-
           <div class="col-md-6 mb60">
             <h5 class="title-text">Que faire une fois arrivés à Lyon ?</h5>
             <p>Nous prenons en charge vos déplacements sur Lyon pendant les jours du salon. Nous organisons également une soirée entre les deux jours du salon pour vous, dans un cadre détendu, autour d'un cocktail.</p>
           </div>
-
           <div class="col-md-6 mb60">
             <h5 class="title-text">Comment les étudiants sont-ils informés ?</h5>
             <p>Par mail et via les réseaux sociaux. Nous nous déplaçons aussi sur nos campus partenaires afin de rencontrer et donner des conseils à ces étudiants.</p>
           </div>
-
           <div class="col-md-6 mb60">
             <h5 class="title-text">Et votre logistique, elle est comment ?</h5>
             <p>Nos 31 années d'expérience dans le domaine du recrutement nous ont permis d'acquérir le savoir-faire qui rendra votre présence agréable et sans soucis.</p>
           </div>
-
           <div class="col-md-6 mb60">
             <h5 class="title-text">Dans quels domaines se situent les entreprises présentes sur le Forum Rhône-Alpes ?</h5>
             <p>Les écoles partenaires du Forum Rhône-Alpes proposant des filières variées, notre salon est généraliste et essaye de mettre en contact ses étudiants avec tout type d'entreprise.</p>
           </div>
-
           <div class="col-md-6 mb60">
             <h5 class="title-text">Quelles offres peut présenter mon entreprise sur le Forum Rhône-Alpes ?</h5>
             <p>Les visiteurs présents sur le Forum Rhône-Alpes recherchent différents types d'offres : offres d'alternance, de VIE, de stage et/ou de premier emploi.</p>
           </div>
         </div>
-
       </div>
     </section>
   </div>
@@ -450,9 +395,7 @@
       opacity: 1;
     }
   }
-
 </style>
-
 <!-- =========================
      SCRIPTS
 ============================== -->
@@ -477,7 +420,6 @@
   $(document).ready(function () {
     $("#login").off("click");
   });
-
   $(window).scroll(function () {
     if ($(this).scrollTop() > 50)/*height in pixels when the navbar becomes non opaque*/
     {
