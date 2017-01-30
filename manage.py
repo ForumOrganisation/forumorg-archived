@@ -48,6 +48,11 @@ def create_furnitures():
 
 
 @manager.command
+def create_fra():
+    db.users.update_many({}, {'$set': {'events.fra': {'registered': False}}})
+
+
+@manager.command
 def create_mastere_class():
     db.users.update_many({}, {'$set': {'events.master_class': {'registered': False}}})
 
