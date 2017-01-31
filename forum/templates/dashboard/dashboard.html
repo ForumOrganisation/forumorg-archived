@@ -82,18 +82,20 @@
                         <th>Nombre de repas</th>
                       </tr>
                       {% for k, v in company.sections.catering | dictsort | reverse %}
-                        <tr>
-                          <td>{{ 'Mercredi' if k == 'wed' else 'Jeudi' }}</td>
-                          <td>
-                            <span class="label label-default">deux repas inclus</span>
-                            {% for type, qty in v.items() %}
-                              {% if qty != 0 %}
-                                <span class="label bg-{{ 'blue' if type == 'seated' else 'purple' }}">{{ qty|to_human }}
-                                  repas</span>
-                              {% endif %}
-                            {% endfor %}
-                          </td>
-                        </tr>
+                        {% if company.duration == k or company.duration == 'both' %}
+                          <tr>
+                            <td>{{ 'Mercredi' if k == 'wed' else 'Jeudi' }}</td>
+                            <td>
+                              <span class="label label-default">deux repas inclus</span>
+                              {% for type, qty in v.items() %}
+                                {% if qty != 0 %}
+                                  <span class="label bg-{{ 'blue' if type == 'seated' else 'purple' }}">{{ qty|to_human }}
+                                    repas</span>
+                                {% endif %}
+                              {% endfor %}
+                            </td>
+                          </tr>
+                        {% endif %}
                       {% endfor %}
                     </tbody>
                   </table>

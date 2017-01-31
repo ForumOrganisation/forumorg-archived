@@ -12,7 +12,6 @@
         Cette page a été optimisée pour l'impression. Cliquez sur le bouton d'impression au bas de la page pour imprimer votre bon de commande.
       </div>
     </div>
-
     <section class="invoice">
       <!-- title row -->
       <div class="row">
@@ -43,8 +42,18 @@
         <div class="col-sm-4 invoice-col">
           À
           <address>
-            <strong>{{ company.sections.profile.facturation.address|default("Pas d'addresse spécifiée") }}</strong><br>
-            <span>{{ company.sections.profile.facturation.country|default("Pas de pays spécifié") }}</span><br>
+            {% set f = company.sections.profile.facturation %}
+            {% if f.address and company.name %}
+              <strong>{{ company.name }}</strong><br/>
+              {{ f.address }}<br/>
+              {{ '%s, %s' | format(f.city, f.code_postal) }}<br/>
+              Tel:
+              {{ f.phone }}<br/>
+              Email:
+              {{ f.mail }}<br/>
+            {% else %}
+              <strong>Veuillez compléter votre profil.</strong>
+            {% endif %}
           </address>
         </div>
         <!-- /.col -->
@@ -156,7 +165,6 @@
         <div class="col-xs-6">
           <p class="lead">Méthodes de paiement:</p>
           <img src="{{ url_for('static', filename='images/cheque.png') }}" alt="Chèque">
-
           <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
             Envoyer un chèque à notre adresse.
           </p>
@@ -164,7 +172,6 @@
         <!-- /.col -->
         <div class="col-xs-6">
           <p class="lead">Montant dû 10/3/2017</p>
-
           <div class="table-responsive">
             <table class="table">
               <tbody>
@@ -191,7 +198,6 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-12">
@@ -203,4 +209,3 @@
     </section>
   </div>
 {% endblock main %}
-{% block footer %}{% endblock footer %}
