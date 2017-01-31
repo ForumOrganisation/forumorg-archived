@@ -33,7 +33,7 @@
             </span>
             <div class="info-box-content">
               <span class="info-box-text">Type de stand</span>
-              <span class="info-box-number">{{ 'Non équipé' if company.equiped == 'non' else 'Equipé' }}</span>
+              <span class="info-box-number">{{ 'Non équipé' if not company.equiped else 'Equipé' }}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
