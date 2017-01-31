@@ -23,7 +23,7 @@ class CompanyForm(form.Form):
     acompte = fields.BooleanField('Acompte paye?')
     # Equipement
     emplacement = fields.StringField('Emplacement', render_kw={"placeholder": "Ex. F13"})
-    size = fields.SelectField('Surface', choices=[(4.5, '4.5 m2'), (9, '9 m2'), (12, '12 m2'), (18, '18 m2'), (36, '36 m2')], coerce=float)
+    size = fields.SelectField('Surface', choices=[(4.5, '4.5 m2'), (9, '9 m2'), (12, '12 m2'), (18, '18 m2'), (24, '36 m2'), (36, '36 m2')], coerce=float)
     duration = fields.SelectField('Jours de presence', choices=[('wed', 'Mercredi'), ('thu', 'Jeudi'), ('both', 'Mercredi et Jeudi')])
     equiped = fields.BooleanField('Equipe?')
     # Dashboard
