@@ -22,7 +22,8 @@
                   <tr>
                     <td>{{ 'Mercredi' if k == 'wed' else 'Jeudi' }}</td>
                     <td>
-                      <span class="label label-default">deux repas inclus</span>
+                      <span class="label label-default">{{ company.size|nb_dishes|to_human }}
+                        repas inclus</span>
                       {% for type, qty in v.items() %}
                         {% if qty != 0 %}
                           <span class="label bg-{{ 'blue' if type == 'seated' else 'purple' }}">{{ qty|to_human }}

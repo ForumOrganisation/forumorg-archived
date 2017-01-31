@@ -119,6 +119,16 @@ def to_human(num):
     return opts[num]
 
 
+@app.template_filter('nb_dishes')
+def nb_dishes(size):
+    if size <= 12:
+        return 2
+    elif 12 < size <= 18:
+        return 4
+    elif size > 18:
+        return 6
+
+
 @app.template_filter('empty_furnitures')
 def empty_furniture(f):
     return sum(f.values()) == 0
