@@ -75,22 +75,24 @@
                       <div class="box-footer no-padding">
                         <table class="table table-responsive">
                           <tbody>
-                            {% for f in furnitures | selectattr('quantities') %}
-                              <tr>
-                                <td>
-                                  <span class="text-muted">{{ f.name }}</span>
-                                </td>
-                                <td>
-                                  <span class="badge bg-grey">{{ f.quantities[company.size|to_size|string] }}</span>
-                                </td>
-                                <td>
-                                  <span class="badge bg-grey">inclus</span >
-                                </td>
-                                <td>
-                                  <i class="fa fa-remove" style="color:white"></i>
-                                </td>
-                              </tr>
-                            {% endfor %}
+                            {% if company.equiped %}
+                              {% for f in furnitures | selectattr('quantities') %}
+                                <tr>
+                                  <td>
+                                    <span class="text-muted">{{ f.name }}</span>
+                                  </td>
+                                  <td>
+                                    <span class="badge bg-grey">{{ f.quantities[company.size|to_size|string] }}</span>
+                                  </td>
+                                  <td>
+                                    <span class="badge bg-grey">inclus</span >
+                                  </td>
+                                  <td>
+                                    <i class="fa fa-remove" style="color:white"></i>
+                                  </td>
+                                </tr>
+                              {% endfor %}
+                            {% endif %}
                             {% for furniture_id, quantity in company.sections.furnitures.items() %}
                               {% if quantity != 0 %}
                                 {% set f = furniture_id | to_furniture %}
