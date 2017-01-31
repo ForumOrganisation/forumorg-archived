@@ -88,8 +88,8 @@
                             <span class="label label-default">deux repas inclus</span>
                             {% for type, qty in v.items() %}
                               {% if qty != 0 %}
-                                <span class="label bg-{{ 'purple' if type == 'seated' else 'blue' }}">{{ qty|to_human }}
-                                  repas ({{'assis' if type == 'seated' else 'plateau-repas' }})</span>
+                                <span class="label bg-{{ 'blue' if type == 'seated' else 'purple' }}">{{ qty|to_human }}
+                                  repas</span>
                               {% endif %}
                             {% endfor %}
                           </td>

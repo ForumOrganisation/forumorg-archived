@@ -25,8 +25,8 @@
                       <span class="label label-default">deux repas inclus</span>
                       {% for type, qty in v.items() %}
                         {% if qty != 0 %}
-                          <span class="label bg-{{ 'purple' if type == 'seated' else 'blue' }}">{{ qty|to_human }}
-                            repas ({{'assis' if type == 'seated' else 'plateau-repas' }})</span>
+                          <span class="label bg-{{ 'blue' if type == 'seated' else 'purple' }}">{{ qty|to_human }}
+                            repas</span>
                         {% endif %}
                       {% endfor %}
                     </td>
@@ -84,15 +84,6 @@
                   </select>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>type</label>
-                  <select class="form-control select2 type" style="width: 100%;">
-                    <option value="seated">Assis</option>
-                    <option value="takeout">Plateau-Repas</option>
-                  </select>
-                </div>
-              </div>
               <!-- /.input group -->
             </div>
           </div>
@@ -115,7 +106,7 @@
       var dishes = company.sections.catering;
       var day = $(".day").val();
       var qty = Number($(".qty").val());
-      var type = $(".type").val();
+      var type = "seated";
       var old_qty = dishes[day][type] || 0;
       dishes[day][type] = old_qty + qty;
       $.ajax({
