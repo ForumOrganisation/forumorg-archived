@@ -26,6 +26,7 @@ class CompanyForm(form.Form):
     size = fields.SelectField('Surface', choices=[(4.5, '4.5 m2'), (9, '9 m2'), (12, '12 m2'), (18, '18 m2'), (24, '36 m2'), (36, '36 m2')], coerce=float)
     duration = fields.SelectField('Jours de presence', choices=[('wed', 'Mercredi'), ('thu', 'Jeudi'), ('both', 'Mercredi et Jeudi')])
     equiped = fields.BooleanField('Equipe?')
+    pole = fields.SelectField('Pole', choices=[('fra', 'Entreprises France'), ('si', 'Section Internationale'), ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles')])
     # Dashboard
     equipement = fields.BooleanField('Equipement valide?')
     restauration = fields.BooleanField('Restauration valide?')
@@ -40,7 +41,7 @@ class CompanyView(ModelView):
                             'restauration', 'badges', 'programme']
     export_types = ['equipement', 'transport', 'restauration', 'badges']
     form_rules = [
-        rules.FieldSet(('id', 'password', 'name'), 'Profil'),
+        rules.FieldSet(('id', 'password', 'name', 'pole'), 'Profil'),
         rules.FieldSet(('equipement', 'restauration', 'badges',
                         'programme', 'transport'), 'Suivi'),
         rules.FieldSet(('acompte',), 'Finances'),
