@@ -128,7 +128,7 @@ class FilterRegister(FilterEqual, BasePyMongoFilter):
 
 class UserView(ModelView):
     column_list = ['id', 'events', 'confirmed_on', 'registered_on', 'profile']
-    column_labels = dict(id='Email')
+    column_labels = dict(id='Email', confirmed_on='Confirme le', registered_on='Inscrit le', profile='Profil', events='Participations')
     export_types = ['csv']
     can_export = True
     can_delete = True
@@ -139,6 +139,7 @@ class UserView(ModelView):
                           'confirmed_on', 'events', 'profile']
     column_filters = (FilterRegister(column='events', name='participants', options=(
         ('styf', 'styf'), ('joi', 'joi'), ('master_class', 'master_class'), ('fra', 'fra'))),)
+    column_sortable_list = ['id', 'confirmed_on', 'registered_on']
 
     def __init__(self, *args, **kwargs):
         super(UserView, self).__init__(*args, **kwargs)
