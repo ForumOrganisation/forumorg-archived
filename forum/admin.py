@@ -54,6 +54,8 @@ class CompanyView(ModelView):
     edit_modal = False
 
     column_searchable_list = ['id']
+    column_sortable_list = ['id']
+    column_labels = dict(id='Identifiant')
 
     def __init__(self, *args, **kwargs):
         super(CompanyView, self).__init__(*args, **kwargs)
