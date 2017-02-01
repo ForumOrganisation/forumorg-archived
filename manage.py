@@ -13,6 +13,11 @@ db = client.get_default_database()
 
 
 @manager.command
+def fix_users():
+    db.users.update({'events.fra': None}, {'$set': {'events.fra.registered': False}})
+
+
+@manager.command
 def change_companies():
     cur = db.companies.find({})
     for doc in cur:
