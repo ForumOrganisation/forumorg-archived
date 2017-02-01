@@ -21,10 +21,8 @@ def fix_users():
 def change_users():
     cur = db.users.find({})
     for doc in cur:
-        try:
-            db.users.update_one({'_id': doc['_id']}, {'$set': {'id': doc['id'].lower()}})
-        except:
-            print(doc['id'])
+        if doc['id'] != doc['id'].lower():
+            print(doc)
 
 
 @manager.command
