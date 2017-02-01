@@ -14,7 +14,7 @@ db = client.get_default_database()
 
 @manager.command
 def fix_users():
-    db.users.update({'events.fra': None}, {'$set': {'events.fra.registered': False}})
+    db.users.update_many({'events.fra': None}, {'$set': {'events.fra.registered': False}})
 
 
 @manager.command
