@@ -127,10 +127,7 @@
                     <div class="form-group">
                       <label>appeler le</label>
                       <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-phone"></i>
-                        </div>
-                        <input type="text" id="phone" class="form-control" data-mask required>
+                        <input type="tel" id="phone" class="form-control" data-mask required>
                       </div>
                     </div>
                   </div>
@@ -163,6 +160,7 @@
       <script type="text/javascript">
         $('#confirm_transport').on('submit', function (e) {
           e.preventDefault();
+          var isValid = $("#phone").intlTelInput("isValidNumber");
           var company = {{ company|tojson }};
           var transports = company.sections.transports;
           var transport = {
@@ -170,32 +168,32 @@
             arrival_place: $(".to").val(),
             nb_persons: Number($("#persons").val()),
             comment: $("#comment").val(),
-            phone: $("#phone").val(),
+            phone: $("#phone").intlTelInput("getNumber"),
             departure_time: $("#datetime").val()
           };
-          if (transport.phone && transport.nb_persons && transport.departure_time) {
-            company.sections.transports.push(transport);
-            $.ajax({
-              type: "POST",
-              url: "{{ url_for('update_company') }}",
-              data: {
-                "company": JSON.stringify(company),
-                "page": "transport"
-              },
-              success: function (result) {
-                if (result == "success") {
-                  Notify("Changements sauvegardés.");
-                  setTimeout(function () {
-                    location.reload();
-                  }, 1000);
-                } else {
-                  Notify("Section validée: Impossible à modifier");
-                }
-              }
-            });
-          } else {
-            Notify("Veuillez remplir tous les champs.", null, null, "error");
+          if (!isValid) {
+            Notify("Le numéro entré n'est pas valide.", null, null, "error");
+            return false;
           }
+          company.sections.transports.push(transport);
+          $.ajax({
+            type: "POST",
+            url: "{{ url_for('update_company') }}",
+            data: {
+              "company": JSON.stringify(company),
+              "page": "transport"
+            },
+            success: function (result) {
+              if (result == "success") {
+                Notify("Changements sauvegardés.");
+                setTimeout(function () {
+                  location.reload();
+                }, 1000);
+              } else {
+                Notify("Section validée: Impossible à modifier");
+              }
+            }
+          });
           return false;
         });
         function remove_transport(index) {

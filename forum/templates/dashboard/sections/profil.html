@@ -47,7 +47,7 @@
                 <div class="form-group">
                   <label class="col-md-3 control-label">Téléphone</label>
                   <div class="col-md-8">
-                    <input type="text" class="form-control" id="phone_facturation" placeholder="ex: 01 23 45 67 89" value="{{ profile.facturation.phone|default('') }}" data-mask required>
+                    <input type="tel" class="form-control" id="phone_facturation" value="{{ profile.facturation.phone|default('') }}" data-mask required>
                   </div>
                 </div>
                 <div class="form-group">
@@ -98,7 +98,7 @@
                   <div class="form-group">
                     <label class="col-md-3 control-label">Téléphone</label>
                     <div class="col-md-8">
-                      <input type="text" class="form-control" id="phone_stand" placeholder="ex: 01 23 45 67 89" value="{{ profile.stand.phone|default('') }}" data-mask required>
+                      <input type="tel" class="form-control" id="phone_stand" placeholder="ex: 01 23 45 67 89" value="{{ profile.stand.phone|default('') }}" data-mask required>
                     </div>
                   </div>
                 </div>
@@ -131,57 +131,67 @@
   <script type="text/javascript">
     $('#confirm_stand').on('submit', function (e) {
       e.preventDefault();
-      var company = {{ company|tojson }};
-      var stand_items = {
-        name: $("#name_stand").val(),
-        phone: $("#phone_stand").val(),
-        fax: $("#fax_stand").val(),
-        mail: $("#mail_stand").val()
-      };
-      company.sections.profile.stand = stand_items;
-      $.ajax({
-        type: "POST",
-        url: "{{ url_for('update_company') }}",
-        data: {
-          "company": JSON.stringify(company)
-        },
-        success: function () {
-          Notify("Changements sauvegardés.");
-          setTimeout(function () {
-            location.reload();
-          }, 1000);
-        }
-      });
+      var isValid = $("#phone_stand").intlTelInput("isValidNumber");
+      if (isValid) {
+        var company = {{ company|tojson }};
+        var stand_items = {
+          name: $("#name_stand").val(),
+          phone: $("#phone_stand").intlTelInput("getNumber"),
+          fax: $("#fax_stand").val(),
+          mail: $("#mail_stand").val()
+        };
+        company.sections.profile.stand = stand_items;
+        $.ajax({
+          type: "POST",
+          url: "{{ url_for('update_company') }}",
+          data: {
+            "company": JSON.stringify(company)
+          },
+          success: function () {
+            Notify("Changements sauvegardés.");
+            setTimeout(function () {
+              location.reload();
+            }, 1000);
+          }
+        });
+      } else {
+        Notify("Le numéro entré n'est pas valide.", null, null, "error");
+      }
       return false;
     });
     $('#confirm_facturation').on('submit', function (e) {
       e.preventDefault();
-      var company = {{ company|tojson }};
-      var facturation_items = {
-        name: $("#name_facturation").val(),
-        address: $("#address_facturation").val(),
-        code_postal: $("#code_postal").val(),
-        city: $("#city").val(),
-        country: $("#country").val(),
-        phone: $("#phone_facturation").val(),
-        fax: $("#fax_facturation").val(),
-        mail: $("#mail_facturation").val()
-      };
-      company.sections.profile.facturation = facturation_items;
-      $.ajax({
-        type: "POST",
-        url: "{{ url_for('update_company') }}",
-        data: {
-          "company": JSON.stringify(company)
-        },
-        success: function (msg) {
-          console.log(msg);
-          Notify("Changements sauvegardés.");
-          setTimeout(function () {
-            location.reload();
-          }, 1000);
-        }
-      });
+      var isValid = $("#phone_facturation").intlTelInput("isValidNumber");
+      if (isValid) {
+        var company = {{ company|tojson }};
+        var facturation_items = {
+          name: $("#name_facturation").val(),
+          address: $("#address_facturation").val(),
+          code_postal: $("#code_postal").val(),
+          city: $("#city").val(),
+          country: $("#country").val(),
+          phone: $("#phone_facturation").intlTelInput("getNumber"),
+          fax: $("#fax_facturation").val(),
+          mail: $("#mail_facturation").val()
+        };
+        company.sections.profile.facturation = facturation_items;
+        $.ajax({
+          type: "POST",
+          url: "{{ url_for('update_company') }}",
+          data: {
+            "company": JSON.stringify(company)
+          },
+          success: function (msg) {
+            console.log(msg);
+            Notify("Changements sauvegardés.");
+            setTimeout(function () {
+              location.reload();
+            }, 1000);
+          }
+        });
+      } else {
+        Notify("Le numéro entré n'est pas valide.", null, null, "error");
+      }
       return false;
     });
   </script>

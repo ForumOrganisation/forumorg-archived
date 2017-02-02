@@ -30,6 +30,16 @@
     <link href="{{ url_for('static', filename='css/dataurl.css') }}" rel="stylesheet"/>
     <!-- dataTables -->
     <link rel="stylesheet" href="{{ url_for('static', filename='plugins/datatables/dataTables.bootstrap.css') }}">
+    <!-- inputMask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/intlTelInput.css') }}">
+    <style>
+      .iti-flag {
+        background-image: url("{{ url_for('static', filename='images/flags.png') }}");
+      }
+      .intl-tel-input {
+        width: 100%;
+      }
+    </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script> <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> <![endif]-->
@@ -156,6 +166,7 @@
     <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.js') }}"></script>
     <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
     <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/intlTelInput.min.js') }}"></script>
     <!-- Notify -->
     <script src="{{ url_for('static', filename='js/Notify.js') }}"></script>
     <!-- Pace -->
@@ -168,13 +179,34 @@
     <script src="{{ url_for('static', filename='plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ url_for('static', filename='plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
     <script>
+      function opt(type) {
+        options = {
+          autoPlaceholder: "aggressive",
+          dropdownContainer: "body",
+          geoIpLookup: function (callback) {
+            $.get("http://ipinfo.io", function () {}, "jsonp").always(function (resp) {
+              var countryCode = (resp && resp.country)
+                ? resp.country
+                : "";
+              callback(countryCode);
+            });
+          },
+          placeholderNumberType: type,
+          initialCountry: "auto",
+          preferredCountries: [
+            'fr', 'ch', 'be', 'ma', 'nl'
+          ],
+          utilsScript: "{{ url_for('static', filename='js/intl_utils.js') }}"
+        };
+        return options;
+      }
       $(function () {
         //Initialize Select2 Elements
         $(".select2").select2({language: "fr"});
         $("#datetime").inputmask("datetime", {"placeholder": "jj/mm/aaaa hh:ss"});
-        $("#phone").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
-        $("#phone_stand").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
-        $("#phone_facturation").inputmask("99 99 99 99 99", {"placeholder": "0x-xx-xx-xx-xx"});
+        $("#phone").intlTelInput(opt("MOBILE"));
+        $("#phone_stand").intlTelInput(opt("MOBILE"));
+        $("#phone_facturation").intlTelInput(opt("FIXED_LINE"));
         $("#persons").inputmask("9", {"placeholder": "x"});
         $('#banner').editable({
           mode: 'inline',
