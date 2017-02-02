@@ -35,6 +35,16 @@ class CompanyForm(form.Form):
     programme = fields.BooleanField('Programme valide?')
 
 
+class FilterPole(FilterEqual, BasePyMongoFilter):
+
+    def apply(self, query, value):
+        query.append({'pole': value})
+        return query
+
+    def operation(self):
+        return "appartenant"
+
+
 class CompanyView(ModelView):
     form = CompanyForm
     column_list = ['id'] + ['equipement', 'transport',
@@ -56,6 +66,8 @@ class CompanyView(ModelView):
 
     column_searchable_list = ['id']
     column_sortable_list = ['id']
+    column_filters = (FilterPole(column='pole', name='pole', options=(
+        ('fra', 'Entreprises France'), ('si', 'Section Internationale'), ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'))),)
     column_labels = dict(id='Identifiant')
 
     def __init__(self, *args, **kwargs):
