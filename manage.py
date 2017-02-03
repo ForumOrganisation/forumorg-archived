@@ -13,6 +13,24 @@ db = client.get_default_database()
 
 
 @manager.command
+def split_companies():
+    fs = os.path.join(os.path.dirname(__file__), 'data/si.csv')
+    fe = os.path.join(os.path.dirname(__file__), 'data/ecoles.csv')
+    fs = open(fs).read()
+    fe = open(fe).read()
+    cur = db.companies.find({})
+    for doc in cur:
+        if doc['id'] in fs:
+            pole = 'si'
+        elif doc['id'] in fe:
+            pole = 'school'
+        else:
+            pole = 'fra'
+        if doc['id'] != 'admin':
+            db.companies.update_one({'_id': doc['_id']}, {'$set': {'pole': pole}}, upsert=True)
+
+
+@manager.command
 def fix_users():
     db.users.update_many({'events.fra': None}, {'$set': {'events.fra.registered': False}})
 
