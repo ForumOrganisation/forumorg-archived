@@ -42,7 +42,7 @@ class FilterPole(FilterEqual, BasePyMongoFilter):
         return query
 
     def operation(self):
-        return "appartenant"
+        return "egal a"
 
 
 class CompanyView(ModelView):
