@@ -1,7 +1,7 @@
+# coding=utf-8
+
 import os
-
 import sendgrid
-
 from sendgrid.helpers.mail import Email, Content, Mail
 
 
@@ -9,8 +9,8 @@ def send_mail(email, contact_name, company_name, telephone):
     # Create a text/plain message
     me = 'no-reply@forumorg.org'
     you = 'contact-fra@forumorg.org'
-    subject = '[FRA] Demande de participation ({})'.format(company_name)
-    text = """\
+    subject = u'[FRA] Demande de participation ({})'.format(company_name)
+    text = u"""\
     Bonjour !
 
     Vous avez recu une nouvelle demande de participation !
