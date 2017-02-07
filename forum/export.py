@@ -56,3 +56,21 @@ def generate_vals(writer, export_type, data):
                     vals.append(t.get(title, ''))
                 vals = [csv_encode(v) for v in vals]
                 yield writer.writerow(vals)
+
+
+def generate_students(writer, export_type, data):
+    titles = ['email_etudiant']
+    if export_type == 'general':
+        titles += ['fra', 'styf', 'master_class', 'joi']
+        titles += ['name', 'first_name', 'year', 'specialty', 'school', 'tel']
+        yield writer.writerow(titles)
+        for row in data:
+            vals = []
+            for t in titles[:1]:
+                vals.append(row.get('id', ''))
+            for t in titles[1:5]:
+                vals.append(row['events'].get(t, {}).get('registered', False))
+            for t in titles[5:]:
+                vals.append(row.get('profile', {}).get(t, ''))
+            vals = [csv_encode(v) for v in vals]
+            yield writer.writerow(vals)

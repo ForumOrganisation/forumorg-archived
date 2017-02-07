@@ -12,7 +12,7 @@ from flask_admin.form import rules
 from flask_login import current_user
 from werkzeug import secure_filename
 from wtforms import fields, form, validators
-from export import generate_vals
+from export import generate_vals, generate_students
 
 
 class CompanyForm(form.Form):
@@ -141,7 +141,7 @@ class FilterRegister(FilterEqual, BasePyMongoFilter):
 class UserView(ModelView):
     column_list = ['id', 'events', 'confirmed_on', 'registered_on', 'profile']
     column_labels = dict(id='Email', confirmed_on='Confirmation', registered_on='Inscription', profile='Profil', events='Participations')
-    export_types = ['csv']
+    export_types = ['csv', 'general']
     can_export = True
     can_delete = True
     can_view_details = True
@@ -156,6 +156,39 @@ class UserView(ModelView):
     def __init__(self, *args, **kwargs):
         super(UserView, self).__init__(*args, **kwargs)
         self.name = 'Utilisateurs'
+
+    @expose('/export/<export_type>/')
+    def export(self, export_type):
+        return_url = get_redirect_target() or self.get_url('.index_view')
+
+        if not self.can_export or (export_type not in self.export_types):
+            flash(gettext('Permission denied.'), 'error')
+            return redirect(return_url)
+
+        if export_type == 'csv':
+            return self._export_csv(return_url)
+        else:
+            return self._export_fields(export_type, return_url)
+
+    def _export_fields(self, export_type, return_url):
+        count, data = self._export_data()
+
+        # Dummy object for csv creation
+        class Echo(object):
+
+            def write(self, value):
+                return value
+
+        writer = csv.writer(Echo())
+        gen_vals = generate_students(writer, export_type, data)
+        filename = self.get_export_name(export_type='csv')
+        disposition = 'attachment;filename=%s' % (
+            secure_filename(filename.replace(self.name, export_type)),)
+        return Response(
+            stream_with_context(gen_vals),
+            headers={'Content-Disposition': disposition},
+            mimetype='text/csv'
+        )
 
 
 class EventForm(form.Form):
