@@ -1,5 +1,10 @@
 from __future__ import print_function
 from flask_admin._compat import csv_encode
+from werkzeug import secure_filename
+from flask import stream_with_context, Response, redirect, flash
+from flask_admin.babel import gettext
+from flask_admin.helpers import get_redirect_target
+import csv
 import sys
 
 
@@ -7,15 +12,31 @@ def log(m):
     print(m, file=sys.stderr)
 
 
-# Export utility
 def generate_vals(writer, export_type, data):
-    titles = ['id_entreprise']
+    if export_type == 'general':
+        titles = ['email_etudiant']
+        titles += ['fra', 'styf', 'master_class', 'joi']
+        titles += ['name', 'first_name', 'year', 'specialty', 'school', 'tel']
+        yield writer.writerow(titles)
+        for row in data:
+            vals = []
+            for t in titles[:1]:
+                vals.append(row.get('id', ''))
+            for t in titles[1:5]:
+                vals.append(row['events'].get(t, {}).get('registered', False))
+            for t in titles[5:]:
+                vals.append(row.get('profile', {}).get(t, ''))
+            vals = [csv_encode(v) for v in vals]
+            yield writer.writerow(vals)
+    else:
+        titles = ['id_entreprise']
     if export_type == 'equipement':
         titles += ['duration', 'equiped', 'banner', 'size', 'emplacement']
         titles += [u'chauffeuse', u'mange_debout', u'presentoir', u'ecran_32', u'ecran_42', u'poste_2', u'poste_3', u'poste_6', u'poste_9']
         yield writer.writerow(titles)
         for row in data:
             vals = []
+            log(row)
             for t in titles[:1]:
                 vals.append(row.get('id', ''))
             for t in titles[1:6]:
@@ -58,19 +79,34 @@ def generate_vals(writer, export_type, data):
                 yield writer.writerow(vals)
 
 
-def generate_students(writer, export_type, data):
-    titles = ['email_etudiant']
-    if export_type == 'general':
-        titles += ['fra', 'styf', 'master_class', 'joi']
-        titles += ['name', 'first_name', 'year', 'specialty', 'school', 'tel']
-        yield writer.writerow(titles)
-        for row in data:
-            vals = []
-            for t in titles[:1]:
-                vals.append(row.get('id', ''))
-            for t in titles[1:5]:
-                vals.append(row['events'].get(t, {}).get('registered', False))
-            for t in titles[5:]:
-                vals.append(row.get('profile', {}).get(t, ''))
-            vals = [csv_encode(v) for v in vals]
-            yield writer.writerow(vals)
+def _export_fields(obj, export_type, return_url):
+        count, data = obj._export_data()
+
+        class Echo(object):
+            def write(self, value):
+                return value
+
+        writer = csv.writer(Echo())
+        data = [row for row in data if row['id'] != 'admin']
+        gen_vals = generate_vals(writer, export_type, data)
+        filename = obj.get_export_name(export_type='csv')
+        disposition = 'attachment;filename=%s' % (
+            secure_filename(filename.replace(obj.name, export_type)),)
+        return Response(
+            stream_with_context(gen_vals),
+            # headers={'Content-Disposition': disposition},
+            mimetype='text/plain'
+        )
+
+
+def _export(obj, export_type):
+    return_url = get_redirect_target() or obj.get_url('.index_view')
+
+    if not obj.can_export or (export_type not in obj.export_types):
+        flash(gettext('Permission denied.'), 'error')
+        return redirect(return_url)
+
+    if export_type == 'csv':
+        return obj._export_csv(return_url)
+    else:
+        return _export_fields(obj, export_type, return_url)

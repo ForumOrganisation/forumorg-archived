@@ -13,7 +13,6 @@ from forum import app, GridFS
 from gridfs.errors import NoFile
 from mailing import send_mail
 from bson.objectid import ObjectId
-from export import log
 
 
 # Admin
