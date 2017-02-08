@@ -76,7 +76,9 @@ def get_stats():
         stats = {}
         for s in ['equipement', 'restauration', 'badges', 'transport', 'programme']:
             r = get_db().companies.aggregate([{'$skip': 1}, {'$group': {'_id': 1, 'all': {'$sum': 1}, 'validated': {'$sum': {'$cmp': ['${}'.format(s), False]}}}}]).next()
-            stats[s] = 100.0 * r['validated'] / r['all']
+            r = 100.0 * r['validated'] / r['all']
+            r = round(r, 2)
+            stats[s] = r
         return stats
     return dict(get_stats=_get_stats)
 
