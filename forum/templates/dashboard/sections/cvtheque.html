@@ -1,0 +1,90 @@
+{% extends "dashboard/section.html" %}
+{% set title = 'CVthèque' %}
+{% block main %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Liste des CVs</h3>
+        </div>
+        <div class="box-body">
+          <table class="table responsive table-hover nowrap" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Ecole</th>
+                <th>Année d'étude</th>
+                <th>Spécialité</th>
+                <th>Curriculum Vitae</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th></th>
+                <th>Ecole</th>
+                <th>Année d'étude</th>
+                <th>Spécialité</th>
+                <th></th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock main %}
+{% block scripts %}
+  <script type="text/javascript">
+    var resumes = {{ get_resumes() | tojson }};
+    var table = $('.table').DataTable({
+      "data": resumes,
+      "language": {
+        "paginate": {
+          "first": "Premier",
+          "previous": "Pr&eacute;c&eacute;dent",
+          "next": "Suivant",
+          "last": "Dernier"
+        },
+        "emptyTable": '<h2 class="lead text-center">Aucun CV enregistré</h2>'
+      },
+      "initComplete": function () {
+        this.api().columns([2, 3, 4]).every(function () {
+          var column = this;
+          var select = $('<select><option value=""></option></select>').appendTo($(column.footer()).empty()).on('change', function () {
+            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+            column.search(val
+              ? '^' + val + '$'
+              : '', true, false).draw();
+          });
+          column.data().unique().sort().each(function (d, j) {
+            select.append('<option value="' + d + '">' + d + '</option>');
+          });
+        });
+      },
+      "columns": [
+        {
+          data: "name"
+        }, {
+          data: "first_name"
+        }, {
+          data: "school"
+        }, {
+          data: "year"
+        }, {
+          data: "specialty"
+        }, {
+          width: "20%",
+          mRender: function (data, type, row) {
+            return '<a href="' + row.resume_url + '">Visualiser CV</a>';
+          }
+        }
+      ],
+      "paging": true,
+      "info": false,
+      "lengthChange": false,
+      "searching": false
+    });
+  </script>
+{% endblock scripts %}

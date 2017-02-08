@@ -2,10 +2,11 @@ import datetime
 import locale
 import os
 
-from flask import Flask, request
+from flask import Flask, request, url_for
 from flask_admin import Admin
 from flask_admin.base import MenuLink
 from flask_login import LoginManager
+from gridfs import GridFS
 from flask_babelex import Babel
 
 from admin import CompanyView, EventView, UserView
@@ -19,6 +20,7 @@ app.jinja_env.add_extension('jinja2_time.TimeExtension')
 
 # Storage init
 init_storage()
+GridFS = GridFS(get_db(), collection='resumes')
 
 # Login Manager
 login_manager = LoginManager()
@@ -53,6 +55,18 @@ def get_events():
     def _get_events():
         return list(get_db().events.find({}, {'_id': False}))
     return dict(get_events=_get_events)
+
+
+@app.context_processor
+def get_resumes():
+    def _get_resumes():
+        users = list(get_db().users.find({'profile.resume_id': {'$ne': None}}, {'profile': 1}))
+        users = [u['profile'] for u in users]
+        for u in users:
+            u['resume_url'] = url_for('get_resume', oid=u.pop('resume_id', None))
+            u.pop('_id', None)
+        return users
+    return dict(get_resumes=_get_resumes)
 
 
 # Jinja Filters

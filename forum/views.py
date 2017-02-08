@@ -4,13 +4,15 @@ import json
 import os
 import requests
 
-from flask import abort, redirect, render_template, request, send_from_directory, url_for
+from flask import abort, redirect, render_template, request, send_from_directory, url_for, make_response
 from flask_login import current_user, login_required, login_user, logout_user
 from login import validate_login
 from storage import Company, get_company, set_company, get_db
 
-from forum import app
+from forum import app, GridFS
+from gridfs.errors import NoFile
 from mailing import send_mail
+from bson.objectid import ObjectId
 from export import log
 
 
@@ -66,6 +68,17 @@ def update_company():
         company = json.loads(company)
         set_company(company['id'], company)
         return "success"
+
+
+@app.route('/get_resume/<oid>')
+def get_resume(oid):
+    try:
+        file = GridFS.get(ObjectId(oid))
+        response = make_response(file.read())
+        response.mimetype = file.content_type
+        return response
+    except NoFile:
+        abort(404)
 
 
 @app.route('/validate_section', methods=["POST"])
