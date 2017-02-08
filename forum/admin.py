@@ -1,12 +1,18 @@
 # coding=utf-8
 
-from flask_admin.base import expose
+from flask_admin.base import expose, BaseView
 from flask_admin.contrib.pymongo import ModelView
 from flask_admin.contrib.pymongo.filters import BasePyMongoFilter, FilterEqual
 from flask_admin.form import rules
 from flask_login import current_user
 from wtforms import fields, form, validators
 from export import _export
+
+
+class StatisticsView(BaseView):
+    @expose('/')
+    def index(self):
+        return self.render('statistics.html')
 
 
 class CompanyForm(form.Form):
@@ -86,10 +92,7 @@ class CompanyView(ModelView):
 
 
 class UserForm(form.Form):
-    id = fields.StringField(
-        'Email', render_kw={"placeholder": "Ex. yokoya@live.com"})
-    password = fields.PasswordField('Mot de passe', validators=[validators.Required(
-    ), validators.Length(min=5, max=30)], render_kw={"placeholder": "Ex. 123456"})
+    pass
 
 
 class FilterRegister(FilterEqual, BasePyMongoFilter):
@@ -99,7 +102,7 @@ class FilterRegister(FilterEqual, BasePyMongoFilter):
         return query
 
     def operation(self):
-        return "evenement"
+        return "egal a"
 
 
 class UserView(ModelView):
@@ -107,13 +110,13 @@ class UserView(ModelView):
     column_labels = dict(id='Email', confirmed_on='Confirmation', registered_on='Inscription', profile='Profil', events='Participations')
     export_types = ['general']
     can_export = True
-    can_delete = True
+    can_edit = False
+    can_delete = False
     can_view_details = True
     form = UserForm
+    column_exclude_list = ['confirmed_on', 'events']
     column_searchable_list = ('id',)
-    column_export_list = ['id', 'registered_on',
-                          'confirmed_on', 'events', 'profile']
-    column_filters = (FilterRegister(column='events', name='participants', options=(
+    column_filters = (FilterRegister(column='events', name='participation', options=(
         ('styf', 'styf'), ('joi', 'joi'), ('master_class', 'master_class'), ('fra', 'fra'))),)
     column_sortable_list = ['id', 'confirmed_on', 'registered_on']
 
@@ -127,18 +130,14 @@ class UserView(ModelView):
 
 
 class EventForm(form.Form):
-    name = fields.StringField('Nom')
-    type = fields.StringField('Type')
-    quota = fields.IntegerField('Quota')
-    places_left = fields.IntegerField('Places restantes')
+    pass
 
 
 class EventView(ModelView):
     column_list = ['name', 'type', 'quota', 'places_left']
-    column_labels = dict(id='Email')
-    export_types = ['csv']
-    can_export = True
-    can_delete = True
+    column_labels = dict(name='Nom', places_left='Places restantes')
+    can_edit = False
+    can_delete = False
     form = EventForm
 
     def __init__(self, *args, **kwargs):

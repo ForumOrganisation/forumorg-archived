@@ -9,7 +9,7 @@ from flask_login import LoginManager
 from gridfs import GridFS
 from flask_babelex import Babel
 
-from admin import CompanyView, EventView, UserView
+from admin import CompanyView, EventView, UserView, StatisticsView
 from storage import init_storage, get_db
 
 # App init
@@ -38,6 +38,7 @@ def get_locale():
 
 # Admin Interface
 admin = Admin(app, name='Interface Admin', index_view=CompanyView(get_db().companies, url='/admin'))
+admin.add_view(StatisticsView(name='Stats', endpoint='stats'))
 admin.add_view(UserView(get_db().users))
 admin.add_view(EventView(get_db().events))
 admin.add_link(MenuLink(name='Se deconnecter', url='/deconnexion'))
@@ -67,6 +68,17 @@ def get_resumes():
             u.pop('_id', None)
         return users
     return dict(get_resumes=_get_resumes)
+
+
+@app.context_processor
+def get_stats():
+    def _get_stats():
+        stats = {}
+        for s in ['equipement', 'restauration', 'badges', 'transport', 'programme']:
+            r = get_db().companies.aggregate([{'$skip': 1}, {'$group': {'_id': 1, 'all': {'$sum': 1}, 'validated': {'$sum': {'$cmp': ['${}'.format(s), False]}}}}]).next()
+            stats[s] = 100.0 * r['validated'] / r['all']
+        return stats
+    return dict(get_stats=_get_stats)
 
 
 # Jinja Filters
