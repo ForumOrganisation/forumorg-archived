@@ -117,7 +117,7 @@
                 {% for k, v in company.sections.catering | dictsort | reverse %}
                   {% set qty = v.values() | sum %}
                   {% if
-                  count.append(count.pop() + qty * 20) %}{% endif %}
+                  count.append(count.pop() + qty * 30) %}{% endif %}
                   <tr>
                     <td>{{ 'Mercredi' if k == 'wed' else 'Jeudi' }}</td>
                     <td>{{ qty }}</td>
