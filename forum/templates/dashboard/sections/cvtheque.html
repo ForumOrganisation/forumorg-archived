@@ -37,61 +37,64 @@
 {% endblock main %}
 {% block scripts %}
   <script type="text/javascript">
-    var resumes = {{ get_resumes() | tojson }};
-    var table = $('.table').DataTable({
-      "data": resumes,
-      "language": {
-        "paginate": {
-          "first": "Premier",
-          "previous": "Pr&eacute;c&eacute;dent",
-          "next": "Suivant",
-          "last": "Dernier"
+    $(document).ready(function () {
+      var resumes = {{ get_resumes() | tojson }};
+      var table = $('.table').DataTable({
+        "data": resumes,
+        "language": {
+          "paginate": {
+            "first": "Premier",
+            "previous": "Pr&eacute;c&eacute;dent",
+            "next": "Suivant",
+            "last": "Dernier"
+          },
+          "processing": "Traitement en cours...",
+          "search": "Rechercher&nbsp;:",
+          "lengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
+          "info": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+          "infoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
+          "infoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+          "infoPostFix": "",
+          "loadingRecords": "Chargement en cours...",
+          "emptyTable": '<h2 class="lead text-center">Aucun CV enregistré</h2>'
         },
-        "processing": "Traitement en cours...",
-        "search": "Rechercher&nbsp;:",
-        "lengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
-        "info": "Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-        "infoEmpty": "Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",
-        "infoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-        "infoPostFix": "",
-        "loadingRecords": "Chargement en cours...",
-        "emptyTable": '<h2 class="lead text-center">Aucun CV enregistré</h2>'
-      },
-      "initComplete": function () {
-        this.api().columns([2, 3, 4]).every(function () {
-          var column = this;
-          var select = $('<select><option value=""></option></select>').appendTo($(column.footer()).empty()).on('change', function () {
-            var val = $.fn.dataTable.util.escapeRegex($(this).val());
-            column.search(val
-              ? '^' + val + '$'
-              : '', true, false).draw();
+        "initComplete": function () {
+          this.api().columns([2, 3, 4]).every(function () {
+            var column = this;
+            var select = $('<select><option value=""></option></select>').appendTo($(column.footer()).empty()).on('change', function () {
+              var val = $.fn.dataTable.util.escapeRegex($(this).val());
+              column.search(val
+                ? '^' + val + '$'
+                : '', true, false).draw();
+            });
+            column.data().unique().sort().each(function (d, j) {
+              select.append('<option value="' + d + '">' + d + '</option>');
+            });
           });
-          column.data().unique().sort().each(function (d, j) {
-            select.append('<option value="' + d + '">' + d + '</option>');
-          });
-        });
-      },
-      "columns": [
-        {
-          data: "name"
-        }, {
-          data: "first_name"
-        }, {
-          data: "school"
-        }, {
-          data: "year"
-        }, {
-          data: "specialty"
-        }, {
-          width: "20%",
-          mRender: function (data, type, row) {
-            return '<a href="' + row.resume_url + '">Visualiser CV</a>';
+        },
+        "columns": [
+          {
+            data: "name"
+          }, {
+            data: "first_name"
+          }, {
+            data: "school"
+          }, {
+            data: "year"
+          }, {
+            data: "specialty"
+          }, {
+            width: "20%",
+            mRender: function (data, type, row) {
+              return '<a href="' + row.resume_url + '">Visualiser CV</a>';
+            }
           }
-        }
-      ],
-      "paging": true,
-      "lengthChange": false,
-      "searching": false
+        ],
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "dom": 'lrtp'
+      });
     });
   </script>
 {% endblock scripts %}
