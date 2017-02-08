@@ -98,11 +98,14 @@ class UserForm(form.Form):
 class FilterRegister(FilterEqual, BasePyMongoFilter):
 
     def apply(self, query, value):
-        query.append({'events.{}.registered'.format(value): True})
+        if value == 'ambassador':
+            query.append({'events.fra.ambassador': {'$gt': {}}})
+        else:
+            query.append({'events.{}.registered'.format(value): True})
         return query
 
     def operation(self):
-        return "egal a"
+        return "participe a"
 
 
 class UserView(ModelView):
@@ -116,8 +119,12 @@ class UserView(ModelView):
     form = UserForm
     column_exclude_list = ['confirmed_on', 'events']
     column_searchable_list = ('id',)
-    column_filters = (FilterRegister(column='events', name='participation', options=(
-        ('styf', 'styf'), ('joi', 'joi'), ('master_class', 'master_class'), ('fra', 'fra'))),)
+    column_filters = (FilterRegister(column='events', name='inscrit', options=(
+        ('master_class', 'Master Class'),
+        ('fra', 'Forum Rhone-Alpes'),
+        ('ambassador', 'Ambassadeur'),
+        ('styf', 'Start-Up Your Future'),
+        ('joi', 'Journee Objectif Ingenieur'))),)
     column_sortable_list = ['id', 'confirmed_on', 'registered_on']
 
     def __init__(self, *args, **kwargs):

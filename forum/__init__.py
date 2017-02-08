@@ -38,9 +38,9 @@ def get_locale():
 
 # Admin Interface
 admin = Admin(app, name='Interface Admin', index_view=CompanyView(get_db().companies, url='/admin'))
-admin.add_view(StatisticsView(name='Stats', endpoint='stats'))
 admin.add_view(UserView(get_db().users))
 admin.add_view(EventView(get_db().events))
+admin.add_view(StatisticsView(name='Stats', endpoint='stats'))
 admin.add_link(MenuLink(name='Se deconnecter', url='/deconnexion'))
 
 
