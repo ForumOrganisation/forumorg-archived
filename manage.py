@@ -6,10 +6,37 @@ from flask_script import Manager
 from pymongo import MongoClient
 from forum import app
 import wget
+import sendgrid
+from sendgrid.helpers.mail import Email, Mail, Personalization
 
 manager = Manager(app)
 client = MongoClient(host=os.environ.get('MONGODB_URI'))
 db = client.get_default_database()
+
+
+@manager.command
+def batch_emails():
+    recipients = ['elmehdi.baha@forumorg.org']
+    me = 'no-reply@forumorg.org'
+    subject = 'Message de bienvenue'
+
+    sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+    mail = Mail()
+    mail.set_from(Email(me))
+    mail.set_subject(subject)
+    mail.set_template_id('e449ac1c-51a2-485e-9275-7031f10d490f')
+    personalization = Personalization()
+    for r in recipients:
+        personalization.add_to(Email(r))
+    mail.add_personalization(personalization)
+    sent = 0
+    failed = 0
+    try:
+        sg.client.mail.send.post(request_body=mail.get())
+        sent += 1
+    except:
+        failed += 1
+    print("Statistics: sent({}), failed({})".format(sent, failed))
 
 
 @manager.command
