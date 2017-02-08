@@ -3,22 +3,11 @@
   <table class="table table-striped table-bordered table-hover model-list">
     <thead>
       <tr>
+        {% set stats = get_stats() %}
         <th class="span1">&nbsp;</th>
-        <th class="column-header col-equipement">
-          Equipement
-        </th>
-        <th class="column-header col-transport">
-          Transport
-        </th>
-        <th class="column-header col-restauration">
-          Restauration
-        </th>
-        <th class="column-header col-badges">
-          Badges
-        </th>
-        <th class="column-header col-programme">
-          Programme
-        </th>
+        {% for k, v in stats.items() %}
+          <th class="column-header col-{{ k }}">{{ k|capitalize }}</th>
+        {% endfor %}
       </tr>
     </thead>
     <tbody>
@@ -26,7 +15,6 @@
         <td class="list-buttons-column">
           Avancement
         </td>
-        {% set stats = get_stats() %}
         {% for k, v in stats.items() %}
           <td class="col-{{ k }}">{{ v }}</td>
         {% endfor %}
