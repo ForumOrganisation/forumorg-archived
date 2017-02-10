@@ -81,6 +81,8 @@ def get_stats():
             for c in cur:
                 pole, total, validated = c['_id'], c['all'], c['validated']
                 result[pole][s] = round(100.0 * validated / total, 2)
+        for k, v in result.items():
+            result[k] = OrderedDict(sorted(v.items()))
         result = OrderedDict(sorted(result.items()))
         return result
     return dict(get_stats=_get_stats)
