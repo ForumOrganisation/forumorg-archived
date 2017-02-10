@@ -3,13 +3,23 @@
 {% set events = get_events() %}
 {% block main %}
   {% set count = [0] %}
+  {% set f = company.sections.profile.facturation %}
+  {% set to_display = company.equipement and company.transport and company.restauration
+  and company.badges and company.programme and f.address and f.city and f.code_postal
+  and f.phone and f.mail %}
   <div class="row">
     <div class="pad margin no-print">
-      <div class="callout callout-info" style="margin-bottom: 0!important;">
+      <div class="callout callout-{{'info' if to_display else 'warning'}}" style="margin-bottom: 0!important;">
         <h4>
-          <i class="fa fa-info"></i>
+          <i class="fa fa-{{'info' if to_display else 'warning'}}"></i>
           Note:</h4>
-        Cette page a été optimisée pour l'impression. Cliquez sur le bouton d'impression au bas de la page pour imprimer votre bon de commande.
+        <p>
+          {% if to_display %}
+            Cette page a été optimisée pour l'impression. Cliquez sur le bouton d'impression au bas de la page pour imprimer votre bon de commande.
+          {% else %}
+            Pour imprimer votre bon de commande, les sections doivent être validées et les informations de facturation (section Profil) complétées.
+          {% endif %}
+        </p>
       </div>
     </div>
     <section class="invoice">
@@ -42,7 +52,6 @@
         <div class="col-sm-4 invoice-col">
           À
           <address>
-            {% set f = company.sections.profile.facturation %}
             {% if f.address and company.name %}
               <strong>{{ company.name }}</strong><br/>
               {{ f.address }}<br/>
@@ -201,7 +210,7 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-12">
-          <a href="javascript:window.print()" target="_blank" class="btn btn-default pull-right">
+          <a href="javascript:window.print()" target="_blank" class="btn btn-default pull-right {{'disabled' if not to_display else ''}}">
             <i class="fa fa-print"></i>
             Imprimer Bon de commande</a>
         </div>
