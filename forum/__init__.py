@@ -1,6 +1,8 @@
+from __future__ import print_function
 import datetime
 import locale
 import os
+import sys
 
 from flask import Flask, request, url_for
 from flask_admin import Admin
@@ -175,6 +177,10 @@ def empty_events(e):
 @app.template_filter('empty_dishes')
 def empty_dishes(d):
     return sum([sum(a.values()) for a in d.values()]) == 0
+
+
+def log(m):
+    print(m, file=sys.stderr)
 
 
 import views

@@ -9,7 +9,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from login import validate_login
 from storage import Company, get_company, set_company, get_db
 
-from forum import app, GridFS
+from forum import app, GridFS, log
 from gridfs.errors import NoFile
 from mailing import send_mail
 from bson.objectid import ObjectId
@@ -118,8 +118,8 @@ def add_job():
 @app.route('/remove_job', methods=["POST"])
 @login_required
 def remove_job():
-    job_id = request.form.get('job_id')
-    get_db().jobs.delete_one({'id': job_id})
+    job_id = request.form.get('id')
+    res = get_db().jobs.delete_one({'_id': ObjectId(job_id)})
     return "success"
 
 
