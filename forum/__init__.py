@@ -8,7 +8,7 @@ from flask_admin.base import MenuLink
 from flask_login import LoginManager
 from gridfs import GridFS
 from flask_babelex import Babel
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 
 from admin import CompanyView, EventView, UserView, StatisticsView, JobView
 from storage import init_storage, get_db
@@ -75,16 +75,12 @@ def get_resumes():
 @app.context_processor
 def get_stats():
     def _get_stats():
-        result = {}
-        for pole in ['fra', 'si', 'school', 'cm']:
-            stats = {}
-            for s in ['equipement', 'restauration', 'badges', 'transport', 'programme']:
-                r = get_db().companies.aggregate([{'$skip': 1}, {'$group': {'_id': 1, 'all': {'$sum': 1}, 'validated': {'$sum': {'$cmp': ['${}'.format(s), False]}}}}]).next()
-                r = 100.0 * r['validated'] / r['all']
-                r = round(r, 2)
-                stats[s] = r
-            stats = OrderedDict(sorted(stats.items()))
-            result[pole] = stats
+        result = defaultdict(dict)
+        for s in ['equipement', 'restauration', 'badges', 'transport', 'programme']:
+            cur = get_db().companies.aggregate([{'$skip': 1}, {'$group': {'_id': '$pole', 'all': {'$sum': 1}, 'validated': {'$sum': {'$cmp': ['${}'.format(s), False]}}}}])
+            for c in cur:
+                pole, total, validated = c['_id'], c['all'], c['validated']
+                result[pole][s] = round(100.0 * validated / total, 2)
         result = OrderedDict(sorted(result.items()))
         return result
     return dict(get_stats=_get_stats)
