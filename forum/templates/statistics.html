@@ -4,21 +4,23 @@
     <thead>
       <tr>
         {% set stats = get_stats() %}
-        <th class="span1">&nbsp;</th>
-        {% for k, v in stats.items() %}
+        <th class="span1">Pole</th>
+        {% for k, v in stats.get('fra').items() %}
           <th class="column-header col-{{ k }}">{{ k|capitalize }}</th>
         {% endfor %}
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td class="list-buttons-column">
-          Avancement
-        </td>
-        {% for k, v in stats.items() %}
-          <td class="col-{{ k }}">{{ v }}</td>
-        {% endfor %}
-      </tr>
+      {% for pole, v in stats.items() %}
+        <tr>
+          <td class="list-buttons-column">
+            {{ pole }}
+          </td>
+          {% for section, stat in v.items() %}
+            <td class="col-{{ section }}">{{ stat }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
     </tbody>
   </table>
 {% endblock %}

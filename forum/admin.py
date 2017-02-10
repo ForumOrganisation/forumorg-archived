@@ -150,3 +150,22 @@ class EventView(ModelView):
     def __init__(self, *args, **kwargs):
         super(EventView, self).__init__(*args, **kwargs)
         self.name = 'Evenements'
+
+
+class JobForm(form.Form):
+    pass
+
+
+class JobView(ModelView):
+    column_list = ['company_id', 'title', 'location', 'duration', 'description']
+    column_labels = dict(company_id='Entreprise', duration='Duree', location='Lieu')
+    can_edit = False
+    can_delete = False
+    form = JobForm
+    can_view_details = True
+    column_sortable_list = ['company_id', 'title', 'location', 'duration']
+    column_exclude_list = ['description']
+
+    def __init__(self, *args, **kwargs):
+        super(JobView, self).__init__(*args, **kwargs)
+        self.name = 'Jobs'

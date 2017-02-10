@@ -8,8 +8,9 @@ from flask_admin.base import MenuLink
 from flask_login import LoginManager
 from gridfs import GridFS
 from flask_babelex import Babel
+from collections import OrderedDict
 
-from admin import CompanyView, EventView, UserView, StatisticsView
+from admin import CompanyView, EventView, UserView, StatisticsView, JobView
 from storage import init_storage, get_db
 
 # App init
@@ -40,6 +41,7 @@ def get_locale():
 admin = Admin(app, name='Interface Admin', index_view=CompanyView(get_db().companies, url='/admin'))
 admin.add_view(UserView(get_db().users))
 admin.add_view(EventView(get_db().events))
+admin.add_view(JobView(get_db().jobs))
 admin.add_view(StatisticsView(name='Stats', endpoint='stats'))
 admin.add_link(MenuLink(name='Se deconnecter', url='/deconnexion'))
 
@@ -73,13 +75,18 @@ def get_resumes():
 @app.context_processor
 def get_stats():
     def _get_stats():
-        stats = {}
-        for s in ['equipement', 'restauration', 'badges', 'transport', 'programme']:
-            r = get_db().companies.aggregate([{'$skip': 1}, {'$group': {'_id': 1, 'all': {'$sum': 1}, 'validated': {'$sum': {'$cmp': ['${}'.format(s), False]}}}}]).next()
-            r = 100.0 * r['validated'] / r['all']
-            r = round(r, 2)
-            stats[s] = r
-        return stats
+        result = {}
+        for pole in ['fra', 'si', 'school', 'cm']:
+            stats = {}
+            for s in ['equipement', 'restauration', 'badges', 'transport', 'programme']:
+                r = get_db().companies.aggregate([{'$skip': 1}, {'$group': {'_id': 1, 'all': {'$sum': 1}, 'validated': {'$sum': {'$cmp': ['${}'.format(s), False]}}}}]).next()
+                r = 100.0 * r['validated'] / r['all']
+                r = round(r, 2)
+                stats[s] = r
+            stats = OrderedDict(sorted(stats.items()))
+            result[pole] = stats
+        result = OrderedDict(sorted(result.items()))
+        return result
     return dict(get_stats=_get_stats)
 
 
