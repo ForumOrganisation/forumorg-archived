@@ -42,6 +42,7 @@ def login():
             return render_template('login.html', error="wrong_password")
         # all is good
         company = Company(id=company_id, password=password)
+        print('connected_as: {}'.format(company_id))
         login_user(company, remember=remember_me)
         if company_id == "admin":
             return redirect('/admin')
