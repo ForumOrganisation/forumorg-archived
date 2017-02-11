@@ -130,7 +130,7 @@ def identicon():
     from binascii import hexlify
     from identicon import render_identicon
     from io import BytesIO
-    text = request.args.get('text')
+    text = request.args.get('text', 'EMPTY')
     code = int(hexlify(text), 16)
     size = 25
     img = render_identicon(code, size)
