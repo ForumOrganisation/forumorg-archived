@@ -4,7 +4,7 @@ import json
 import os
 import requests
 
-from flask import abort, redirect, render_template, request, send_from_directory, url_for, make_response
+from flask import abort, redirect, render_template, request, send_from_directory, url_for, make_response, send_file
 from flask_login import current_user, login_required, login_user, logout_user
 from login import validate_login
 from storage import Company, get_company, set_company, get_db
@@ -120,8 +120,27 @@ def add_job():
 @login_required
 def remove_job():
     job_id = request.form.get('id')
-    res = get_db().jobs.delete_one({'_id': ObjectId(job_id)})
+    get_db().jobs.delete_one({'_id': ObjectId(job_id)})
     return "success"
+
+
+@app.route('/identicon', methods=["GET"])
+@login_required
+def identicon():
+    from binascii import hexlify
+    from identicon import render_identicon
+    from io import BytesIO
+    text = request.args.get('text')
+    code = int(hexlify(text), 16)
+    size = 25
+    img = render_identicon(code, size)
+    stream = BytesIO()
+    img.save(stream, format='png')
+    stream.seek(0)
+    return send_file(
+        stream,
+        mimetype='image/png'
+    )
 
 
 # VITRINE
