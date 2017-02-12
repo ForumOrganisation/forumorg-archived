@@ -35,10 +35,6 @@ babel = Babel(app)
 
 import assets
 
-if not app.debug:
-    assets.auto_build = False
-    assets.manifest = 'file'
-
 
 @babel.localeselector
 def get_locale():

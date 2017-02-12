@@ -92,4 +92,5 @@ bundles = {
 
 }
 
-assets.register(bundles)
+if os.environ.get('DEBUG'):
+    assets.register(bundles)
