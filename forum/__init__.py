@@ -10,6 +10,8 @@ from flask_admin.base import MenuLink
 from flask_login import LoginManager
 from gridfs import GridFS
 from flask_babelex import Babel
+from flask_cdn import CDN
+
 from collections import OrderedDict, defaultdict
 
 from admin import CompanyView, EventView, UserView, StatisticsView, JobView
@@ -19,6 +21,8 @@ from storage import init_storage, get_db
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY') or 'my-debug-key'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['CDN_DOMAIN'] = 'www.forum-rhone-alpes.com.global.prod.fastly.net'
+app.config['CDN_DEBUG'] = bool(os.environ.get('DEBUG'))
 app.jinja_env.add_extension('jinja2_time.TimeExtension')
 
 # Storage init
@@ -33,10 +37,15 @@ login_manager.login_view = 'login'
 # Babel
 babel = Babel(app)
 
+# CDN
+cdn = CDN()
+cdn.init_app(app)
+
 
 @babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(['fr', 'en'])
+
 
 # Admin Interface
 admin = Admin(app, name='Interface Admin', index_view=CompanyView(get_db().companies, url='/admin'))
