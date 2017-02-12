@@ -48,9 +48,9 @@
               </li>
               <!-- Sign Out Menu -->
               <li class="dropdown messages-menu">
-                <a href="{{url_for('logout')}}">
+                <a href="{{url_for('index')}}">
                   <i class="fa fa-sign-out"></i>
-                  <span class="hidden-xs">Se déconnecter</span>
+                  <span class="hidden-xs">Retour à l'accueil</span>
                 </a>
               </li>
             </ul>
@@ -104,16 +104,67 @@
       </footer>
     </div>
     <div id="notifications"></div>
+    <style>
+      .iti-flag {
+        background-image: url("{{ url_for('static', filename='images/flags.png') }}");
+      }
+      .intl-tel-input {
+        width: 100%;
+      }
+    </style>
     <!-- REQUIRED JS SCRIPTS -->
     <script type="text/javascript" src="{{ url_for('static', filename='build/common.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='build/admin.min.js') }}"></script>
     <script type="text/javascript">
+      function opt(type) {
+        options = {
+          autoPlaceholder: "aggressive",
+          dropdownContainer: "body",
+          geoIpLookup: function (callback) {
+            $.get("http://ipinfo.io", function () {}, "jsonp").always(function (resp) {
+              var countryCode = (resp && resp.country)
+                ? resp.country
+                : "";
+              callback(countryCode);
+            });
+          },
+          placeholderNumberType: type,
+          initialCountry: "auto",
+          preferredCountries: [
+            'fr', 'ch', 'be', 'ma', 'nl'
+          ],
+          utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.0/js/utils.js"
+        };
+        return options;
+      }
       if ({{'true' if company.get(page) else 'false'}}) {
         $('input[type=text]').attr('disabled', 'disabled');
         $('select').attr('disabled', 'disabled');
         $('button').attr('disabled', 'disabled');
         $('textarea').attr('disabled', 'disabled');
         $('i').attr('onclick', '');
+      }
+      function validate_section() {
+        var r = confirm("Pour annuler votre validation, il faudra nous contacter. Voulez-vous continuer?");
+        if (r) {
+          $.ajax({
+            type: "POST",
+            url: "{{ url_for('validate_section') }}",
+            data: {
+              "page": "{{ page }}"
+            },
+            success: function (result) {
+              if (result == "success") {
+                Notify("Section validée.");
+                setTimeout(function () {
+                  location.reload();
+                }, 1000);
+              } else {
+                Notify("Un problème est survenu.");
+              }
+            }
+          });
+        }
       }
     </script>
     {% block scripts %}{% endblock scripts %}

@@ -39,7 +39,7 @@
             </a>
           </div>
           <div class="collapse navbar-collapse" id="nemo-navigation">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-left">
               <li class="active">
                 <a href="#home">Accueil</a>
               </li>
@@ -52,9 +52,20 @@
               <li class="">
                 <a href="#faq">FAQ</a>
               </li>
-              <li class="">
-                <a href="{{ url_for('login') }}" class="enable">Connexion</a>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                {% if current_user.is_authenticated %}
+                  <a href="{{ url_for('dashboard') }}" id="home">Mon dashboard</a>
+                {% else %}
+                  <a href="{{ url_for('login') }}" id="home">Se connecter</a>
+                {% endif %}
               </li>
+              {% if current_user.is_authenticated %}
+                <li>
+                  <a href="{{ url_for('logout') }}" id="home">Se déconnecter</a>
+                </li>
+              {% endif %}
             </ul>
           </div>
         </div>
