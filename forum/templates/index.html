@@ -18,7 +18,7 @@
     <!-- =========================
     STYLESHEETS
     ============================== -->
-    <link id="toTypography" href="{{ url_for('static', filename='css/index/typography/typography-1.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/index/typography/typography-1.css') }}" rel="stylesheet">
     {% assets "css_index" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
     {% endassets %}
@@ -36,7 +36,7 @@
               <span class="icon-bar icon-bar-bottom"></span>
             </button>
             <!-- YOUR LOGO -->
-            <a class="navbar-brand" href="{{ url_for('index') }}">
+            <a class="navbar-brand" href="#home">
               <img src="{{ url_for('static', filename='images/fo-alt.png')}}" alt="Forum Organisation">
             </a>
           </div>
