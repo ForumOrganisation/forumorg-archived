@@ -8,6 +8,7 @@ assets = Environment(app)
 assets.append_path(os.path.join(os.path.dirname(__file__), './static'))
 assets.append_path(os.path.join(os.path.dirname(__file__), './static/bower_components'))
 
+# TODO: Apply hierarchy
 bundles = {
     'js_common': Bundle(
         Bundle(
@@ -15,6 +16,15 @@ bundles = {
             'bootstrap/dist/js/bootstrap.min.js'
         ),
         output='build/common.min.js'),
+
+    'css_common': Bundle(
+        Bundle(
+            'bootstrap/dist/css/bootstrap.min.css',
+            'font-awesome/css/font-awesome.min.css',
+            'css/common.css',
+            filters='cssrewrite'
+        ),
+        output='build/common.min.css'),
 
     'js_index': Bundle(
         Bundle(
@@ -29,25 +39,6 @@ bundles = {
         ),
         output='build/index.min.js'),
 
-    'js_admin': Bundle(
-        'js/admin/Notify.js',
-        output='build/admin.min.js'),
-
-    'js_login': Bundle(
-        Bundle(
-            'js/index/login.js',
-            filters='jsmin',
-        ),
-        output='build/login.min.js'),
-
-    'css_common': Bundle(
-        Bundle(
-            'bootstrap/dist/css/bootstrap.min.css',
-            'font-awesome/css/font-awesome.min.css',
-            filters='cssrewrite'
-        ),
-        output='build/common.min.css'),
-
     'css_index': Bundle(
         Bundle(
             'css/index/nemo.css',
@@ -58,15 +49,42 @@ bundles = {
 
     'css_login': Bundle(
         Bundle(
+            'AdminLTE/dist/css/AdminLTE.min.css',
             'css/index/login.css',
             filters='cssmin'
         ),
         output='build/login.min.css'),
 
+    'js_admin': Bundle(
+        Bundle(
+            'select2/dist/js/select2.min.js',
+            'select2/dist/js/i18n/fr.js',
+            'PACE/pace.min.js',
+            'jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js',
+            'intl-tel-input/build/js/intlTelInput.min.js',
+            'datatables.net/js/jquery.dataTables.min.js',
+            'datatables.net-bs/js/dataTables.bootstrap.min.js',
+            'AdminLTE/dist/js/app.min.js', # CAREFUL ABOUT ORDER
+        ),
+        Bundle(
+            'bootstrap-editable/src/js/bootstrap-editable.js',
+            'notify-js/Notify.js',
+            'js/admin/admin.js',
+        ),
+        output='build/admin.min.js'),
+
     'css_admin': Bundle(
         Bundle(
             'AdminLTE/dist/css/AdminLTE.min.css',
             'AdminLTE/dist/css/skins/skin-blue.min.css',
+            'select2/dist/css/select2.min.css',
+            'datatables.net-bs/css/dataTables.bootstrap.min.css',
+        ),
+        Bundle(
+            'PACE/themes/white/pace-theme-minimal.css',
+            'bootstrap-editable/src/css/bootstrap-editable.css',
+            'intl-tel-input/build/css/intlTelInput.css',
+            'css/admin/admin.css',
         ),
         output='build/admin.min.css'),
 

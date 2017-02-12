@@ -15,27 +15,6 @@
     {% assets "css_admin" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
     {% endassets %}
-    <!-- Select2 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/admin/plugins/select2/select2.min.css') }}">
-    <!-- bootstrap editable -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
-    <!-- pace -->
-    <link href="{{ url_for('static', filename='css/admin/dataurl.css') }}" rel="stylesheet"/>
-    <!-- dataTables -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/admin/plugins/datatables/dataTables.bootstrap.css') }}">
-    <!-- inputMask -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/intlTelInput.css') }}">
-    <style>
-      .iti-flag {
-        background-image: url("{{ url_for('static', filename='images/flags.png') }}");
-      }
-      .intl-tel-input {
-        width: 100%;
-      }
-    </style>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script> <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> <![endif]-->
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -129,24 +108,6 @@
       </footer>
     </div>
     <div id="notifications"></div>
-    <style>
-      #notifications {
-        cursor: pointer;
-        position: fixed;
-        right: 0;
-        z-index: 9999;
-        bottom: 0;
-        margin-bottom: 22px;
-        margin-right: 15px;
-        max-width: 300px;
-      }
-      /* CUSTOM STYLES */
-      .r-center {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-      }
-    </style>
     <!-- REQUIRED JS SCRIPTS -->
     {% assets "js_common" %}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>
@@ -154,98 +115,13 @@
     {% assets "js_admin" %}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
-    <!-- Select2 -->
-    <script src="{{ url_for('static', filename='js/admin/plugins/select2/select2.full.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/admin/plugins/select2/i18n/fr.js') }}"></script>
-    <!-- InputMask -->
-    <script src="{{ url_for('static', filename='js/admin/plugins/input-mask/jquery.inputmask.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/admin/plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/admin/plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/admin/intlTelInput.min.js') }}"></script>
-    <!-- Pace -->
-    <script src="{{ url_for('static', filename='js/admin/pace.min.js') }}"></script>
-    <!-- bootstrap editable -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ url_for('static', filename='js/admin/admin-lte/js/app.min.js') }}"></script>
-    <!-- DataTables -->
-    <script src="{{ url_for('static', filename='js/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/admin/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <script>
-      function opt(type) {
-        options = {
-          autoPlaceholder: "aggressive",
-          dropdownContainer: "body",
-          geoIpLookup: function (callback) {
-            $.get("http://ipinfo.io", function () {}, "jsonp").always(function (resp) {
-              var countryCode = (resp && resp.country)
-                ? resp.country
-                : "";
-              callback(countryCode);
-            });
-          },
-          placeholderNumberType: type,
-          initialCountry: "auto",
-          preferredCountries: [
-            'fr', 'ch', 'be', 'ma', 'nl'
-          ],
-          utilsScript: "{{ url_for('static', filename='js/intl_utils.js') }}"
-        };
-        return options;
-      }
-      $(function () {
-        //Initialize Select2 Elements
-        $(".select2").select2({language: "fr"});
-        $("#datetime").inputmask("datetime", {"placeholder": "jj/mm/aaaa hh:ss"});
-        $("#phone").intlTelInput(opt("MOBILE"));
-        $("#phone_stand").intlTelInput(opt("MOBILE"));
-        $("#phone_facturation").intlTelInput(opt("FIXED_LINE"));
-        $("#persons").inputmask("9", {"placeholder": "x"});
-        $('#banner').editable({
-          mode: 'inline',
-          emptytext: 'Ajoutez votre bannière',
-          error: function (response, newValue) {
-            if (response.status == 500) {
-              return 'Impossible à modifier.';
-            } else {
-              return response.responseText;
-            }
-          }
-        });
-        if ({{ 'true' if company.get(page) else 'false' }}) {
-          $('input[type=text]').attr('disabled', 'disabled');
-          $('select').attr('disabled', 'disabled');
-          $('button').attr('disabled', 'disabled');
-          $('textarea').attr('disabled', 'disabled');
-          $('i').attr('onclick', '');
-        }
-        $('.section').click(function (e) {
-          e.preventDefault();
-          validate_section();
-          return false;
-        });
-      });
-      function validate_section() {
-        var r = confirm("Pour annuler votre validation, il faudra nous contacter. Voulez-vous continuer?");
-        if (r) {
-          $.ajax({
-            type: "POST",
-            url: "{{ url_for('validate_section') }}",
-            data: {
-              "page": "{{ page }}"
-            },
-            success: function (result) {
-              if (result == "success") {
-                Notify("Section validée.");
-                setTimeout(function () {
-                  location.reload();
-                }, 1000);
-              } else {
-                Notify("Un problème est survenu.");
-              }
-            }
-          });
-        }
+    <script type="text/javascript">
+      if ({{'true' if company.get(page) else 'false'}}) {
+        $('input[type=text]').attr('disabled', 'disabled');
+        $('select').attr('disabled', 'disabled');
+        $('button').attr('disabled', 'disabled');
+        $('textarea').attr('disabled', 'disabled');
+        $('i').attr('onclick', '');
       }
     </script>
     {% block scripts %}{% endblock scripts %}
