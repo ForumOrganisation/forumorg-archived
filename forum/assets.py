@@ -64,12 +64,13 @@ bundles = {
             'intl-tel-input/build/js/intlTelInput.min.js',
             'datatables.net/js/jquery.dataTables.min.js',
             'datatables.net-bs/js/dataTables.bootstrap.min.js',
-            'AdminLTE/dist/js/app.min.js', # CAREFUL ABOUT ORDER
+            'AdminLTE/dist/js/app.min.js',
         ),
         Bundle(
             'bootstrap-editable/src/js/bootstrap-editable.js',
             'notify-js/Notify.js',
             'js/admin/admin.js',
+            filters='jsmin',
         ),
         output='build/admin.min.js'),
 
@@ -85,6 +86,7 @@ bundles = {
             'bootstrap-editable/src/css/bootstrap-editable.css',
             'intl-tel-input/build/css/intlTelInput.css',
             'css/admin/admin.css',
+            filters='cssmin',
         ),
         output='build/admin.min.css'),
 
