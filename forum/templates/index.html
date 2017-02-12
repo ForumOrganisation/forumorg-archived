@@ -17,9 +17,9 @@
     <!-- =========================
     STYLESHEETS
     ============================== -->
-    <link rel="stylesheet" type="text/css" href="static/build/common.min.css"></link>
-    <link rel="stylesheet" type="text/css" href="static/build/index.min.css"></link>
-    <link href="{{ url_for('static', filename='css/index/typography/typography-1.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/common.min.css') }}"></link>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/index.min.css') }}"></link>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index/typography/typography-1.css') }}"></link>
   </head>
   <body class="body-container">
     <div id="page" class="page">
@@ -307,8 +307,8 @@
   <!-- =========================
      SCRIPTS
 ============================== -->
-  <script type="text/javascript" src="static/build/common.min.js"></script>
-  <script type="text/javascript" src="static/build/index.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='build/common.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='build/index.min.js') }}"></script>
   <!-- /end page -->
   <script>
     window.intercomSettings = {

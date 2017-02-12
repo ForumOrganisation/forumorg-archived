@@ -9,8 +9,8 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- favicon -->
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" type="text/css" href="static/build/common.min.css"></link>
-    <link rel="stylesheet" type="text/css" href="static/build/admin.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/common.min.css') }}"></link>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/admin.min.css') }}"></link>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -105,8 +105,8 @@
     </div>
     <div id="notifications"></div>
     <!-- REQUIRED JS SCRIPTS -->
-    <script type="text/javascript" src="static/build/common.min.js"></script>
-    <script type="text/javascript" src="static/build/admin.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='build/common.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='build/admin.min.js') }}"></script>
     <script type="text/javascript">
       if ({{'true' if company.get(page) else 'false'}}) {
         $('input[type=text]').attr('disabled', 'disabled');

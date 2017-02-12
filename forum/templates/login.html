@@ -6,8 +6,8 @@
     <title>Forum Rhône-Alpes | Se connecter</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" type="text/css" href="static/build/common.min.css"></link>
-    <link rel="stylesheet" type="text/css" href="static/build/login.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/common.min.css') }}"></link>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/login.min.css') }}"></link>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
   </head>
   <body class="hold-transition login-page friendly">
@@ -53,5 +53,5 @@
       </div>
     </div>
   </body>
-  <script type="text/javascript" src="static/build/common.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='build/common.min.js') }}"></script>
 </html>
