@@ -33,13 +33,10 @@ login_manager.login_view = 'login'
 # Babel
 babel = Babel(app)
 
-import assets
-
 
 @babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(['fr', 'en'])
-
 
 # Admin Interface
 admin = Admin(app, name='Interface Admin', index_view=CompanyView(get_db().companies, url='/admin'))
@@ -185,4 +182,5 @@ def log(m):
     print(m, file=sys.stderr)
 
 
+import assets
 import views
