@@ -7,10 +7,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{{ url_for('static', filename='js/admin/admin-lte/css/AdminLTE.min.css') }}">
-    {% assets "css_common" %}
-    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
-    {% endassets %}
-    {% assets "css_login" %}
+    {% assets "css_index" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
     {% endassets %}
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -18,17 +15,18 @@
   <body class="hold-transition login-page friendly">
     <div class="login-box">
       <div class="login-logo">
-        <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="Forum Rhône-Alpes"></a>
+        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="Forum Rhône-Alpes" style="border-radius: 0px; border-color: rgb(255, 255, 255); border-style: none; border-width: 1px;"></a>
       </div>
+      <!-- /.login-logo -->
       <div class="login-box-body">
-        <h3 class="login-box-msg">Se connecter à la plateforme</h3>
+        <p class="login-box-msg">Connectez-vous</p>
         <form action="{{ url_for('login') }}" method="post">
           <div class="form-group has-feedback">
-            <input type="id" class="form-control" value="{{request.form.id}}" placeholder="Identifiant" name="id" required>
+            <input type="id" class="form-control" value="{{request.form.id}}" placeholder="Identifiant" name="id">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Mot de passe" name="password" value="{{request.form.password}}" required>
+            <input type="password" class="form-control" placeholder="Password" name="password" value="{{request.form.password}}">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           {% if error %}
@@ -45,23 +43,27 @@
             </div>
           {% endif %}
           <div class="row">
-            <div class="col-xs-12">
-              <button type="submit" class="btn btn-primary btn-block btn-lg">Se connecter</button>
+            <div class="col-xs-8">
+              <div class="checkbox icheck">
+                <label>
+                  <input type="checkbox" name="remember_me">
+                  Se souvenir de moi
+                </label>
+              </div>
             </div>
+            <!-- /.col -->
+            <div class="col-xs-4">
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
+            </div>
+            <!-- /.col -->
           </div>
         </form>
       </div>
-      <div>
-        <a href="{{ url_for('index') ~ '#contact' }}" class="panel-footer text-center">Nouveau sur la plateforme?
-          <span>Demandez à participer</span>
-        </a>
-      </div>
+      <!-- /.login-box-body -->
     </div>
+    <!-- /.login-box -->
+    {% assets "js_index" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
   </body>
-  {% assets "js_common" %}
-  <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-  {% endassets %}
-  {% assets "js_login" %}
-  <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-  {% endassets %}
 </html>

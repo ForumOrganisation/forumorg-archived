@@ -1,6 +1,5 @@
 <html>
   <head>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
     <meta charset="utf-8">
     <!-- TITLE OF SITE -->
     <title>Forum Rhône-Alpes | Accueil</title>
@@ -18,6 +17,9 @@
     <!-- =========================
     STYLESHEETS
     ============================== -->
+    {% assets "css_common" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
+    {% endassets %}
     {% assets "css_index" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
     {% endassets %}
@@ -306,6 +308,15 @@
       </div>
     </section>
   </div>
+  <!-- =========================
+     SCRIPTS
+============================== -->
+  {% assets "js_common" %}
+  <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}
+  {% assets "js_index" %}
+  <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}
   <!-- /end page -->
   <script>
     window.intercomSettings = {
@@ -346,9 +357,4 @@
     })()
   </script>
 </body>
-<!-- =========================
-     SCRIPTS
-============================== -->
-{% assets "js_index" %}
-<script type="text/javascript" src="{{ ASSET_URL }}"></script>
-{% endassets %}
+</html>
