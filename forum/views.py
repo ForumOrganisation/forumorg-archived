@@ -22,6 +22,8 @@ from bson.objectid import ObjectId
 def dashboard(page=None):
     if current_user.id == 'admin':
         return redirect('/admin')
+    if page == 'cvtheque':
+        abort(404)
     url = 'dashboard/sections/{}.html'.format(page) if page and page != "accueil" else 'dashboard/dashboard.html'
     return render_template(url)
 

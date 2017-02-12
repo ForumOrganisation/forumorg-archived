@@ -65,6 +65,7 @@ bundles = {
             'datatables.net/js/jquery.dataTables.min.js',
             'datatables.net-bs/js/dataTables.bootstrap.min.js',
             'AdminLTE/dist/js/app.min.js',
+            'jquery.countdown/dist/jquery.countdown.min.js',
         ),
         Bundle(
             'bootstrap-editable/src/js/bootstrap-editable.js',

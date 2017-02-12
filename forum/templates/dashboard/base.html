@@ -137,13 +137,6 @@
         };
         return options;
       }
-      if ({{'true' if company.get(page) else 'false'}}) {
-        $('input[type=text]').attr('disabled', 'disabled');
-        $('select').attr('disabled', 'disabled');
-        $('button').attr('disabled', 'disabled');
-        $('textarea').attr('disabled', 'disabled');
-        $('i').attr('onclick', '');
-      }
       function validate_section() {
         var r = confirm("Pour annuler votre validation, il faudra nous contacter. Voulez-vous continuer?");
         if (r) {
@@ -166,6 +159,16 @@
           });
         }
       }
+      if ({{'true' if company.get(page) else 'false'}}) {
+        $('input[type=text]').attr('disabled', 'disabled');
+        $('select').attr('disabled', 'disabled');
+        $('button').attr('disabled', 'disabled');
+        $('textarea').attr('disabled', 'disabled');
+        $('i').attr('onclick', '');
+      }
+      $('#countdown').countdown('2017/03/08', function (event) {
+        $(this).html(event.strftime('%D jour(s) restants'));
+      });
     </script>
     {% block scripts %}{% endblock scripts %}
   </body>
