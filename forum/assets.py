@@ -34,7 +34,7 @@ bundles = {
             'jQuery-One-Page-Nav/jquery.nav.js',
         ),
         Bundle(
-            'js/index/index.js',
+            'js/index.js',
             filters='jsmin',
         ),
         output='build/index.min.js'),
@@ -69,7 +69,7 @@ bundles = {
         Bundle(
             'bootstrap-editable/src/js/bootstrap-editable.js',
             'notify-js/Notify.js',
-            'js/admin/admin.js',
+            'js/admin.js',
             filters='jsmin',
         ),
         output='build/admin.min.js'),
@@ -85,7 +85,7 @@ bundles = {
             'PACE/themes/white/pace-theme-minimal.css',
             'bootstrap-editable/src/css/bootstrap-editable.css',
             'intl-tel-input/build/css/intlTelInput.css',
-            'css/admin/admin.css',
+            'css/admin.css',
             filters='cssmin',
         ),
         output='build/admin.min.css'),
