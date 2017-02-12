@@ -11,5 +11,6 @@ pip-selfcheck.json
 /include
 /lib
 /build
+forum/static/.webassets-cache/
 forum/static/bower_components/
 .env
