@@ -1,13 +1,18 @@
 {
   "name": "forum-fra",
   "homepage": "https://github.com/ForumOrganisation/forum-fra",
-  "authors": ["Mehdi BAHA <elmehdi.baha@gmail.com>"],
+  "authors": [
+    "Mehdi BAHA <elmehdi.baha@gmail.com>"
+  ],
   "description": "Official website of Forum Rhône-Alpes",
   "main": "",
   "license": "MIT",
   "private": true,
   "ignore": [
-    "**/.*", "test", "tests", "forum/static/bower_components"
+    "**/.*",
+    "test",
+    "tests",
+    "forum/static/bower_components"
   ],
   "dependencies": {
     "recaptcha": "https://www.google.com/recaptcha/api.js",
@@ -17,5 +22,8 @@
     "jquery.scrollTo": "^2.1.2",
     "jQuery-One-Page-Nav": "^3.0.0",
     "iCheck": "icheck#^1.0.2"
+  },
+  "resolutions": {
+    "jquery": ">=1.7"
   }
 }
