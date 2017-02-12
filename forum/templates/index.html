@@ -417,17 +417,3 @@
 <script src="{{ url_for('static', filename='js/jquery.countdown.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/application.js') }}"></script>
 <script src="{{ url_for('static', filename='js/typed.min.js') }}"></script>
-<script>
-  /******************** ENABLE LINK FOR NAVBAR LOGIN ********************/
-  $(document).ready(function () {
-    $("#login").off("click");
-  });
-  $(window).scroll(function () {
-    if ($(this).scrollTop() > 50)/*height in pixels when the navbar becomes non opaque*/
-    {
-      $('.navbar-nav').addClass('opaque');
-    } else {
-      $('.navbar-nav').removeClass('opaque');
-    }
-  });
-</script>

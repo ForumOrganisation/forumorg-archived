@@ -121,18 +121,27 @@ $('.navbar-nav').onePageNav({
    scrollOffset: 74
 });
 
-/******************** NAVBAR COLLAPSE ON CLICK ********************/
-/*$('.navbar-nav').on('click', 'a', function(event) {
-   $('.navbar-collapse').collapse('hide');
-});*/
+/******************** SCROLLTO ********************/
+$('a[href^="#"]').click(function(e) {
+    e.preventDefault();
+    $(window).stop(true).scrollTo(this.hash, {duration:1000, interrupt:true});
+});
 
-// Function for email address validation
+/******************** SCROLL HACK ********************/
+$(window).scroll(function () {
+    if ($(this).scrollTop() > 50) {
+      $('.navbar-nav').addClass('opaque');
+    } else {
+      $('.navbar-nav').removeClass('opaque');
+    }
+});
+
+/******************** CONTACT FORM ********************/
 function validateEmail(email) {
     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return re.test(email);
 }
 
-/******************** CONTACT FORM ********************/
 $('#contact-form').on('submit', function(e) {
     e.preventDefault();
     var error_msg = $(this).find('.error-msg');
