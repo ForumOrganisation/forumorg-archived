@@ -33,6 +33,8 @@ login_manager.login_view = 'login'
 # Babel
 babel = Babel(app)
 
+import assets
+
 
 @babel.localeselector
 def get_locale():

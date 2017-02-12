@@ -9,26 +9,34 @@ assets.append_path(os.path.join(os.path.dirname(__file__), './static/bower_compo
 
 bundles = {
     'js_index': Bundle(
-        'recaptcha/index.js',
-        'bootstrap/dist/js/bootstrap.min.js',
-        'jquery/dist/jquery.min.js',
-        'typed.js/dist/typed.min.js',
-        'jquery.scrollTo/jquery.scrollTo.min.js',
-        'jQuery-One-Page-Nav/jquery.nav.js',
-        'js/index/index.js',
-        'iCheck/icheck.min.js',
-        'js/index/login.js',
-        output='gen/index.min.js',
-        filters='jsmin'),
+        Bundle(
+            'recaptcha/index.js',
+            'bootstrap/dist/js/bootstrap.min.js',
+            'jquery/dist/jquery.min.js',
+            'typed.js/dist/typed.min.js',
+            'jquery.scrollTo/jquery.scrollTo.min.js',
+            'jQuery-One-Page-Nav/jquery.nav.js',
+            'iCheck/icheck.min.js',
+        ),
+        Bundle(
+            'js/index/index.js',
+            'js/index/login.js',
+            filters='jsmin',
+        ),
+        output='gen/index.min.js'),
 
     'css_index': Bundle(
-        'bootstrap/dist/css/bootstrap.min.css',
-        'css/index/colors/blue.css',
-        'css/index/typography/typography-1.css',
-        'css/index/nemo.css',
-        'css/index/index.css',
-        'iCheck/skins/square/blue.css',
-        'css/index/login.css',
+        Bundle(
+            'bootstrap/dist/css/bootstrap.min.css',
+            'iCheck/skins/square/blue.css',
+        ),
+        Bundle(
+            'css/index/colors/blue.css',
+            'css/index/typography/typography-1.css',
+            'css/index/nemo.css',
+            'css/index/index.css',
+            'css/index/login.css',
+        ),
         output='gen/index.min.css',
         filters='cssmin'),
 
