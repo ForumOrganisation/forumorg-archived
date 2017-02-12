@@ -9,12 +9,8 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- favicon -->
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    {% assets "css_common" %}
-    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
-    {% endassets %}
-    {% assets "css_admin" %}
-    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
-    {% endassets %}
+    <link rel="stylesheet" type="text/css" href="static/build/common.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="static/build/admin.min.css"></link>
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -109,12 +105,8 @@
     </div>
     <div id="notifications"></div>
     <!-- REQUIRED JS SCRIPTS -->
-    {% assets "js_common" %}
-    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
-    {% assets "js_admin" %}
-    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
+    <script type="text/javascript" src="build/common.min.js"></script>
+    <script type="text/javascript" src="build/admin.min.js"></script>
     <script type="text/javascript">
       if ({{'true' if company.get(page) else 'false'}}) {
         $('input[type=text]').attr('disabled', 'disabled');

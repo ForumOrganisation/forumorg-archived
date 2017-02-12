@@ -17,12 +17,8 @@
     <!-- =========================
     STYLESHEETS
     ============================== -->
-    {% assets "css_common" %}
-    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
-    {% endassets %}
-    {% assets "css_index" %}
-    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
-    {% endassets %}
+    <link rel="stylesheet" type="text/css" href="static/build/common.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="static/build/index.min.css"></link>
     <link href="{{ url_for('static', filename='css/index/typography/typography-1.css') }}" rel="stylesheet">
   </head>
   <body class="body-container">
@@ -311,12 +307,8 @@
   <!-- =========================
      SCRIPTS
 ============================== -->
-  {% assets "js_common" %}
-  <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-  {% endassets %}
-  {% assets "js_index" %}
-  <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-  {% endassets %}
+  <script type="text/javascript" src="build/common.min.js"></script>
+  <script type="text/javascript" src="build/index.min.js"></script>
   <!-- /end page -->
   <script>
     window.intercomSettings = {
