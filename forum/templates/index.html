@@ -349,19 +349,6 @@
 <!-- =========================
      SCRIPTS
 ============================== -->
-<script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
-<script src="{{ url_for('static', filename='js/nivo-lightbox.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/jquery.scrollTo.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/jquery.localScroll.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/jquery.nav.js') }}"></script>
-<script src="{{ url_for('static', filename='js/jquery.ajaxchimp.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/jquery.fitvids.js') }}"></script>
-<script src="{{ url_for('static', filename='js/matchMedia.js') }}"></script>
-<script src="{{ url_for('static', filename='js/jquery.mixitup.js') }}"></script>
-<script src="{{ url_for('static', filename='js/swiper.jquery.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
-<script src="{{ url_for('static', filename='js/jquery.datetimepicker.full.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/jquery.countdown.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/index/index.js') }}"></script>
-<script src="{{ url_for('static', filename='js/typed.min.js') }}"></script>
+{% assets "js_index" %}
+<script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}

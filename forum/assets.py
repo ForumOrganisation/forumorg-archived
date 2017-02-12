@@ -22,7 +22,7 @@ bundles = {
             'js/index/login.js',
             filters='jsmin',
         ),
-        output='gen/index.min.js'),
+        output='build/index.min.js'),
 
     'css_index': Bundle(
         Bundle(
@@ -34,7 +34,7 @@ bundles = {
             'css/index/nemo.css',
             filters='cssmin'
         ),
-        output='gen/index.min.css'),
+        output='build/index.min.css'),
 
     # Add other bundles
 }
