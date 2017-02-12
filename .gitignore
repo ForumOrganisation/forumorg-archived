@@ -11,6 +11,12 @@ pip-selfcheck.json
 /include
 /lib
 /build
-forum/static/.webassets-cache/
-forum/static/bower_components/
 .env
+forum/static/.webassets-cache/
+
+# Bower
+forum/static/bower_components/*
+!forum/static/bower_components/font-awesome
+forum/static/bower_components/font-awesome/*
+!forum/static/bower_components/font-awesome/fonts
+
