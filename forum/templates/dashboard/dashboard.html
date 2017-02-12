@@ -1,7 +1,7 @@
-{% extends "dashboard/base_imp.html" %}
+{% extends "dashboard/section.html" %}
 {% set title = 'Vue globale' %}
 {% set events = get_events() %}
-{% block content %}
+{% block main %}
   {% macro more_button(name) -%}
     <strong>
       <a href="{{ url_for('dashboard', page=name) }}">
@@ -270,4 +270,4 @@
         </div>
       </div>
     </div>
-  {% endblock content %}
+  {% endblock main %}

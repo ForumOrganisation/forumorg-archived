@@ -1,4 +1,5 @@
 import os
+
 from flask_assets import Bundle, Environment
 from forum import app
 
@@ -11,6 +12,7 @@ bundles = {
     'js_common': Bundle(
         Bundle(
             'jquery/dist/jquery.min.js',
+            'bootstrap/dist/js/bootstrap.min.js'
         ),
         output='build/common.min.js'),
 
@@ -26,6 +28,10 @@ bundles = {
             filters='jsmin',
         ),
         output='build/index.min.js'),
+
+    'js_admin': Bundle(
+        'js/admin/Notify.js',
+        output='build/admin.min.js'),
 
     'js_login': Bundle(
         Bundle(
@@ -56,6 +62,13 @@ bundles = {
             filters='cssmin'
         ),
         output='build/login.min.css'),
+
+    'css_admin': Bundle(
+        Bundle(
+            'AdminLTE/dist/css/AdminLTE.min.css',
+            'AdminLTE/dist/css/skins/skin-blue.min.css',
+        ),
+        output='build/admin.min.css'),
 
 }
 

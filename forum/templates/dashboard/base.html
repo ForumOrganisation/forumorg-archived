@@ -7,31 +7,24 @@
     <title>Forum Rhône-Alpes | Gestion</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/AdminLTE.min.css') }}">
-    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-          page. However, you can choose any other skin. Make sure you
-          apply the skin class to the body tag so the changes take effect.
-    -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/skins/skin-blue.min.css') }}">
     <!-- favicon -->
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    {% assets "css_common" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
+    {% endassets %}
+    {% assets "css_admin" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
+    {% endassets %}
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/admin/plugins/select2/select2.min.css') }}">
     <!-- bootstrap editable -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <!-- pace -->
-    <link href="{{ url_for('static', filename='css/dataurl.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='css/admin/dataurl.css') }}" rel="stylesheet"/>
     <!-- dataTables -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='plugins/datatables/dataTables.bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/admin/plugins/datatables/dataTables.bootstrap.css') }}">
     <!-- inputMask -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/intlTelInput.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/intlTelInput.css') }}">
     <style>
       .iti-flag {
         background-image: url("{{ url_for('static', filename='images/flags.png') }}");
@@ -123,9 +116,9 @@
         </section>
         <!-- Main content -->
         <section class="content">
-          {% block content %}
+          {% block main %}
             {% block validate %}{% endblock %}
-          {% endblock content %}
+          {% endblock main %}
         </section>
         <!-- /.content -->
       </div>
@@ -155,29 +148,29 @@
       }
     </style>
     <!-- REQUIRED JS SCRIPTS -->
-    <!-- jQuery 2.2.3 -->
-    <script src="{{ url_for('static', filename='plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    {% assets "js_common" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    {% assets "js_admin" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
     <!-- Select2 -->
-    <script src="{{ url_for('static', filename='plugins/select2/select2.full.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='plugins/select2/i18n/fr.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/plugins/select2/select2.full.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/plugins/select2/i18n/fr.js') }}"></script>
     <!-- InputMask -->
-    <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.js') }}"></script>
-    <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
-    <script src="{{ url_for('static', filename='plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/intlTelInput.min.js') }}"></script>
-    <!-- Notify -->
-    <script src="{{ url_for('static', filename='js/Notify.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/plugins/input-mask/jquery.inputmask.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/intlTelInput.min.js') }}"></script>
     <!-- Pace -->
-    <script src="{{ url_for('static', filename='js/pace.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/pace.min.js') }}"></script>
     <!-- bootstrap editable -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="{{ url_for('static', filename='dist/js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/admin-lte/js/app.min.js') }}"></script>
     <!-- DataTables -->
-    <script src="{{ url_for('static', filename='plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
     <script>
       function opt(type) {
         options = {
