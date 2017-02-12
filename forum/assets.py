@@ -28,14 +28,12 @@ bundles = {
     'css_index': Bundle(
         Bundle(
             'bootstrap/dist/css/bootstrap.min.css',
-            'iCheck/skins/square/blue.css',
+            #'iCheck/skins/square/blue.css',
         ),
         Bundle(
             'css/index/colors/blue.css',
-            'css/index/typography/typography-1.css',
-            'css/index/style.css',
-            'css/index/index.css',
-            'css/index/login.css',
+            #'css/index/bootstrap.css',
+            'css/index/nemo.css'
         ),
         output='gen/index.min.css',
         filters='cssmin'),

@@ -18,21 +18,10 @@
     <!-- =========================
     STYLESHEETS
     ============================== -->
-    <!-- BOOTSTRAP CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
-    <!-- EXTERNAL PLUGIN CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/swiper.min.css') }}">
-    <!-- Screenshot Slider -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/nivo-lightbox.css') }}">
-    <!-- Screenshot Slider -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes/default/default.css') }}">
-    <!-- Nivo Lightbox -->
-    <!-- TYPOGRAPHY -->
-    <link id="toTypography" href="{{ url_for('static', filename='css/typography/typography-1.css') }}" rel="stylesheet">
-    <!-- CUSTOM CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- COLORS -->
-    <link id="toColor" href="{{ url_for('static', filename='css/colors/blue.css') }}" rel="stylesheet">
+    <link id="toTypography" href="{{ url_for('static', filename='css/index/typography/typography-1.css') }}" rel="stylesheet">
+    {% assets "css_index" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
+    {% endassets %}
   </head>
   <body class="body-container">
     <div id="page" class="page">
@@ -66,7 +55,7 @@
                 <a href="#faq">FAQ</a>
               </li>
               <li class="">
-                <a href="{{ url_for('login') }}" id="login">Connexion</a>
+                <a href="{{ url_for('login') }}" class="enable">Connexion</a>
               </li>
             </ul>
           </div>
@@ -357,47 +346,6 @@
     })()
   </script>
 </body>
-<style>
-  .typed-cursor {
-    opacity: 1;
-    -webkit-animation: blink 0.7s infinite;
-    -moz-animation: blink 0.7s infinite;
-    animation: blink 0.7s infinite;
-  }
-  @keyframes blink {
-    0% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  @-webkit-keyframes blink {
-    0% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  @-moz-keyframes blink {
-    0% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-</style>
 <!-- =========================
      SCRIPTS
 ============================== -->
@@ -415,5 +363,5 @@
 <script src="{{ url_for('static', filename='js/smoothscroll.js') }}"></script>
 <script src="{{ url_for('static', filename='js/jquery.datetimepicker.full.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/jquery.countdown.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/application.js') }}"></script>
+<script src="{{ url_for('static', filename='js/index/index.js') }}"></script>
 <script src="{{ url_for('static', filename='js/typed.min.js') }}"></script>
