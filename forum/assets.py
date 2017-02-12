@@ -33,7 +33,7 @@ bundles = {
         Bundle(
             'css/index/colors/blue.css',
             'css/index/typography/typography-1.css',
-            'css/index/nemo.css',
+            'css/index/style.css',
             'css/index/index.css',
             'css/index/login.css',
         ),
