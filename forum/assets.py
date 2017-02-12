@@ -11,7 +11,6 @@ bundles = {
     'js_index': Bundle(
         Bundle(
             'recaptcha/index.js',
-            'bootstrap/dist/js/bootstrap.min.js',
             'jquery/dist/jquery.min.js',
             'typed.js/dist/typed.min.js',
             'jquery.scrollTo/jquery.scrollTo.min.js',

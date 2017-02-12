@@ -18,10 +18,10 @@
     <!-- =========================
     STYLESHEETS
     ============================== -->
-    <link href="{{ url_for('static', filename='css/index/typography/typography-1.css') }}" rel="stylesheet">
     {% assets "css_index" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}"></link>
     {% endassets %}
+    <link href="{{ url_for('static', filename='css/index/typography/typography-1.css') }}" rel="stylesheet">
   </head>
   <body class="body-container">
     <div id="page" class="page">
