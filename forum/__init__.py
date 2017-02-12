@@ -21,7 +21,7 @@ from storage import init_storage, get_db
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY') or 'my-debug-key'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.config['CDN_DOMAIN'] = 'www.forum-rhone-alpes.com.global.prod.fastly.net'
+app.config['CDN_DOMAIN'] = os.environ.get('FASTLY_CDN_URL')
 app.config['CDN_DEBUG'] = bool(os.environ.get('DEBUG'))
 app.jinja_env.add_extension('jinja2_time.TimeExtension')
 
