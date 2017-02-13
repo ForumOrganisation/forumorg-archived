@@ -19,7 +19,8 @@ manager.add_command("assets", ManageAssets())
 
 @manager.command
 def batch_emails():
-    users = list(db.users.find({'events.master_class.registered': True}))
+    users = list(db.users.find({}))
+    log(len(users))
     users = [u['id'] for u in users]
     recipients = users
     me = 'no-reply@forumorg.org'
@@ -37,7 +38,7 @@ def batch_emails():
     sent = 0
     failed = 0
     try:
-        sg.client.mail.send.post(request_body=mail.get())
+        #sg.client.mail.send.post(request_body=mail.get())
         sent += 1
     except:
         failed += 1
