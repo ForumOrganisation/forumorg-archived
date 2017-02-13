@@ -4,7 +4,7 @@ import csv
 
 from flask_script import Manager
 from pymongo import MongoClient
-from forum import app
+from forum import app, log
 import wget
 import sendgrid
 from sendgrid.helpers.mail import Email, Mail, Personalization
@@ -19,7 +19,9 @@ manager.add_command("assets", ManageAssets())
 
 @manager.command
 def batch_emails():
-    recipients = ['elmehdi.baha@forumorg.org']
+    users = list(db.users.find({'events.master_class.registered': True}))
+    users = [u['id'] for u in users]
+    recipients = users
     me = 'no-reply@forumorg.org'
     subject = 'Message de bienvenue'
 

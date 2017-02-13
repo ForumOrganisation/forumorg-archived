@@ -1,15 +1,9 @@
-from __future__ import print_function
 from flask_admin._compat import csv_encode
 from werkzeug import secure_filename
 from flask import stream_with_context, Response, redirect, flash
 from flask_admin.babel import gettext
 from flask_admin.helpers import get_redirect_target
 import csv
-import sys
-
-
-def log(m):
-    print(m, file=sys.stderr)
 
 
 def generate_vals(writer, export_type, data):
