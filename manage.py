@@ -23,7 +23,7 @@ def batch_emails():
     users = [u['id'] for u in users]
     recipients = users
     me = 'no-reply@forumorg.org'
-    subject = 'Message de bienvenue'
+    subject = '#MasterClassINSA: Reminder'
 
     sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
     mail = Mail()
