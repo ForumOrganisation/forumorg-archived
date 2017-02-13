@@ -76,7 +76,6 @@ bundles = {
             'datatables.net-bs/js/dataTables.bootstrap.min.js',
             'AdminLTE/dist/js/app.min.js',
             'jquery.countdown/dist/jquery.countdown.min.js',
-            'bootstrap-editable/src/js/bootstrap-editable.js',
             'notify-js/Notify.js',
         ),
         Bundle(
@@ -92,7 +91,6 @@ bundles = {
             'select2/dist/css/select2.min.css',
             'datatables.net-bs/css/dataTables.bootstrap.min.css',
             'PACE/themes/white/pace-theme-minimal.css',
-            'bootstrap-editable/src/css/bootstrap-editable.css',
             'intl-tel-input/build/css/intlTelInput.css',
         ),
         Bundle(

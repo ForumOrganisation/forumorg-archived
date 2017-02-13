@@ -17,7 +17,7 @@ $(function() {
         emptytext: 'Ajoutez votre bannière',
         error: function(response, newValue) {
             if (response.status == 500) {
-                return 'Impossible à modifier.';
+                return 'Impossible à modifier (section déjà validée).';
             } else {
                 return response.responseText;
             }
