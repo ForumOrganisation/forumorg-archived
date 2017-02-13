@@ -18,3 +18,7 @@
 .sidebar-menu > li .label {
     margin-top: 0.25em;
 }
+
+.editable-error-block {
+    font-size: 14px;
+}
