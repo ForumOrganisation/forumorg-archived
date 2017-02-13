@@ -19,29 +19,27 @@ manager.add_command("assets", ManageAssets())
 
 @manager.command
 def batch_emails():
-    users = list(db.users.find({}))
-    log(len(users))
+    users = list(db.users.find({'events.master_class.registered': False}))
     users = [u['id'] for u in users]
     recipients = users
     me = 'no-reply@forumorg.org'
     subject = '#MasterClassINSA: Reminder'
-
     sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
     mail = Mail()
     mail.set_from(Email(me))
     mail.set_subject(subject)
     mail.set_template_id('e449ac1c-51a2-485e-9275-7031f10d490f')
-    personalization = Personalization()
-    for r in recipients:
-        personalization.add_to(Email(r))
-    mail.add_personalization(personalization)
     sent = 0
     failed = 0
-    try:
-        #sg.client.mail.send.post(request_body=mail.get())
-        sent += 1
-    except:
-        failed += 1
+    for r in recipients:
+        personalization = Personalization()
+        personalization.add_to(Email(r))
+        mail.add_personalization(personalization)
+        try:
+            sg.client.mail.send.post(request_body=mail.get())
+            sent += 1
+        except:
+            failed += 1
     print("Statistics: sent({}), failed({})".format(sent, failed))
 
 
