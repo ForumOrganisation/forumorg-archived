@@ -5,7 +5,7 @@
   {% set count = [0] %}
   {% set f = company.sections.profile.facturation %}
   {% set to_display = company.equipement and company.transport and company.restauration
-  and company.badges and company.programme and f.address and f.city and f.code_postal
+  and company.badges and company.programme and f.name and f.address and f.city and f.code_postal
   and f.phone and f.mail %}
   <div class="row">
     <div class="pad margin no-print">
@@ -52,8 +52,8 @@
         <div class="col-sm-4 invoice-col">
           À
           <address>
-            {% if f.address and company.name %}
-              <strong>{{ company.name }}</strong><br/>
+            {% if f.address and f.name %}
+              <strong>{{ f.name }}</strong><br/>
               {{ f.address }}<br/>
               {{ '%s, %s' | format(f.city, f.code_postal) }}<br/>
               Tel:
