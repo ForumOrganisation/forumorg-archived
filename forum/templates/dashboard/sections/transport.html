@@ -161,6 +161,7 @@
         $('#confirm_transport').on('submit', function (e) {
           e.preventDefault();
           var isValid = $("#phone").intlTelInput("isValidNumber");
+          var isComplete = $('#datetime').inputmask("isComplete");
           var company = {{ company|tojson }};
           var transports = company.sections.transports;
           var transport = {
@@ -172,7 +173,11 @@
             departure_time: $("#datetime").val()
           };
           if (!isValid) {
-            Notify("Le numéro entré n'est pas valide.", null, null, "error");
+            Notify("Le numéro saisi n'est pas valide.", null, null, "error");
+            return false;
+          }
+          if (!isComplete) {
+            Notify("L'horaire saisi n'est pas complet.", null, null, "error");
             return false;
           }
           company.sections.transports.push(transport);
