@@ -134,7 +134,7 @@ $(document).ready(function() {
     $('a[href^="#"]').click(function(e) {
         e.preventDefault();
         $(window).stop(true).scrollTo(this.hash, {
-            duration: 1000,
+            duration: 750,
             interrupt: true
         });
     });

@@ -42,6 +42,7 @@ bundles = {
     'css_index': Bundle(
         Bundle(
             'css/index/nemo.css',
+            'css/index/index.css',
             'css/index/colors/blue.css',
             filters='cssmin'
         ),
@@ -93,4 +94,5 @@ bundles = {
 
 }
 
-assets.register(bundles)
+if os.environ.get('DEBUG'):
+    assets.register(bundles)
