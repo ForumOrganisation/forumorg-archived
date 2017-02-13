@@ -10,6 +10,7 @@ assets.append_path(os.path.join(os.path.dirname(__file__), './static/bower_compo
 
 # TODO: Apply hierarchy
 bundles = {
+    ### COMMON ###
     'js_common': Bundle(
         Bundle(
             'jquery/dist/jquery.min.js',
@@ -21,11 +22,15 @@ bundles = {
         Bundle(
             'bootstrap/dist/css/bootstrap.min.css',
             'font-awesome/css/font-awesome.min.css',
-            'css/common.css',
             filters='cssrewrite'
+        ),
+        Bundle(
+            'css/common.css',
+            filters='cssmin',
         ),
         output='build/common.min.css'),
 
+    ### INDEX ###
     'js_index': Bundle(
         Bundle(
             'recaptcha/index.js',
@@ -48,14 +53,18 @@ bundles = {
         ),
         output='build/index.min.css'),
 
+    ### LOGIN ###
     'css_login': Bundle(
         Bundle(
-            'AdminLTE/dist/css/AdminLTE.min.css',
+            'AdminLTE/dist/css/AdminLTE.min.css'
+        ),
+        Bundle(
             'css/index/login.css',
             filters='cssmin'
         ),
         output='build/login.min.css'),
 
+    ### ADMIN ###
     'js_admin': Bundle(
         Bundle(
             'select2/dist/js/select2.min.js',
@@ -67,10 +76,10 @@ bundles = {
             'datatables.net-bs/js/dataTables.bootstrap.min.js',
             'AdminLTE/dist/js/app.min.js',
             'jquery.countdown/dist/jquery.countdown.min.js',
-        ),
-        Bundle(
             'bootstrap-editable/src/js/bootstrap-editable.js',
             'notify-js/Notify.js',
+        ),
+        Bundle(
             'js/admin.js',
             filters='jsmin',
         ),
@@ -82,11 +91,11 @@ bundles = {
             'AdminLTE/dist/css/skins/skin-blue.min.css',
             'select2/dist/css/select2.min.css',
             'datatables.net-bs/css/dataTables.bootstrap.min.css',
-        ),
-        Bundle(
             'PACE/themes/white/pace-theme-minimal.css',
             'bootstrap-editable/src/css/bootstrap-editable.css',
             'intl-tel-input/build/css/intlTelInput.css',
+        ),
+        Bundle(
             'css/admin.css',
             filters='cssmin',
         ),

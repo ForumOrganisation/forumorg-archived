@@ -14,3 +14,7 @@
   flex-direction: row;
   align-items: center;
 }
+
+.sidebar-menu > li .label {
+    margin-top: 0.25em;
+}

@@ -167,7 +167,7 @@
         $('i').attr('onclick', '');
       }
       $('#countdown').countdown('2017/03/08', function (event) {
-        $(this).html(event.strftime('%D jour(s) restants'));
+        $(this).html(event.strftime('ouvre dans %-Dj'));
       });
     </script>
     {% block scripts %}{% endblock scripts %}
