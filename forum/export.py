@@ -1,9 +1,15 @@
+from __future__ import print_function
+import sys
 from flask_admin._compat import csv_encode
 from werkzeug import secure_filename
 from flask import stream_with_context, Response, redirect, flash
 from flask_admin.babel import gettext
 from flask_admin.helpers import get_redirect_target
 import csv
+
+
+def log(m):
+    print(m, file=sys.stderr)
 
 
 def generate_vals(writer, export_type, data):
@@ -14,8 +20,7 @@ def generate_vals(writer, export_type, data):
         yield writer.writerow(titles)
         for row in data:
             vals = []
-            for t in titles[:1]:
-                vals.append(row.get('id', ''))
+            vals.append(row.get('id', ''))
             for t in titles[1:5]:
                 vals.append(row['events'].get(t, {}).get('registered', False))
             for t in titles[5:]:
@@ -26,16 +31,18 @@ def generate_vals(writer, export_type, data):
         titles = ['id_entreprise', 'valide']
     if export_type == 'equipement':
         titles += ['duration', 'equiped', 'banner', 'size', 'emplacement']
-        titles += [u'chauffeuse', u'mange_debout', u'presentoir', u'ecran_32', u'ecran_42', u'poste_2', u'poste_3', u'poste_6', u'poste_9']
+        titles += ['chaise', 'table', 'banque_hotesse', 'tabouret', 'portemanteau', 'chauffeuse', u'mange_debout', u'presentoir', u'ecran_32', u'ecran_42', u'poste_2', u'poste_3', u'poste_6', u'poste_9']
         yield writer.writerow(titles)
         for row in data:
             vals = []
-            for t in titles[:2]:
-                vals.append(row.get('id', ''))
-                vals.append(row.get('equipement'))
-            for t in titles[2:6]:
+            vals.append(row.get('id', ''))
+            vals.append(row.get('equipement'))
+            for t in titles[2:7]:
+                if t in ['emplacement', 'banner']:
+                    vals.append(row.get(t, ''))
+                    continue
                 vals.append(row.get(t, 0))
-            for t in titles[6:]:
+            for t in titles[7:]:
                 vals.append(row['sections']['furnitures'].get(t, 0))
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
@@ -58,8 +65,8 @@ def generate_vals(writer, export_type, data):
                 vals = []
                 vals.append(row.get('id', ''))
                 vals.append(row.get('transport'))
-                for title in titles[2:]:
-                    vals.append(t.get(title, ''))
+                for t in titles[2:]:
+                    vals.append(t.get(t, ''))
                 vals = [csv_encode(v) for v in vals]
                 yield writer.writerow(vals)
     if export_type == 'badges':
