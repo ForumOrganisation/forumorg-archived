@@ -187,9 +187,11 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <div class="contact-form-popup">
-                <h4 class="text-center">Pas encore en contact avec notre équipe?</h4>
-                <h2 class="heading-text text-center" style="margin-top:10px">Participer dès maintenant</h2>
+              <div class="contact-form-popup" style="padding-top: 20px;padding-bottom: 20px;">
+                <h4 class="text-center" style="margin-bottom: 15px;">Si vous disposez de vos identifiants,
+                  <a href="{{ url_for('login') }}">connectez-vous sans plus attendre</a>
+                </h4>
+                <h2 class="heading-text text-center" style="margin-top: 10px;margin-bottom: 20px;">Participer dès maintenant</h2>
                 <form action="send_request" method="GET" id="contact-form">
                   <div>
                     <table class="table table-bordered table-form">
