@@ -130,15 +130,6 @@ $(document).ready(function() {
         scrollOffset: 74
     });
 
-    /******************** SCROLLTO ********************/
-    $('a[href^="#"]').click(function(e) {
-        e.preventDefault();
-        $(window).stop(true).scrollTo(this.hash, {
-            duration: 750,
-            interrupt: true
-        });
-    });
-
     /******************** SCROLL HACK ********************/
     $(window).scroll(function() {
         if ($(this).scrollTop() > 50) {
@@ -146,6 +137,63 @@ $(document).ready(function() {
         } else {
             $('.navbar-nav').removeClass('opaque');
         }
+    });
+
+    /****************** MAP *******************************/
+    var initMapBig = function() {
+        var map = new google.maps.Map(document.getElementById('mapBig'), {
+            zoom: 17,
+            center: {
+                lat: 45.7811929,
+                lng: 4.8720335
+            },
+            scrollwheel: false
+        });
+
+        var contentString = '<div class="map-info-window">' +
+            '<h3 id="edit3" class="title-text">Forum Rhône-Alpes - Double Mixte</h3>' +
+            '<address>' +
+            '<p id="edit1">19 Avenue Gaston Berger, 69100 Villeurbanne</p>' +
+            '</address>' +
+            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString,
+            maxWidth: 318,
+            borderRadius: 4,
+            backgroundColor: '#ffffff',
+            hideCloseButton: true,
+            borderWidth: 0,
+            shadowStyle: 0,
+            disableAutoPan: false
+        });
+
+        var marker = new google.maps.Marker({
+            position: {
+                lat: 45.780469,
+                lng: 4.871804
+            },
+            map: map,
+            title: 'Forum Rhône-Alpes'
+        });
+
+        marker.addListener('click', function() {
+            infowindow.open(map, marker);
+        });
+        infowindow.open(map, marker);
+    }
+
+    if (document.getElementById('mapBig') != null) {
+        initMapBig();
+    }
+
+    /******************** SCROLLTO ********************/
+    $('a[href^="#"]').click(function(e) {
+        e.preventDefault();
+        $(window).stop(true).scrollTo(this.hash, {
+            duration: 750,
+            interrupt: true
+        });
     });
 
     /******************** CONTACT FORM ********************/

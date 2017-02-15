@@ -36,7 +36,10 @@ bundles = {
             'recaptcha/index.js',
             'typed.js/dist/typed.min.js',
             'jquery.scrollTo/jquery.scrollTo.min.js',
-            'jQuery-One-Page-Nav/jquery.nav.js',
+            Bundle(
+                'jQuery-One-Page-Nav/jquery.nav.js',
+                filters='jsmin',
+            ),
         ),
         Bundle(
             'js/index.js',
