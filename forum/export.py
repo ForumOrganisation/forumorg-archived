@@ -23,17 +23,17 @@ def generate_vals(writer, export_type, data):
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
     else:
-        titles = ['id_entreprise']
+        titles = ['id_entreprise', 'valide']
     if export_type == 'equipement':
         titles += ['duration', 'equiped', 'banner', 'size', 'emplacement']
         titles += [u'chauffeuse', u'mange_debout', u'presentoir', u'ecran_32', u'ecran_42', u'poste_2', u'poste_3', u'poste_6', u'poste_9']
         yield writer.writerow(titles)
         for row in data:
             vals = []
-            log(row)
-            for t in titles[:1]:
+            for t in titles[:2]:
                 vals.append(row.get('id', ''))
-            for t in titles[1:6]:
+                vals.append(row.get('equipement'))
+            for t in titles[2:6]:
                 vals.append(row.get(t, 0))
             for t in titles[6:]:
                 vals.append(row['sections']['furnitures'].get(t, 0))
@@ -45,6 +45,7 @@ def generate_vals(writer, export_type, data):
         for row in data:
             vals = []
             vals.append(row.get('id', ''))
+            vals.append(row.get('restauration'))
             vals.append(row['sections']['catering']['wed'].get('seated', 0))
             vals.append(row['sections']['catering']['thu'].get('seated', 0))
             vals = [csv_encode(v) for v in vals]
@@ -56,7 +57,8 @@ def generate_vals(writer, export_type, data):
             for t in row['sections']['transports']:
                 vals = []
                 vals.append(row.get('id', ''))
-                for title in titles[1:]:
+                vals.append(row.get('transport'))
+                for title in titles[2:]:
                     vals.append(t.get(title, ''))
                 vals = [csv_encode(v) for v in vals]
                 yield writer.writerow(vals)
@@ -67,7 +69,8 @@ def generate_vals(writer, export_type, data):
             for t in row['sections']['persons']:
                 vals = []
                 vals.append(row.get('id', ''))
-                for title in titles[1:]:
+                vals.append(row.get('badges'))
+                for title in titles[2:]:
                     vals.append(t.get(title, ''))
                 vals = [csv_encode(v) for v in vals]
                 yield writer.writerow(vals)
@@ -88,8 +91,8 @@ def _export_fields(obj, export_type, return_url):
             secure_filename(filename.replace(obj.name, export_type)),)
         return Response(
             stream_with_context(gen_vals),
-            headers={'Content-Disposition': disposition},
-            mimetype='text/csv'
+            #headers={'Content-Disposition': disposition},
+            mimetype='text/plain'
         )
 
 
