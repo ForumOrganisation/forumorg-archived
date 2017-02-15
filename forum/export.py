@@ -91,8 +91,8 @@ def _export_fields(obj, export_type, return_url):
             secure_filename(filename.replace(obj.name, export_type)),)
         return Response(
             stream_with_context(gen_vals),
-            #headers={'Content-Disposition': disposition},
-            mimetype='text/plain'
+            headers={'Content-Disposition': disposition},
+            mimetype='text/csv'
         )
 
 
