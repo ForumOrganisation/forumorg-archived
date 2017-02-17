@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import os
 import json
 import csv
@@ -19,24 +21,29 @@ manager.add_command("assets", ManageAssets())
 
 @manager.command
 def batch_emails():
-    users = list(db.users.find({'events.master_class.registered': False}))
-    users = [u['id'] for u in users]
+    path = os.path.join(os.path.dirname(__file__), 'data/post-fra.csv')
+    with open(path, 'rb') as f:
+        reader = csv.reader(f, delimiter=';')
+        users = [row[3] for row in reader]
+    users = users[9693:]
     recipients = users
     me = 'no-reply@forumorg.org'
-    subject = '#MasterClassINSA: Reminder'
+    subject = u"Forum Rhône-Alpes: J-22"
     sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
-    mail = Mail()
-    mail.set_from(Email(me))
-    mail.set_subject(subject)
-    mail.set_template_id('e449ac1c-51a2-485e-9275-7031f10d490f')
+    total = len(users)
     sent = 0
     failed = 0
     for r in recipients:
+        mail = Mail()
+        mail.set_from(Email(me))
+        mail.set_subject(subject)
+        mail.set_template_id('e449ac1c-51a2-485e-9275-7031f10d490f')
         personalization = Personalization()
         personalization.add_to(Email(r))
         mail.add_personalization(personalization)
         try:
             sg.client.mail.send.post(request_body=mail.get())
+            print("{} mails restants".format(total - sent))
             sent += 1
         except:
             failed += 1

@@ -55,16 +55,19 @@
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li>
-                {% if current_user.is_authenticated %}
-                  <a href="{{ url_for('dashboard') }}" id="home">Mon dashboard</a>
-                {% else %}
-                  <a href="{{ url_for('login') }}" id="home">Se connecter</a>
-                {% endif %}
-              </li>
               {% if current_user.is_authenticated %}
                 <li>
+                  <a href="{{ url_for('dashboard') }}" id="home">Mon dashboard</a>
+                </li>
+                <li>
                   <a href="{{ url_for('logout') }}" id="home">Se déconnecter</a>
+                </li>
+              {% else %}
+                <li>
+                  <a href="http://www.forumorg.org">Espace Etudiant</a>
+                </li>
+                <li>
+                  <a href="{{ url_for('dashboard') }}" id="home">Se connecter</a>
                 </li>
               {% endif %}
             </ul>
@@ -190,7 +193,7 @@
             <div class="col-md-12">
               <div class="contact-form-popup" style="padding-top: 20px;padding-bottom: 20px;">
                 <h4 class="text-center" style="margin-bottom: 15px;">Si vous disposez de vos identifiants,
-                  <a href="{{ url_for('login') }}">connectez-vous sans plus attendre</a>
+                  <a href="{{ url_for('dashboard') }}">connectez-vous par ici</a>
                 </h4>
                 <h2 class="heading-text text-center" style="margin-top: 10px;margin-bottom: 20px;">Participer dès maintenant</h2>
                 <form action="send_request" method="GET" id="contact-form">
