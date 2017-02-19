@@ -136,22 +136,6 @@ class UserView(ModelView):
         return _export(self, export_type)
 
 
-class EventForm(form.Form):
-    pass
-
-
-class EventView(ModelView):
-    column_list = ['name', 'type', 'quota', 'places_left']
-    column_labels = dict(name='Nom', places_left='Places restantes')
-    can_edit = False
-    can_delete = False
-    form = EventForm
-
-    def __init__(self, *args, **kwargs):
-        super(EventView, self).__init__(*args, **kwargs)
-        self.name = 'Evenements'
-
-
 class JobForm(form.Form):
     pass
 
