@@ -14,7 +14,7 @@ from flask_cdn import CDN
 
 from collections import OrderedDict, defaultdict
 
-from admin import CompanyView, EventView, UserView, StatisticsView, JobView
+from admin import CompanyView, UserView, StatisticsView, JobView
 from storage import init_storage, get_db
 
 # App init
