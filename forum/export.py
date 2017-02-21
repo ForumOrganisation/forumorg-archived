@@ -12,6 +12,18 @@ def log(m):
     print(m, file=sys.stderr)
 
 
+def find_qty(key, size):
+    import json
+    import os
+    if size != '4.5':
+        size = str(int(float(size)))
+    path = os.path.join(os.path.dirname(__file__), '../data/furnitures.json')
+    data = json.load(open(path))
+    res = [row for row in data if row['id'] == key]
+    res = res[0].get('quantities').get(size)
+    return res
+
+
 def generate_vals(writer, export_type, data):
     if export_type == 'general':
         titles = ['email_etudiant']
@@ -40,10 +52,15 @@ def generate_vals(writer, export_type, data):
             for t in titles[2:7]:
                 if t in ['emplacement', 'banner']:
                     vals.append(row.get(t, ''))
-                    continue
-                vals.append(row.get(t, 0))
-            for t in titles[7:]:
-                vals.append(row['sections']['furnitures'].get(t, 0))
+                else:
+                    vals.append(row.get(t, 0))
+            for t in titles[7:12]:
+                val = row['sections']['furnitures'].get(t, 0)
+                val += int(find_qty(t, str(row.get('size'))))
+                vals.append(val)
+            for t in titles[12:]:
+                val = row['sections']['furnitures'].get(t, 0)
+                vals.append(val)
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
     if export_type == 'restauration':
@@ -98,8 +115,8 @@ def _export_fields(obj, export_type, return_url):
             secure_filename(filename.replace(obj.name, export_type)),)
         return Response(
             stream_with_context(gen_vals),
-            headers={'Content-Disposition': disposition},
-            mimetype='text/csv'
+            #headers={'Content-Disposition': disposition},
+            mimetype='text/plain'
         )
 
 
