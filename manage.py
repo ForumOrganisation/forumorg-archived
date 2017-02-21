@@ -23,7 +23,6 @@ manager.add_command("assets", ManageAssets())
 def batch_emails():
     users = db.users.find({'events.fra.ambassador': {'$exists': True}})
     users = [user['id'] for user in users]
-    users.append('juliette.bricout@forumorg.org')
     recipients = users
     total = len(users)
     sent = 0
