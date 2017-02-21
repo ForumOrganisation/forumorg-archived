@@ -21,18 +21,15 @@ manager.add_command("assets", ManageAssets())
 
 @manager.command
 def batch_emails():
-    path = os.path.join(os.path.dirname(__file__), 'data/post-fra.csv')
-    with open(path, 'rb') as f:
-        reader = csv.reader(f, delimiter=';')
-        users = [row[3] for row in reader]
-    users = users[9693:]
+    users = db.users.find({'events.fra.ambassador': {'$exists':True}})
+    users = [user['id'] for user in users]
     recipients = users
-    me = 'no-reply@forumorg.org'
-    subject = u"Forum Rhône-Alpes: J-22"
-    sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
     total = len(users)
     sent = 0
     failed = 0
+    me = 'ambassadeur2017@forumorg.org'
+    subject = u"Forum Rhône-Alpes: Ambassadeur"
+    sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
     for r in recipients:
         mail = Mail()
         mail.set_from(Email(me))
@@ -42,7 +39,7 @@ def batch_emails():
         personalization.add_to(Email(r))
         mail.add_personalization(personalization)
         try:
-            sg.client.mail.send.post(request_body=mail.get())
+            #sg.client.mail.send.post(request_body=mail.get())
             print("{} mails restants".format(total - sent))
             sent += 1
         except:
