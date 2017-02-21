@@ -5,12 +5,14 @@
     <a href="{{ url_for('dashboard', page=name) if name != 'cvtheque' else '#' }}">
       <i class="{{ icon }}"></i>
       <span>{{ name|capitalize|replace("_", " ") }}</span>
-      {% if company.get(name) %}
-        <small class="label pull-right bg-green">validé</small>
-      {% endif %}
-      {% if name == 'cvtheque' %}
-        <small class="label pull-right bg-blue" id="countdown"></small>
-      {% endif %}
+      <span class="pull-right-container">
+        {% if company.get(name) %}
+          <small class="label pull-right bg-green">validé</small>
+        {% endif %}
+        {% if name == 'cvtheque' %}
+          <small class="label pull-right bg-blue" id="countdown"></small>
+        {% endif %}
+      </span>
     </a>
   </li>
 {%- endmacro %}
@@ -80,12 +82,14 @@
 {% endblock %}
 {% block footer %}
   <!-- To the right -->
-  <div class="pull-right hidden-xs">
-    Fait avec
-    <span class="fa fa-heart"></span>
+  <div class="no-print">
+    <div class="pull-right hidden-xs">
+      Fait avec
+      <span class="fa fa-heart"></span>
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 2016
+      <a href="#">Forum Organisation</a>.</strong>
+    Tous droits réservés.
   </div>
-  <!-- Default to the left -->
-  <strong>Copyright &copy; 2016
-    <a href="#">Forum Organisation</a>.</strong>
-  Tous droits réservés.
 {% endblock footer %}
