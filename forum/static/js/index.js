@@ -30,15 +30,12 @@ $(document).ready(function() {
             scrollPos = $(this).scrollTop();
             if (scrollPos > animationEndPos) {
                 animationProp.removeClass('navbar-transparent');
-
                 //change logo into black
                 logo.attr('src', 'static/images/fo-base.png');
             } else {
                 animationProp.addClass('navbar-transparent');
-
                 //change logo into base
                 logo.attr('src', 'static/images/fo-alt.png');
-
             }
         });
     }
