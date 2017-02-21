@@ -9,7 +9,7 @@ from pymongo import MongoClient
 from forum import app, log
 import wget
 import sendgrid
-from sendgrid.helpers.mail import Email, Mail, Personalization
+from sendgrid.helpers.mail import Email, Mail, Personalization, Substitution
 from flask_assets import ManageAssets
 
 client = MongoClient(host=os.environ.get('MONGODB_URI'))
@@ -21,25 +21,27 @@ manager.add_command("assets", ManageAssets())
 
 @manager.command
 def batch_emails():
-    users = db.users.find({'events.fra.ambassador': {'$exists':True}})
+    users = db.users.find({'events.fra.ambassador': {'$exists': True}})
     users = [user['id'] for user in users]
+    users.append('juliette.bricout@forumorg.org')
     recipients = users
     total = len(users)
     sent = 0
     failed = 0
     me = 'ambassadeur2017@forumorg.org'
-    subject = u"Forum Rhône-Alpes: Ambassadeur"
+    subject = u'Forum Rhone-Alpes: Ambassadeur'
     sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
     for r in recipients:
         mail = Mail()
         mail.set_from(Email(me))
-        mail.set_subject(subject)
         mail.set_template_id('e449ac1c-51a2-485e-9275-7031f10d490f')
         personalization = Personalization()
         personalization.add_to(Email(r))
         mail.add_personalization(personalization)
+        mail.personalizations[0].add_substitution(Substitution("-subject-", subject))
         try:
-            #sg.client.mail.send.post(request_body=mail.get())
+            sg.client.mail.send.post(request_body=mail.get())
+            print(r)
             print("{} mails restants".format(total - sent))
             sent += 1
         except:
