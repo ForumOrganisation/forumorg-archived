@@ -20,6 +20,9 @@ $(document).ready(function() {
             logo = animationProp.find('.navbar-brand img');
 
         //if visitor refresh on the middle of the document
+        if (scrollPos == 0) {
+            logo.attr('src', 'static/images/fo-alt.png');
+        }
         if (scrollPos > animationEndPos) {
             animationProp.removeClass('navbar-transparent');
             logo.attr('src', 'static/images/fo-base.png');

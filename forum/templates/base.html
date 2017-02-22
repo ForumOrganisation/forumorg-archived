@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <!-- TITLE OF SITE -->
+    <title>Forum Rhône-Alpes |
+      {{title}}</title>
+    <!-- META DATA -->
+    <meta name="description" content="Le Forum Rhône-Alpes est le premier salon de recrutement d'élèves ingénieurs de France. La 32ème édition aura lieu les 8 & 9 mars 2017">
+    <meta
+      name="keywords"
+      content="forum rhône alpes, forum rhone alpes, forum recrutement, salon recrutement, forum recrutement élèves ingénieurs, forum recrutement étudiants, forum recrutement eleves ingenieurs, forum recrutement etudiants, forum emploi, forum stage, salon emploi, salon recrutement élèves ingénieurs, salon recrutement étudiants, salon recrutement eleves ingenieurs, salon recrutement etudiants, salon rhone alpes, recrutement ingénieurs, carrefour européen, carrefour europeen, carrefour maghrébin, carrefour maghrebin, emploi étudiant, emploi ingénieurs, emploi rhone alpes, ingénieur, salon stage, stage ingénieurs, stage rhone alpes, stage, recrutement, emploi">
+    <meta name="author" content="ForumOrganisation">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- =========================
+    FAV AND TOUCH ICONS
+    ============================== -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <!-- =========================
+    STYLESHEETS
+    ============================== -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/common.min.css') }}"></link>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='build/index.min.css') }}"></link>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index/typography/typography-1.css') }}"></link>
+  </head>
+  <body class="body-container">
+    <div id="page" class="page">
+      <!-- start page -->
+      {% block navbar %}
+        <div class="navbar navbar-nemo navbar-transparent navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nemo-navigation" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar icon-bar-top"></span>
+                <span class="icon-bar icon-bar-middle"></span>
+                <span class="icon-bar icon-bar-bottom"></span>
+              </button>
+              <!-- YOUR LOGO -->
+              <a class="navbar-brand" href="#start">
+                <img src="{{ url_for('static', filename='images/fo-base.png')}}" alt="Forum Organisation">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="nemo-navigation">
+              <ul class="nav navbar-nav navbar-left">
+                <li class="active">
+                  <a href="#start">Accueil</a>
+                </li>
+                <li class="">
+                  <a href="#why">Pourquoi participer ?</a>
+                </li>
+                <li class="">
+                  <a href="#contact">Participer</a>
+                </li>
+                <li class="">
+                  <a href="#faq">FAQ</a>
+                </li>
+                <li class="">
+                  <a href="#press">Presse</a>
+                </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated %}
+                  <li>
+                    <a href="{{ url_for('dashboard') }}" id="home">Mon dashboard</a>
+                  </li>
+                  <li>
+                    <a href="{{ url_for('logout') }}" id="home">Se déconnecter</a>
+                  </li>
+                {% else %}
+                  <li>
+                    <a href="http://www.forumorg.org">Espace Etudiant</a>
+                  </li>
+                  <li>
+                    <a href="{{ url_for('dashboard') }}" id="home">Se connecter</a>
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      {% endblock navbar %}
+      <!-- =========================
+         APP HOME
+    ============================== -->
+      {% block content %}
+        <section class="home app-home-1 video-bg" id="start">
+          <div class="section-video">
+            <video autoplay="" poster="{{ url_for('static', filename='video/video.jpg') }}" class="bgvid" loop="">
+              <source src="{{ url_for('static', filename='video/video.mp4') }}" type="video/mp4; codecs=&quot;avc1.4D401E, mp4a.40.2&quot;">
+            </video>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 mb60">
+                <div class="logo-home">
+                  <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Forum Rhône-Alpes" style="border-radius: 0px; border-color: rgb(255, 255, 255); border-style: none; border-width: 1px;">
+                </div>
+                <h2 class="heading-text">
+                  <span class="element">Recrutez</span>
+                  au Forum Rhône-Alpes<br></h2>
+                <h3 class="heading-text">Le n°1 des salons de recrutement d'élèves-ingénieurs de France</h3>
+                <h4 class="heading-text">Rendez-vous le 8 et 9 Mars 2017 au Double Mixte sur le campus de la Doua à Villeurbanne</h4>
+                <br><br>
+                <div class="row">
+                  <div class="col-md-3" style="margin-left: 30px;margin-right: 30px;">
+                    <div class="home-download-btn">
+                      <a href="#contact" class="btn btn-white btn-lg">Je suis une entreprise</a>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="home-download-btn">
+                      <a href="http://www.forumorg.org/" class="btn btn-white btn-lg">Je suis un candidat</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.row -->
+          </div>
+        </section>
+        <!-- start page -->
+        <!-- =========================
+         APP FEATURES
+    ============================== -->
+        <section class="why app-features-5 padding-120-75 white-bg" id="why" style="outline-offset: -3px;">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
+                <div class="section-heading text-center">
+                  <h2 class="heading-text">Pourquoi participer ?</h2>
+                  <hr class="lines">
+                  <p class="sub-heading" style="color: rgb(97, 97, 97); font-size: 16px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;">Notre dernière édition a réuni plus de 180 exposants et plus de 4000 étudiants et jeunes diplômés<br></p>
+                </div>
+                <!-- /.section-heading -->
+              </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+              <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb60">
+                <div class="media media-chained">
+                  <div class="media-left">
+                    <i class="icon svg-lightning-regular icon-shape width-75 radius-30 icon-border-1">
+                      <!--?xml version="1.0" encoding="utf-8"?-->
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                        <path d="M32 0l-27.063 11.063 8 8-12.938 12.938 27.063-11.063-8-8zM24.875 20.438l-19.688 8 8.625-8.625 0.813-0.875-0.813-0.875-6.688-6.625 19.688-8-9.438 9.5 0.813 0.875z"></path>
+                      </svg>
+                    </i>
+                  </div>
+                  <div class="media-body">
+                    <h3 class="title-text" style="color: rgb(39, 39, 39); font-size: 22px; background-color: rgba(0, 0, 0, 0); font-family: Hind, sans-serif;" src="images/uploads/maxresdefault.jpg">Un seul événement pour tous vos besoins en recrutement<br></h3>
+                    <p>Profitez du Forum Rhônes-Alpes pour rencontrer les profils de la région Rhône-Alpes Auvergne avec une sélection de choix parmi les étudiants de l'INSA Lyon, Grenoble INP, l'ECAM et nos autres écoles partenaires...</p>
+                  </div>
+                </div>
+                <div class="media media-chained">
+                  <div class="media-left">
+                    <i class="icon svg-gift-regular icon-shape width-75 radius-30 icon-border-1">
+                      <!--?xml version="1.0" encoding="utf-8"?-->
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                        <path
+                          d="M32 8h-10.188c0.563-0.625 0.938-1.5 0.938-2.438 0-2.125-1.563-3.688-3.688-3.688-1.188 0-2.438 0.563-3.063 1.563-0.625-1-1.813-1.563-3.063-1.563-2.125 0-3.688 1.563-3.688 3.688 0 0.938 0.375 1.813 0.938 2.438h-10.188v4.938h1.25v17.188h29.5v-17.188h1.25zM19.063 3.063c1.375 0 2.5 1.125 2.5 2.5 0 1.313-1.125 2.438-2.5 2.438h-2.438v-2.438c0-1.375 1.125-2.5 2.438-2.5zM10.438 5.563c0-1.375 1.125-2.5 2.5-2.5 1.313 0 2.438 1.125 2.438 2.5v2.438h-2.438c-1.375 0-2.5-1.125-2.5-2.438zM1.25 9.25h14.125v2.438h-14.125zM2.438 12.938h12.938v16h-12.938zM29.563 28.938h-12.938v-16h12.938zM30.75 11.688h-14.125v-2.438h14.125z"></path>
+                      </svg>
+                    </i>
+                  </div>
+                  <div class="media-body">
+                    <h3 class="title-text">Un recrutement qui correspond à vos besoins</h3>
+                    <p>Nous communiquons de manière personnalisée sur votre présence au Forum Rhône-Alpes. Vous êtes alors sûrs d'avoir les profils qui vous conviennent le plus.</p>
+                  </div>
+                </div>
+                <div class="media media-chained">
+                  <div class="media-left">
+                    <i class="icon svg-basic-geolocalize-05 icon-shape width-75 radius-30 icon-border-1">
+                      <!--?xml version="1.0" encoding="utf-8"?-->
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                        <path
+                          d="M18.5 9.5c0-1.375-1.125-2.5-2.5-2.5s-2.5 1.125-2.5 2.5c0 1.375 1.125 2.5 2.5 2.5s2.5-1.125 2.5-2.5zM14.5 9.5c0-0.813 0.688-1.5 1.5-1.5s1.5 0.688 1.5 1.5c0 0.813-0.688 1.5-1.5 1.5s-1.5-0.688-1.5-1.5zM16 24.313l0.375-0.5c0.25-0.313 6.625-8.188 6.625-13.313 0-4.125-3.188-7.5-7-7.5-3.875 0-7 3.375-7 7.5 0 5.125 6.313 13 6.625 13.313zM16 4c3.313 0 6 2.938 6 6.5 0 4.063-4.625 10.375-6 12.188-1.375-1.813-6-8.125-6-12.188 0-3.563 2.688-6.5 6-6.5zM21.5 18v1h4.188l4.938 9h-29.25l4.938-9h4.188v-1h-4.813l-6.063 11h32.75l-6.063-11z"></path>
+                      </svg>
+                    </i>
+                  </div>
+                  <div class="media-body">
+                    <h3 class="title-text">Une diversité sans concession</h3>
+                    <p>Que vous soyez grand groupe, PME ou startup, le Forum Rhône-Alpes s'adapte à vos objectifs et moyens. Sa dimension internationale en fait de plus, un lieu de rencontre pour des entreprises présentes partout dans le monde.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-8 col-md-offset-0 col-sm-offset-2 mb60">
+                <img src="{{ url_for('static', filename='images/forum.jpg') }}" alt="" class="img-responsive img-right" style="border-radius: 0px; border-color: rgb(153, 153, 153); border-style: none; border-width: 1px;">
+              </div>
+            </div>
+            <!-- /.row -->
+          </div>
+        </section>
+        <!-- start page -->
+        <!-- =========================
+         CONTACT US
+    ============================== -->
+        <section class="contact-us-1 image-bg gradient-overlay editBG" id="contact" style="padding-bottom: 120px; padding-top: 75px;">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="contact-form-popup" style="padding-top: 20px;padding-bottom: 20px;">
+                  <h4 class="text-center" style="margin-bottom: 15px;">Si vous disposez de vos identifiants,
+                    <a href="{{ url_for('dashboard') }}">connectez-vous par ici</a>
+                  </h4>
+                  <h2 class="heading-text text-center" style="margin-top: 10px;margin-bottom: 20px;">Participer dès maintenant</h2>
+                  <form action="send_request" method="GET" id="contact-form">
+                    <div>
+                      <table class="table table-bordered table-form">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <label for="nom_complet" class="text-uppercase">Nom complet</label>
+                              <input type="text" id="nom_complet" name="nom_complet" class="form-control" placeholder="ex. Henry Martin">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <label for="email" class="text-uppercase">Adresse e-mail</label>
+                              <input type="email" id="email" name="email" class="form-control" placeholder="ex. m.stanley@jpmorgan.com">
+                            </td>
+                          </tr>
+                          <td>
+                            <label for="tel" class="text-uppercase">Téléphone</label>
+                            <input type="tel" id="tel" name="tel" class="form-control" placeholder="ex. 06 65 59 90 15">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <label for="type" class="text-uppercase">Je suis</label>
+                            <div class="select-outer">
+                              <select class="form-inline-input" name="type" id="type">
+                                <option value="1">une entreprise</option>
+                                <option value="2">une école</option>
+                              </select>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <label for="nom" class="text-uppercase">Nom de la structure</label>
+                            <input type="text" id="nom" name="nom" class="form-control" placeholder="ex. JP Morgan">
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="text-center">
+                    <div class="g-recaptcha btn" data-sitekey="6Lc4QxAUAAAAAAq-CJ2_11hdu3mWzBzlOeC-BCw-"></div>
+                  </div>
+                  <br>
+                  <div class="text-center">
+                    <button id="send_mail" type="submit" class="btn btn-base btn-lg">
+                      <span>Envoyer votre demande</span>
+                    </button>
+                  </div>
+                  <div class="result">
+                    <p class="success-msg">
+                      <i class="icon svg-check icon-xs">
+                        <!--?xml version="1.0" encoding="utf-8"?-->
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                          <path
+                            d="M16 2.688c-7.375 0-13.313 5.938-13.313 13.313s5.938 13.313 13.313 13.313c7.375 0 13.313-5.938 13.313-13.313s-5.938-13.313-13.313-13.313zM16 28.25c-6.75 0-12.25-5.5-12.25-12.25s5.5-12.25 12.25-12.25c6.75 0 12.25 5.5 12.25 12.25s-5.5 12.25-12.25 12.25zM22.688 11.25l-8.563 8.313-3-3c-0.313-0.313-0.813-0.313-1.125 0s-0.313 0.813 0 1.125l3.563 3.563c0.125 0.125 0.313 0.188 0.563 0.188 0.188 0 0.375-0.063 0.5-0.188l9.125-8.875c0.375-0.313 0.375-0.813 0.063-1.125s-0.813-0.313-1.125 0z"></path>
+                        </svg>
+                      </i>
+                      Merci! Votre demande a été envoyée.
+                    </p>
+                    <p class="error-msg">
+                      <i class="icon svg-close-circle icon-xs">
+                        <!--?xml version="1.0" encoding="utf-8"?-->
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                          <path
+                            d="M6.563 6.563c-5.188 5.188-5.188 13.688 0 18.875s13.688 5.188 18.875 0c5.188-5.188 5.188-13.625 0-18.875-5.188-5.188-13.625-5.188-18.875 0zM24.688 24.688c-4.813 4.75-12.563 4.75-17.375 0-4.75-4.813-4.75-12.563 0-17.375 4.813-4.75 12.563-4.75 17.375 0 4.75 4.813 4.75 12.563 0 17.375zM10.75 10l-0.813 0.75 5.313 5.25-5.25 5.25 0.75 0.75 5.25-5.25 5.25 5.25 0.75-0.75-5.25-5.25 5.313-5.25-0.813-0.75-5.25 5.25z"></path>
+                        </svg>
+                      </i>
+                      Veuillez remplir tous les champs...
+                    </p>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+        </div>
+      </section>
+      <!-- =========================
+         FAQ
+    ============================== -->
+      <section class="faq faqs-2 padding-120-60" id="faq">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-10 col-lg-offset-3 col-md-offset-2 col-sm-offset-1">
+              <div class="section-heading text-center">
+                <h2 class="heading-text">FAQ</h2>
+                <hr class="lines">
+                <p class="sub-heading">Vous avez des questions ? On y répond ici.</p>
+              </div>
+              <!-- /.section-heading -->
+            </div>
+          </div>
+          <!-- /.row -->
+          <div class="row faqs-2-items">
+            <div class="col-md-6 mb60">
+              <h5 class="title-text">Est-ce que les candidats sont mobiles?</h5>
+              <p>Les étudiants et jeunes diplômés sont
+                <b>mobiles en France et à l'international</b>
+                (60% des étudiants ne sont pas originaires de la région Rhône-Alpes-Auvergne).</p>
+            </div>
+            <div class="col-md-6 mb60">
+              <h5 class="title-text">Que faire une fois arrivés à Lyon ?</h5>
+              <p>Nous prenons en charge vos déplacements vers Lyon pendant les deux jours du salon. Nous organisons également une soirée-cocktail entre les deux jours du salon pour que vous puissiez échanger avec différents acteurs du monde étudiant.</p>
+            </div>
+            <div class="col-md-6 mb60">
+              <h5 class="title-text">Comment les étudiants sont-ils informés de la tenue de votre salon?</h5>
+              <p>Par mail et via les réseaux sociaux. Nous nous
+                <b>déplaçons</b>
+                aussi sur nos campus partenaires afin de
+                <b>communiquer et conseiller</b>
+                nos futurs visiteurs.</p>
+            </div>
+            <div class="col-md-6 mb60">
+              <h5 class="title-text">Quels sont les horaires d'ouverture/fermeture du salon ?</h5>
+              <p>Notre salon ouvre ses portes à 8h pour les entreprises, et les premiers candidats arrivent dès 9h. Chaque jour, notre salon ferme à 18h.</p>
+            </div>
+            <div class="col-md-6 mb60">
+              <h5 class="title-text">A quels secteurs appartiennent les entreprises présentes sur le Forum Rhône-Alpes ?</h5>
+              <p>Nos écoles partenaires proposent des formations variées, notre salon est donc généraliste et essaye de mettre en contact ses candidats avec tout type d'entreprise.</p>
+            </div>
+            <div class="col-md-6 mb60">
+              <h5 class="title-text">Quels types d'offres peut présenter mon entreprise sur le Forum Rhône-Alpes ?</h5>
+              <p>Les visiteurs présents sur le Forum Rhône-Alpes recherchent différents types d'offres: offres d'alternance, de VIE, de stage et/ou de premier emploi.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- =========================
+     OUR LOCATION
+     ============================== -->
+      <section class="home photography-home dark-image-bg radient-overlay text-center editBG" id="press">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 col-lg-offset-2 col-md-offset-1">
+              <h1 class="heading-text">Presse</h1>
+              <p class="sub-heading">Fort de nos 32 années d'expériences, nous sommes leaders dans le marché du recrutement. Découvrez pourquoi la presse parle de nous.</p>
+              <a href="{{ url_for('index', page='presse') }}" class="btn btn-base btn-lg">
+                <span>Accéder à l'espace Presse</span>
+              </a>
+            </div>
+          </div>
+          <!-- /.row -->
+        </div>
+      </section>
+      <section class="faq faqs-2" id="faq">
+        <div class="map-container" id="course-description">
+          <div id="mapBig" class="map cover-map"></div>
+        </div>
+      </section>
+      <!-- =========================
+FOOTER -1
+============================== -->
+    {% endblock content %}
+    <footer class="footers footer-1 editBG" id="footer">
+      <div class="container text-center">
+        <p class="contact-help">Besoin d'aide?
+          <a href="mailto:contact-fra@forumorg.org">Contactez-nous!</a>
+        </p>
+        <ul class="socialize">
+          <li>
+            <a href="https://www.facebook.com/forumorg/">
+              <i class="icon svg-social-facebook-square">
+                <!--?xml version="1.0" encoding="utf-8"?-->
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+                  <path
+                    d="M26 0h-20c-3.313 0-6 2.688-6 6v20c0 3.313 2.688 6 6 6h20c3.313 0 6-2.688 6-6v-20c0-3.313-2.688-6-6-6zM20.125 16h-2.625v9.625h-3.563v-9.625h-2.438v-3.313h2.438v-1.938c0-2.688 0.688-4.375 3.875-4.375h2.625v3.313h-1.625c-1.25 0-1.313 0.5-1.313 1.375v1.625h3z"></path>
+                </svg>
+              </i>
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/forumrhonealpes">
+              <i class="icon svg-social-twitter-square">
+                <!--?xml version="1.0" encoding="utf-8"?-->
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+                  <path
+                    d="M26 0h-20c-3.313 0-6 2.688-6 6v20c0 3.313 2.688 6 6 6h20c3.313 0 6-2.688 6-6v-20c0-3.313-2.688-6-6-6zM23.938 12.438c0 0.125 0.063 0.313 0.063 0.5 0 5.188-4 11.188-11.25 11.188-2.188 0-4.25-0.625-6-1.75 0.313 0 0.625 0.063 0.938 0.063 1.813 0 3.5-0.625 4.875-1.688-1.75-0.063-3.188-1.188-3.688-2.75 0.25 0.063 0.5 0.063 0.75 0.063 0.375 0 0.688-0.063 1.063-0.125-1.813-0.375-3.188-2-3.188-3.875 0 0 0-0.063 0-0.063 0.5 0.313 1.125 0.5 1.813 0.5-1.063-0.688-1.813-1.938-1.813-3.25 0-0.75 0.25-1.438 0.563-2 1.938 2.375 4.875 3.938 8.125 4.125-0.063-0.313-0.125-0.625-0.125-0.938 0-2.125 1.813-3.938 3.938-3.938 1.125 0 2.188 0.5 2.875 1.25 0.938-0.188 1.75-0.5 2.5-0.938-0.25 0.938-0.875 1.688-1.688 2.188 0.75-0.125 1.563-0.313 2.25-0.625-0.563 0.813-1.188 1.5-2 2.063z"></path>
+                </svg>
+              </i>
+            </a>
+          </li>
+          <li>
+            <a href="https://fr.linkedin.com/company/forum-rh-ne-alpes">
+              <i class="icon svg-social-linkedin-square">
+                <!--?xml version="1.0" encoding="utf-8"?-->
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+                  <path
+                    d="M26 0h-20c-3.313 0-6 2.688-6 6v20c0 3.313 2.688 6 6 6h20c3.313 0 6-2.688 6-6v-20c0-3.313-2.688-6-6-6zM12 23.75h-4v-14h4zM10.125 8.875c-1.063 0-1.875-0.813-1.875-1.875 0-1 0.813-1.875 1.875-1.875s1.875 0.875 1.875 1.875c0 1.063-0.813 1.875-1.875 1.875zM26 23.75h-4v-8.625c0-1.063-0.313-1.75-1.563-1.75-2.063 0-2.438 1.75-2.438 1.75v8.625h-4v-14h4v1.313c0.563-0.438 2-1.313 4-1.313 1.313 0 4 0.75 4 5.438z"></path>
+                </svg>
+              </i>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/ForumOrganisation/forum-fra">
+              <i class="icon svg-social-github-square">
+                <!--?xml version="1.0" encoding="utf-8"?-->
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path
+                  d="M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.09-.202-.36-1.015.07-2.117 0 0 .67-.215 2.2.82.64-.178 1.32-.266 2-.27.68.004 1.36.092 2 .27 1.52-1.035 2.19-.82 2.19-.82.43 1.102.16 1.915.08 2.117.51.56.82 1.274.82 2.147 0 3.073-1.87 3.75-3.65 3.947.28.24.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.14.46.55.38C13.71 14.53 16 11.53 16 8c0-4.418-3.582-8-8-8"/></svg>
+              </i>
+            </a>
+            Open Source
+          </li>
+        </ul>
+        <p class="copyright">© Forum Organisation,
+          <a href="https://opensource.org/licenses/mit-license.php">Licence MIT</a>
+        </p>
+      </div>
+    </footer>
+  </div>
+  <!-- =========================
+     SCRIPTS
+============================== -->
+  <style>
+    .section-heading .lines {
+      border-top: 2px solid #fff;
+    }
+    .section-heading .lines:after,
+    .section-heading .lines:before {
+      border-top: 2px solid #fff;
+    }
+  </style>
+  {% block scripts %}
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyB6PZ0Zd41_azrGX-GBxmKWL4NyqJ-ht0o"></script>
+  {% endblock scripts %}
+  <script type="text/javascript" src="{{ url_for('static', filename='build/common.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='build/index.min.js') }}"></script>
+  <!-- /end page -->
+  <script>
+    window.intercomSettings = {
+      app_id: "l9nka9mi",
+      "site_web": "http://www.forum-rhone-alpes.com"
+    };
+  </script>
+  <script>
+    (function () {
+      var w = window;
+      var ic = w.Intercom;
+      if (typeof ic === "function") {
+        ic('reattach_activator');
+        ic('update', intercomSettings);
+      } else {
+        var d = document;
+        var i = function () {
+          i.c(arguments)
+        };
+        i.q = [];
+        i.c = function (args) {
+          i.q.push(args)
+        };
+        w.Intercom = i;
+        function l() {
+          var s = d.createElement('script');
+          s.type = 'text/javascript';
+          s.async = true;
+          s.src = 'https://widget.intercom.io/widget/l9nka9mi';
+          var x = d.getElementsByTagName('script')[0];
+          x.parentNode.insertBefore(s, x);
+        }
+        if (w.attachEvent) {
+          w.attachEvent('onload', l);
+        } else {
+          w.addEventListener('load', l, false);
+        }
+      }
+    })()
+  </script>
+</body>
+</html>

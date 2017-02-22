@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% set title = 'Presse' %}
+{% block navbar %}
+  <div class="navbar navbar-nemo navbar-transparent navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nemo-navigation" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar icon-bar-top"></span>
+          <span class="icon-bar icon-bar-middle"></span>
+          <span class="icon-bar icon-bar-bottom"></span>
+        </button>
+        <!--YOUR LOGO -->
+        <a class="navbar-brand" href="{{ url_for('index') }}">
+          <img src="{{ url_for('static', filename='images/fo-alt.png')}}" alt="Forum Organisation">
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="nemo-navigation">
+        <ul class="nav navbar-nav navbar-left">
+          <li>
+            <a href="{{ url_for('index') }}">Accueil</a>
+          </li>
+          <li class="">
+            <a href="{{ url_for('index') }}">Pourquoi participer ?</a>
+          </li>
+          <li class="">
+            <a href="{{ url_for('index') }}">Participer</a>
+          </li>
+          <li class="">
+            <a href="{{ url_for('index') }}">FAQ</a>
+          </li>
+          <li class="">
+            <a href="{{ url_for('index', page='presse') }}">Presse</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if current_user.is_authenticated %}
+            <li>
+              <a href="{{ url_for('dashboard') }}" id="home">Mon dashboard</a>
+            </li>
+            <li>
+              <a href="{{ url_for('logout') }}" id="home">Se déconnecter</a>
+            </li>
+          {% else %}
+            <li>
+              <a href="http://www.forumorg.org">Espace Etudiant</a>
+            </li>
+            <li>
+              <a href="{{ url_for('dashboard') }}" id="home">Se connecter</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock navbar %}
+{% block content %}
+  <section class="home app-home-1 video-bg" id="start">
+    <div class="section-video">
+      <video autoplay="" poster="{{ url_for('static', filename='video/video.jpg') }}" class="bgvid" loop=""></video>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mb60">
+          <h2 class="heading-text text-center">Ils parlent de nous</h2>
+        </div>
+        <!--/.row -->
+      </div>
+    </section>
+    <div class="small-content text-center secondary-bg" id="small-content-1">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <p class="text-big text-dark">Fort de nos 32 années d'expériences, nous sommes leaders dans le marché du recrutement. Découvrez pourquoi la presse parle de nous.
+            </p>
+          </div>
+        </div>
+        <!--/.row -->
+      </div>
+    </div>
+    <section class="why app-features-5 white-bg" id="why" style="outline-offset: -3px; padding:50px 50px 50px 50px">
+      <div class="container">
+        <h3 style="padding-bottom:30px">Communiqués de presse</h3>
+        <div class="row faqs-2-items">
+          <div class="col-md-12 mb60">
+            <h5 class="title-text">Ingénieurs, les filières qui recrutent</h5>
+            <p>La 32e édition du Forum Rhône-Alpes, organisée par Forum Organisation, une association d’élèves ingénieurs bénévoles de l'INSA LYON, se déroulera le mercredi 8 et jeudi 9 mars à l'Espace Mixte de Villeurbanne.</p>
+            <p>Lyon est la 2e ville en France, après Paris, qui accueille le plus d'élèves ingénieurs: 12 865 élèves ingénieurs pour Lyon et 15 473 pour Paris. C'est la raison pour laquelle le Forum Rhône-Alpes s'est tout naturellement inscrit comme le
+              1er salon de recrutement d'élèves ingénieurs de France avec 160 entreprises inscrites à la rencontre et près de 4000 visiteurs attendus.</p>
+            <p>
+              <strong>Pour cette édition 2017</strong>, cet évènement accueillera plus de 160 entreprises multinationales qui proposeront 600 postes à pourvoir ; l'Oréal, Biomérieux, Schneider Electric, Orange, Altran, Cap Gemini, Eiffage...</p>
+            <p>Que ce soit pour un stage, un PFE, un CDI/CDD, d’une formation au 3ème cycle ou tout simplement curieux de découvrir le monde professionnel, le Forum Rhône-Alpes est là pour accompagner les étudiants et jeunes diplômés à construire leur
+              projet professionnel.</p>
+            <p>De nombreux espaces feront l'objet d'une attention particulière pour cette édition :</p>
+            <ul class="order-list">
+              <li>
+                <strong>La Section Internationale</strong>
+                pour une première entrée sur le marché européen</li>
+              <li>
+                <strong>Espace Ecoles</strong>: des écoles du 3ème cycle venues informer les étudiants sur la poursuite d’études en Master spécialisé</li>
+              <li>
+                <strong>Le Carrefour Maghrébin</strong>: des rencontres avec des entreprises maghrébines</li>
+              <li>
+                <strong>Espace Start-Up</strong>
+                pour faire découvrir le monde de l'entreprenariat</li>
+              <li>
+                <strong>Espace Conseil</strong>
+                préparer les étudiants avec des simulations d'entretiens et des conseils sur la rédaction des CV et lettre de motivation</li>
+              <li>
+                <strong>Espace Handicafés</strong>
+                Organisé avec l'ADAPT pour favoriser l’accès à l’emploi des personnes en situation d'handicap</li>
+              <li>
+                <strong>Des conférences</strong>
+                sur des thématiques par exemple, Master spécialisé/Double diplôme, seront également organisées</li>
+            </ul>
+            <p>Et pour la 1ère fois, l'association "Elles Bougent", animera une conférence sur la mixité professionnelle, notamment dans des secteurs où les femmes ingénieures sont très peu présentes : Défense, Informatique, Transport, aéronautique....
+              En effet, En 1973, 600 femmes avaient obtenu le titre d’ingénieur soit à peine 5% du nombre total de diplômés. En 1980 elles étaient 10% de l’ensemble des diplômés. Elles sont 29% soit 11000 femmes ingénieurs diplômées en 2015. Aujourd’hui
+              une femme sur 34 est ou deviendra ingénieure alors que cette proportion était de 1 femme sur 500 parmi la génération arrivant à la retraite.</p>
+          </div>
+          <div class="home-download-btn">
+            <a href="{{ url_for('static', filename='dossier_forum.pdf') }}" class="btn btn-base btn-lg" download>
+              <span>Télécharger le dossier de presse</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!--/.row -->
+    </section>
+  {% endblock content %}
+  {% block scripts %}
+    {{ super() }}
+  {% endblock scripts %}

@@ -148,7 +148,10 @@ def identicon():
 # VITRINE
 # start of app
 @app.route('/', methods=["GET"])
-def index():
+@app.route('/<page>', methods=["GET"])
+def index(page=None):
+    if page == 'presse':
+        return render_template('press.html'.format(page))
     return render_template('index.html')
 
 
