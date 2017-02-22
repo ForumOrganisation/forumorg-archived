@@ -42,19 +42,19 @@ def generate_vals(writer, export_type, data):
     else:
         titles = ['id_entreprise', 'valide']
     if export_type == 'equipement':
-        titles += ['duration', 'equiped', 'banner', 'size', 'emplacement']
+        titles += ['duration', 'equiped', 'banner', 'size', 'emplacement', 'pole']
         titles += ['chaise', 'table', 'banque_hotesse', 'tabouret', 'portemanteau', 'chauffeuse', u'mange_debout', u'presentoir', u'ecran_32', u'ecran_42', u'poste_2', u'poste_3', u'poste_6', u'poste_9']
         yield writer.writerow(titles)
         for row in data:
             vals = []
             vals.append(row.get('id', ''))
             vals.append(row.get('equipement'))
-            for t in titles[2:7]:
+            for t in titles[2:8]:
                 if t in ['emplacement', 'banner']:
                     vals.append(row.get(t, ''))
                 else:
                     vals.append(row.get(t, 0))
-            for t in titles[7:12]:
+            for t in titles[8:12]:
                 val = row['sections']['furnitures'].get(t, 0)
                 val += int(find_qty(t, str(row.get('size'))))
                 vals.append(val)
