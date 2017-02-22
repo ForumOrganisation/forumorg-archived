@@ -82,8 +82,8 @@ def generate_vals(writer, export_type, data):
                 vals = []
                 vals.append(row.get('id', ''))
                 vals.append(row.get('transport'))
-                for t in titles[2:]:
-                    vals.append(t.get(t, ''))
+                for tt in titles[2:]:
+                    vals.append(t.get(tt, ''))
                 vals = [csv_encode(v) for v in vals]
                 yield writer.writerow(vals)
     if export_type == 'badges':
@@ -115,8 +115,8 @@ def _export_fields(obj, export_type, return_url):
             secure_filename(filename.replace(obj.name, export_type)),)
         return Response(
             stream_with_context(gen_vals),
-            headers={'Content-Disposition': disposition},
-            mimetype='text/csv'
+            #headers={'Content-Disposition': disposition},
+            mimetype='text/plain'
         )
 
 
