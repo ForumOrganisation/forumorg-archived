@@ -56,7 +56,8 @@ def generate_vals(writer, export_type, data):
                     vals.append(row.get(t, 0))
             for t in titles[8:13]:
                 val = row['sections']['furnitures'].get(t, 0)
-                val += int(find_qty(t, str(row.get('size'))))
+                if row['equiped']:
+                    val += int(find_qty(t, str(row.get('size'))))
                 vals.append(val)
             for t in titles[13:]:
                 val = row['sections']['furnitures'].get(t, 0)
