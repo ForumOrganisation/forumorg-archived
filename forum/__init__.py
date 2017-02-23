@@ -9,6 +9,7 @@ from flask_admin import Admin
 from flask_admin.base import MenuLink
 from flask_login import LoginManager
 from gridfs import GridFS
+from flask_sslify import SSLify
 from flask_babelex import Babel
 from flask_cdn import CDN
 
@@ -40,6 +41,9 @@ babel = Babel(app)
 # CDN
 cdn = CDN()
 cdn.init_app(app)
+
+# SSLify
+sslify = SSLify(app)
 
 
 @babel.localeselector
