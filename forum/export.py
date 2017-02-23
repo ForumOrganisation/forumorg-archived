@@ -122,8 +122,8 @@ def generate_vals(writer, export_type, data):
             vals = []
             vals.append(row.get('id', ''))
             vals.append(row.get('programme'))
-            for t in titles:
-                vals.append(row['sections']['events'].get(t, 'False'))
+            for t in titles[2:]:
+                vals.append(row['sections']['events'].get(t, False))
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
 
