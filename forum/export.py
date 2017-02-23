@@ -6,6 +6,7 @@ from flask import stream_with_context, Response, redirect, flash
 from flask_admin.babel import gettext
 from flask_admin.helpers import get_redirect_target
 import csv
+import os
 
 
 def log(m):
@@ -125,10 +126,15 @@ def _export_fields(obj, export_type, return_url):
         filename = obj.get_export_name(export_type='csv')
         disposition = 'attachment;filename=%s' % (
             secure_filename(filename.replace(obj.name, export_type)),)
+        headers = {'Content-Disposition': disposition}
+        mimetype = 'text/csv'
+        if os.environ.get('DEBUG'):
+            headers = None
+            mimetype = 'text/plain'
         return Response(
             stream_with_context(gen_vals),
-            headers={'Content-Disposition': disposition},
-            mimetype='text/csv'
+            headers=headers,
+            mimetype=mimetype
         )
 
 
