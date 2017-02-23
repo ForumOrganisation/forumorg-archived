@@ -109,8 +109,8 @@ def generate_vals(writer, export_type, data):
             for t in row['sections']['persons']:
                 vals = []
                 vals.append(row.get('id', ''))
-                vals.append(row.get('name', ''))
                 vals.append(row.get('badges'))
+                vals.append(row.get('name', ''))
                 for title in titles[3:]:
                     vals.append(t.get(title, ''))
                 vals = [csv_encode(v) for v in vals]
