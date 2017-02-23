@@ -99,6 +99,17 @@ def generate_vals(writer, export_type, data):
                     vals.append(t.get(title, ''))
                 vals = [csv_encode(v) for v in vals]
                 yield writer.writerow(vals)
+    if export_type == 'programme':
+        titles += ['conference', 'networking', 'webtv']
+        yield writer.writerow(titles)
+        for row in data:
+            vals = []
+            vals.append(row.get('id', ''))
+            vals.append(row.get('programme'))
+            for t in titles:
+                vals.append(row['sections']['events'].get(t, 'False'))
+            vals = [csv_encode(v) for v in vals]
+            yield writer.writerow(vals)
 
 
 def _export_fields(obj, export_type, return_url):

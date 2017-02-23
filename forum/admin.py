@@ -49,7 +49,7 @@ class CompanyView(ModelView):
     form = CompanyForm
     column_list = ['id'] + ['equipement', 'transport',
                             'restauration', 'badges', 'programme']
-    export_types = ['equipement', 'transport', 'restauration', 'badges']
+    export_types = ['equipement', 'transport', 'restauration', 'badges', 'programme']
     form_rules = [
         rules.FieldSet(('id', 'password', 'name', 'pole'), 'Profil'),
         rules.FieldSet(('equipement', 'restauration', 'badges',
