@@ -102,6 +102,7 @@ def generate_vals(writer, export_type, data):
                 vals = [csv_encode(v) for v in vals]
                 yield writer.writerow(vals)
     if export_type == 'badges':
+        titles += ['nom_entreprise']
         titles += ['name', 'function', 'days']
         yield writer.writerow(titles)
         for row in data:
@@ -109,6 +110,7 @@ def generate_vals(writer, export_type, data):
                 vals = []
                 vals.append(row.get('id', ''))
                 vals.append(row.get('badges'))
+                vals.append(row.get('name', ''))
                 for title in titles[2:]:
                     vals.append(t.get(title, ''))
                 vals = [csv_encode(v) for v in vals]
