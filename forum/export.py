@@ -25,6 +25,15 @@ def find_qty(key, size):
     return res
 
 
+def nb_dishes(size):
+    if size <= 12:
+        return 2
+    elif 12 < size <= 18:
+        return 4
+    elif size > 18:
+        return 6
+
+
 def generate_vals(writer, export_type, data):
     if export_type == 'general':
         titles = ['email_etudiant']
@@ -72,8 +81,12 @@ def generate_vals(writer, export_type, data):
             vals = []
             vals.append(row.get('id', ''))
             vals.append(row.get('restauration'))
-            vals.append(row['sections']['catering']['wed'].get('seated', 0))
-            vals.append(row['sections']['catering']['thu'].get('seated', 0))
+            val_wed = row['sections']['catering']['wed'].get('seated', 0)
+            val_thu = row['sections']['catering']['thu'].get('seated', 0)
+            val_wed += nb_dishes(row.get('size'))
+            val_thu += nb_dishes(row.get('size'))
+            vals.append(val_wed)
+            vals.append(val_thu)
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
     if export_type == 'transport':
