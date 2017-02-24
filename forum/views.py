@@ -53,6 +53,12 @@ def login():
     return render_template('login.html')
 
 
+@app.route('/js_error', methods=["POST"])
+def js_error():
+    print('js_error', request.form.to_dict())
+    return 'success'
+
+
 @app.route('/deconnexion')
 def logout():
     logout_user()

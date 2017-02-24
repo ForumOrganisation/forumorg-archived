@@ -1,17 +1,9 @@
-# Perso
-pip-selfcheck.json
-.Python
-
 *.py[co]
 *.DS_*
 
 # Packages
-/dist
-/bin
-/include
-/lib
-/build
 .env
+/env
 forum/static/.webassets-cache/
 
 # Bower
