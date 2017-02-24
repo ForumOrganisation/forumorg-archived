@@ -76,12 +76,15 @@ def generate_vals(writer, export_type, data):
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
     if export_type == 'restauration':
+        titles += ['size', 'duration']
         titles += ['mercredi', 'jeudi']
         yield writer.writerow(titles)
         for row in data:
             vals = []
             vals.append(row.get('id', ''))
             vals.append(row.get('restauration'))
+            vals.append(row.get('size', ''))
+            vals.append(row.get('duration', ''))
             val_wed = row['sections']['catering']['wed'].get('seated', 0)
             val_thu = row['sections']['catering']['thu'].get('seated', 0)
             val_wed += nb_dishes(row.get('size'))
