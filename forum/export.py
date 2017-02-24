@@ -37,7 +37,7 @@ def nb_dishes(size):
 def generate_vals(writer, export_type, data):
     if export_type == 'general':
         titles = ['email_etudiant']
-        titles += ['fra', 'styf', 'master_class', 'joi']
+        titles += ['fra', 'styf', 'master_class', 'joi', 'ambassadeur']
         titles += ['name', 'first_name', 'year', 'specialty', 'school', 'tel']
         yield writer.writerow(titles)
         for row in data:
@@ -45,7 +45,8 @@ def generate_vals(writer, export_type, data):
             vals.append(row.get('id', ''))
             for t in titles[1:5]:
                 vals.append(row['events'].get(t, {}).get('registered', False))
-            for t in titles[5:]:
+            vals.append(bool(row['events']['fra'].get('ambassador')))
+            for t in titles[6:]:
                 vals.append(row.get('profile', {}).get(t, ''))
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
