@@ -52,6 +52,10 @@ python ./runserver.py
 * **Mehdi BAHA** - [mehdibaha](https://github.com/mehdibaha)
 * **Juliette BRICOUT** - [jbricout](https://github.com/jbricout)
 
+## Contributions
+
+Contributions are very welcome! If you found a bug or some improvements, feel free to raise an issue and send a PR! Please see the CONTRIBUTING file for more information on how to contribute.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
