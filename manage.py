@@ -49,6 +49,14 @@ def batch_emails():
 
 
 @manager.command
+def create_updates():
+    db.create_updates('updates',
+    capped=True,
+    size=2000000,
+    autoIndexId=False)
+
+
+@manager.command
 def complete_companies():
     path = os.path.join(os.path.dirname(__file__), 'data/zones.csv')
     reader = csv.DictReader(open(path, 'rb'))
