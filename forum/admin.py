@@ -176,7 +176,7 @@ class JobView(ModelView):
 class FilterField(FilterEqual, BasePyMongoFilter):
 
     def apply(self, query, value):
-        value = True if value == 'true' else False
+        value = True if value == 'oui' else False
         query.append({self.column: value})
         return query
 
@@ -194,9 +194,9 @@ class StreamView(ModelView):
     form = StreamForm
     can_view_details = True
     column_filters = (FilterField(column='validated', name='validation', options=(
-        (True, 'oui'), (False, 'non'))),
+        ('oui', 'oui'), ('non', 'non'))),
         FilterField(column='delivered', name='livraison', options=(
-            (True, 'oui'), (False, 'non'))))
+            ('oui', 'oui'), ('non', 'non'))))
 
     def __init__(self, *args, **kwargs):
         super(StreamView, self).__init__(*args, **kwargs)
