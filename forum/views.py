@@ -83,7 +83,10 @@ def update_company():
         company = request.form.get('company')
         company = json.loads(company)
         old_company = get_db().companies.find_one({'id': company['id']}, {'_id': 0})
-        diff = DeepDiff(old_company, company, ignore_order=True).json
+        try:
+            diff = DeepDiff(old_company, company, ignore_order=True, verbose_level=2).json
+        except:
+            diff = {'error': True, 'message': 'an error has occured. see company directly for changes.'}
         set_company(company['id'], company)
         get_db().stream.insert({'delivered': False, 'validated': False, 'created_on': datetime.datetime.now().isoformat(' '), 'company': company['id'], 'diff': diff})
         return "success"
