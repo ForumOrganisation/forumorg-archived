@@ -49,6 +49,14 @@ def batch_emails():
 
 
 @manager.command
+def complete_companies():
+    path = os.path.join(os.path.dirname(__file__), 'data/zones.csv')
+    reader = csv.DictReader(open(path, 'rb'))
+    for row in reader:
+        db.companies.update_one({'id': row['id']}, {'$set': {'zone': row['zone']}})
+
+
+@manager.command
 def split_companies():
     fs = os.path.join(os.path.dirname(__file__), 'data/si.csv')
     fe = os.path.join(os.path.dirname(__file__), 'data/ecoles.csv')

@@ -4,7 +4,7 @@ import json
 import os
 import requests
 
-from flask import abort, redirect, render_template, request, send_from_directory, url_for, make_response, send_file
+from flask import abort, redirect, render_template, request, send_from_directory, url_for, make_response, send_file, session
 from flask_login import current_user, login_required, login_user, logout_user
 from login import validate_login
 from storage import Company, get_company, set_company, get_db
@@ -20,12 +20,18 @@ from bson.objectid import ObjectId
 @app.route('/dashboard/<page>')
 @login_required
 def dashboard(page=None):
-    if current_user.id == 'admin':
-        return redirect('/admin')
     if page == 'cvtheque':
         abort(404)
-    url = 'dashboard/sections/{}.html'.format(page) if page and page != "accueil" else 'dashboard/dashboard.html'
-    return render_template(url)
+    company = None
+    if current_user.id == 'admin':
+        if request.args.get('id'):
+            session['company_id'] = request.args.get('id')
+        if not session.get('company_id'):
+            return redirect('/admin')
+        company = get_db().companies.find_one({'id': session['company_id']}, {'_id': 0})
+    if not page or page == 'accueil':
+        return render_template('dashboard/dashboard.html', company=company)
+    return render_template('dashboard/sections/{}.html'.format(page), company=company)
 
 
 @app.route('/connexion', methods=["GET", "POST"])

@@ -1,5 +1,7 @@
 {% extends "dashboard/base.html" %}
-{% set company = current_user.data %}
+{% if not company %}
+  {% set company = current_user.data %}
+{% endif %}
 {% macro section_block(name, icon) -%}
   <li class="{{ 'active' if request.path == url_for('dashboard', page=name) else '' }}">
     <a href="{{ url_for('dashboard', page=name) if name != 'cvtheque' else '#' }}">

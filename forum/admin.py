@@ -1,18 +1,27 @@
 # coding=utf-8
 
+from flask import url_for
 from flask_admin.base import expose, BaseView
 from flask_admin.contrib.pymongo import ModelView
 from flask_admin.contrib.pymongo.filters import BasePyMongoFilter, FilterEqual
 from flask_admin.form import rules
 from flask_login import current_user
 from wtforms import fields, form, validators
-from export import _export
+from export import _export, log
+from jinja2 import Markup
 
 
 class StatisticsView(BaseView):
     @expose('/')
     def index(self):
         return self.render('statistics.html')
+
+
+def formatter(view, context, model, name):
+    filters = context.get_all().get('active_filters')
+    if any(['pole' in f for f in filters]):
+        return Markup("<a href='{}'>{}</a>".format(url_for('dashboard', id='lem'), model['id']))
+    return model['id']
 
 
 class CompanyForm(form.Form):
@@ -45,6 +54,16 @@ class FilterPole(FilterEqual, BasePyMongoFilter):
         return "egal a"
 
 
+class FilterZone(FilterEqual, BasePyMongoFilter):
+
+    def apply(self, query, value):
+        query.append({'zone': value})
+        return query
+
+    def operation(self):
+        return "egal a"
+
+
 class CompanyView(ModelView):
     form = CompanyForm
     column_list = ['id'] + ['equipement', 'transport',
@@ -67,8 +86,10 @@ class CompanyView(ModelView):
     column_searchable_list = ['id']
     column_sortable_list = ['id']
     column_filters = (FilterPole(column='pole', name='pole', options=(
-        ('fra', 'Entreprises France'), ('si', 'Section Internationale'), ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'))),)
+        ('fra', 'Entreprises France'), ('si', 'Section Internationale'), ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'))),
+        FilterZone(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]))
     column_labels = dict(id='Identifiant')
+    column_formatters = dict(id=formatter)
 
     def __init__(self, *args, **kwargs):
         super(CompanyView, self).__init__(*args, **kwargs)
