@@ -171,3 +171,33 @@ class JobView(ModelView):
     def __init__(self, *args, **kwargs):
         super(JobView, self).__init__(*args, **kwargs)
         self.name = 'Jobs'
+
+
+class FilterField(FilterEqual, BasePyMongoFilter):
+
+    def apply(self, query, value):
+        value = True if value == 'true' else False
+        query.append({self.column: value})
+        return query
+
+    def operation(self):
+        return "egal a"
+
+
+class StreamForm(form.Form):
+    validated = fields.BooleanField('Validation')
+    delivered = fields.BooleanField('Livraison')
+
+
+class StreamView(ModelView):
+    column_list = ['created_on', 'company', 'diff', 'validated', 'delivered']
+    form = StreamForm
+    can_view_details = True
+    column_filters = (FilterField(column='validated', name='validation', options=(
+        (True, 'oui'), (False, 'non'))),
+        FilterField(column='delivered', name='livraison', options=(
+            (True, 'oui'), (False, 'non'))))
+
+    def __init__(self, *args, **kwargs):
+        super(StreamView, self).__init__(*args, **kwargs)
+        self.name = 'Stream'

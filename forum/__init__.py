@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from __future__ import print_function
 import datetime
 import locale
@@ -14,7 +16,7 @@ from flask_cdn import CDN
 
 from collections import OrderedDict, defaultdict
 
-from admin import CompanyView, UserView, StatisticsView, JobView
+from admin import CompanyView, UserView, StatisticsView, JobView, StreamView
 from storage import init_storage, get_db
 
 # App init
@@ -51,6 +53,7 @@ def get_locale():
 admin = Admin(app, name='Interface Admin', index_view=CompanyView(get_db().companies, url='/admin'))
 admin.add_view(UserView(get_db().users))
 admin.add_view(JobView(get_db().jobs))
+admin.add_view(StreamView(get_db().stream))
 admin.add_view(StatisticsView(name='Stats', endpoint='stats'))
 admin.add_link(MenuLink(name='Se deconnecter', url='/deconnexion'))
 
@@ -67,6 +70,16 @@ def get_events():
     def _get_events():
         return list(get_db().events.find({}, {'_id': False}))
     return dict(get_events=_get_events)
+
+
+@app.template_filter('to_fields')
+def to_fields(type):
+    if type == 'transports':
+        return [u'Gare Part-Dieu', u'Forum Rhône-Alpes', u'Hôtel Okko', u'Hôtel Lyon Metropole', u'Aéroport Saint Exupéry',
+                u'Soirée Networking', u'Hôtel Ibis Part Dieu', u'Hôtel Le Roosvelt', u'Hôtel Carlton',
+                u'Hôtel Reine Astrid', u'Hôtel Park et Suites Lyon Part-Dieu', u'Gare Perrache', u'Hôtel Campanile Part-Dieu',
+                u'Hôtel Mercure Lyon Centre', u'B&B Hôtel Lyon Caluire Cité Internationale',
+                u'Hotel Ibis Lyon Gerland Musée des Confluences', u'Hôtel Tête d\'Or', u'Hôtel Comfort Suites Rive Gauche Lyon Centre']
 
 
 @app.context_processor

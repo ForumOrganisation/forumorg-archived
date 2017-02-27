@@ -161,7 +161,7 @@
           });
         }
       }
-      if ({{'true' if company.get(page) else 'false'}} && !{{'true' if current_user.id == 'admin' else 'false' }}) {
+      if ({{'true' if company.get(page) else 'false'}}) {
         $('input[type=text]').attr('disabled', 'disabled');
         $('select').attr('disabled', 'disabled');
         $('button').attr('disabled', 'disabled');

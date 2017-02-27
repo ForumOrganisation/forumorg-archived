@@ -3,6 +3,8 @@
 import json
 import os
 import requests
+import datetime
+from deepdiff import DeepDiff
 
 from flask import abort, redirect, render_template, request, send_from_directory, url_for, make_response, send_file, session
 from flask_login import current_user, login_required, login_user, logout_user
@@ -75,12 +77,15 @@ def logout():
 @login_required
 def update_company():
     page = request.form.get('page')
-    if current_user.data.get(page) and not current_user.id == 'admin':
+    if current_user.data.get(page):
         return "error"
     else:
         company = request.form.get('company')
         company = json.loads(company)
+        old_company = get_db().companies.find_one({'id': company['id']}, {'_id': 0})
+        diff = DeepDiff(company, old_company, ignore_order=True).json
         set_company(company['id'], company)
+        get_db().stream.insert({'delivered': False, 'validated': False, 'created_on': datetime.datetime.now().isoformat(' '), 'company': company['id'], 'diff': diff})
         return "success"
 
 

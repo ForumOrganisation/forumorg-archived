@@ -49,8 +49,9 @@ def batch_emails():
 
 
 @manager.command
-def create_updates():
-    db.create_updates('updates',
+def create_stream():
+    db.drop_collection('stream')
+    db.create_collection('stream',
     capped=True,
     size=2000000,
     autoIndexId=False)
