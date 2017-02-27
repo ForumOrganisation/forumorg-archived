@@ -75,7 +75,7 @@ def logout():
 @login_required
 def update_company():
     page = request.form.get('page')
-    if current_user.data.get(page):
+    if current_user.data.get(page) and not current_user.id == 'admin':
         return "error"
     else:
         company = request.form.get('company')

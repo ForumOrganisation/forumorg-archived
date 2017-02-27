@@ -18,10 +18,7 @@ class StatisticsView(BaseView):
 
 
 def formatter(view, context, model, name):
-    filters = context.get_all().get('active_filters')
-    if any(['zone' in f for f in filters]):
-        return Markup("<a href='{}'>{}</a>".format(url_for('dashboard', id='lem'), model['id']))
-    return model['id']
+    return Markup("<a href='{}'>{}</a>".format(url_for('dashboard', id=model['id']), model['id']))
 
 
 class CompanyForm(form.Form):
