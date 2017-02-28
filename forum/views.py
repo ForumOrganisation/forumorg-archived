@@ -62,7 +62,7 @@ def login():
 
 
 @app.route('/js_log', methods=["POST"])
-def js_error():
+def js_log():
     print('js_log', request.form.to_dict())
     return 'success'
 
