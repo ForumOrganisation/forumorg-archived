@@ -39,7 +39,7 @@ def generate_vals(writer, export_type, data):
         titles = ['email_etudiant']
         titles += ['fra', 'styf', 'master_class', 'joi', 'ambassadeur']
         titles += ['name', 'first_name', 'year', 'specialty', 'school', 'tel']
-        titles += ['registered_on', 'navettes']
+        titles += ['registered_on', 'transports']
         yield writer.writerow(titles)
         for row in data:
             vals = []
