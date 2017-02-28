@@ -50,11 +50,11 @@ def get_locale():
 
 
 # Admin Interface
-admin = Admin(app, name='Interface Admin', index_view=CompanyView(get_db().companies, url='/admin'))
+admin = Admin(app, name='Interface Admin', index_view=StatisticsView(name=u'Vue générale', url='/admin'))
+admin.add_view(CompanyView(get_db().companies))
 admin.add_view(UserView(get_db().users))
 admin.add_view(JobView(get_db().jobs))
 admin.add_view(StreamView(get_db().stream))
-admin.add_view(StatisticsView(name='Stats', endpoint='stats'))
 admin.add_link(MenuLink(name='Se deconnecter', url='/deconnexion'))
 
 

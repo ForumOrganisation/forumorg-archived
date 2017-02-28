@@ -106,6 +106,15 @@ bundles = {
         ),
         output='build/admin.min.css'),
 
+
+    ### FLASK-ADMIN ###
+    'js_flask_admin': Bundle(
+        Bundle(
+            'chart.js/dist/Chart.min.js',
+            filters='jsmin'
+        ),
+        output='build/flask_admin.min.js'),
+
 }
 
 if os.environ.get('DEBUG'):
