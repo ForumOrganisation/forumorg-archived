@@ -21,14 +21,19 @@ manager.add_command("assets", ManageAssets())
 
 @manager.command
 def batch_emails():
-    users = db.users.find({'events.fra.ambassador': {'$exists': True}})
-    users = [user['id'] for user in users]
+    # Preparing emails
+    path = os.path.join(os.path.dirname(__file__), '../data/navettes.csv')
+    reader = csv.DictReader(open(path), delimiter=';')
+    users = [r['email'] for r in reader]
+    for u in users:
+        print(u)
+    # Starting emailing
     recipients = users
     total = len(users)
     sent = 0
     failed = 0
-    me = 'ambassadeur2017@forumorg.org'
-    subject = u'Forum Rhone-Alpes: Ambassadeur'
+    me = 'no-reply@forumorg.org'
+    subject = u'Forum Rhone-Alpes: J-10'
     sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
     for r in recipients:
         mail = Mail()
