@@ -21,6 +21,18 @@ def formatter(view, context, model, name):
     return Markup("<a href='{}'>{}</a>".format(url_for('dashboard', id=model['id']), model['id']))
 
 
+class FilterField(FilterEqual, BasePyMongoFilter):
+
+    def apply(self, query, value):
+        if self.column in ['validated', 'delivered']:
+            value = True if value == 'oui' else False
+        query.append({self.column: value})
+        return query
+
+    def operation(self):
+        return "egal a"
+
+
 class CompanyForm(form.Form):
     # Basic
     id = fields.StringField('Identifiant', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. loreal, amadeus, canalplus"})
@@ -32,33 +44,13 @@ class CompanyForm(form.Form):
     size = fields.SelectField('Surface', choices=[(4.5, '4.5 m2'), (9, '9 m2'), (12, '12 m2'), (18, '18 m2'), (24, '24 m2'), (27, '27 m2'), (36, '36 m2')], coerce=float)
     duration = fields.SelectField('Jours de presence', choices=[('wed', 'Mercredi'), ('thu', 'Jeudi'), ('both', 'Mercredi et Jeudi')])
     equiped = fields.BooleanField('Equipe?')
-    pole = fields.SelectField('Pole', choices=[('fra', 'Entreprises France'), ('si', 'Section Internationale'), ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles')])
+    pole = fields.SelectField('Pole', choices=[('fra', 'Entreprises France'), ('si', 'Section Internationale'), ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'), ('startup', 'Start-Up')])
     # Dashboard
     equipement = fields.BooleanField('Equipement valide?')
     restauration = fields.BooleanField('Restauration valide?')
     badges = fields.BooleanField('Badges valide?')
     transport = fields.BooleanField('Transports valide?')
     programme = fields.BooleanField('Programme valide?')
-
-
-class FilterPole(FilterEqual, BasePyMongoFilter):
-
-    def apply(self, query, value):
-        query.append({'pole': value})
-        return query
-
-    def operation(self):
-        return "egal a"
-
-
-class FilterZone(FilterEqual, BasePyMongoFilter):
-
-    def apply(self, query, value):
-        query.append({'zone': value})
-        return query
-
-    def operation(self):
-        return "egal a"
 
 
 class CompanyView(ModelView):
@@ -82,9 +74,9 @@ class CompanyView(ModelView):
 
     column_searchable_list = ['id']
     column_sortable_list = ['id']
-    column_filters = (FilterPole(column='pole', name='pole', options=(
-        ('fra', 'Entreprises France'), ('si', 'Section Internationale'), ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'))),
-        FilterZone(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]))
+    column_filters = (FilterField(column='pole', name='pole', options=(
+        ('fra', 'Entreprises France'), ('si', 'Section Internationale'), ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'), ('startup', 'Start-Up'))),
+        FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]))
     column_labels = dict(id='Identifiant')
     column_formatters = dict(id=formatter)
 
@@ -173,30 +165,23 @@ class JobView(ModelView):
         self.name = 'Jobs'
 
 
-class FilterField(FilterEqual, BasePyMongoFilter):
-
-    def apply(self, query, value):
-        value = True if value == 'oui' else False
-        query.append({self.column: value})
-        return query
-
-    def operation(self):
-        return "egal a"
-
-
 class StreamForm(form.Form):
     validated = fields.BooleanField('Validation')
     delivered = fields.BooleanField('Livraison')
 
 
 class StreamView(ModelView):
-    column_list = ['created_on', 'company', 'diff', 'validated', 'delivered']
+    column_list = ['created_on', 'company', 'zone', 'section', 'diff', 'validated', 'delivered']
     form = StreamForm
     can_view_details = True
-    column_filters = (FilterField(column='validated', name='validation', options=(
-        ('oui', 'oui'), ('non', 'non'))),
+    column_filters = (
+        FilterField(column='validated', name='validation', options=(
+            ('oui', 'oui'), ('non', 'non'))),
         FilterField(column='delivered', name='livraison', options=(
-            ('oui', 'oui'), ('non', 'non'))))
+            ('oui', 'oui'), ('non', 'non'))),
+        FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]),
+        FilterField(column='section', name='section', options=[['restauration', 'restauration'], ['transport', 'transport'], ['badges', 'badges'], ['equipement', 'equipement']])
+    )
 
     def __init__(self, *args, **kwargs):
         super(StreamView, self).__init__(*args, **kwargs)

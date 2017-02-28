@@ -61,9 +61,9 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/js_error', methods=["POST"])
+@app.route('/js_log', methods=["POST"])
 def js_error():
-    print('js_error', request.form.to_dict())
+    print('js_log', request.form.to_dict())
     return 'success'
 
 
@@ -83,13 +83,19 @@ def update_company():
         company = request.form.get('company')
         company = json.loads(company)
         old_company = get_db().companies.find_one({'id': company['id']}, {'_id': 0})
-        try:
-            diff = DeepDiff(old_company, company, ignore_order=True, verbose_level=2).json
-        except:
-            diff = {'error': True, 'message': 'an error has occured. see company directly for changes.'}
         set_company(company['id'], company)
-        get_db().stream.insert({'delivered': False, 'validated': False, 'created_on': datetime.datetime.now().isoformat(' '), 'company': company['id'], 'diff': diff})
+        send_event(old_company, company, page)
         return "success"
+
+
+def send_event(old_company, company, page):
+    zone, company_id = company.get('zone'), company.get('id')
+    dt = datetime.datetime.now().strftime('%A %H:%M:%S')
+    try:
+        diff = DeepDiff(old_company, company, ignore_order=True, verbose_level=2).json
+    except:
+        diff = {'error': True, 'message': 'an error has occured. ask directly for changes.'}
+    get_db().stream.insert({'delivered': False, 'validated': False, 'section': page, 'zone': zone, 'created_on': dt, 'company': company_id, 'diff': diff})
 
 
 @app.route('/get_resume/<oid>')
