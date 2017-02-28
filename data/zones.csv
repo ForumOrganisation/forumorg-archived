@@ -90,7 +90,6 @@ zone1,mentor
 zone2,migso
 zone7,michelin
 zone8,msf
-zone8,
 zone6,nationalinst
 zone2,nge
 zone2,novonord
@@ -157,6 +156,15 @@ zone8,escp
 zone8,audencia
 zone8,gem
 zone8,cesi
+zone4,acuity
+zone4,dawex
+zone4,urgotech
+zone4,bootstart
+zone4,cellance
+zone4,wair
+zone4,usercube
+zone4,jobglober
+zone4,enoptea
 zone4,centraledanone
 zone4,attijari
 zone4,pharma5
