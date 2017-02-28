@@ -37,8 +37,9 @@ def nb_dishes(size):
 def generate_vals(writer, export_type, data):
     if export_type == 'general':
         titles = ['email_etudiant']
-        titles += ['fra', 'styf', 'master_class', 'joi', 'ambassadeur', 'registered_on']
+        titles += ['fra', 'styf', 'master_class', 'joi', 'ambassadeur']
         titles += ['name', 'first_name', 'year', 'specialty', 'school', 'tel']
+        titles += ['registered_on', 'navettes']
         yield writer.writerow(titles)
         for row in data:
             vals = []
@@ -46,9 +47,10 @@ def generate_vals(writer, export_type, data):
             for t in titles[1:5]:
                 vals.append(row['events'].get(t, {}).get('registered', False))
             vals.append(bool(row['events']['fra'].get('ambassador')))
-            vals.append(row.get('registered_on'))
-            for t in titles[7:]:
+            for t in titles[6:]:
                 vals.append(row.get('profile', {}).get(t, ''))
+            vals.append(row.get('registered_on'))
+            vals.append(row['events']['fra'].get('transports'))
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
     else:
@@ -88,8 +90,10 @@ def generate_vals(writer, export_type, data):
             vals.append(row.get('duration', ''))
             val_wed = row['sections']['catering']['wed'].get('seated', 0)
             val_thu = row['sections']['catering']['thu'].get('seated', 0)
-            val_wed += nb_dishes(row.get('size'))
-            val_thu += nb_dishes(row.get('size'))
+            if row['duration'] in ['wed', 'both']:
+                val_wed += nb_dishes(row.get('size'))
+            if row['duration'] in ['thu', 'both']:
+                val_thu += nb_dishes(row.get('size'))
             vals.append(val_wed)
             vals.append(val_thu)
             vals = [csv_encode(v) for v in vals]

@@ -22,11 +22,12 @@ manager.add_command("assets", ManageAssets())
 @manager.command
 def batch_emails():
     # Preparing emails
-    path = os.path.join(os.path.dirname(__file__), '../data/navettes.csv')
-    reader = csv.DictReader(open(path), delimiter=';')
-    users = [r['email'] for r in reader]
-    for u in users:
-        print(u)
+    path = os.path.join(os.path.dirname(__file__), '../users.csv')
+    reader = csv.DictReader(open(path))
+    users = [r for r in reader]
+    users = [u for u in users if all([bool(e == 'False') for e in [u['styf'], u['joi'], u['master_class'], u['fra']]])]
+    users = [u for u in users if int(u['registered_on'][5:7]) >= 2]
+    users = [u['email_etudiant'] for u in users]
     # Starting emailing
     recipients = users
     total = len(users)
