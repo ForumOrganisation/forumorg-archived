@@ -111,7 +111,6 @@ bundles = {
     'js_flask_admin': Bundle(
         Bundle(
             'chart.js/dist/Chart.min.js',
-            filters='jsmin'
         ),
         output='build/flask_admin.min.js'),
 

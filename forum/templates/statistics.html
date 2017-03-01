@@ -4,94 +4,124 @@
   <script>
     {% set stats = get_stats() %}
     {% set users = get_users() %}
-    {{ stats.get('fra').keys()|safe }}
+    {% set schools = get_schools() %}
     window.onload = function () {
-      var ctxLog = document.getElementById("chartLog");
-      var ctxUsers = document.getElementById("chartUsers");
-      var dataLog = {
-        labels: [
-          "Badges", "Equipement", "Programme", "Restauration", "Transport"
-        ],
-        datasets: [
-          {
-            label: "FRA",
-            backgroundColor: 'rgba(54, 162, 235, 0.4)',
-            data: {{ stats.get('fra').values() }}
-          }, {
-            label: "CM",
-            backgroundColor: 'rgba(255, 206, 86, 0.4)',
-            data: {{ stats.get('cm').values() }}
-          }, {
-            label: "SI",
-            backgroundColor: 'rgba(255, 99, 132, 0.4)',
-            data: {{ stats.get('si').values() }}
-          }, {
-            label: "Ecoles",
-            backgroundColor: 'rgba(75, 192, 192, 0.4)',
-            data: {{ stats.get('school').values() }}
+      initLog();
+      initUsers();
+      initSchools();
+      function initSchools() {
+        var ctx = document.getElementById("schools");
+        var data = {
+          labels: {{ schools.get('labels')|tojson }},
+          datasets: [
+            {
+              data: {{ schools.get('count')|tojson }},
+              backgroundColor: ['rgba(255, 99, 132, 0.4)', 'rgba(54, 162, 235, 0.4)', 'rgba(255, 206, 86, 0.4)', 'rgba(75, 192, 192, 0.4)']
+            }
+          ]
+        };
+        var chartSchools = new Chart(ctx, {
+          type: 'pie',
+          data: data,
+          options: {
+            title: {
+              display: true,
+              text: 'Nombre d\'inscrits par école'
+            }
           }
-        ]
-      };
-      var dataUsers = {
-        labels: {{ users.get('labels')|safe }},
-        datasets: [
-          {
-            label: "confirmés",
-            backgroundColor: 'rgba(255, 99, 132, 0.4)',
-            data: {{ users.get('confirmed') }}
-          }, {
-            label: "inscrits",
-            backgroundColor: 'rgba(54, 162, 235, 0.4)',
-            data: {{ users.get('registered') }}
-          }
-        ]
-      };
-      var chartLog = new Chart(ctxLog, {
-        type: 'bar',
-        data: dataLog,
-        fill: true,
-        backgroundColor: 'rgba(255, 206, 86, 0.4)',
-        options: {
-          title: {
-            display: true,
-            text: 'Avancement Suivi Logistique'
-          },
-          barValueSpacing: 20,
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  min: 0,
-                  max: 120
+        });
+      }
+      function initUsers() {
+        var ctx = document.getElementById("users");
+        var data = {
+          labels: {{ users.get('labels')|safe }},
+          datasets: [
+            {
+              label: "confirmés",
+              backgroundColor: 'rgba(255, 99, 132, 0.4)',
+              data: {{ users.get('confirmed') }}
+            }, {
+              label: "inscrits",
+              backgroundColor: 'rgba(54, 162, 235, 0.4)',
+              data: {{ users.get('registered') }}
+            }
+          ]
+        };
+        var chartUsers = new Chart(ctx, {
+          type: 'line',
+          data: data,
+          options: {
+            title: {
+              display: true,
+              text: 'Nombre d\'inscrits'
+            },
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    min: 0
+                  }
                 }
-              }
-            ]
+              ]
+            }
           }
-        }
-      });
-      var chartUsers = new Chart(ctxUsers, {
-        type: 'line',
-        data: dataUsers,
-        options: {
-          title: {
-            display: true,
-            text: 'Nombre d\'inscrits'
-          },
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  min: 0
+        });
+      }
+      function initLog() {
+        var ctx = document.getElementById("log");
+        var data = {
+          labels: [
+            'Badges', 'Equipement', 'Programme', 'Restauration', 'Transport'
+          ],
+          datasets: [
+            {
+              label: "FRA",
+              backgroundColor: 'rgba(54, 162, 235, 0.4)',
+              data: {{ stats.get('fra').values() }}
+            }, {
+              label: "CM",
+              backgroundColor: 'rgba(255, 206, 86, 0.4)',
+              data: {{ stats.get('cm').values() }}
+            }, {
+              label: "SI",
+              backgroundColor: 'rgba(255, 99, 132, 0.4)',
+              data: {{ stats.get('si').values() }}
+            }, {
+              label: "Ecoles",
+              backgroundColor: 'rgba(75, 192, 192, 0.4)',
+              data: {{ stats.get('school').values() }}
+            }
+          ]
+        };
+        var chart = new Chart(ctx, {
+          type: 'bar',
+          data: data,
+          fill: true,
+          backgroundColor: 'rgba(255, 206, 86, 0.4)',
+          options: {
+            title: {
+              display: true,
+              text: 'Avancement Suivi Logistique'
+            },
+            barValueSpacing: 20,
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    min: 0,
+                    max: 120
+                  }
                 }
-              }
-            ]
+              ]
+            }
           }
-        }
-      });
+        });
+      }
     }
   </script>
 {% endblock %}
 {% block body %}
-  <canvas id="chartLog" style="width:100%; height:300px" class="model-list"></canvas>
-  <canvas id="chartUsers" style="width:100%; height:300px" class="model-list"></canvas>
+  <canvas id="log" style="width:100%; height:300px" class="model-list"></canvas>
+  <canvas id="users" style="width:100%; height:300px" class="model-list"></canvas>
+  <canvas id="schools" style="width:100%; height:300px" class="model-list"></canvas>
 {% endblock %}

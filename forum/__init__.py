@@ -129,6 +129,17 @@ def get_users():
     return dict(get_users=_get_users)
 
 
+@app.context_processor
+def get_schools():
+    def _get_schools():
+        res = list(get_db().users.aggregate([{'$match': {'profile.school': {'$exists': True}}}, {'$limit': 2}, {'$sort': {'count': 1}}, {'$group': {'_id': '$profile.school', 'count': {'$sum': 1}}}]))
+        result = {}
+        result['labels'] = [r['_id'] for r in res]
+        result['count'] = [r['count'] for r in res]
+        return result
+    return dict(get_schools=_get_schools)
+
+
 # Jinja Filters
 @app.template_filter('to_jobs')
 def to_jobs(company_id):
