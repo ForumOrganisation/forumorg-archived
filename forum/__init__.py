@@ -113,15 +113,15 @@ def get_stats():
 @app.context_processor
 def get_users():
     def _get_users():
-        start = datetime.datetime(2017, 1, 9)
+        start = datetime.datetime(2017, 1, 8) # pre-launch date
         days = (datetime.datetime.today() - start).days
         dates = [start + datetime.timedelta(inc) for inc in range(days)]
         result = {}
         confirmed = []
         registered = []
         for d in dates:
-            registered.append(len(list(get_db().users.find({'registered_on': {'$lt': d}}))))
-            confirmed.append(len(list(get_db().users.find({'confirmed_on': {'$lt': d}}))))
+            registered.append(get_db().users.find({'registered_on': {'$lte': d}}).count())
+            confirmed.append(get_db().users.find({'confirmed_on': {'$lte': d}}).count())
         result['labels'] = [d.strftime('%d-%m') for d in dates]
         result['confirmed'] = confirmed
         result['registered'] = registered
