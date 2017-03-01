@@ -113,7 +113,7 @@ def get_stats():
 @app.context_processor
 def get_users():
     def _get_users():
-        start = datetime.datetime(2017, 1, 1)
+        start = datetime.datetime(2017, 1, 9)
         days = (datetime.datetime.today() - start).days
         dates = [start + datetime.timedelta(inc) for inc in range(days)]
         result = {}
