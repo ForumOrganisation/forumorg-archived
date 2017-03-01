@@ -4,12 +4,13 @@
   <script>
     {% set stats = get_stats() %}
     {% set users = get_users() %}
+    {{ stats.get('fra').keys()|safe }}
     window.onload = function () {
       var ctxLog = document.getElementById("chartLog");
       var ctxUsers = document.getElementById("chartUsers");
       var dataLog = {
         labels: [
-          "FRA", "CM", "Ecoles", "SI"
+          "Badges", "Equipement", "Programme", "Restauration", "Transport"
         ],
         datasets: [
           {
