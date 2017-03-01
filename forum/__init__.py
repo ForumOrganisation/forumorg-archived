@@ -50,12 +50,12 @@ def get_locale():
 
 
 # Admin Interface
-admin = Admin(app, name='Interface Admin', index_view=StatisticsView(name=u'Vue générale', url='/admin'))
-admin.add_view(CompanyView(get_db().companies))
-admin.add_view(UserView(get_db().users))
-admin.add_view(JobView(get_db().jobs))
-admin.add_view(StreamView(get_db().stream))
-admin.add_link(MenuLink(name='Se deconnecter', url='/deconnexion'))
+admin = Admin(app, name='Interface Admin', index_view=StatisticsView(url='/admin', name=u'Vue générale'))
+admin.add_view(CompanyView(get_db().companies, name='Entreprises'))
+admin.add_view(UserView(get_db().users, name='Utilisateurs'))
+admin.add_view(JobView(get_db().jobs, name='Offres'))
+admin.add_view(StreamView(get_db().stream, name='Stream'))
+admin.add_link(MenuLink(name=u'Se déconnecter', url='/deconnexion'))
 
 
 @app.context_processor
@@ -133,7 +133,6 @@ def get_users():
 def get_schools():
     def _get_schools():
         res = list(get_db().users.aggregate([{'$match': {'profile.school': {'$exists': True}}}, {'$group': {'_id': '$profile.school', 'count': {'$sum': 1}}}, {'$sort': {'count': -1}}, {'$limit': 5}]))
-        log(res)
         result = {}
         result['labels'] = [r['_id'] for r in res]
         result['count'] = [r['count'] for r in res]

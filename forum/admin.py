@@ -11,14 +11,22 @@ from export import _export, log
 from jinja2 import Markup
 
 
+def formatter(view, context, model, name):
+    return Markup("<a href='{}'>{}</a>".format(url_for('dashboard', id=model['id']), model['id']))
+
+
 class StatisticsView(BaseView):
+    def __init__(self, *args, **kwargs):
+        super(StatisticsView, self).__init__(*args, **kwargs)
+        self.static_folder = 'static'
+        self.endpoint = 'admin'
+
     @expose('/')
     def index(self):
         return self.render('statistics.html')
 
-
-def formatter(view, context, model, name):
-    return Markup("<a href='{}'>{}</a>".format(url_for('dashboard', id=model['id']), model['id']))
+    def is_accessible(self):
+        return current_user.get_id() == 'admin' and current_user.is_authenticated
 
 
 class FilterField(FilterEqual, BasePyMongoFilter):
@@ -80,15 +88,6 @@ class CompanyView(ModelView):
     column_labels = dict(id='Identifiant')
     column_formatters = dict(id=formatter)
 
-    def __init__(self, *args, **kwargs):
-        super(CompanyView, self).__init__(*args, **kwargs)
-        self.static_folder = 'static'
-        self.endpoint = 'admin'
-        self.name = 'Entreprises'
-
-    def is_accessible(self):
-        return current_user.get_id() == 'admin' and current_user.is_authenticated
-
     @expose('/export/<export_type>/')
     def export(self, export_type):
         return _export(self, export_type)
@@ -137,10 +136,6 @@ class UserView(ModelView):
         ('joi', 'Journee Objectif Ingenieur'))),)
     column_sortable_list = ['id', 'confirmed_on', 'registered_on']
 
-    def __init__(self, *args, **kwargs):
-        super(UserView, self).__init__(*args, **kwargs)
-        self.name = 'Utilisateurs'
-
     @expose('/export/<export_type>/')
     def export(self, export_type):
         return _export(self, export_type)
@@ -160,10 +155,6 @@ class JobView(ModelView):
     column_sortable_list = ['company_id', 'title', 'location', 'duration']
     column_exclude_list = ['description']
 
-    def __init__(self, *args, **kwargs):
-        super(JobView, self).__init__(*args, **kwargs)
-        self.name = 'Jobs'
-
 
 class StreamForm(form.Form):
     validated = fields.BooleanField('Validation')
@@ -182,7 +173,3 @@ class StreamView(ModelView):
         FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]),
         FilterField(column='section', name='section', options=[['restauration', 'restauration'], ['transport', 'transport'], ['badges', 'badges'], ['equipement', 'equipement']])
     )
-
-    def __init__(self, *args, **kwargs):
-        super(StreamView, self).__init__(*args, **kwargs)
-        self.name = 'Stream'
