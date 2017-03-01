@@ -12,6 +12,7 @@ from flask_admin.base import MenuLink
 from flask_login import LoginManager
 from gridfs import GridFS
 from flask_babelex import Babel
+from flask_cors import CORS
 from flask_cdn import CDN
 
 from collections import OrderedDict, defaultdict
@@ -44,6 +45,9 @@ babel = Babel(app)
 # CDN
 cdn = CDN()
 cdn.init_app(app)
+
+# CORS
+cors = CORS(app)
 
 
 @babel.localeselector
