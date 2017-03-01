@@ -15,20 +15,20 @@
         datasets: [
           {
             label: "FRA",
-            backgroundColor: 'rgba(255, 99, 132, 0.4)',
+            backgroundColor: 'rgba(54, 162, 235, 0.4)',
             data: {{ stats.get('fra').values() }}
           }, {
             label: "CM",
-            backgroundColor: 'rgba(54, 162, 235, 0.4)',
+            backgroundColor: 'rgba(255, 206, 86, 0.4)',
             data: {{ stats.get('cm').values() }}
+          }, {
+            label: "SI",
+            backgroundColor: 'rgba(255, 99, 132, 0.4)',
+            data: {{ stats.get('si').values() }}
           }, {
             label: "Ecoles",
             backgroundColor: 'rgba(75, 192, 192, 0.4)',
             data: {{ stats.get('school').values() }}
-          }, {
-            label: "SI",
-            backgroundColor: 'rgba(255, 206, 86, 0.4)',
-            data: {{ stats.get('si').values() }}
           }
         ]
       };
