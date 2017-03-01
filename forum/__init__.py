@@ -110,6 +110,25 @@ def get_stats():
     return dict(get_stats=_get_stats)
 
 
+@app.context_processor
+def get_users():
+    def _get_users():
+        start = datetime.datetime(2017, 1, 1)
+        days = (datetime.datetime.today() - start).days
+        dates = [start + datetime.timedelta(inc) for inc in range(days)]
+        result = {}
+        confirmed = []
+        registered = []
+        for d in dates:
+            registered.append(len(list(get_db().users.find({'registered_on': {'$lt': d}}))))
+            confirmed.append(len(list(get_db().users.find({'confirmed_on': {'$lt': d}}))))
+        result['labels'] = [d.strftime('%d-%m') for d in dates]
+        result['confirmed'] = confirmed
+        result['registered'] = registered
+        return result
+    return dict(get_users=_get_users)
+
+
 # Jinja Filters
 @app.template_filter('to_jobs')
 def to_jobs(company_id):
