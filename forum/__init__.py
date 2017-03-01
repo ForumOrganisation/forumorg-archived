@@ -25,8 +25,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY') or 'my-debug-key'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['CDN_DOMAIN'] = os.environ.get('FASTLY_CDN_URL')
-#app.config['CDN_DEBUG'] = bool(os.environ.get('DEBUG'))
-app.config['CDN_DEBUG'] = True
+app.config['CDN_DEBUG'] = True # bool(os.environ.get('DEBUG'))
 app.config['CDN_HTTPS'] = True
 app.jinja_env.add_extension('jinja2_time.TimeExtension')
 
@@ -43,8 +42,8 @@ login_manager.init_app(app)
 babel = Babel(app)
 
 # CDN
-cdn = CDN()
-cdn.init_app(app)
+#cdn = CDN()
+#cdn.init_app(app)
 
 # CORS
 cors = CORS(app)

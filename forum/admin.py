@@ -15,6 +15,14 @@ def formatter(view, context, model, name):
     return Markup("<a href='{}'>{}</a>".format(url_for('dashboard', id=model['id']), model['id']))
 
 
+class AdminView(ModelView):
+    def __init__(self, *args, **kwargs):
+        super(AdminView, self).__init__(*args, **kwargs)
+
+    def is_accessible(self):
+        return current_user.get_id() == 'admin' and current_user.is_authenticated
+
+
 class StatisticsView(BaseView):
     def __init__(self, *args, **kwargs):
         super(StatisticsView, self).__init__(*args, **kwargs)
@@ -61,7 +69,7 @@ class CompanyForm(form.Form):
     programme = fields.BooleanField('Programme valide?')
 
 
-class CompanyView(ModelView):
+class CompanyView(AdminView):
     form = CompanyForm
     column_list = ['id'] + ['equipement', 'transport',
                             'restauration', 'badges', 'programme']
@@ -117,7 +125,7 @@ class FilterRegister(FilterEqual, BasePyMongoFilter):
         return "participe a"
 
 
-class UserView(ModelView):
+class UserView(AdminView):
     column_list = ['id', 'events', 'confirmed_on', 'registered_on', 'profile']
     column_labels = dict(id='Email', confirmed_on='Confirmation', registered_on='Inscription', profile='Profil', events='Participations')
     export_types = ['general']
@@ -145,7 +153,7 @@ class JobForm(form.Form):
     pass
 
 
-class JobView(ModelView):
+class JobView(AdminView):
     column_list = ['company_id', 'title', 'location', 'duration', 'description']
     column_labels = dict(company_id='Entreprise', duration='Duree', location='Lieu')
     can_edit = False
@@ -161,7 +169,7 @@ class StreamForm(form.Form):
     delivered = fields.BooleanField('Livraison')
 
 
-class StreamView(ModelView):
+class StreamView(AdminView):
     column_list = ['created_on', 'company', 'zone', 'section', 'diff', 'validated', 'delivered']
     form = StreamForm
     can_view_details = True
