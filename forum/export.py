@@ -47,7 +47,7 @@ def generate_vals(writer, export_type, data):
             for t in titles[1:5]:
                 vals.append(row['events'].get(t, {}).get('registered', False))
             vals.append(bool(row['events']['fra'].get('ambassador')))
-            for t in titles[6:]:
+            for t in titles[6:12]:
                 vals.append(row.get('profile', {}).get(t, ''))
             vals.append(row.get('registered_on'))
             vals.append(row['events']['fra'].get('transports'))
