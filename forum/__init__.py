@@ -132,7 +132,7 @@ def get_users():
 @app.context_processor
 def get_schools():
     def _get_schools():
-        res = list(get_db().users.aggregate([{'$match': {'profile.school': {'$exists': True}}}, {'$limit': 2}, {'$sort': {'count': 1}}, {'$group': {'_id': '$profile.school', 'count': {'$sum': 1}}}]))
+        res = list(get_db().users.aggregate([{'$match': {'profile.school': {'$exists': True}}}, {'$group': {'_id': '$profile.school', 'count': {'$sum': 1}}}, {'$limit': 5}, {'$sort': {'count': 1}}]))
         result = {}
         result['labels'] = [r['_id'] for r in res]
         result['count'] = [r['count'] for r in res]
