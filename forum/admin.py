@@ -40,7 +40,7 @@ class StatisticsView(BaseView):
 class FilterField(FilterEqual, BasePyMongoFilter):
 
     def apply(self, query, value):
-        if self.column in ['validated', 'delivered']:
+        if self.column in ['validated', 'delivered', 'denied']:
             value = True if value == 'oui' else False
         query.append({self.column: value})
         return query
@@ -165,18 +165,22 @@ class JobView(AdminView):
 
 
 class StreamForm(form.Form):
-    validated = fields.BooleanField('Validation')
-    delivered = fields.BooleanField('Livraison')
+    validated = fields.BooleanField('Valider')
+    delivered = fields.BooleanField('Livrer')
+    denied = fields.BooleanField('Refuser')
 
 
 class StreamView(AdminView):
-    column_list = ['created_on', 'company', 'zone', 'section', 'diff', 'validated', 'delivered']
+    column_list = ['created_on', 'company', 'zone', 'section', 'diff', 'validated', 'delivered', 'denied']
+    column_labels = dict(created_on=u'Créé le', company='Entreprise', diff='Message', validated=u'Validé', delivered=u'Livré', denied=u'Refusé')
     form = StreamForm
     can_view_details = True
     column_filters = (
         FilterField(column='validated', name='validation', options=(
             ('oui', 'oui'), ('non', 'non'))),
         FilterField(column='delivered', name='livraison', options=(
+            ('oui', 'oui'), ('non', 'non'))),
+        FilterField(column='denied', name='refus', options=(
             ('oui', 'oui'), ('non', 'non'))),
         FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]),
         FilterField(column='section', name='section', options=[['restauration', 'restauration'], ['transport', 'transport'], ['badges', 'badges'], ['equipement', 'equipement']])

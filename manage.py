@@ -59,7 +59,7 @@ def create_stream():
     db.drop_collection('stream')
     db.create_collection('stream',
     capped=True,
-    size=2000000,
+    size=100000000,
     autoIndexId=False)
 
 
