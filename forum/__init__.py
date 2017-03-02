@@ -120,10 +120,13 @@ def get_users():
         result = {}
         confirmed = []
         registered = []
+        fra = []
         for d in dates:
             registered.append(get_db().users.find({'registered_on': {'$lte': d}}).count())
-            confirmed.append(get_db().users.find({'confirmed_on': {'$lte': d}}).count())
+            confirmed.append(get_db().users.find({'confirmed': True, 'registered_on': {'$lte': d}}).count())
+            fra.append(get_db().users.find({'events.fra.registered': True, 'registered_on': {'$lte': d}}).count())
         result['labels'] = [d.strftime('%d-%m') for d in dates]
+        result['fra'] = fra
         result['confirmed'] = confirmed
         result['registered'] = registered
         return result
