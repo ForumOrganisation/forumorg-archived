@@ -116,7 +116,7 @@ def get_users():
     def _get_users():
         start = datetime.datetime(2017, 1, 9) # pre-launch date
         days = (datetime.datetime.today() - start).days
-        dates = [start + datetime.timedelta(inc) for inc in range(days + 2)]
+        dates = [start + datetime.timedelta(inc) for inc in range(days + 1)]
         result = {}
         confirmed = []
         registered = []
