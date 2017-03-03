@@ -24,7 +24,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY') or 'my-debug-key'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['CDN_DOMAIN'] = os.environ.get('FASTLY_CDN_URL')
-app.config['CDN_DEBUG'] = True # bool(os.environ.get('DEBUG'))
+app.config['CDN_DEBUG'] = True  # bool(os.environ.get('DEBUG'))
 #app.config['CDN_HTTPS'] = True
 app.jinja_env.add_extension('jinja2_time.TimeExtension')
 
@@ -100,7 +100,8 @@ def get_stats():
     def _get_stats():
         result = defaultdict(dict)
         for s in ['equipement', 'restauration', 'badges', 'transport', 'programme']:
-            cur = get_db().companies.aggregate([{'$skip': 1}, {'$group': {'_id': '$pole', 'all': {'$sum': 1}, 'validated': {'$sum': {'$cmp': ['${}'.format(s), False]}}}}])
+            cur = get_db().companies.aggregate([{'$skip': 1}, {'$group': {'_id': '$pole', 'all': {
+                '$sum': 1}, 'validated': {'$sum': {'$cmp': ['${}'.format(s), False]}}}}])
             for c in cur:
                 pole, total, validated = c['_id'], c['all'], c['validated']
                 result[pole][s] = round(100.0 * validated / total, 2)
@@ -114,7 +115,7 @@ def get_stats():
 @app.context_processor
 def get_users():
     def _get_users():
-        start = datetime.datetime(2017, 1, 9) # pre-launch date
+        start = datetime.datetime(2017, 1, 9)  # pre-launch date
         days = (datetime.datetime.today() - start).days
         dates = [start + datetime.timedelta(inc) for inc in range(days + 2)]
         result = {}
@@ -136,7 +137,8 @@ def get_users():
 @app.context_processor
 def get_schools():
     def _get_schools():
-        res = list(get_db().users.aggregate([{'$match': {'profile.school': {'$exists': True}}}, {'$group': {'_id': '$profile.school', 'count': {'$sum': 1}}}, {'$sort': {'count': -1}}, {'$limit': 5}]))
+        res = list(get_db().users.aggregate([{'$match': {'profile.school': {'$exists': True}}}, {'$group': {
+                   '_id': '$profile.school', 'count': {'$sum': 1}}}, {'$sort': {'count': -1}}, {'$limit': 5}]))
         result = {}
         result['labels'] = [r['_id'] for r in res]
         result['count'] = [r['count'] for r in res]

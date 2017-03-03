@@ -25,16 +25,20 @@ def batch_emails():
     path = os.path.join(os.path.dirname(__file__), '../users.csv')
     reader = csv.DictReader(open(path))
     users = [r for r in reader]
-    users = [u for u in users if all([bool(e == 'False') for e in [u['styf'], u['joi'], u['master_class'], u['fra']]])]
-    users = [u for u in users if int(u['registered_on'][5:7]) >= 2]
-    users = [u['email_etudiant'] for u in users]
-    # Starting emailing
+    users = ['elmehdi.baha@forumorg.org']
+    # To define
+    subject = u'Forum Rhone-Alpes: Ambassadeurs'
+    subtitle = 'Vous recevez ce mail car vous êtes inscrit sur forumorg.org'
+    # Sending email
     recipients = users
-    total = len(users)
-    sent = 0
-    failed = 0
+    body = open(os.path.join(os.path.dirname(__file__), 'MAIL_TO_SEND')).read()
+    send_mail(recipients, subject, body, subtitle, active=False)
+
+
+def send_mail(recipients, subject, body, subtitle, active):
     me = 'no-reply@forumorg.org'
-    subject = u'Forum Rhone-Alpes: J-10'
+    sent, failed = 0, 0
+    total = len(recipients)
     sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
     for r in recipients:
         mail = Mail()
@@ -44,8 +48,11 @@ def batch_emails():
         personalization.add_to(Email(r))
         mail.add_personalization(personalization)
         mail.personalizations[0].add_substitution(Substitution("-subject-", subject))
+        mail.personalizations[0].add_substitution(Substitution("-body-", body))
+        mail.personalizations[0].add_substitution(Substitution("-subtitle-", subtitle))
         try:
-            sg.client.mail.send.post(request_body=mail.get())
+            if active:
+                sg.client.mail.send.post(request_body=mail.get())
             print(r)
             print("{} mails restants".format(total - sent))
             sent += 1
@@ -57,10 +64,7 @@ def batch_emails():
 @manager.command
 def create_stream():
     db.drop_collection('stream')
-    db.create_collection('stream',
-    capped=True,
-    size=100000000,
-    autoIndexId=False)
+    db.create_collection('stream', capped=True, size=100000000, autoIndexId=False)
 
 
 @manager.command

@@ -1,5 +1,6 @@
 *.py[co]
 *.DS_*
+MAIL_TO_SEND
 
 # Packages
 .env

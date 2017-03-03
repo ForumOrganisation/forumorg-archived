@@ -57,7 +57,8 @@ def generate_vals(writer, export_type, data):
         titles = ['id_entreprise', 'valide']
     if export_type == 'equipement':
         titles += ['duration', 'equiped', 'banner', 'size', 'emplacement', 'pole']
-        titles += ['chaise', 'table', 'banque_hotesse', 'tabouret', 'portemanteau', 'chauffeuse', u'mange_debout', u'presentoir', u'ecran_32', u'ecran_42', u'poste_2', u'poste_3', u'poste_6', u'poste_9']
+        titles += ['chaise', 'table', 'banque_hotesse', 'tabouret', 'portemanteau', 'chauffeuse', u'mange_debout',
+                   u'presentoir', u'ecran_32', u'ecran_42', u'poste_2', u'poste_3', u'poste_6', u'poste_9']
         yield writer.writerow(titles)
         for row in data:
             vals = []
@@ -138,28 +139,29 @@ def generate_vals(writer, export_type, data):
 
 
 def _export_fields(obj, export_type, return_url):
-        count, data = obj._export_data()
+    count, data = obj._export_data()
 
-        class Echo(object):
-            def write(self, value):
-                return value
+    class Echo(object):
 
-        writer = csv.writer(Echo())
-        data = [row for row in data if row['id'] != 'admin']
-        gen_vals = generate_vals(writer, export_type, data)
-        filename = obj.get_export_name(export_type='csv')
-        disposition = 'attachment;filename=%s' % (
-            secure_filename(filename.replace(obj.name, export_type)),)
-        headers = {'Content-Disposition': disposition}
-        mimetype = 'text/csv'
-        if os.environ.get('DEBUG'):
-            headers = None
-            mimetype = 'text/plain'
-        return Response(
-            stream_with_context(gen_vals),
-            headers=headers,
-            mimetype=mimetype
-        )
+        def write(self, value):
+            return value
+
+    writer = csv.writer(Echo())
+    data = [row for row in data if row['id'] != 'admin']
+    gen_vals = generate_vals(writer, export_type, data)
+    filename = obj.get_export_name(export_type='csv')
+    disposition = 'attachment;filename=%s' % (
+        secure_filename(filename.replace(obj.name, export_type)),)
+    headers = {'Content-Disposition': disposition}
+    mimetype = 'text/csv'
+    if os.environ.get('DEBUG'):
+        headers = None
+        mimetype = 'text/plain'
+    return Response(
+        stream_with_context(gen_vals),
+        headers=headers,
+        mimetype=mimetype
+    )
 
 
 def _export(obj, export_type):

@@ -20,6 +20,7 @@ def formatter(view, context, model, name):
 
 
 class AdminView(ModelView):
+
     def __init__(self, *args, **kwargs):
         super(AdminView, self).__init__(*args, **kwargs)
 
@@ -28,6 +29,7 @@ class AdminView(ModelView):
 
 
 class StatisticsView(BaseView):
+
     def __init__(self, *args, **kwargs):
         super(StatisticsView, self).__init__(*args, **kwargs)
         self.static_folder = 'static'
@@ -55,16 +57,21 @@ class FilterField(FilterEqual, BasePyMongoFilter):
 
 class CompanyForm(form.Form):
     # Basic
-    id = fields.StringField('Identifiant', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. loreal, amadeus, canalplus"})
-    password = fields.StringField('Mot de passe', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. password"})
-    name = fields.StringField('Nom complet', validators=[validators.Required(), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. L'Oreal, Amadeus, Canal+"})
+    id = fields.StringField('Identifiant', validators=[validators.Required(), validators.Length(
+        min=3, max=30)], render_kw={"placeholder": "Ex. loreal, amadeus, canalplus"})
+    password = fields.StringField('Mot de passe', validators=[validators.Required(
+    ), validators.Length(min=3, max=30)], render_kw={"placeholder": "Ex. password"})
+    name = fields.StringField('Nom complet', validators=[validators.Required(), validators.Length(
+        min=3, max=30)], render_kw={"placeholder": "Ex. L'Oreal, Amadeus, Canal+"})
     acompte = fields.BooleanField('Acompte paye?')
     # Equipement
     emplacement = fields.StringField('Emplacement', render_kw={"placeholder": "Ex. F13"})
-    size = fields.SelectField('Surface', choices=[(4.5, '4.5 m2'), (9, '9 m2'), (12, '12 m2'), (18, '18 m2'), (24, '24 m2'), (27, '27 m2'), (36, '36 m2')], coerce=float)
+    size = fields.SelectField('Surface', choices=[(4.5, '4.5 m2'), (9, '9 m2'), (12, '12 m2'),
+                                                  (18, '18 m2'), (24, '24 m2'), (27, '27 m2'), (36, '36 m2')], coerce=float)
     duration = fields.SelectField('Jours de presence', choices=[('wed', 'Mercredi'), ('thu', 'Jeudi'), ('both', 'Mercredi et Jeudi')])
     equiped = fields.BooleanField('Equipe?')
-    pole = fields.SelectField('Pole', choices=[('fra', 'Entreprises France'), ('si', 'Section Internationale'), ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'), ('startup', 'Start-Up')])
+    pole = fields.SelectField('Pole', choices=[('fra', 'Entreprises France'), ('si', 'Section Internationale'),
+                                               ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'), ('startup', 'Start-Up')])
     # Dashboard
     equipement = fields.BooleanField('Equipement valide?')
     restauration = fields.BooleanField('Restauration valide?')
@@ -176,7 +183,8 @@ class StreamForm(form.Form):
 
 class StreamView(AdminView):
     column_list = ['created_on', 'company', 'zone', 'section', 'diff', 'validated', 'delivered', 'denied']
-    column_labels = dict(created_on=u'Créé le', company='Entreprise', diff='Message', validated=u'Validé', delivered=u'Livré', denied=u'Refusé')
+    column_labels = dict(created_on=u'Créé le', company='Entreprise', diff='Message',
+                         validated=u'Validé', delivered=u'Livré', denied=u'Refusé')
     form = StreamForm
     can_view_details = True
     column_filters = (
@@ -187,5 +195,6 @@ class StreamView(AdminView):
         FilterField(column='denied', name='refus', options=(
             ('oui', 'oui'), ('non', 'non'))),
         FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]),
-        FilterField(column='section', name='section', options=[['restauration', 'restauration'], ['transport', 'transport'], ['badges', 'badges'], ['equipement', 'equipement']])
+        FilterField(column='section', name='section', options=[['restauration', 'restauration'], [
+                    'transport', 'transport'], ['badges', 'badges'], ['equipement', 'equipement']])
     )
