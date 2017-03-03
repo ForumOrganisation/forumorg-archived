@@ -12,7 +12,11 @@ from jinja2 import Markup
 
 
 def formatter(view, context, model, name):
-    return Markup("<a href='{}'>{}</a>".format(url_for('dashboard', id=model['id']), model['id']))
+    if model['id'] == 'admin':
+        url = url_for('admin.index')
+    else:
+        url = url_for('dashboard', id=model['id'])
+    return Markup("<a href='{}'>{}</a>".format(url, model['id']))
 
 
 class AdminView(ModelView):
