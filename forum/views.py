@@ -92,11 +92,12 @@ def send_event(old_company, company, page):
     zone, company_id = company.get('zone'), company.get('id')
     dt = datetime.datetime.now().strftime('%A %H:%M:%S')
     try:
-        diff = DeepDiff(old_company, company, ignore_order=True, verbose_level=2).json
+        diff = DeepDiff(old_company, company, ignore_order=True, verbose_level=2, exclude_types={int, float}).json
     except:
         diff = {'error': True, 'message': 'an error has occured. ask directly for changes.'}
-    get_db().stream.insert({'denied': False, 'delivered': False, 'validated': False,
-                            'section': page, 'zone': zone, 'created_on': dt, 'company': company_id, 'diff': diff})
+    if diff:
+        get_db().stream.insert({'denied': False, 'delivered': False, 'validated': False,
+                                'section': page, 'zone': zone, 'created_on': dt, 'company': company_id, 'diff': diff})
 
 
 @app.route('/get_resume/<oid>')

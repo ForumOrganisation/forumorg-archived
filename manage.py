@@ -24,15 +24,15 @@ def batch_emails():
     # Preparing emails
     path = os.path.join(os.path.dirname(__file__), '../users.csv')
     reader = csv.DictReader(open(path))
-    users = [r for r in reader]
-    users = ['elmehdi.baha@forumorg.org']
+    users = [r['id'] for r in reader]
+    #users = ['elmehdi.baha@forumorg.org']
     # To define
     subject = u'Forum Rhone-Alpes: Ambassadeurs'
     subtitle = 'Vous recevez ce mail car vous êtes inscrit sur forumorg.org'
     # Sending email
     recipients = users
-    body = open(os.path.join(os.path.dirname(__file__), 'MAIL_TO_SEND')).read()
-    send_mail(recipients, subject, body, subtitle, active=False)
+    body = open(os.path.join(os.path.dirname(__file__), 'MAIL_TO_SEND')).read().replace('\n', '<br>')
+    send_mail(recipients, subject, body, subtitle, active=True)
 
 
 def send_mail(recipients, subject, body, subtitle, active):
