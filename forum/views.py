@@ -92,9 +92,34 @@ def send_event(old_company, company, page):
     zone, company_id = company.get('zone'), company.get('id')
     dt = datetime.datetime.now().strftime('%A %H:%M:%S')
     try:
-        diff = DeepDiff(old_company, company, ignore_order=True, verbose_level=2, exclude_types={int, float}).json
-    except:
-        diff = {'error': True, 'message': 'an error has occured. ask directly for changes.'}
+        diff = DeepDiff(old_company, company, ignore_order=True, verbose_level=2).json
+    except Exception as e:
+        diff = {'error': e}
+
+    try:
+        root = json.loads(diff)
+        if root.get('iterable_item_added'):
+            root = root.get('iterable_item_added')
+            if 'persons' in root.keys()[0]:
+                badge = root.values()[0]
+                diff = u'Ajout de: {} -- {} -- {}'.format(badge.get('name'), badge.get('function'), badge.get('days'))
+            if 'transports' in root.keys()[0]:
+                transport = root.values()[0]
+                diff = u'Ajout de: {} -- {} -- {}'.format(transport.get('departure_place'),
+                                                          transport.get('arrival_place'), transport.get('departure_time'))
+        if root.get('values_changed'):
+            root = root.get('values_changed')
+            if 'catering' in root.keys()[0]:
+                repas = root.values()[0]
+                day = 'Mercredi' if 'wed' in root.keys()[0] else 'Jeudi'
+                diff = u'Passage de {} à {} repas pour le {}'.format(repas.get('old_value'), repas.get('new_value'), day)
+            if 'furnitures' in root.keys()[0]:
+                equipement = root.values()[0]
+                furniture = root.keys()[0].split('[')[3].replace(']', '').replace('\'', '')
+                diff = u'Passage de {} à {} unités pour {}'.format(equipement.get('old_value'), equipement.get('new_value'), furniture)
+    except Exception as e:
+        pass
+        log('STREAM_ERROR: {}'.format(e))
     if diff:
         get_db().stream.insert({'denied': False, 'delivered': False, 'validated': False,
                                 'section': page, 'zone': zone, 'created_on': dt, 'company': company_id, 'diff': diff})
