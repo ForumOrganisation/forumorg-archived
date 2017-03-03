@@ -89,7 +89,7 @@ def update_company():
 
 
 def send_event(old_company, company, page):
-    zone, company_id = company.get('zone'), company.get('id')
+    zone, company_id = company.get('zone'), company.get('name')
     dt = datetime.datetime.now().strftime('%A %H:%M:%S')
     try:
         diff = DeepDiff(old_company, company, ignore_order=True, verbose_level=2).json
@@ -102,11 +102,14 @@ def send_event(old_company, company, page):
             root = root.get('iterable_item_added')
             if 'persons' in root.keys()[0]:
                 badge = root.values()[0]
-                diff = u'Ajout de: {} -- {} -- {}'.format(badge.get('name'), badge.get('function'), badge.get('days'))
+                diff = u'Ajout de {}    {}    {}'.format(badge.get('name'), badge.get('function'), badge.get('days'))
             if 'transports' in root.keys()[0]:
                 transport = root.values()[0]
-                diff = u'Ajout de: {} -- {} -- {}'.format(transport.get('departure_place'),
-                                                          transport.get('arrival_place'), transport.get('departure_time'))
+                diff = u'De {} vers {} à {} ({}, Nb: {})'.format(transport.get('departure_place'),
+                                                                 transport.get('arrival_place'), transport.get('departure_time'), transport.get('phone'), transport.get('nb_persons'))
+                if transport.get('comment'):
+                    diff += ' Commentaire: {}'.format(transport.get('comment'))
+
         if root.get('values_changed'):
             root = root.get('values_changed')
             if 'catering' in root.keys()[0]:
