@@ -14,7 +14,7 @@ $(document).ready(function() {
     /******************** NAVBAR ********************/
     var animationProp = $('.navbar-nemo'); //Navbar wraper
 
-    if (matchMedia('only screen and (min-width: 768px)').matches && animationProp.hasClass('navbar-transparent')) {
+    if (matchMedia('only screen and (min-width: 769px)').matches && animationProp.hasClass('navbar-transparent')) {
         var scrollPos = $(this).scrollTop(),
             animationEndPos = 150, //At the point background add
             logo = animationProp.find('.navbar-brand img');
