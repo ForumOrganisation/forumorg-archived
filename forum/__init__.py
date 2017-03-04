@@ -177,22 +177,7 @@ def to_size(size):
 
 @app.template_filter('to_human')
 def to_human(num):
-    opts = {
-        0: "aucun",
-        1: "un",
-        2: "deux",
-        3: "trois",
-        4: "quatre",
-        5: "cinq",
-        6: "six",
-        7: "sept",
-        8: "huit",
-        9: "neuf",
-        10: "dix",
-        11: "onze",
-        12: "douze"
-    }
-    return opts[num]
+    return str(num)
 
 
 @app.template_filter('nb_dishes')
