@@ -47,7 +47,10 @@ class FilterField(FilterEqual, BasePyMongoFilter):
 
     def apply(self, query, value):
         if self.column in ['validated', 'delivered', 'denied']:
-            value = True if value == 'oui' else False
+            value = (value == 'oui')
+        if self.column == 'duration':
+            query.append({'$or': [{self.column: value}, {self.column: 'both'}]})
+            return query
         query.append({self.column: value})
         return query
 
@@ -102,9 +105,11 @@ class CompanyView(AdminView):
 
     column_searchable_list = ['id']
     column_sortable_list = ['id']
-    column_filters = (FilterField(column='pole', name='pole', options=(
-        ('fra', 'Entreprises France'), ('si', 'Section Internationale'), ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'), ('startup', 'Start-Up'))),
-        FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]))
+    column_filters = (
+        FilterField(column='pole', name='pole', options=(('fra', 'Entreprises France'), ('si', 'Section Internationale'),
+                                                         ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'), ('startup', 'Start-Up'))),
+        FilterField(column='zone', name='zone', options=[["zone{}".format(i)] * 2 for i in range(1, 9)]),
+        FilterField(column='duration', name='jours', options=[('wed', 'Mercredi'), ('thu', 'Jeudi')]))
     column_labels = dict(id='Identifiant')
     column_formatters = dict(id=formatter)
 
