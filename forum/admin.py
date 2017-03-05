@@ -72,6 +72,7 @@ class CompanyForm(form.Form):
     equiped = fields.BooleanField('Equipe?')
     pole = fields.SelectField('Pole', choices=[('fra', 'Entreprises France'), ('si', 'Section Internationale'),
                                                ('cm', 'Carrefour Maghrebin'), ('school', 'Ecoles'), ('startup', 'Start-Up')])
+    zone = fields.SelectField('Zone', choices=[["zone{}".format(i)] * 2 for i in range(1, 9)])
     # Dashboard
     equipement = fields.BooleanField('Equipement valide?')
     restauration = fields.BooleanField('Restauration valide?')
@@ -86,7 +87,7 @@ class CompanyView(AdminView):
                             'restauration', 'badges', 'programme']
     export_types = ['equipement', 'transport', 'restauration', 'badges', 'programme', 'secteurs']
     form_rules = [
-        rules.FieldSet(('id', 'password', 'name', 'pole'), 'Profil'),
+        rules.FieldSet(('id', 'password', 'name', 'pole', 'zone'), 'Profil'),
         rules.FieldSet(('equipement', 'restauration', 'badges',
                         'programme', 'transport'), 'Suivi'),
         rules.FieldSet(('acompte',), 'Finances'),
