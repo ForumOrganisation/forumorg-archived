@@ -185,10 +185,11 @@ class StreamForm(form.Form):
     validated = fields.BooleanField('Valider')
     delivered = fields.BooleanField('Livrer')
     denied = fields.BooleanField('Refuser')
+    comment = fields.StringField('Commentaire (10 car. max)', validators=[validators.Required(), validators.Length(min=10, max=10)])
 
 
 class StreamView(AdminView):
-    column_list = ['created_on', 'company', 'zone', 'section', 'diff', 'validated', 'delivered', 'denied']
+    column_list = ['created_on', 'company', 'zone', 'section', 'diff', 'validated', 'delivered', 'denied', 'comment']
     column_labels = dict(created_on=u'Créé le', company='Entreprise', diff='Message',
                          validated=u'Validé', delivered=u'Livré', denied=u'Refusé')
     form = StreamForm
