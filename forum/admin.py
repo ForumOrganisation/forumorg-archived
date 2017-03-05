@@ -186,7 +186,8 @@ class StreamView(AdminView):
     column_labels = dict(created_on=u'Créé le', company='Entreprise', diff='Message',
                          validated=u'Validé', delivered=u'Livré', denied=u'Refusé')
     form = StreamForm
-    can_view_details = True
+    can_view_details = False
+    can_delete = False
     column_filters = (
         FilterField(column='validated', name='validation', options=(
             ('oui', 'oui'), ('non', 'non'))),
