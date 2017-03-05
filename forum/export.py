@@ -136,6 +136,18 @@ def generate_vals(writer, export_type, data):
                 vals.append(row['sections']['events'].get(t, False))
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
+    if export_type == 'secteurs':
+        titles += [u'name', u'salary', u'city', u'sector', u'revenue', u'country', u'enrollment']
+        yield writer.writerow(titles)
+        for row in data:
+            vals = []
+            vals.append(row.get('id', ''))
+            vals.append(bool(row.get('info')))
+            if row.get('info'):
+                for t in titles[2:]:
+                    vals.append(row['info'].get(t, ''))
+            vals = [csv_encode(v) for v in vals]
+            yield writer.writerow(vals)
 
 
 def _export_fields(obj, export_type, return_url):

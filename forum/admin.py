@@ -84,7 +84,7 @@ class CompanyView(AdminView):
     form = CompanyForm
     column_list = ['id'] + ['equipement', 'transport',
                             'restauration', 'badges', 'programme']
-    export_types = ['equipement', 'transport', 'restauration', 'badges', 'programme']
+    export_types = ['equipement', 'transport', 'restauration', 'badges', 'programme', 'secteurs']
     form_rules = [
         rules.FieldSet(('id', 'password', 'name', 'pole'), 'Profil'),
         rules.FieldSet(('equipement', 'restauration', 'badges',
