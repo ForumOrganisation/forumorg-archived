@@ -9,6 +9,7 @@ from flask_login import current_user
 from wtforms import fields, form, validators
 from export import _export, log
 from jinja2 import Markup
+import unicodedata
 
 
 def formatter(view, context, model, name):
@@ -185,7 +186,7 @@ class StreamForm(form.Form):
     validated = fields.BooleanField('Valider')
     delivered = fields.BooleanField('Livrer')
     denied = fields.BooleanField('Refuser')
-    comment = fields.StringField('Commentaire (10 car. max)', validators=[validators.Required(), validators.Length(min=10, max=10)])
+    comment = fields.StringField('Commentaire (20 car max)')
 
 
 class StreamView(AdminView):
@@ -206,3 +207,8 @@ class StreamView(AdminView):
         FilterField(column='section', name='section', options=[['restauration', 'restauration'], [
                     'transport', 'transport'], ['badges', 'badges'], ['equipement', 'equipement']])
     )
+
+    def _on_model_change(self, form, model, is_created):
+        comment = form['comment'].data
+        comment = unicodedata.normalize('NFKD', comment).encode('ASCII', 'ignore')
+        model['comment'] = comment.ljust(20, ' ')[:20]

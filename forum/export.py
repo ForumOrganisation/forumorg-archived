@@ -137,7 +137,7 @@ def generate_vals(writer, export_type, data):
             vals = [csv_encode(v) for v in vals]
             yield writer.writerow(vals)
     if export_type == 'secteurs':
-        titles += ['jours', 'emplacement']
+        titles += ['duration', 'emplacement']
         titles += [u'name', u'salary', u'city', u'sector', u'revenue', u'country', u'enrollment']
         yield writer.writerow(titles)
         for row in data:

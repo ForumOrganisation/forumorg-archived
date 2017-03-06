@@ -124,7 +124,7 @@ def send_event(old_company, company, page):
         pass
         log('STREAM_ERROR: {}'.format(e))
     if diff:
-        get_db().stream.insert({'comment': '_' * 10, 'denied': False, 'delivered': False, 'validated': False,
+        get_db().stream.insert({'comment': ' ' * 20, 'denied': False, 'delivered': False, 'validated': False,
                                 'section': page, 'zone': zone, 'created_on': dt, 'company': company_id, 'diff': diff})
 
 
