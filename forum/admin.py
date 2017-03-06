@@ -9,7 +9,6 @@ from flask_login import current_user
 from wtforms import fields, form, validators
 from export import _export, log
 from jinja2 import Markup
-import unicodedata
 
 
 def formatter(view, context, model, name):
