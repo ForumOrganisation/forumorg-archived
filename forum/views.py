@@ -98,6 +98,17 @@ def send_event(old_company, company, page):
 
     try:
         root = json.loads(diff)
+        if root.get('dictionary_item_added'):
+            root = root.get('dictionary_item_added')
+            if 'furnitures' in root.keys()[0]:
+                equipement = root.values()[0]
+                furniture = root.keys()[0].split('[')[3].replace(']', '').replace('\'', '')
+                diff = u'Passage de 0 à {} unités pour {}'.format(equipement, furniture)
+            if 'catering' in root.keys()[0]:
+                repas = root.values()[0]
+                day = 'Mercredi' if 'wed' in root.keys()[0] else 'Jeudi'
+                diff = u'Passage de 0 à {} repas pour le {}'.format(repas, day)
+
         if root.get('iterable_item_added'):
             root = root.get('iterable_item_added')
             if 'persons' in root.keys()[0]:
