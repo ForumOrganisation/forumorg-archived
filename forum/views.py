@@ -133,10 +133,9 @@ def send_event(old_company, company, page):
                 diff = u'Passage de {} à {} unités pour {}'.format(equipement.get('old_value'), equipement.get('new_value'), furniture)
     except Exception as e:
         pass
-        log('STREAM_ERROR: {}'.format(e))
     if diff:
-        get_db().stream.insert({'comment': ' ' * 20, 'denied': False, 'delivered': False, 'validated': False,
-                                'section': page, 'zone': zone, 'created_on': dt, 'company': company_id, 'diff': diff})
+        get_db().stream.insert({'delivered': False, 'validated': False, 'section': page,
+                                'zone': zone, 'created_on': dt, 'company': company_id, 'diff': diff})
 
 
 @app.route('/get_resume/<oid>')

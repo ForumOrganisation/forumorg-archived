@@ -186,13 +186,14 @@ class StreamForm(form.Form):
     validated = fields.BooleanField('Valider')
     delivered = fields.BooleanField('Livrer')
     denied = fields.BooleanField('Refuser')
-    comment = fields.StringField('Commentaire (20 car max)')
+    comment = fields.StringField('Commentaire')
 
 
 class StreamView(AdminView):
     column_list = ['created_on', 'company', 'zone', 'section', 'diff', 'validated', 'delivered', 'denied', 'comment']
+    column_default_sort = ('created_on', True)
     column_labels = dict(created_on=u'Créé le', company='Entreprise', diff='Message',
-                         validated=u'Validé', delivered=u'Livré', denied=u'Refusé')
+                         validated=u'Validé', delivered=u'Livré', denied=u'Refusé', comment='Commentaire')
     form = StreamForm
     can_view_details = False
     can_delete = False
@@ -207,8 +208,3 @@ class StreamView(AdminView):
         FilterField(column='section', name='section', options=[['restauration', 'restauration'], [
                     'transport', 'transport'], ['badges', 'badges'], ['equipement', 'equipement']])
     )
-
-    def _on_model_change(self, form, model, is_created):
-        comment = form['comment'].data
-        comment = unicodedata.normalize('NFKD', comment).encode('ASCII', 'ignore')
-        model['comment'] = comment.ljust(20, ' ')[:20]

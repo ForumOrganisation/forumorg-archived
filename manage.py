@@ -64,7 +64,7 @@ def send_mail(recipients, subject, body, subtitle, active):
 @manager.command
 def create_stream():
     db.drop_collection('stream')
-    db.create_collection('stream', capped=True, size=100000000, autoIndexId=False)
+    db.create_collection('stream')
 
 
 @manager.command
