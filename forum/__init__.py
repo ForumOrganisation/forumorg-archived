@@ -138,7 +138,7 @@ def get_users():
 def get_schools():
     def _get_schools():
         res = list(get_db().users.aggregate([{'$match': {'profile.school': {'$exists': True}}}, {'$group': {
-                   '_id': '$profile.school', 'count': {'$sum': 1}}}, {'$sort': {'count': -1}}, {'$limit': 5}]))
+                   '_id': '$profile.school', 'count': {'$sum': 1}}}, {'$sort': {'count': -1}}, {'$limit': 6}]))
         result = {}
         result['labels'] = [r['_id'] for r in res]
         result['count'] = [r['count'] for r in res]
