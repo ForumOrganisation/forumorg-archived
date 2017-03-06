@@ -69,10 +69,10 @@ def create_stream():
 
 @manager.command
 def complete_companies():
-    path = os.path.join(os.path.dirname(__file__), 'data/zones.csv')
+    path = os.path.join(os.path.dirname(__file__), 'data/emplacements.csv')
     reader = csv.DictReader(open(path, 'rb'))
     for row in reader:
-        db.companies.update_one({'id': row['id']}, {'$set': {'zone': row['zone']}})
+        db.companies.update_one({'id': row['id']}, {'$set': {'emplacement': row['emplacement']}})
 
 
 @manager.command
