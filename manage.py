@@ -21,21 +21,22 @@ manager.add_command("assets", ManageAssets())
 
 @manager.command
 def batch_emails():
+    subject, body, subtitle = None, None, None
     # Preparing emails
-    path = os.path.join(os.path.dirname(__file__), '../users.csv')
+    path = os.path.join(os.path.dirname(__file__), '../fra.csv')
     reader = csv.DictReader(open(path))
     users = [r['id'] for r in reader]
     #users = ['elmehdi.baha@forumorg.org']
     # To define
-    subject = u'Forum Rhone-Alpes: Ambassadeurs'
-    subtitle = 'Vous recevez ce mail car vous êtes inscrit sur forumorg.org'
+    subject = u'Forum Rhone-Alpes: Dernier recap\''
+    #subtitle = 'Vous recevez ce mail car vous êtes inscrit sur forumorg.org'
     # Sending email
     recipients = users
-    body = open(os.path.join(os.path.dirname(__file__), 'MAIL_TO_SEND')).read().replace('\n', '<br>')
+    #body = open(os.path.join(os.path.dirname(__file__), 'MAIL_TO_SEND')).read().replace('\n', '<br>')
     send_mail(recipients, subject, body, subtitle, active=True)
 
 
-def send_mail(recipients, subject, body, subtitle, active):
+def send_mail(recipients, subject, body=None, subtitle=None, active=False):
     me = 'no-reply@forumorg.org'
     sent, failed = 0, 0
     total = len(recipients)
