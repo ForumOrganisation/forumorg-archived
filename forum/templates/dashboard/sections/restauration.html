@@ -103,6 +103,7 @@
   <script type="text/javascript">
     $('#confirm_dish').on('submit', function (e) {
       e.preventDefault();
+      $('.box-footer .btn').prop('disabled', true);
       var company = {{ company|tojson }};
       var dishes = company.sections.catering;
       var day = $(".day").val();

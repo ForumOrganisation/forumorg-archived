@@ -159,6 +159,7 @@
       <script type="text/javascript">
         $('#confirm_transport').on('submit', function (e) {
           e.preventDefault();
+          $('.box-footer .btn').prop('disabled', true);
           var isValid = $("#phone").intlTelInput("isValidNumber");
           var isComplete = $('#datetime').inputmask("isComplete");
           var company = {{ company|tojson }};
