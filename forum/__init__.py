@@ -89,7 +89,7 @@ def get_resumes():
         users = list(get_db().users.find({'profile.resume_id': {'$ne': None}}, {'profile': 1, '_id': 0}))
         users = [u['profile'] for u in users]
         for u in users:
-            u['name'] = '{} {}'.format(u.pop('name', None), u.pop('first_name', None))
+            u['name'] = u'{} {}'.format(u.pop('name', None), u.pop('first_name', None))
             u['resume_url'] = url_for('get_resume', oid=u.pop('resume_id', None))
         print(users)
         return users
