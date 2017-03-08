@@ -91,7 +91,8 @@ def get_resumes():
         for u in users:
             u['name'] = u'{} {}'.format(u.pop('name', None), u.pop('first_name', None))
             u['resume_url'] = url_for('get_resume', oid=u.pop('resume_id', None))
-        return users[:100]
+        limit = os.environ.get('limit', 10)
+        return users[:limit]
     return dict(get_resumes=_get_resumes)
 
 
