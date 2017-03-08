@@ -86,11 +86,12 @@ def to_fields(type):
 @app.context_processor
 def get_resumes():
     def _get_resumes():
-        users = list(get_db().users.find({'profile.resume_id': {'$ne': None}}, {'profile': 1}))
+        users = list(get_db().users.find({'profile.resume_id': {'$ne': None}}, {'profile': 1, '_id': 0}))
         users = [u['profile'] for u in users]
         for u in users:
+            u['name'] = '{} {}'.format(u.pop('name', None), u.pop('first_name', None))
             u['resume_url'] = url_for('get_resume', oid=u.pop('resume_id', None))
-            u.pop('_id', None)
+        print(users)
         return users
     return dict(get_resumes=_get_resumes)
 

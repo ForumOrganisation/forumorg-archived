@@ -11,8 +11,7 @@
           <table class="table responsive table-hover nowrap" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
+                <th>Nom complet</th>
                 <th>Ecole</th>
                 <th>Année d'étude</th>
                 <th>Spécialité</th>
@@ -21,7 +20,6 @@
             </thead>
             <tfoot>
               <tr>
-                <th></th>
                 <th></th>
                 <th>Ecole</th>
                 <th>Année d'étude</th>
@@ -60,7 +58,7 @@
           "emptyTable": '<h2 class="lead text-center">Aucun CV enregistré</h2>'
         },
         "initComplete": function () {
-          this.api().columns([2, 3, 4]).every(function () {
+          this.api().columns([1, 2, 3]).every(function () {
             var column = this;
             var select = $('<select><option value=""></option></select>').appendTo($(column.footer()).empty()).on('change', function () {
               var val = $.fn.dataTable.util.escapeRegex($(this).val());
@@ -76,8 +74,6 @@
         "columns": [
           {
             data: "name"
-          }, {
-            data: "first_name"
           }, {
             data: "school"
           }, {
