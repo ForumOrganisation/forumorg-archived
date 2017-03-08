@@ -4,7 +4,7 @@
 {% endif %}
 {% macro section_block(name, icon) -%}
   <li class="{{ 'active' if request.path == url_for('dashboard', page=name) else '' }}">
-    <a href="{{ url_for('dashboard', page=name) if name != 'cvtheque' else '#' }}">
+    <a href="{{ url_for('dashboard', page=name) }}">
       <i class="{{ icon }}"></i>
       <span>{{ name|capitalize|replace("_", " ") }}</span>
       <span class="pull-right-container">
@@ -12,7 +12,7 @@
           <small class="label pull-right bg-green">validé</small>
         {% endif %}
         {% if name == 'cvtheque' %}
-          <small class="label pull-right bg-blue" id="countdown"></small>
+          <small class="label pull-right bg-blue">ouverte</small>
         {% endif %}
       </span>
     </a>

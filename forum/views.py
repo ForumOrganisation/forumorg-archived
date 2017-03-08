@@ -22,8 +22,6 @@ from bson.objectid import ObjectId
 @app.route('/dashboard/<page>')
 @login_required
 def dashboard(page=None):
-    if page == 'cvtheque':
-        abort(404)
     company = None
     if current_user.id == 'admin':
         if request.args.get('id'):
