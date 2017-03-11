@@ -117,7 +117,7 @@ def send_event(old_company, company, page):
                 diff = u'De {} vers {} à {} ({}, Nb: {})'.format(transport.get('departure_place'),
                                                                  transport.get('arrival_place'), transport.get('departure_time'), transport.get('phone'), transport.get('nb_persons'))
                 if transport.get('comment'):
-                    diff += ' Commentaire: {}'.format(transport.get('comment'))
+                    diff += u' Commentaire: {}'.format(transport.get('comment'))
 
         if root.get('values_changed'):
             root = root.get('values_changed')
@@ -131,7 +131,9 @@ def send_event(old_company, company, page):
                 diff = u'Passage de {} à {} unités pour {}'.format(equipement.get('old_value'), equipement.get('new_value'), furniture)
     except Exception as e:
         pass
+    log(diff)
     if diff:
+        log('lol')
         get_db().stream.insert({'delivered': False, 'validated': False, 'section': page,
                                 'zone': zone, 'created_on': dt, 'company': company_id, 'diff': diff})
 

@@ -190,7 +190,6 @@ class StreamForm(form.Form):
 
 class StreamView(AdminView):
     column_list = ['created_on', 'company', 'zone', 'section', 'diff', 'validated', 'delivered', 'denied', 'comment']
-    column_default_sort = ('created_on', True)
     column_labels = dict(created_on=u'Créé le', company='Entreprise', diff='Message',
                          validated=u'Validé', delivered=u'Livré', denied=u'Refusé', comment='Commentaire')
     form = StreamForm
