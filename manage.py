@@ -23,12 +23,15 @@ manager.add_command("assets", ManageAssets())
 def batch_emails():
     subject, body, subtitle = None, None, None
     # Preparing emails
-    path = os.path.join(os.path.dirname(__file__), '../fra.csv')
-    reader = csv.DictReader(open(path))
-    users = [r['id'] for r in reader]
+    path = os.path.join(os.path.dirname(__file__), '../visitors.csv')
+    reader = csv.DictReader(open(path), delimiter=';')
+    users = [r['CODECONTENT'] for r in reader if '@' in r['CODECONTENT']]
+    for u in users:
+        u = u.split(',')[0]
+    users = list(set(users))
     #users = ['elmehdi.baha@forumorg.org']
     # To define
-    subject = u'Forum Rhone-Alpes: Dernier recap\''
+    subject = u'Forum Rhone-Alpes: 30 secondes'
     #subtitle = 'Vous recevez ce mail car vous êtes inscrit sur forumorg.org'
     # Sending email
     recipients = users
