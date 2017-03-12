@@ -85,10 +85,10 @@ def complete_users():
     key = os.environ.get('KEY')
     path = os.path.join(os.path.dirname(__file__), 'data/all.csv')
     reader = list(csv.DictReader(open(path, 'rb')))
+    print(reader)
     for row in reader:
         r = db.companies.update_one({'id': row['id'], 'profile.{}'.format(key): {'$exists': True}},
                                     {'$set': {'profile.{}'.format(key): row[key]}})
-        print(r.raw_result)
         if r.modified_count != 0:
             print(row['id'], row[key])
 
