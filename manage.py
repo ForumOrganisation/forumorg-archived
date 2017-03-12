@@ -82,13 +82,17 @@ def complete_companies():
 @manager.command
 def complete_users():
     wget.download(os.environ.get('CSV_URL'), 'data/all.csv')
-    key = os.environ.get('key')
     path = os.path.join(os.path.dirname(__file__), 'data/all.csv')
     reader = list(csv.DictReader(open(path, 'rb')))
     for row in reader:
-        r = db.users.update_one({'id': row['id']}, {'$set': {'profile.{}'.format(key): row[key]}})
-        if r.modified_count != 0:
-            print(row['id'], row[key])
+        if not row['school']:
+            db.users.update_one({'id': row['id']}, {'$unset': {'profile.school': 1}})
+        else:
+            db.users.update_one({'id': row['id']}, {'$set': {'profile.school': row['school']}})
+        if not row['year']:
+            db.users.update_one({'id': row['id']}, {'$unset': {'profile.year': 1}})
+        else:
+            db.users.update_one({'id': row['id']}, {'$set': {'profile.year': row['year']}})
 
 
 @manager.command
