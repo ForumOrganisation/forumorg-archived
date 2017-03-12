@@ -85,7 +85,7 @@ def to_fields(type):
 @app.context_processor
 def get_resumes():
     def _get_resumes():
-        users = list(get_db().users.find('events.fra.registered': True, 'profile.resume_id': {'$ne': None}}, {'profile': 1, '_id': 0}))
+        users = list(get_db().users.find({'events.fra.registered': True, 'profile.resume_id': {'$ne': None}}, {'profile': 1, '_id': 0}))
         users = [u['profile'] for u in users]
         for u in users:
             u['name'] = u'{} {}'.format(u.pop('name', None), u.pop('first_name', None))
