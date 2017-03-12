@@ -85,13 +85,9 @@ def complete_users():
     path = os.path.join(os.path.dirname(__file__), 'data/all.csv')
     reader = list(csv.DictReader(open(path, 'rb')))
     for row in reader:
-        if not row['school']:
-            db.users.update_one({'id': row['id']}, {'$unset': {'profile.school': 1}})
-        else:
+        if row['school']:
             db.users.update_one({'id': row['id']}, {'$set': {'profile.school': row['school']}})
-        if not row['year']:
-            db.users.update_one({'id': row['id']}, {'$unset': {'profile.year': 1}})
-        else:
+        if row['year']:
             db.users.update_one({'id': row['id']}, {'$set': {'profile.year': row['year']}})
 
 
