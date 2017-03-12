@@ -12,7 +12,7 @@ import sendgrid
 from sendgrid.helpers.mail import Email, Mail, Personalization, Substitution
 from flask_assets import ManageAssets
 
-client = MongoClient(host=os.environ.get('MONGODB_URI_PROD'))
+client = MongoClient(host=os.environ.get('MONGODB_URI'))
 db = client.get_default_database()
 
 manager = Manager(app)
@@ -84,11 +84,10 @@ def complete_users():
     path = os.path.join(os.path.dirname(__file__), '../all.csv')
     reader = list(csv.DictReader(open(path, 'rb')))
     total = len(reader)
-    i = 0
     for row in reader:
         r = db.companies.update_one({'id': row['id']}, {'$set': {'profile.school': row['school']}})
         if r.modified_count != 0:
-            print(row['id'], row['year'])
+            print(row['id'], row['school'])
 
 
 @manager.command
