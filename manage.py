@@ -82,7 +82,7 @@ def complete_companies():
 @manager.command
 def complete_users():
     wget.download(os.environ.get('CSV_URL'), 'data/all.csv')
-    key = os.environ.get('KEY')
+    key = os.environ.get('key')
     path = os.path.join(os.path.dirname(__file__), 'data/all.csv')
     reader = list(csv.DictReader(open(path, 'rb')))
     for row in reader:
