@@ -87,8 +87,6 @@ def complete_users():
     for row in reader:
         if row['school']:
             db.users.update_one({'id': row['id']}, {'$set': {'profile.school': row['school']}})
-        if row['year']:
-            db.users.update_one({'id': row['id']}, {'$set': {'profile.year': row['year']}})
 
 
 @manager.command
