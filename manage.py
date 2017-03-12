@@ -85,8 +85,10 @@ def complete_users():
     path = os.path.join(os.path.dirname(__file__), 'data/all.csv')
     reader = list(csv.DictReader(open(path, 'rb')))
     for row in reader:
-        if row['school']:
+        if row.get('school'):
             db.users.update_one({'id': row['id']}, {'$set': {'profile.school': row['school']}})
+        if row.get('specialty'):
+            db.users.update_one({'id': row['id']}, {'$set': {'profile.specialty': row['specialty']}})
 
 
 @manager.command
