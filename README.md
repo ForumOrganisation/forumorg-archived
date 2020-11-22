@@ -6,7 +6,7 @@ This is the legacy version of [forum-rhone-alpes.com](https://www.forum-rhone-al
 
 This project is not maintained anymore due to the merge between [forum-rhone-alpes.com](https://www.forum-rhone-alpes.com) and [forumorg.org](https://www.forumorg.org).
 
-The repository is only here for *legacy* purposes and its [URL](https://www.forum-rhone-alpes.com) currently redirects to the new [official website](https://www.forumorg.org) (thanks to this [minimal node.js redirect app](https://github.com/ForumOrganisation/heroku-redirect)).
+The repository is only here for *legacy* purposes and its [URL](https://www.forum-rhone-alpes.com) currently redirects to the new [official website].
 
 ## Stack
 
